@@ -2,5 +2,5 @@
 
 @section('content')
 @include('components.navbar')
-    Semangat ngeproyek beranda
+    Semangat ngeproyek daftar perusahaan
 @endsection
