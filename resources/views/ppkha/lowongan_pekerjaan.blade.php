@@ -2,6 +2,6 @@
 
 @section('content')
 @include('components.navbar')
-    Semangat ngeproyek lowongan pekerjaan
+@include('components.bg')
 @include('components.footer')
 @endsection

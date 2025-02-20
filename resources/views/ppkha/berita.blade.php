@@ -2,6 +2,6 @@
 
 @section('content')
 @include('components.navbar')
-    Semangat ngeproyek berita
+@include('components.bg')
 @include('components.footer')
 @endsection

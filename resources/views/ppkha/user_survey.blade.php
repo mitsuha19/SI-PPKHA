@@ -2,6 +2,6 @@
 
 @section('content')
 @include('components.navbar')
-    Semangat ngeproyek user survey
+@include('components.bg')
 @include('components.footer')
 @endsection

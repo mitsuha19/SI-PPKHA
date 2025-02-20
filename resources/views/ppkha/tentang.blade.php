@@ -2,6 +2,6 @@
 
 @section('content')
 @include('components.navbar')
-    Semangat ngeproyek tentang
+@include('components.bg')
 @include('components.footer')
 @endsection
