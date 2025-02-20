@@ -5,6 +5,7 @@
 
         <div class="d-flex flex-row mb-3" style="width: 200px">
             {{-- Logo dan Nama Website --}}
+            <div class="">
                 <img src="{{ asset('assets/images/itdel.jpg') }}" alt="Logo" width="40" height="auto" class="me-3"style="margin-right: 10px;">
             </div>        
             <div class="">
