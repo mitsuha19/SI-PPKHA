@@ -1,14 +1,19 @@
 /* Styling navbar */
 nav {
+    width: 100%;
     background: linear-gradient(to bottom, #365486, #7fc7d9); /* Gradasi biru */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 15px 0;
+    padding: 30px;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 /* Container agar navbar lebih rapi */
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    margin: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -40,9 +45,10 @@ nav ul li {
 
 /* Styling link menu */
 nav ul li a {
+    font-size: 21px;
     color: white;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 1000;
     transition: 0.3s;
 }
 
@@ -50,8 +56,12 @@ nav ul li a:hover {
     text-decoration: underline;
     color: #d1e8ff;
 }
-.career-text {
-    font-size: 12px !important;
+.two-line-text {
+    font-size: 12px;
+    margin-top: -2px;
+    white-space: pre-line;
+    max-width: 120px; /* Sesuaikan dengan lebar yang diinginkan */
+    text-align: left;
 }
 
 /* Responsif: Jika layar kecil, ubah tata letak */
