@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <div class="container-fluid p-5">
+    <div class="container-fluid-auth">
         @yield('content')
     </div>
     <script src=""></script>

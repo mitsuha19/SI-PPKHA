@@ -60,9 +60,61 @@ nav ul li a:hover {
     font-size: 12px;
     margin-top: -2px;
     white-space: pre-line;
-    max-width: 120px; /* Sesuaikan dengan lebar yang diinginkan */
     text-align: left;
 }
+
+/* Style Footer */
+footer {
+    width: 100%;
+    background: linear-gradient(to bottom, #7ABFD0, #456B75); /* Gradasi biru */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.poppins-regular {
+    font-family: "Poppins", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+    line-height: 25px;
+    color: white;
+}
+
+.poppins-semibold {
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 22px;
+    color: white;
+}
+  
+.poppins-bold {
+    font-family: "Poppins", serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 64px;
+    color: white;
+}
+
+.roboto-light {
+    font-family: "Roboto", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    color: white;
+}
+
+.social-media{
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
+
+.social-media:hover{
+    cursor: pointer;
+    color: blue;
+}
+
 
 /* Responsif: Jika layar kecil, ubah tata letak */
 @media (max-width: 768px) {
