@@ -41,21 +41,27 @@ nav ul {
 
 nav ul li {
     display: inline-block;
+    display: flex;
+    align-items: end;
 }
 
 /* Styling link menu */
 nav ul li a {
-    font-size: 21px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 15px;
+    font-size: 15px;
     color: white;
     text-decoration: none;
-    font-weight: 1000;
     transition: 0.3s;
 }
 
-nav ul li a:hover {
+nav ul li a:hover,
+nav ul li a:active{
     text-decoration: underline;
     color: #d1e8ff;
 }
+
 .two-line-text {
     font-size: 12px;
     margin-top: -2px;
@@ -75,8 +81,8 @@ footer {
     font-family: "Poppins", serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 15px;
-    line-height: 25px;
+    font-size: 13px;
+    line-height: 20px;
     color: white;
 }
 
@@ -92,7 +98,7 @@ footer {
     font-family: "Poppins", serif;
     font-weight: 700;
     font-style: normal;
-    font-size: 64px;
+    font-size: 60px;
     color: white;
 }
 

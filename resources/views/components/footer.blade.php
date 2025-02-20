@@ -6,7 +6,7 @@
         <div class="d-flex flex-row mb-3" style="width: 200px">
             {{-- Logo dan Nama Website --}}
             <div class="">
-                <img src="{{ asset('assets/images/itdel.jpg') }}" alt="Logo" width="40" height="auto" class="me-3"style="margin-right: 10px;">
+                <img src="{{ asset('assets/images/itdel.png') }}" alt="Logo" width="40" height="auto" class="me-3"style="margin-right: 10px;">
             </div>        
             <div class="">
                 <div class="d-flex flex-column align-items-start text-start" style="line-height: 0.9; gap: 0px; width: 150px;">
@@ -32,26 +32,26 @@
                     </p>
                     <h3 class="poppins-semibold m-0">Find Us On</h3>
                     <div class="d-flex flex-row">
-                        <div class="me-3">
+                        <div class="me-3" style="width: 75px">
                             <a class="social-media">
                                 <i class='bx bxl-facebook'></i>
-                                Institut Teknologi Del
+                                IT DEL
                             </a> 
                             <br>
                             <a class="social-media">
                                 <i class='bx bxl-linkedin'></i>
-                                Institut Teknologi Del
+                                IT DEL
                             </a>
                         </div>
                         <div class="ms-2 w-75">
                             <a class="social-media">
                                 <i class='bx bxl-instagram'></i>
-                                Institut Teknologi Del
+                                @it_del
                             </a> 
                             <br>
                             <a class="social-media">
                                 <i class='bx bxl-twitter'></i>
-                                Institut Teknologi Del
+                                @it_del
                             </a>
                         </div>
 

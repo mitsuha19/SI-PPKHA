@@ -1,28 +1,30 @@
-<nav class="bg-gradient-to-b from-[#365486] to-[#7FC7D9] shadow-md py-4">
-    <div class="container mx-auto px-6 flex justify-between items-center">
-        <div class="container d-flex justify-content-between align-items-center">
+<nav class="shadow-md">
+    <div class="container">
             <!-- Logo dan Judul -->
-            <a class="d-flex align-items-center text-white text-decoration-none">
-                <img src="{{ asset('assets/images/itdel.jpg') }}" alt="Logo" width="40" height="auto" class="me-3"style="margin-right: 10px;">
-                <div class="d-flex flex-column align-items-center text-center" style="line-height: 0.9; gap: 0px;">
-                    <span class="fs-4 fw-bold">CAIS</span>
-                    <p class="m-0 career-text two-line-text" style="font-size: 12px; margin-top: -4px;">Career Alumni Information System</p>
-                </div>
-            </a>
-        </div>
+            <div class="d-flex justify-content-start">
+                <a class="text-white text-decoration-none">
+                    <img src="{{ asset('assets/images/itdel.png') }}" alt="Logo" width="40" height="auto" style="margin-right: 10px;">
+                    <div class="d-flex flex-column" style="line-height: 0.9; gap: 0px;">
+                        <span class="fs-4 fw-bold poppins-bold text-start">CAIS</span>
+                        <p class="m-0 roboto-light text-start" style="margin-top: -4px; width: 125px;">Career Alumni Information System</p>
+                    </div>
+                </a>
+            </div>
        
-        <!-- Menu Navigasi -->
-        <ul class="flex space-x-6 text-white ">
-            <li><a href="/" class="hover:underline">Beranda</a></li>
-            <li><a href="/berita" class="hover:underline">Berita</a></li>
-            <li><a href="/pengumuman" class="hover:underline">Pengumuman</a></li>
-            <li><a href="/artikel" class="hover:underline">Artikel</a></li>
-            <li><a href="/daftar_perusahaan" class="hover:underline">Daftar Perusahaan</a></li>
-            <li><a href="/lowongan_pekerjaan" class="hover:underline">Lowongan Pekerjaan</a></li>
-            <li><a href="/tracer_study" class="hover:underline">Tracer Study</a></li>
-            <li><a href="/user_survey" class="hover:underline">User Survey</a></li>
-            <li><a href="/tentang" class="hover:underline">Tentang</a></li>
-            <li><a href="/login" class="hover:underline">Login</a></li>
+        <div class="d-flex justify-content-end align-items-end">
+            <!-- Menu Navigasi -->
+            <ul class="text-white">
+            <li><a href="/" >Beranda</a></li>
+            <li><a href="/berita">Berita</a></li>
+            <li><a href="/pengumuman">Pengumuman</a></li>
+            <li><a href="/artikel">Artikel</a></li>
+            <li><a href="/daftar_perusahaan" >Daftar Perusahaan</a></li>
+            <li><a href="/lowongan_pekerjaan" >Lowongan Pekerjaan</a></li>
+            <li><a href="/tracer_study">Tracer Study</a></li>
+            <li><a href="/user_survey">User Survey</a></li>
+            <li><a href="/tentang">Tentang</a></li>
+            <li><a href="/login">Login</a></li>
         </ul>
+        </div>
     </div>
 </nav>
