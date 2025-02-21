@@ -1,7 +1,7 @@
 /* Styling navbar */
 nav {
     width: 100%;
-    background: linear-gradient(to bottom, #365486, #7fc7d9); /* Gradasi biru */
+    background: linear-gradient(to bottom, #365486, #7FC7D9); /* Gradasi biru */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     padding: 30px;
 }
@@ -72,7 +72,7 @@ nav ul li a:active{
 /* Style Footer */
 footer {
     width: 100%;
-    background: linear-gradient(to bottom, #7ABFD0, #456B75); /* Gradasi biru */
+    background: linear-gradient(to bottom, #7FC7D9, #436973);
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     padding: 30px;
 }
@@ -119,6 +119,14 @@ footer {
 .social-media:hover{
     cursor: pointer;
     color: blue;
+}
+
+/* Style untuk Detail Berita dan Pengumuman */
+.detail-content {
+    width: 100%;
+    background: linear-gradient(to bottom, #7FC7D9, #436973); /* Gradasi biru */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
 }
 
 

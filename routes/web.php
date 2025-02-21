@@ -10,6 +10,14 @@ Route::get('/berita', function () {
     return view('ppkha.berita');
 });
 
+Route::get('/berita/detail', function () {
+    return view('ppkha.detailBerita');
+});
+
+Route::get('/pengumuman/detail', function () {
+    return view('ppkha.detailPengumuman');
+});
+
 Route::get('/artikel', function () {
     return view('ppkha.artikel');
 });
