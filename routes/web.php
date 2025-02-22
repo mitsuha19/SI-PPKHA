@@ -47,3 +47,35 @@ Route::get('/tentang', function () {
 });
 
 
+// Admin
+Route::get('/admin', function () {
+    return view('admin.dashboard');
+});
+
+Route::get('/admin/berita', function () {
+    return view('admin.berita');
+});
+
+Route::get('/admin/pengumuman', function () {
+    return view('admin.pengumuman');
+});
+
+Route::get('/admin/artikel', function () {
+    return view('admin.artikel');
+});
+
+Route::get('/admin/daftar-perusahaan', function () {
+    return view('admin.daftarPerusahaan');
+});
+
+Route::get('/admin/lowongan-pekerjaan', function () {
+    return view('admin.lowonganPekerjaan');
+});
+
+Route::get('/admin/tracer-study', function () {
+    return view('admin.tracerStudy');
+});
+
+Route::get('/admin/user-survey', function () {
+    return view('admin.userSurvey');
+});
