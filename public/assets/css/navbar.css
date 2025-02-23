@@ -115,6 +115,12 @@ footer {
     color: white;
 }
 
+.roboto-title {
+    font-family: "Roboto", serif;
+    font-weight: 500;
+    font-size: 20px;
+}
+
 .social-media{
     cursor: pointer;
     color: white;
@@ -173,9 +179,97 @@ Styling sidebar admin
 
 .main-content {
     margin-left: 280px; 
-    padding: 70px 20px 20px 20px;
-    height: 100vh; /* Atau auto, tergantung kebutuhan */
-    overflow-y: auto; /* Scroll jika konten melebihi tinggi */
+    padding: 180px 10px 70px 20px;
+    height: 100vh; 
+    overflow-y: auto; 
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+
+/* Style Berita Admin */
+input[type=text] {
+    background-color: #D9D9D9;
+    color: #4C4C4C;
+    padding: 5px 20px;
+    border-radius: 20px;
+    height: 55px;
+    width: 424px;
+    border: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+.search-logo{
+    background-color: #D9D9D9;
+    color: black;
+    border-radius: 20px;
+    height: 55px;
+    width: 55px;
+    border: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.background-card{
+    background-color: black;
+    border-radius: 25px;
+    width: 900px;
+    height: fit-content;
+    margin-bottom: 20px;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-berita{
+    background-color: #7FC7D9;
+    border-radius: 32px;
+    width: 900px;
+    height: fit-content;
+    padding: 10px 0px;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-berita .btn,
+.align-self-end > .btn{
+    background-color: #588996;
+    border: none;
+    color: white;
+    font-weight: 700;
+    height: 38px;
+}
+
+.card-berita a {
+    text-decoration: none;
+    font-family: "Poppins", serif;
+    font-style: italic;
+    font-weight: 275;
+    font-size: 15px;
+    color: black;
+}
+
+.card-berita .detail{
+    justify-self: end;
+}
+
+.pagination{
+    border : 3px solid black;
+    border-radius: 15px;
+    background-color: #D9D9D9;
+    padding: 8px;
+    gap: 10px;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: transform .3s;
+    background-color: white;
+    border-radius: 10px;
+}
+  
+/* Style the active/current link */
+.pagination a.active {
+    transform: scale(1.2);
 }
 
 /* Responsif: Jika layar kecil, ubah tata letak */
