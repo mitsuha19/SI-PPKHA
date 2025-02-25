@@ -179,7 +179,7 @@ Styling sidebar admin
 
 .main-content {
     margin-left: 280px; 
-    padding: 180px 10px 70px 20px;
+    padding: 20px 10px 70px 20px;
     height: 100vh; 
     overflow-y: auto; 
     margin-top: 60px;
@@ -266,7 +266,76 @@ input[type=text] {
     background-color: white;
     border-radius: 10px;
 }
-  
+
+.box-form label{
+    font-family: "Poppins", serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 18px;
+}
+
+.box-form{
+    background-color: #E4E4E4;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.box-form input{
+    border-radius: 5px;
+    background-color: #F9F9F9;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.box-form input::placeholder,
+.box-form textarea::placeholder{
+    color: #00000080;
+    font-family: "Poppins", serif;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 16px;
+}
+
+.box-form textarea{
+    height: 200px;
+}
+
+.box-form button{
+    background-color: #7FC7D9;
+    font-family: "Poppins", serif;
+    font-weight: 700;
+    text-align: center;
+    width: 103px;
+    height: 42px;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+}
+
+input[type="file"] {
+    position: absolute;
+    z-index: -1;
+    top: 10px;
+    left: 8px;
+    font-size: 15px;
+    color: #b8b8b8;
+  }
+  .button-wrap {
+    position: relative;
+  }
+  .buttonUploadFile {
+    display: inline-block;
+    padding: 5px 8px;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #F9F9F9;
+    font-size: 15px;
+    font-weight: bold;
+    color: #000000;
+    border: 5px solid #00000080;
+  }
+
 /* Style the active/current link */
 .pagination a.active {
     transform: scale(1.2);

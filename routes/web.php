@@ -56,6 +56,10 @@ Route::get('/admin/berita', function () {
     return view('admin.berita');
 });
 
+Route::get('/admin/berita/add', function () {
+    return view('admin.beritaAdd');
+});
+
 Route::get('/admin/pengumuman', function () {
     return view('admin.pengumuman');
 });
