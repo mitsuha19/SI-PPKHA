@@ -60,6 +60,14 @@ Route::get('/admin/berita/add', function () {
     return view('admin.beritaAdd');
 });
 
+Route::get('/admin/berita/detail', function () {
+    return view('admin.beritaDetail');
+});
+
+Route::get('/admin/berita/edit', function () {
+    return view('admin.beritaEdit');
+});
+
 Route::get('/admin/pengumuman', function () {
     return view('admin.pengumuman');
 });

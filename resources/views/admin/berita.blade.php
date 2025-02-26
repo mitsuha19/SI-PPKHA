@@ -2,8 +2,8 @@
 
 @section('content')
 @include('components.navbarAdmin')
-<div class="main-content d-flex flex-column justify-content-center align-items-center">
-  <h1>Berita</h1>
+<div class="main-content d-flex flex-column justify-content-center align-items-center" >
+  <h1 style="margin-top: 100px">Berita</h1>
 
   <div class="d-flex flex-row gap-2 mb-4">
     <form>
@@ -101,7 +101,7 @@
     <a href="#" style="background-color: transparent">&raquo;</a>
   </div>
 
-  <div class="align-self-end justify-self-end">
+  <div class="align-self-end justify-self-end" style="margin-bottom: 100px">
     <button type="button" class="btn">
       <i class='bx bx-plus-circle' ></i>
       Tambah

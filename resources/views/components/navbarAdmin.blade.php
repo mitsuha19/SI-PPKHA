@@ -1,4 +1,4 @@
-<div class="combined-header-sidebar">
+<div class="combined-header-sidebar sticky-top">
   <div class="container-fluid m-0 p-0 header-admin">
       <header class="d-flex justify-content-start py-3 ps-4">
           <a class="text-white text-decoration-none">
@@ -13,7 +13,7 @@
       </header>
   </div>
   <div class="sidebar-admin">  
-    <ul class="nav flex-column mb-auto px-3" style="padding-top: 80px">
+    <ul class="nav flex-column mb-auto px-3" style="padding-top: 16px">
       <li class="nav-item">
         <a href="/admin" class="nav-link active" aria-current="page">
           <i class='bx bx-home-alt'></i>

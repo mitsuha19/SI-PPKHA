@@ -3,7 +3,7 @@
 @section('content')
 @include('components.navbarAdmin')
 <div class="main-content">
-  <h1 class="poppins-bold text-black mt-3" style="font-size: 22px">Tambah Berita</h1>
+  <h1 class="poppins-bold text-black mt-3" style="font-size: 22px">Edit Berita</h1>
   <div class="box-form">
       <form action="">
         <label for="judul" class="poppins-bold text-black mb-2">Judul Berita:</label>
@@ -20,7 +20,7 @@
         </div>
         <div class="d-flex justify-content-end align-items-end gap-2">
           <button>Batal</button>
-          <button>Tambah</button>
+          <button>Edit</button>
         </div>
       </form>
   </div>
