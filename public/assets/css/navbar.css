@@ -216,7 +216,9 @@ input[type=text] {
     box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);
 }
 
-.card-berita{
+.card-berita,
+.card-artikel, 
+.card-pengumuman{
     background-color: #7FC7D9;
     border-radius: 32px;
     width: 900px;
@@ -225,7 +227,9 @@ input[type=text] {
     box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);
 }
 
+.card-artikel .btn,
 .card-berita .btn,
+.card-pengumuman .btn,
 .align-self-end > .btn{
     background-color: #588996;
     border: none;
@@ -234,7 +238,9 @@ input[type=text] {
     height: 38px;
 }
 
-.card-berita a {
+.card-berita a,
+.card-artikel a,
+.card-pengumuman a {
     text-decoration: none;
     font-family: "Poppins", serif;
     font-style: italic;
@@ -243,7 +249,15 @@ input[type=text] {
     color: black;
 }
 
-.card-berita .detail{
+.card-berita h2,
+.card-artikel h2,
+.card-pengumuman h2{
+   width: 75%;
+}
+
+.card-berita .detail,
+.card-artikel .detail,
+.card-pengumuman .detail{
     justify-self: end;
 }
 

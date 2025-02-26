@@ -53,28 +53,53 @@ Route::get('/admin', function () {
 });
 
 Route::get('/admin/berita', function () {
-    return view('admin.berita');
+    return view('admin.berita.berita');
 });
 
 Route::get('/admin/berita/add', function () {
-    return view('admin.beritaAdd');
+    return view('admin.berita.beritaAdd');
 });
 
 Route::get('/admin/berita/detail', function () {
-    return view('admin.beritaDetail');
+    return view('admin.berita.beritaDetail');
 });
 
 Route::get('/admin/berita/edit', function () {
-    return view('admin.beritaEdit');
+    return view('admin.berita.beritaEdit');
 });
 
 Route::get('/admin/pengumuman', function () {
-    return view('admin.pengumuman');
+    return view('admin.pengumuman.pengumuman');
+});
+
+Route::get('/admin/pengumuman/add', function () {
+    return view('admin.pengumuman.pengumumanAdd');
+});
+
+Route::get('/admin/pengumuman/detail', function () {
+    return view('admin.pengumuman.pengumumanDetail');
+});
+
+Route::get('/admin/pengumuman/edit', function () {
+    return view('admin.pengumuman.pengumumanEdit');
 });
 
 Route::get('/admin/artikel', function () {
-    return view('admin.artikel');
+    return view('admin.artikel.artikel');
 });
+
+Route::get('/admin/artikel/add', function () {
+    return view('admin.artikel.artikelAdd');
+});
+
+Route::get('/admin/artikel/detail', function () {
+    return view('admin.artikel.artikelDetail');
+});
+
+Route::get('/admin/artikel/edit', function () {
+    return view('admin.artikel.artikelEdit');
+});
+
 
 Route::get('/admin/daftar-perusahaan', function () {
     return view('admin.daftarPerusahaan');
