@@ -52,6 +52,7 @@ Route::get('/admin', function () {
     return view('admin.dashboard');
 });
 
+// berita
 Route::get('/admin/berita', function () {
     return view('admin.berita.berita');
 });
@@ -68,6 +69,7 @@ Route::get('/admin/berita/edit', function () {
     return view('admin.berita.beritaEdit');
 });
 
+//pengumuman 
 Route::get('/admin/pengumuman', function () {
     return view('admin.pengumuman.pengumuman');
 });
@@ -84,6 +86,7 @@ Route::get('/admin/pengumuman/edit', function () {
     return view('admin.pengumuman.pengumumanEdit');
 });
 
+// artikel
 Route::get('/admin/artikel', function () {
     return view('admin.artikel.artikel');
 });
@@ -100,23 +103,25 @@ Route::get('/admin/artikel/edit', function () {
     return view('admin.artikel.artikelEdit');
 });
 
-
+// daftar perusahaan
 Route::get('/admin/daftar-perusahaan', function () {
     return view('admin.daftarPerusahaan');
 });
 
+//lowongan pekerjaan
 Route::get('/admin/lowongan-pekerjaan', function () {
     return view('admin.lowonganPekerjaan');
 });
 
+//tracerstudy
 Route::get('/admin/tracer-study', function () {
     return view('admin.tracerStudy.tracerStudy');
 });
-
-Route::get('/admin/user-survey', function () {
-    return view('admin.userSurvey');
-});
-
 Route::get('/admin/tracer-study/create', function () {
     return view('admin.tracerStudy.tambahPertanyaan');
+});
+
+//user survey
+Route::get('/admin/user-survey', function () {
+    return view('admin.userSurvey');
 });
