@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BeritaController;
 
 Route::get('/', function () {
     return view('ppkha.beranda');
@@ -30,8 +31,17 @@ Route::get('/daftar_perusahaan', function () {
     return view('ppkha.daftar_perusahaan');
 });
 
+Route::get('/daftar_perusahaan/detail', function () {
+    return view('ppkha.detailperusahaan');
+});
+
 Route::get('/lowongan_pekerjaan', function () {
     return view('ppkha.lowongan_pekerjaan');
+});
+
+
+Route::get('/lowongan_pekerjaan/detail', function () {
+    return view('ppkha.detaillowongan');
 });
 
 Route::get('/tracer_study', function () {
@@ -53,12 +63,10 @@ Route::get('/admin', function () {
 });
 
 // berita
-Route::get('/admin/berita', function () {
-    return view('admin.berita.berita');
-});
-
-Route::get('/admin/berita/add', function () {
-    return view('admin.berita.beritaAdd');
+Route::prefix('admin')->group(function () {
+    Route::get('/berita', [BeritaController::class, 'index2'])->name('admin.berita.berita');
+    Route::post('/berita', [BeritaController::class, 'store'])->name('admin.berita.store');
+    Route::get('/berita/tambah', [BeritaController::class, 'index3'])->name('admin.berita.add');
 });
 
 Route::get('/admin/berita/detail', function () {
