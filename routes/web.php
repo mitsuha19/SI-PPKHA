@@ -110,9 +110,13 @@ Route::get('/admin/lowongan-pekerjaan', function () {
 });
 
 Route::get('/admin/tracer-study', function () {
-    return view('admin.tracerStudy');
+    return view('admin.tracerStudy.tracerStudy');
 });
 
 Route::get('/admin/user-survey', function () {
     return view('admin.userSurvey');
+});
+
+Route::get('/admin/tracer-study/create', function () {
+    return view('admin.tracerStudy.tambahPertanyaan');
 });
