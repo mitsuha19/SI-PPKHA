@@ -66,7 +66,7 @@ Route::get('/admin', function () {
 Route::prefix('admin')->group(function () {
     Route::get('/berita', [BeritaController::class, 'index2'])->name('admin.berita.berita');
     Route::post('/berita', [BeritaController::class, 'store'])->name('admin.berita.store');
-    Route::get('/berita/tambah', [BeritaController::class, 'index3'])->name('admin.berita.add');
+    Route::get('/berita/add', [BeritaController::class, 'index3'])->name('admin.berita.add');
 });
 
 Route::get('/admin/berita/detail', function () {
@@ -113,12 +113,36 @@ Route::get('/admin/artikel/edit', function () {
 
 // daftar perusahaan
 Route::get('/admin/daftar-perusahaan', function () {
-    return view('admin.daftarPerusahaan');
+    return view('admin.daftarPerusahaan.daftarPerusahaan');
+});
+
+Route::get('/admin/daftar-perusahaan/add', function () {
+    return view('admin.daftarPerusahaan.daftarPerusahaanAdd');
+});
+
+Route::get('/admin/daftar-perusahaan/edit', function () {
+    return view('admin.daftarPerusahaan.daftarPerusahaanEdit');
+});
+
+Route::get('/admin/daftar-perusahaan/detail', function () {
+    return view('admin.daftarPerusahaan.daftarPerusahaanDetail');
 });
 
 //lowongan pekerjaan
 Route::get('/admin/lowongan-pekerjaan', function () {
-    return view('admin.lowonganPekerjaan');
+    return view('admin.lowonganPekerjaan.lowonganPekerjaan');
+});
+
+Route::get('/admin/lowongan-pekerjaan/detail', function () {
+    return view('admin.lowonganPekerjaan.lowonganPekerjaanDetail');
+});
+
+Route::get('/admin/lowongan-pekerjaan/add', function () {
+    return view('admin.lowonganPekerjaan.lowonganPekerjaanAdd');
+});
+
+Route::get('/admin/lowongan-pekerjaan/edit', function () {
+    return view('admin.lowonganPekerjaan.lowonganPekerjaanEdit');
 });
 
 //tracerstudy

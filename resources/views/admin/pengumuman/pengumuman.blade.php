@@ -2,8 +2,8 @@
 
 @section('content')
 @include('components.navbarAdmin')
-<div class="main-content d-flex flex-column justify-content-center align-items-center" >
-  <h1 style="margin-top: 100px">Pengumuman</h1>
+<div class="main-content d-flex flex-column align-items-center" >
+  <h1>Pengumuman</h1>
 
   <div class="d-flex flex-row gap-2 mb-4">
     <form>

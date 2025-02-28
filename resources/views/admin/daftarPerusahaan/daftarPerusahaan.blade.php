@@ -3,11 +3,11 @@
 @section('content')
 @include('components.navbarAdmin')
 <div class="main-content d-flex flex-column align-items-center" >
-  <h1>Artikel</h1>
+  <h1>Daftar Perusahaan</h1>
 
   <div class="d-flex flex-row gap-2 mb-4">
     <form>
-      <input type="text" id="artikel" name="artikel" value="Cari Artikel">
+      <input type="text" id="berita" name="berita" value="Cari Berita">
     </form>
     <div class="search-logo d-flex justify-content-center align-items-center" >
       <i class='bx bx-search-alt-2'></i>
@@ -15,12 +15,14 @@
   </div>
 
   <div class="background-card">
-    <div class="card-artikel d-flex align-items-center px-3">
-      <img style="width: 151px" src="{{ asset('assets/images/image.png') }}">
+    <div class="card-berita d-flex align-items-center px-3">
+      <img style="width: 130px" src="{{ asset('assets/images/image2.png') }}">
       <div class="ps-3">
-        {{-- Judul Artikel dan button Edit dan Delete --}}
+        {{-- Judul Berita dan button Edit dan Delete --}}
         <div class="d-flex flex-row w-auto justify-content-start align-items-enc">
-          <h2 class="fst-italic roboto-title mb-0 align-self-center">Ratusan Mahasiswa Indonesia Terima Mahasiswa </h2>
+          <h2 class="fst-italic roboto-title mb-0 align-self-center">
+            Norxel Teknologi Indonesia
+          </h2>
   
           {{-- Button --}}
           <div class="align-self-start">
@@ -37,13 +39,19 @@
 
         <hr class="my-2" style="border: 2px solid black; opacity: 1">
   
+        <div class="d-flex flex-row align-items-center" style="gap: 5px">
+          <p class="mb-0 montserrat-light">Kota Semarang</p>
+          <div class="circle"></div>
+          <p class="mb-0 montserrat-medium">Industri Perbankan</p>
+        </div>
+        
         <p class="roboto-light mb-1 mt-2" style="font-size: 15px">
-          204 Mahasiswa Menerima Beasiswa TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan soft skills..
+          PT Norxel Teknologi Indonesia adalah perusahaan manufaktur yang bergerak di bidang pembuatan mesin perbankan. Kami berkomitmen untuk terus berinovasi dalam menyediakan solusi teknologi yang andal bagi industri perbankan.
         </p>
   
         {{-- Link to detail news --}}
         <div class="detail">
-          <a href="/admin/artikel/detail">
+          <a href="/admin/berita/detail">
             Selengkapnya..
           </a>
         </div>
@@ -54,12 +62,14 @@
 
 
   <div class="background-card">
-    <div class="card-artikel d-flex align-items-center px-3">
-      <img style="width: 151px" src="{{ asset('assets/images/image.png') }}">
+    <div class="card-berita d-flex align-items-center px-3">
+      <img style="width: 130px" src="{{ asset('assets/images/image2.png') }}">
       <div class="ps-3">
-        {{-- Judul Artikel dan button Edit dan Delete --}}
+        {{-- Judul Berita dan button Edit dan Delete --}}
         <div class="d-flex flex-row w-auto justify-content-start align-items-enc">
-          <h2 class="fst-italic roboto-title mb-0 align-self-center" >Ratusan Mahasiswa Indonesia Terima Mahasiswa </h2>
+          <h2 class="fst-italic roboto-title mb-0 align-self-center">
+            Norxel Teknologi Indonesia
+          </h2>
   
           {{-- Button --}}
           <div class="align-self-start">
@@ -76,13 +86,19 @@
 
         <hr class="my-2" style="border: 2px solid black; opacity: 1">
   
+        <div class="d-flex flex-row align-items-center" style="gap: 5px">
+          <p class="mb-0 montserrat-light">Kota Semarang</p>
+          <div class="circle"></div>
+          <p class="mb-0 montserrat-medium">Industri Perbankan</p>
+        </div>
+        
         <p class="roboto-light mb-1 mt-2" style="font-size: 15px">
-          204 Mahasiswa Menerima Beasiswa TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan soft skills..
+          PT Norxel Teknologi Indonesia adalah perusahaan manufaktur yang bergerak di bidang pembuatan mesin perbankan. Kami berkomitmen untuk terus berinovasi dalam menyediakan solusi teknologi yang andal bagi industri perbankan.
         </p>
   
         {{-- Link to detail news --}}
         <div class="detail">
-          <a href="/admin/artikel/detail">
+          <a href="/admin/berita/detail">
             Selengkapnya..
           </a>
         </div>
