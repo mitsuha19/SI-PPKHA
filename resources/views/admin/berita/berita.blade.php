@@ -22,26 +22,36 @@
               $gambarArray = $item->gambar ?? []; // Laravel otomatis mengubah JSON ke array
           @endphp
   
-  @if (!empty($gambarArray) && isset($gambarArray[0]))
-  <img style="width: 151px; height: 100px; object-fit: contain; border-radius: 8px;" 
-       src="{{ asset('storage/' . $gambarArray[0]) }}" 
-       alt="Gambar Berita">
-@else
-  <img style="width: 151px; height: 100px; object-fit: contain; border-radius: 8px; background-color: #f0f0f0;" 
-       src="{{ asset('assets/images/image.png') }}" 
-       alt="Default Gambar">
-@endif
+        @if (!empty($gambarArray) && isset($gambarArray[0]))
+        <img style="width: 151px; height: 100px; object-fit: contain; border-radius: 8px;" 
+            src="{{ asset('storage/' . $gambarArray[0]) }}" 
+            alt="Gambar Berita">
+        @else
+          <img style="width: 151px; height: 100px; object-fit: contain; border-radius: 8px; background-color: #f0f0f0;" 
+              src="{{ asset('assets/images/image.png') }}" 
+              alt="Default Gambar">
+        @endif
 
   
-          <div class="ps-3">
+          <div class="ps-3 w-100">
               {{-- Judul Berita --}}
-              <div class="d-flex flex-row w-auto justify-content-start align-items-center">
-                  <h2 class="fst-italic roboto-title mb-0 align-self-center" style="margin-right: 90px">
+              <div class="d-flex flex-row w-auto justify-content-start align-items-end">
+                  <h2 class="fst-italic roboto-title mb-0 align-self-center">
                       {{ $item->judul_berita }}
                   </h2>
+                  <div class="align-self-start">
+                    <button type="button" class="btn">
+                      <i class='bx bx-pencil'></i>
+                      Edit
+                    </button>
+                    <button type="button" class="btn">
+                      <i class='bx bx-trash' ></i>
+                      Hapus
+                    </button>
+                  </div>
               </div>
   
-              <hr class="my-2" style="border: 3px solid black;">
+              <hr class="my-2" style="border: 3px solid black; opacity:1">
   
               {{-- Deskripsi Berita --}}
               <p class="roboto-light mb-1 mt-2" style="font-size: 15px">
@@ -65,7 +75,7 @@
       <img style="width: 151px" src="{{ asset('assets/images/image.png') }}">
       <div class="ps-3">
         {{-- Judul Berita dan button Edit dan Delete --}}
-        <div class="d-flex flex-row w-auto justify-content-start align-items-enc">
+        <div class="d-flex flex-row w-auto justify-content-start align-items-end">
           <h2 class="fst-italic roboto-title mb-0 align-self-center">Ratusan Mahasiswa Indonesia Terima Mahasiswa </h2>
   
           {{-- Button --}}
