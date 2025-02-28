@@ -66,16 +66,16 @@ Route::get('/admin', function () {
 Route::prefix('admin')->group(function () {
     Route::get('/berita', [BeritaController::class, 'index2'])->name('admin.berita.berita');
     Route::post('/berita', [BeritaController::class, 'store'])->name('admin.berita.store');
-    Route::get('/berita/add', [BeritaController::class, 'index3'])->name('admin.berita.add');
+    Route::get('/berita/tambah', [BeritaController::class, 'index3'])->name('admin.berita.add');
+    Route::get('/berita/detail/{id}', [BeritaController::class, 'show1'])->name('admin.berita.beritaDetail');
+    Route::get('/berita/{id}/edit', [BeritaController::class, 'index4'])->name('admin.berita.beritaEdit');
+    Route::put('berita/{id}', [BeritaController::class, 'update'])->name('berita.update');
+    Route::delete('/berita/{id}', [BeritaController::class, 'destroy'])->name('admin.berita.destroy');
+
 });
 
-Route::get('/admin/berita/detail', function () {
-    return view('admin.berita.beritaDetail');
-});
 
-Route::get('/admin/berita/edit', function () {
-    return view('admin.berita.beritaEdit');
-});
+
 
 //pengumuman 
 Route::get('/admin/pengumuman', function () {
