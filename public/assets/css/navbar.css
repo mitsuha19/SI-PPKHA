@@ -1,6 +1,14 @@
 html,
 body {
     margin: 0;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.main-wrapper {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
 }
 
 /* Styling navbar */
@@ -844,75 +852,92 @@ h2 span {
     border: 1px solid black;
     font-size: 14px;
 }
-/* Form Container - Lebar hampir menyentuh sidebar */
-.form-container {
-    background-color: #e5e5e5;
-    width: 80%; /* Lebarkan box */
-    max-width: 1000px; /* Pastikan tidak terlalu lebar pada layar besar */
-    border-radius: 10px;
+/* Form Container */
+.section-container {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    margin: auto;
+    background-color: white;
+    border-radius: 12px;
     padding: 20px;
-    position: relative; /* Untuk posisi floating button */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Custom Styling untuk Input */
-.custom-input {
-    background-color: #ffffff;
+/* Input Styling */
+.form-control {
+    background-color: transparent;
     border: none;
-    border-radius: 8px;
-    padding: 12px;
+    border-bottom: 2px solid #ccc;
+    padding: 10px;
     font-size: 14px;
-    width: 100%;
-    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.2s ease-in-out;
 }
 
-.custom-input::placeholder {
-    color: #a9a9a9;
-    font-style: italic;
+.form-control:focus {
+    border-bottom: 2px solid #4285f4;
+    outline: none;
 }
 
-/* Floating Menu di Dalam Form */
+/* Floating Menu di Luar Box */
 .floating-menu {
     position: absolute;
     top: 50%;
-    right: 20px; /* Geser tombol lebih ke dalam */
+    right: -50px;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-/* Floating Button Styling */
+/* Floating Button */
 .floating-btn {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    border-radius: 8px;
-    border: 1px solid #000;
-    background-color: white;
+    border-radius: 50%;
+    border: none;
+    background-color: #4285f4;
+    color: white;
     transition: 0.3s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 .floating-btn:hover {
-    background-color: #f0f0f0;
+    background-color: #357ae8;
     transform: scale(1.1);
 }
 
-/* RESPONSIF: Jika layar kecil, lebarkan agar tetap proporsional */
+/* Dropdown Styling */
+.form-select {
+    appearance: none;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Responsif */
 @media (max-width: 1200px) {
-    .form-container {
-        width: 90%; /* Lebih fleksibel untuk layar kecil */
+    .section-container {
+        width: 90%;
+    }
+
+    .floating-menu {
+        right: -40px;
     }
 }
 
 @media (max-width: 768px) {
-    .form-container {
-        width: 95%; /* Hampir full screen di layar kecil */
+    .section-container {
+        width: 95%;
     }
 
     .floating-menu {
-        right: 10px; /* Pastikan tombol tetap di dalam */
+        right: -30px;
     }
 }
