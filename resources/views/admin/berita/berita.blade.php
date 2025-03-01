@@ -40,14 +40,15 @@
                       {{ $item->judul_berita }}
                   </h2>
                   <div class="align-self-start">
-                    <button type="button" class="btn">
-                      <i class='bx bx-pencil'></i>
-                      Edit
-                    </button>
-                    <button type="button" class="btn">
-                      <i class='bx bx-trash' ></i>
-                      Hapus
-                    </button>
+                    <div class="ms-auto d-flex gap-2">
+                      <a href="{{ route('admin.berita.beritaEdit', $item->id) }}" class="btn btn-sm btn-success">
+                          Edit
+                      </a>
+                      <button class="btn btn-sm btn-danger"
+                          onclick="openDeleteModal({{ $item->id }}, '{{ $item->judul_berita }}')">
+                          Hapus
+                      </button>
+                  </div>
                   </div>
               </div>
   
@@ -55,14 +56,12 @@
   
               {{-- Deskripsi Berita --}}
               <p class="roboto-light mb-1 mt-2" style="font-size: 15px">
-                  {{ Str::limit($item->deskripsi_berita, 100, '...') }}
+                  {{ Str::limit($item->deskripsi_berita, 200, '...') }}
               </p>
   
               {{-- Link ke Detail Berita --}}
               <div class="detail">
-                  <a href="{{ route('admin.berita.berita', $item->id) }}">
-                      Selengkapnya..
-                  </a>
+                <a href="{{ route('admin.berita.beritaDetail', ['id' => $item->id]) }}">Selengkapnya..</a>
               </div>
           </div>
       </div>
@@ -99,11 +98,8 @@
   
         {{-- Link to detail news --}}
         <div class="detail">
-          <a href="/admin/berita/detail">
-            Selengkapnya..
-          </a>
+          <a href="{{ route('admin.berita.beritaDetail', ['id' => $item->id]) }}">Selengkapnya..</a>
         </div>
-        
       </div>
     </div>
   </div>
@@ -126,4 +122,63 @@
   </div>
   
 </div>
+
+<!-- Modal Hapus -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Hapus Data Berita</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <p>Apakah Kamu yakin ingin menghapus data berita <b id="beritaTitle"></b>?</p>
+          </div>
+          <div class="modal-footer">
+              <!-- Tombol Batal dengan warna abu-abu dan teks putih -->
+              <button type="button" class="btn btn-secondary" style="color: white;"
+                  data-bs-dismiss="modal">Batal</button>
+              <!-- Tombol Hapus dengan warna merah dan teks putih -->
+              <button type="button" class="btn"
+                  style="background-color: #FF0000; border: 1px solid #FF0000; color: white;"
+                  id="confirmDeleteButton">Ya, Tetap Hapus</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<script>
+  let selectedId = null;
+
+  function openDeleteModal(id, title) {
+      selectedId = id;
+      document.getElementById('beritaTitle').innerText = title;
+      const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+      deleteModal.show();
+  }
+
+  document.getElementById('confirmDeleteButton').addEventListener('click', function() {
+      fetch(`/admin/berita/${selectedId}`, {
+              method: 'DELETE',
+              headers: {
+                  'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                  'Content-Type': 'application/json',
+              },
+          })
+          .then(response => {
+              if (!response.ok) throw new Error('Gagal menghapus data.');
+              return response.json();
+          })
+          .then(data => {
+              if (data.success) {
+                  window.location.href = '{{ route('admin.berita.berita') }}';
+              } else {
+                  console.error(data.message);
+              }
+          })
+          .catch(error => console.error('Error:', error));
+  });
+</script>
+
 @endsection
