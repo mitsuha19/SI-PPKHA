@@ -5,68 +5,87 @@
 
     <div class="content-with-background">
         @include('components.bg') <!-- Renders the background waves -->
-
+        
+        <!-- Top Search Bar Section (New, positioned at the top of content) -->
+        <div class="top-search-bar-container">
+            <div class="top-search-bar">
+                <input type="text" class="top-search-input" placeholder="Cari Lowongan" />
+                <button class="top-search-button">
+                    <img class="top-search-icon" src="{{asset('assets/images/search.png')}}" alt="Search">
+                </button>
+            </div>
+        </div>
         <!-- Berita Section -->
-      <div class="pengumuman-section">
-        <h2 class="section-title">BERITA</h2>
-        <div class="pengumuman-grid">
-            <!-- Static Cards -->
-            <div class="card" style="width: 18rem;">
-                <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                <div class="card-body">
-                    <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                    <a href="#" class="btn btn-primary">Selengkapnya</a>
-                </div>
-            </div>
-
-            <div class="card" style="width: 18rem;">
-                <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 2">
-                <div class="card-body">
-                    <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                    <a href="#" class="btn btn-primary">Selengkapnya</a>
-                </div>
-            </div>
-
-            <div class="card" style="width: 18rem;">
-                <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 3">
-                <div class="card-body">
-                    <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                    <a href="#" class="btn btn-primary">Selengkapnya</a>
+        <div class="horizontal-card mt-4">
+            <img src="{{asset('assets/images/image.png')}}" class="card-img-top" alt="...">
+            <div class="horizontal-card-body">
+                <div class="horizontal-card-text-section">
+                    <h5 class="horizontal-card-title fw-bold">Ratusan Mahasiswa Indonesia Terima Beasiswa</h5>
+                    <p class="horizontal-card-text">204 Mahasiswa Menerima Beasiswa TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan soft skills</p>
+                    <a href="#" class="horizontal-card-btn btn btn-outline-dark btn-sm">Selengkapnya</a>
                 </div>
             </div>
         </div>
-      </div>
 
-      <!-- Berita Section -->
-    <div class="pengumuman-section">
-      <h2 class="section-title">BERITA</h2>
-      <div class="pengumuman-grid">
-          <!-- Static Cards -->
-          <div class="card" style="width: 18rem;">
-              <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-              <div class="card-body">
-                  <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                  <a href="#" class="btn btn-primary">Selengkapnya</a>
-              </div>
-          </div>
+        <!-- Berita Section -->
+        <div class="horizontal-card mt-4">
+            <img src="{{asset('assets/images/image.png')}}" class="card-img-top" alt="...">
+            <div class="horizontal-card-body">
+                <div class="horizontal-card-text-section">
+                    <h5 class="horizontal-card-title fw-bold">Ratusan Mahasiswa Indonesia Terima Beasiswa</h5>
+                    <p class="horizontal-card-text">204 Mahasiswa Menerima Beasiswa TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan soft skills</p>
+                    <a href="#" class="horizontal-card-btn btn btn-outline-dark btn-sm">Selengkapnya</a>
+                </div>
+            </div>
+        </div>
 
-          <div class="card" style="width: 18rem;">
-              <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 2">
-              <div class="card-body">
-                  <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                  <a href="#" class="btn btn-primary">Selengkapnya</a>
-              </div>
-          </div>
+        <div class="horizontal-card mt-4">
+            <img src="{{asset('assets/images/image.png')}}" class="card-img-top" alt="...">
+            <div class="horizontal-card-body">
+                <div class="horizontal-card-text-section">
+                    <h5 class="horizontal-card-title fw-bold">Ratusan Mahasiswa Indonesia Terima Beasiswa</h5>
+                    <p class="horizontal-card-text">204 Mahasiswa Menerima Beasiswa TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan soft skills</p>
+                    <a href="#" class="horizontal-card-btn btn btn-outline-dark btn-sm">Selengkapnya</a>
+                </div>
+            </div>
+        </div>
 
-          <div class="card" style="width: 18rem;">
-              <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 3">
-              <div class="card-body">
-                  <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                  <a href="#" class="btn btn-primary">Selengkapnya</a>
-              </div>
-          </div>
-      </div>
-  </div>
+        <div class="horizontal-card mt-4">
+            <img src="{{asset('assets/images/image.png')}}" class="card-img-top" alt="...">
+            <div class="horizontal-card-body">
+                <div class="horizontal-card-text-section">
+                    <h5 class="horizontal-card-title fw-bold">Ratusan Mahasiswa Indonesia Terima Beasiswa</h5>
+                    <p class="horizontal-card-text">204 Mahasiswa Menerima Beasiswa TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan soft skills</p>
+                    <a href="#" class="horizontal-card-btn btn btn-outline-dark btn-sm">Selengkapnya</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="horizontal-card mt-4">
+            <img src="{{asset('assets/images/image.png')}}" class="card-img-top" alt="...">
+            <div class="horizontal-card-body">
+                <div class="horizontal-card-text-section">
+                    <h5 class="horizontal-card-title fw-bold">Ratusan Mahasiswa Indonesia Terima Beasiswa</h5>
+                    <p class="horizontal-card-text">204 Mahasiswa Menerima Beasiswa TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan soft skills</p>
+                    <a href="#" class="horizontal-card-btn btn btn-outline-dark btn-sm">Selengkapnya</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="horizontal-card mt-4">
+            <img src="{{asset('assets/images/image.png')}}" class="card-img-top" alt="...">
+            <div class="horizontal-card-body">
+                <div class="horizontal-card-text-section">
+                    <h5 class="horizontal-card-title fw-bold">Ratusan Mahasiswa Indonesia Terima Beasiswa</h5>
+                    <p class="horizontal-card-text">204 Mahasiswa Menerima Beasiswa TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan soft skills</p>
+                    <a href="#" class="horizontal-card-btn btn btn-outline-dark btn-sm">Selengkapnya</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="load-more-container">
+            <button class="load-more-btn">Muat Lebih Banyak</button>
+        </div>
     </div>
 
     @include('components.footer')

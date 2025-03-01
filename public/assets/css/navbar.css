@@ -606,101 +606,47 @@ h2 span {
     color: #333; /* Matches the screenshot */
 }
 
-/*styles.css */
-.container-lowongan {
-    display: flex;
-    flex-direction: column; /* Susun vertikal */
-    align-items: flex-start; /* Rata kiri */
-    width: 100%;
-    max-width: 1200px; /* Batasi lebar */
-    margin: 0 auto; /* Pusatkan container */
-    padding: 20px;
-}
-.card-title {
-    width: 100%;
-    max-width: 1200px;
-    height: 200px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-
-    margin-bottom: 10px;
+.horizontal-card-text-section .horizontal-card-title {
+  font-weight: bold; /* Match .fw-bold from Bootstrap */
+  font-size: 1.25rem; /* Slightly larger for title, consistent with your design */
+  color: #000000;
 }
 
-.section-title {
-    font-size: 20px;
-    font-weight: bold;
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
+/****************************************** DETAIL BERANDA ******************************************/
+
+/************************  DETAIL LOWONGAN ************************/
+/* Horizontal card styling */
+.horizontal-card2 {
+    max-width: auto;
+    background-color: #ffffff;
+    border: 0;
+    border-radius: 20px;
+    margin: auto;
+    padding: 15px; /* Add padding to the card */
 }
 
-.logo {
-    width: 80px;
-    height: auto;
-}
-
-.job-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin: 0;
-}
-
-.company-name {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 8px;
-}
-
-.job-meta {
-    font-size: 20px; /* Lebih besar */
-    font-weight: bold;
-    margin-bottom: 10px; /* Jarak dengan job details */
-}
-
-.job-details {
-    display: flex;
-    gap: 20px;
-    font-size: 14px;
-    flex-wrap: wrap;
-}
-
-/* Setiap kolom dalam job details */
-.job-column {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    min-width: 150px; /* Supaya rata */
-}
-
-.apply-share {
-    text-align: right;
-}
-
-.apply-share button {
-    background-color: #007bff;
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.social-share img {
-    width: 24px;
-    margin-left: 5px;
-    cursor: pointer;
-}
-
-.card {
+.horizontal-card3 {
     width: 100%; /* Agar card memenuhi container */
-    max-width: 550px; /* Batasi lebar maksimal */
+    max-width: 700px; /* Batasi lebar maksimal */
     background-color: white;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     margin-bottom: 15px; /* Jarak antar card */
     align-self: flex-start;
+}
+
+/* ***CHANGE START***: Added Flexbox to horizontal-card-body2 */
+.horizontal-card-body2 {
+    display: flex; /* Apply Flexbox here */
+    justify-content: space-between; /* Space between containers */
+    align-items: center; /* Vertically center items */
+}
+
+/* ***CHANGE START***: Added Flexbox to horizontal-card-body2 */
+.horizontal-card-body3 {
+    display: flex; /* Apply Flexbox here */
+    justify-content: space-between; /* Space between containers */
 }
 
 .skill-badge {
@@ -713,62 +659,398 @@ h2 span {
     white-space: nowrap; /* Mencegah teks terpotong */
 }
 
-.title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    border-bottom: 2px solid #ddd;
-    padding-bottom: 5px;
-}
-.share-section {
-    display: flex;
-    flex-direction: column; /* Mengatur tata letak vertikal */
-    align-items: center;
-    gap: 10px;
-}
-.share-section a {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-}
-.share-section img {
-    width: 16px;
-    height: 16px;
-    margin-right: 5px;
-}
-.social-icons {
-    display: flex;
-    flex-direction: row; /* Tetap dalam satu baris */
-    gap: 10px;
-    margin-top: 5px;
-}
-.apply-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    min-width: 180px;
+/* First container (image, glued to the left) */
+.image-container {
+    /* ***CHANGE START*** */
+    flex: 0 0 auto; /* Do not grow or shrink */
+    margin-right: 20px; /* Space between image and text */
+    /* ***CHANGE END*** */
 }
 
-.apply-btn {
-    background: linear-gradient(to right, #5a9, #234);
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
+/* Card image styling */
+.horizontal-card2 img { /* ***CHANGE START***: Updated class name */
+    max-width: fit-content;
+    border-radius: 50px;
+} /* ***CHANGE END*** */
+
+/* Second container (text, beside the image) */
+.text-container {
+    /* ***CHANGE START*** */
+    flex: 1; /* Grow to fill available space */
+    /* ***CHANGE END*** */
+    font-family: "Poppins", serif;
+    color: #000000;
 }
-.job-card {
+
+/* Text section styling */
+.horizontal-card-text-section2 {
+    margin-top: 15px;
+}
+
+/* Text section styling */
+.horizontal-card-text-section3 {
+    margin-top: 15px;
+}
+
+.horizontal-card-text-section2 .horizontal-card-title2 {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #000000;
+
+    /* font-size: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px; */
+}
+
+.horizontal-card-text-section3 .horizontal-card-title3 {
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: #000000;
+    border-bottom: 1px solid #000000;
+    /* font-size: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 5px;
+    margin-bottom: 10px; */
+}
+
+.horizontal-card-text-section2 .horizontal-card-text2 {
+    font-size: 1rem;
+    text-align: justify;
+    color: #000000;
+    line-height: 1.5;
+}
+
+.horizontal-card-text-section2 .text-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+}
+
+.horizontal-card-text-section2 .info-item {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.25rem;
+}
+
+.horizontal-card-text-section2 .text-label {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: bold;
+}
+
+.horizontal-card-text-section2 .text-value {
+    font-size: 1rem;
+    color: #000000;
+}
+
+.horizontal-card-text-section2 .text-value a {
+    color: #000000;
+    text-decoration: none;
+}
+
+/* Move shadow to right-section */
+.right-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    margin-left: auto; /* Glue to the right side */
+    margin-right: 5vh;
+    gap: 10px; /* Space between elements */
+    box-shadow: 0 7px 7px 7px rgba(0, 0, 0, 0.18); /* Apply the original shadow configuration */
+    background-color: #ffffff; /* White background to ensure shadow visibility */
+    border-radius: 10px; /* Match the card's rounded corners for consistency */
+    padding: 2vh 10vh; /* Optional: add padding for a raised, contained look */
+}
+
+/* Lamar button styling */
+.lamar-btn {
+    background: linear-gradient(to bottom, #008080, #00CED1);
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 5px 40px;
+    border: none;
     border-radius: 10px;
-    border: 2px solid #ddd;
-    padding: 15px;
-    background-color: white;
-    transition: 0.3s;
+    cursor: pointer;
+}
+
+/* Share section styling */
+.share-section {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.share-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.share-text {
+    font-size: 1rem;
+    color: #000000;
+    font-family: "Poppins", serif;
+}
+
+/* Social icons styling */
+.social-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.social-icons img {
+    width: 30px;
+    height: 30px;
+    border-radius: 30%; /* Circular icons */
+}
+
+/* Load More button container */
+.load-more-container {
+    display: flex;
+    justify-content: center; /* Center the button horizontally */
+    margin: 20px auto; /* Add vertical margin and center horizontally */
+    padding: 20px 0; /* Vertical padding for spacing */
+}
+
+/* Load More button styling */
+.load-more-btn {
+    background-color: #1E3A8A; /* Dark blue background, matching the image */
+    color: #FFFFFF; /* White text */
+    font-family: "Poppins", serif; /* Match your site’s font */
+    font-size: 1.2rem; /* Size to match the image */
+    font-weight: bold; /* Bold text for emphasis */
+    padding: 12px 24px; /* Padding for width and height, matching the image */
+    border: none; /* Remove default border */
+    border-radius: 50px; /* Rounded corners, matching the image */
+    cursor: pointer; /* Indicate clickability */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for depth */
+}
+
+/* Hover effect for the button */
+.load-more-btn:hover {
+    background-color: #1A2F6F; /* Slightly darker blue on hover */
+}
+
+/****************************************** HORIZONTAL CARD COMPONENT ******************************************/
+
+/* Card body background */
+body {
+  background-color: mintcream; /* Keep the mintcream background for the card */
+}
+
+/* Horizontal card styling */
+.horizontal-card {
+  max-width: 65em;
+  display: flex;
+  flex-direction: row;
+  background-color: #91D3E6; /* Match search bar background for consistency */
+  border: 0;
+  border-radius: 50px;
+  box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18); /* Slightly adjust shadow to match your design */
+  margin: 3em auto;
+}
+
+
+/* Dark text for card (override Bootstrap .bg-info-subtle if needed) */
+.horizontal-card.dark {
+  color: #333; /* Darker text for readability, consistent with your design */
+}
+
+/* Card image */
+.horizontal-card img {
+  max-width: 25%;
+  margin: auto;
+  padding: 0.5em;
+  border-radius: 50px;
+}
+
+
+/* Card body layout */
+.horizontal-card-body {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px; /* Consistent with your .card-body padding */
+}
+
+/* Text section */
+.horizontal-card-text-section {
+  max-width: 100%;
+  font-family: "Poppins", serif; /* Match your website's font */
+  color: #000000; /* Match search input text color */
+  margin-top: 15px;
+}
+
+.horizontal-card-text-section .horizontal-card-title {
+  font-weight: bold; /* Match .fw-bold from Bootstrap */
+  font-size: 1.25rem; /* Slightly larger for title, consistent with your design */
+  color: #000000;
+  text-decoration: underline;
+  font-style: italic;
+}
+
+
+.horizontal-card-text-section .horizontal-card-text {
+  font-size: 1rem; /* Consistent with your card text size */
+  text-align: justify;
+}
+
+/* CTA section */
+.horizontal-card-cta-section {
+  max-width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  color: #333; /* Dark text for consistency */
+}
+
+.horizontal-card-cta-section .horizontal-card-price {
+  font-size: 1.1rem; /* Slightly larger for price */
+  font-weight: bold; /* Bold for emphasis */
+}
+
+.horizontal-card-cta-section .horizontal-card-btn {
+  padding: 0.3em 0.5em;
+  background-color: #588996; /* Match your btn-primary color for consistency */
+  border: none;
+  color: white;
+  font-weight: 700;
+  border-radius: 8px; /* Match your button radius */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Consistent shadow */
+  text-decoration: none;
+  transition: background-color 0.3s ease; /* Smooth transition like search button */
+}
+
+/* Ensure no overlap with existing .card classes */
+.card-berita, .card-artikel, .card-pengumuman {
+  /* Existing styles remain unchanged to avoid overlap */
+}
+
+/****************************************** PAGINATION COMPONENT ******************************************:
+
+/* Pagination container to center and style the pagination bar */
+.custom-pagination-container {
+  display: flex;
+  justify-content: center; /* Center the pagination horizontally */
+  margin: 1em auto; /* Reduced vertical spacing and center horizontally */
+  width: 100%; /* Full width for responsiveness */
+  background-color: #a0d8ef; /* Light blue background to match the card area */
+  padding: 0.5em 0; /* Reduced vertical padding for compactness */
+}
+
+/* Custom pagination bar styling */
+.custom-pagination {
+  background-color: #d9d9d9; /* Light gray background for the pagination bar */
+  border-radius: 10px; /* Smaller rounded corners to match the image */
+  padding: 0.3em 0.5em; /* Reduced padding for compactness */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduced shadow for a smaller look */
+  display: inline-flex; /* Keep pagination inline for centering */
+  border-top: 3px solid #365486; /* Reduced top border thickness to match the image */
+}
+
+/* Pagination list items */
+.custom-pagination .page-item {
+  margin: 0 0.1em; /* Reduced spacing between items for compactness */
+}
+
+/* Pagination links (numbers, arrows, and ellipsis) */
+.custom-pagination .page-link {
+  background-color: #ffffff; /* White background for buttons */
+  border: none; /* Remove default Bootstrap border */
+  color: #000000; /* Black text for numbers and arrows */
+  border-radius: 8px; /* Smaller rounded corners for buttons */
+  padding: 0.3em 0.5em; /* Reduced padding for smaller buttons */
+  font-size: 0.9rem; /* Reduced font size for compactness */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Reduced shadow for each button */
+  text-decoration: none; /* Remove underline */
+  transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+/* Active state for the current page (e.g., if you want to highlight the active page) */
+.custom-pagination .page-item.active .page-link {
+  background-color: #ffffff; /* Keep white for active, matching the image */
+  color: #000000; /* Black text for active */
+  font-weight: bold; /* Bold for emphasis */
+}
+
+/* Hover state for pagination links */
+.custom-pagination .page-link:hover {
+  background-color: #f0f0f0; /* Light gray on hover */
+  color: #000000; /* Black text on hover */
+}
+
+/* Styling for Previous and Next arrows */
+.custom-pagination .page-link[aria-label="Previous"],
+.custom-pagination .page-link[aria-label="Next"] {
+  font-size: 0.8rem; /* Reduced size of arrows for compactness */
+  padding: 0.3em; /* Reduced padding for smaller arrows */
+}
+
+/* Ellipsis styling */
+.custom-pagination .page-link[href="#"]:not([aria-label]) {
+  background-color: #ffffff; /* White background for ellipsis */
+  border-radius: 8px; /* Smaller rounded corners for ellipsis */
+  padding: 0.3em 0.5em; /* Same reduced padding as numbers */
+  font-size: 0.9rem; /* Reduced font size */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Reduced shadow */
+}
+
+/****************************************** TOP SEARCH BAR COMPONENT ******************************************:
+
+/* Top search bar container to position and style the search bar at the top of content */
+.top-search-bar-container {
+    display: flex;
+    justify-content: center; /* Center the search bar horizontally */
+    margin: 1em auto; /* Add spacing and center horizontally */
+    width: 100%; /* Full width for responsiveness */
+    padding: 0.5em 0; /* Vertical padding for spacing */
+    z-index: 1; /* Ensure search bar stays above the wave background if needed */
+}
+
+/* Top search input field */
+.top-search-input {
+    flex: 1; /* Take available space in the bar */
+    border: none;
+    background: none; /* No additional background */
+    padding: 0.5em 1em; /* Padding for input */
+    font-size: 1rem; /* Readable font size */
+    color: #000000; /* Black text for placeholder and input */
+    border-radius: 20px 0 0 20px; /* Rounded corners on left */
+    outline: none; /* Remove default outline on focus */
+    max-width: 400px;
+}
+
+.top-search-input::placeholder {
+    color: #000000; /* Black placeholder text */
+    font-family: "Poppins", serif; /* Match your website's font */
+    font-weight: 400; /* Regular weight */
+}
+
+.top-search-button {
+  border: none;
+  background: #d9d9d9;
+  padding: 5px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.top-search-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.top-search-button:hover {
+    background-color: #c9c9c9; /* Slightly darker gray on hover */
 }
 
 /* Responsif: Jika layar kecil, ubah tata letak */
