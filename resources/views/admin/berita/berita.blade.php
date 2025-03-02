@@ -98,7 +98,7 @@
   
         {{-- Link to detail news --}}
         <div class="detail">
-          <a href="{{ route('admin.berita.beritaDetail', ['id' => $item->id]) }}">Selengkapnya..</a>
+          <a>Selengkapnya..</a>
         </div>
       </div>
     </div>
