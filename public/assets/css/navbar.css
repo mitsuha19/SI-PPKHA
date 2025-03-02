@@ -14,8 +14,7 @@ body {
 /* Styling navbar */
 nav {
     width: 100%;
-    background: linear-gradient(to bottom, #365486, #7fc7d9); /* Gradasi biru */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to bottom, #365486, #7FC7D9); /* Gradasi biru */
     padding: 30px;
 }
 
@@ -148,52 +147,6 @@ footer {
     padding: 30px;
 }
 
-/* 
-ADMIN
-Styling sidebar admin 
-*/
-/* ADMIN */
-.container-fluid.header-admin {
-    /* Tambahkan .header-admin */
-    width: 100%;
-    background: linear-gradient(to right, #7fc7d9, #436973);
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    /* Header juga fixed */
-    top: 0;
-    left: 0;
-    z-index: 2; /* Pastikan di atas sidebar */
-}
-
-.sidebar-admin {
-    width: 280px;
-    background-color: #f5f7fa;
-    position: fixed; /* Sidebar fixed */
-    left: 0;
-    height: calc(100vh - 67px); /* Hitung tinggi sidebar */
-    overflow-y: auto; /* Jika konten sidebar melebihi tinggi */
-    z-index: 1; /* Di bawah header */
-}
-
-.sidebar-admin a {
-    color: #000000;
-    font-family: "Roboto", serif;
-    font-weight: 500;
-    font-size: 17px;
-}
-
-.sidebar-admin .active {
-    background-color: #7fc7d9;
-    border-radius: 10px;
-    box-shadow: 0px 4px 4px #00000040;
-}
-
-.main-content {
-    margin-left: 280px;
-    padding: 20px 10px 0px 20px;
-    overflow-y: auto;
-    height: 100vh;
-}
-
 /* Style Berita Admin */
 input[type="text"] {
     background-color: #d9d9d9;
@@ -286,6 +239,10 @@ input[type="text"] {
     height: auto; /* Allow content to determine height, ensuring waves are fully visible */
 }
 
+.hero-container h2{
+    text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: auto 1fr auto; /* Three columns: auto for text (far left), 1fr for gap, auto for image (far right) */
@@ -303,11 +260,11 @@ input[type="text"] {
 }
 
 h1 {
-    font-size: 48px; /* Larger heading size to match "Selamat Datang," */
-    margin: 0; /* No margin for tight spacing */
-    color: #0a0a0a; /* Dark blue/black for heading, matching screenshot */
-    font-weight: bold; /* Bold for emphasis */
-    line-height: 1.2; /* Slight line height for readability */
+    font-size: 48px; 
+    margin: 0; 
+    color: #0a0a0a; 
+    font-weight: bold; 
+    line-height: 1.2; 
 }
 
 h2 {
@@ -323,17 +280,17 @@ h2 span {
 }
 
 .highlight {
-    font-weight: bold; /* Ensure "CAIS" is bold and italic */
-    font-style: italic; /* Already italic in your CSS, keep for consistency */
-    color: #0a0a0a; /* Dark blue/black, matching screenshot */
+    font-style: 'Poppins', serif;
+    font-weight: 700; 
+    font-style: italic; 
+    color: #0F1035; 
+    font-size: 96px;
 }
 
 .subheading {
-    font-weight: bold; /* Bold for "Career Alumni Information System" */
-    font-size: 30px; /* Slightly larger for readability, matching screenshot */
-    margin-top: 10px; /* Small margin above subheading */
-    color: #0a0a0a; /* Dark blue/black, matching screenshot */
-    line-height: 1.4; /* Slight line height for readability */
+    font-size: 20px; 
+    margin: 0px; 
+    color: #0F1035; 
 }
 
 .description {
@@ -354,10 +311,9 @@ h2 span {
 }
 
 .image-section img {
-    width: 100%;
-    max-width: 400px; /* Match the circular monument image size in screenshot */
-    border-radius: 50%; /* Keep circular image as shown */
-    border: 5px solid white; /* Keep white border as shown */
+    height: 100%;
+    max-width: 400px; 
+    border-radius: 50%;
 }
 
 /*************************************************************
@@ -396,7 +352,11 @@ h2 span {
     transition: transform 0.3s ease-in-out;
 }
 
-.card:hover {
+.card img{
+    border-radius: 15px;
+}
+
+.background-card:hover {
     transform: translateY(-5px);
 }
 
@@ -406,13 +366,22 @@ h2 span {
     object-fit: cover;
 }
 
-.card-body {
-    padding: 15px;
+.card-detail {
+    padding: 15px 0px;
+    text-align: left;
+}
+
+.card-detail a{
+    text-decoration: none;
+    font-family: 'Poppins', serif;
+    font-style: italic;
+    font-size: 14px;
+    font-weight: 300;
+    color: black;
 }
 
 .card-title {
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 15px;
 }
 
 .card-text {
@@ -444,7 +413,19 @@ h2 span {
     background-color: transparent; /* So the waves remain visible */
 }
 
-.pengumuman-grid {
+.pengumuman-section .bg-card{
+    padding: 10px 0px;
+    background-color: #0F1035;
+    border-radius: 21px;
+    width: fit-content;
+}
+
+.pengumuman-section .card{
+    border-radius: 21px;
+}
+
+.pengumuman-grid, 
+.berita-grid{
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -452,6 +433,19 @@ h2 span {
     margin: auto;
     overflow-x: auto; /* Allows horizontal scrolling on smaller screens */
     padding-bottom: 20px; /* Extra space for scrolling */
+}
+
+.berita-grid .background-card{
+    background-color: #0F1035;
+    height: fit-content;
+    border-radius: 15px;
+}
+
+.berita-grid .card,
+.pengumuman-grid .card{
+    border-radius: 25px;
+    padding: 20px;
+    background-color: #7FC7D9;
 }
 
 .pengumuman-img {
@@ -709,6 +703,13 @@ body {
   background-color: mintcream; /* Keep the mintcream background for the card */
 }
 
+.content-with-background .background-card{
+    background-color: #0F1035;
+    border-radius: 21px;
+    height: fit-content;
+    width: fit-content;
+}
+
 /* Horizontal card styling */
 .horizontal-card {
   max-width: 65em;
@@ -716,9 +717,8 @@ body {
   flex-direction: row;
   background-color: #91D3E6; /* Match search bar background for consistency */
   border: 0;
-  border-radius: 50px;
+  border-radius: 32px;
   box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18); /* Slightly adjust shadow to match your design */
-  margin: 3em auto;
 }
 
 
@@ -900,10 +900,11 @@ body {
 .top-search-button {
   border: none;
   background: #d9d9d9;
-  padding: 5px;
-  border-radius: 20px;
+  padding: 10px;
+  width: 62x;
+  height: 50px;
+  border-radius: 15px;
   cursor: pointer;
-  display: inline-flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

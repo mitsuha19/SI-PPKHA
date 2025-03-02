@@ -41,11 +41,15 @@
                   </h2>
                   <div class="align-self-start">
                     <div class="ms-auto d-flex gap-2">
-                      <a href="{{ route('admin.berita.beritaEdit', $item->id) }}" class="btn btn-sm btn-success">
+                      <a href="{{ route('admin.berita.beritaEdit', $item->id) }}">
+                        <button type="button" class="btn">
+                          <i class='bx bx-pencil'></i>
                           Edit
+                        </button>
                       </a>
-                      <button class="btn btn-sm btn-danger"
+                      <button type="button" class="btn"
                           onclick="openDeleteModal({{ $item->id }}, '{{ $item->judul_berita }}')">
+                          <i class='bx bx-trash' ></i>
                           Hapus
                       </button>
                   </div>
@@ -114,10 +118,10 @@
     <a href="#" style="background-color: transparent">&raquo;</a>
   </div>
 
-  <div class="align-self-end justify-self-end" style="margin-bottom: 100px">
+  <div class="align-self-end justify-self-end me-5" style="margin-bottom: 100px">
     <a href="{{ route('admin.berita.add') }}" class="btn btn-primary">
       <i class='bx bx-plus-circle'></i> Tambah
-  </a>
+    </a>
 
   </div>
   
