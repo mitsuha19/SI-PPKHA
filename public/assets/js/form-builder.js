@@ -46,18 +46,17 @@ document.addEventListener("DOMContentLoaded", function () {
         const question = document.createElement("div");
         question.classList.add(
             "question-container",
-            "bg-gray-100",
             "p-4",
             "rounded-lg",
             "shadow-sm",
             "relative"
         );
         question.innerHTML = `
-          <input type="text" class="form-control font-semibold border-b w-full focus:outline-none"
+        <div class="d-flex flex-row gap-2">
+            <input type="text" class="form-control focus:outline-none"
               placeholder="Pertanyaan">
-          <button class="absolute top-0 right-0 text-red-500 text-lg remove-question">&times;</button>
-          <div class="flex justify-between items-center mt-3">
-              <label class="text-sm font-medium">Jenis Jawaban</label>
+          <!--<button class="absolute top-0 right-0 text-red-500 text-lg remove-question">&times;</button>-->
+          <div class="d-flex justify-between items-center mt-3" style="width: 50%">
               <select class="form-select text-sm bg-white p-2 rounded border question-type">
                   <option value="multiple-choice">Pilihan Ganda</option>
                   <option value="short-answer">Jawaban Singkat</option>
@@ -66,6 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
                   <option value="dropdown">Drop-down</option>
               </select>
           </div>
+        </div>
           <div class="answers space-y-2 mt-3">
               ${createOption()}  <!-- Tambahkan opsi awal -->
               <button class="text-blue-500 text-sm add-option">Tambah Opsi</button>
