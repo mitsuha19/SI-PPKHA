@@ -41,7 +41,6 @@
   
         <p class="mb-0 montserrat-light">Norxel Teknologi Indonesia</p>
         
-        
         <ul class="roboto-light text-black mb-1 mt-2" style="font-size: 15px">
           <li>Membuat Laporan dan report</li>
           <li>Menguasai microsoft excel dan microsoft word...</li>
