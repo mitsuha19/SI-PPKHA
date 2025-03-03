@@ -48,6 +48,50 @@
     font-weight: 600;
 }
 
+/* NAVBAR ADMIN */
+
+.swal-popup {
+    border-radius: 8px; /* Rounded corners like in your image */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+    width: 500px; /* Increase width (adjust as needed) */
+    min-height: 200px; /* Increase minimum height (adjust as needed) */
+    padding: 25px;
+}
+
+.swal-title {
+    font-size: 30px; /* Adjust font size to match your image */
+    color: #000000; /* Black text for the title, matching your image */
+    font-weight: bold; /* Bold text for emphasis */
+}
+
+.swal-confirm, .swal-cancel {
+    border-radius: 10px; /* Rounded corners for buttons, matching your image */
+    padding: 10px 20px; /* Adjust padding for button size */
+    font-size: 20px; /* Match button text size */
+    border: none; /* Remove the border entirely */
+    background: linear-gradient(to bottom, #a2d9e0, #468c98); /* Apply the teal gradient to both buttons */
+    color: #000000; /* Black text for buttons, matching your image */
+    transition: all 0.3s ease; /* Smooth transition for all properties */
+    margin: 0 20px; /* Space between buttons */
+    cursor: pointer; /* Show pointer cursor on hover for better UX */
+}
+
+.swal-confirm:hover, .swal-cancel:hover {
+    opacity: 0.6; /* Fade on hover for interactivity */
+    background: #468c98; /* Lighter/darker gradient on hover for subtle feedback */
+}
+
+.swal2-actions {
+    display: flex; /* Ensure Flexbox is used */
+    justify-content: flex-end; /* Push buttons to the right, but we’ll use order to swap them */
+    flex-direction: row-reverse; /* Reverse the order of flex items (Cancel first, Yes second) */
+}
+
+.swal2-backdrop-blur {
+    background-color: rgba(0, 0, 0, 0.4) !important; /* Semi-transparent overlay */
+    backdrop-filter: blur(5px) !important; /* Apply blur effect to the background */
+    -webkit-backdrop-filter: blur(5px) !important; /* For Safari support */
+}
 /* 
   ADMIN
   Styling sidebar admin 

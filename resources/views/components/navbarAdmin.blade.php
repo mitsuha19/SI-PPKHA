@@ -10,6 +10,10 @@
                   </div>
               </div>
           </a>
+          <a href="#" class="btn btn-transparent d-flex align-items-center text-decoration-none" style="margin-left:auto; margin-right: 1%; background: none; border: none; padding: 0;" onclick="showLogoutConfirmation(event)">
+            <span class="fw-bold" style="font-size: 14px; margin-right: 5px; color: #000000;">Hi, Glen Pardede</span>
+            <img src="{{ asset('assets/images/logout-04.png') }}" alt="Logout Icon" style="margin-left: 5px;">
+        </a>
       </header>
   </div>
   <div class="sidebar-admin">  
