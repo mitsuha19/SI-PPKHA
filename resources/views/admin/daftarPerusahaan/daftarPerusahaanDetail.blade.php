@@ -45,7 +45,7 @@
             </ul>
           </div>
         </div>
-        <div class="d-flex flex-row gap-2">
+        <div class="d-flex flex-row gap-2 flex-wrap">
           <div class="pills" >KOTA JAKARTA UTARA</div>
           <div class="pills">Administrasi</div>
           <div class="pills">Full-Time</div>

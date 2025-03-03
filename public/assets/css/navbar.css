@@ -81,12 +81,31 @@ nav ul li a:active {
     text-align: left;
 }
 
+.circle {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: black;
+}
+
+
 /* Style Footer */
 footer {
     width: 100%;
     background: linear-gradient(to bottom, #7fc7d9, #436973);
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     padding: 30px;
+}
+
+.montserrat-light {
+    font-family: "Montserrat", serif;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.montserrat-medium {
+    font-family: "Montserrat", serif;
+    font-weight: 600;
 }
 
 .poppins-regular {
@@ -361,7 +380,7 @@ h2 span {
 }
 
 .card-img-top {
-    width: 100%;
+    width: fit-content;
     height: 200px;
     object-fit: cover;
 }
@@ -380,8 +399,23 @@ h2 span {
     color: black;
 }
 
+.card-detail-perusahaan a{
+    font-family: 'Roboto', serif;
+    font-weight: 600;
+    font-size: 22px;
+    text-decoration: none;
+    font-style: italic;
+    color: white;
+}
+
+.card-detail-perusahaan i{
+    font-weight: 600;
+    color: black;
+}
+
 .card-title {
     font-size: 15px;
+    text-align: left;
 }
 
 .card-text {
@@ -405,7 +439,8 @@ h2 span {
 /*************************************************************
    * 5) Pengumuman Section Styling
    *************************************************************/
-.pengumuman-section {
+.pengumuman-section,
+.artikel-section {
     position: relative; /* Ensure it stays above the background */
     z-index: 1; /* Above the waves */
     text-align: center;
@@ -413,19 +448,22 @@ h2 span {
     background-color: transparent; /* So the waves remain visible */
 }
 
-.pengumuman-section .bg-card{
+.pengumuman-section .bg-card,
+.artikel-section .bg-card{
     padding: 10px 0px;
     background-color: #0F1035;
     border-radius: 21px;
     width: fit-content;
 }
 
-.pengumuman-section .card{
+.pengumuman-section .card,
+.artikel-section .card{
     border-radius: 21px;
 }
 
 .pengumuman-grid, 
-.berita-grid{
+.berita-grid,
+.artikel-grid{
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -435,15 +473,17 @@ h2 span {
     padding-bottom: 20px; /* Extra space for scrolling */
 }
 
-.berita-grid .background-card{
+.berita-grid .background-card,
+.artikel-grid .background-card{
     background-color: #0F1035;
     height: fit-content;
     border-radius: 15px;
 }
 
 .berita-grid .card,
-.pengumuman-grid .card{
-    border-radius: 25px;
+.pengumuman-grid .card,
+.artikel-grid .card{
+    border-radius: 30px;
     padding: 20px;
     background-color: #7FC7D9;
 }
@@ -472,6 +512,18 @@ h2 span {
   color: #000000;
 }
 
+.pills {
+    padding: 5px 12px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 30px;
+    font-size: 9px;
+    color: #0f1035;
+    font-family: "Roboto", serif;
+    font-weight: 600;
+    align-items: center;
+}
+
 /****************************************** DETAIL BERANDA ******************************************/
 
 /************************  DETAIL LOWONGAN ************************/
@@ -483,6 +535,17 @@ h2 span {
     border-radius: 20px;
     margin: auto;
     padding: 15px; /* Add padding to the card */
+}
+
+.message-lowongan{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    background-color: #EE5219;
+    width: fit-content;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 10px;
 }
 
 .horizontal-card3 {
@@ -510,13 +573,15 @@ h2 span {
 }
 
 .skill-badge {
+    font-family: "Roboto", serif;
+    font-weight: 600;
+    margin: 3px 0px;
+    font-size: 7px;
     display: inline-block;
+    white-space: nowrap; /* Mencegah teks terpotong */
     padding: 8px 12px;
     border: 2px solid black;
-    border-radius: 20px; /* Membuat efek rounded */
-    font-size: 14px;
-    font-weight: bold;
-    white-space: nowrap; /* Mencegah teks terpotong */
+    border-radius: 20px; 
 }
 
 /* First container (image, glued to the left) */
@@ -731,7 +796,7 @@ body {
 .horizontal-card img {
   max-width: 25%;
   margin: auto;
-  padding: 0.5em;
+  padding: 1rem;
   border-radius: 50px;
 }
 
@@ -740,7 +805,7 @@ body {
 .horizontal-card-body {
   display: flex;
   justify-content: space-between;
-  padding: 15px; /* Consistent with your .card-body padding */
+  padding: 15px 15px 15px 5px;
 }
 
 /* Text section */
@@ -755,7 +820,6 @@ body {
   font-weight: bold; /* Match .fw-bold from Bootstrap */
   font-size: 1.25rem; /* Slightly larger for title, consistent with your design */
   color: #000000;
-  text-decoration: underline;
   font-style: italic;
 }
 

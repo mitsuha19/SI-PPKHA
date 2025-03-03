@@ -5,6 +5,11 @@
 
 <div class="p-3 detail-content">
     <!-- Berita Section -->
+    <div class="message-lowongan montserrat-medium align-items-center">
+        <i class='bx bx-md bx-message-error'></i>
+        <p class="mb-0">Kamu dapat melamar lowongan ini pada 18 Feb 2025 - 17 Apr 2025</p>
+    </div>
+    
     <div class="horizontal-card2 mt-4">
         <!-- ***CHANGE START***: Added horizontal-card-body2 as a Flexbox container -->
         <div class="horizontal-card-body2">
@@ -16,10 +21,10 @@
             <!-- Second Container: Text (center) -->
             <div class="text-container">
                 <div class="horizontal-card-text-section2">
-                    <h5 class="horizontal-card-title2">GENERAL ADMIN STAFF</h5>
-                    <p class="horizontal-card-text2">
+                    <h5 class="montserrat-medium mb-0" style="font-size: 36px;">GENERAL ADMIN STAFF</h5>
+                    <p class="montserrat-medium" style="font-size: 15px;">
                         Norxel Teknologi Indonesia<br>
-                        <div class="text-row">
+                        <div class="text-row montserrat-medium" style="width: fit-content">
                             <div class="info-item">
                                 <span class="text-label">Lokasi</span>
                                 <span class="text-value">Kota Jakarta Utara</span>
@@ -54,68 +59,54 @@
     </div>
 
     <div class="horizontal-card3 mt-4">
-        <div class="horizontal-card-body3">
-            <div class="horizontal-card-text-section3">
-                <h5 class="horizontal-card-title3">Deskripsi Lowongan</h5>
-            </div>
-        </div>
-
-        <ul>
-            <li> Membuat laporan dan report
-            <li> Menguasai microsoft excel dan microsoft word
-            <li> Melakukan filing dokumen
-            <li> Melakukan entry data
-        </ul>
-    </div>
-    <div class="horizontal-card3 mt-4">
-        <div class="horizontal-card-body3">
-            <div class="horizontal-card-text-section3">
-                <h5 class="horizontal-card-title3">Deskripsi Lowongan</h5>
-            </div>
-        </div>
-
-        <ul>
-            <li> Membuat laporan dan report
-            <li> Menguasai microsoft excel dan microsoft word
-            <li> Melakukan filing dokumen
-            <li> Melakukan entry data
+        <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Deskripsi Lowongan</h5>
+        <hr class="mt-1" style="opacity: 1">
+        <ul class="mb-0 montserrat-medium" style="font-size: 12px">
+            <li> Membuat laporan dan report </li>
+            <li> Menguasai microsoft excel dan microsoft word </li>
+            <li> Melakukan filing dokumen </li>
+            <li> Melakukan entry data </li>
         </ul>
     </div>
 
     <div class="horizontal-card3 mt-4">
-        <div class="horizontal-card-body3">
-            <div class="horizontal-card-text-section3">
-                <h5 class="horizontal-card-title3">Deskripsi Lowongan</h5>
-            </div>
-        </div>
-
-        <ul>
-            <li> Membuat laporan dan report
-            <li> Menguasai microsoft excel dan microsoft word
-            <li> Melakukan filing dokumen
-            <li> Melakukan entry data
+        <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Deskripsi Lowongan</h5>
+        <hr class="mt-1" style="opacity: 1">
+        <ul class="mb-0 montserrat-medium" style="font-size: 12px">
+            <li> Membuat laporan dan report </li>
+            <li> Menguasai microsoft excel dan microsoft word </li>
+            <li> Melakukan filing dokumen </li>
+            <li> Melakukan entry data </li>
         </ul>
     </div>
 
     <div class="horizontal-card3 mt-4">
-        <div class="horizontal-card-body3">
-            <div class="horizontal-card-text-section3">
-                <h5 class="horizontal-card-title3">Deskripsi Lowongan</h5>
-            </div>
-        </div>
+        <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Deskripsi Lowongan</h5>
+        <hr class="mt-1" style="opacity: 1">
+        <ul class="mb-0 montserrat-medium" style="font-size: 12px">
+            <li> Membuat laporan dan report </li>
+            <li> Menguasai microsoft excel dan microsoft word </li>
+            <li> Melakukan filing dokumen </li>
+            <li> Melakukan entry data </li>
+        </ul>
+    </div>
 
-        <ul>
-            <li> Membuat laporan dan report
-            <li> Menguasai microsoft excel dan microsoft word
-            <li> Melakukan filing dokumen
-            <li> Melakukan entry data
+    <div class="horizontal-card3 mt-4">
+        <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Deskripsi Lowongan</h5>
+        <hr class="mt-1" style="opacity: 1">
+        <ul class="mb-0 montserrat-medium" style="font-size: 12px">
+            <li> Membuat laporan dan report </li>
+            <li> Menguasai microsoft excel dan microsoft word </li>
+            <li> Melakukan filing dokumen </li>
+            <li> Melakukan entry data </li>
         </ul>
     </div>
 
     <div class="horizontal-card3">
         <div class="horizontal-card-text-section3">
-            <h4 class="horizontal-card-title3">Keahlian</h4>
-            <div class="skills-container">
+            <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Keahlian</h5>
+            <hr class="mt-1" style="opacity: 1">
+            <div class="skills-container gap-3">
                 <span class="skill-badge">Business Development</span>
                 <span class="skill-badge">Teamwork</span>
                 <span class="skill-badge">Management</span>

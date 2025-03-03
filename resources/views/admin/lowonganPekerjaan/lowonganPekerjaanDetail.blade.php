@@ -3,6 +3,10 @@
 @section('content')
 @include('components.navbarAdmin')
 <div class="main-content d-flex flex-column align-items-start gap-3" >
+  <div class="message-lowongan montserrat-medium align-items-center">
+    <i class='bx bx-md bx-message-error'></i>
+    <p class="mb-0">Kamu dapat melamar lowongan ini pada 18 Feb 2025 - 17 Apr 2025</p>
+</div>
   <div class="card-lowongan d-flex flex-row align-items-center gap-5">
     <img style="height: 92px; width: auto;" src="{{ asset('assets/images/image2.png') }}">
     <div class="montserrat-medium mb-0">
@@ -59,12 +63,15 @@
       <h2 class="mb-0" >Keahlian</h2>
       <hr style="opacity:1; margin: 10px 0px">
 
-      <div class="d-flex gap-2">
+      <div class="d-flex gap-2 flex-wrap">
         <div class="pills" >Business Development</div>
         <div class="pills">Teamwork</div>
         <div class="pills">Management</div>
         <div class="pills">Office Administration</div>
         <div class="pills">Good Communication Skills</div>
+        <div class="pills" >KOTA JAKARTA UTARA</div>
+        <div class="pills">Administrasi</div>
+        <div class="pills">Full-Time</div>
       </div>
     </div>
   </div>

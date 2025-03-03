@@ -9,7 +9,7 @@
         <!-- Top Search Bar Section (New, positioned at the top of content) -->
         <div class="top-search-bar-container">
             <div class="top-search-bar gap-3">
-                <input type="text" class="top-search-input" placeholder="Cari Berita" />
+                <input type="text" class="top-search-input" placeholder="Cari Pengumuman" />
                 <button class="top-search-button">
                     <i class='bx bx-search bx-sm'></i>
                 </button>
