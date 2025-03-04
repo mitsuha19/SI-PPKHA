@@ -5,14 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function createOption() {
         return `
-        
-            <div class="flex items-center gap-2 w-full">
-            
-    <input type="radio" disabled class="shrink-0">
-    <div contenteditable="true" class="border-b flex-1 focus:outline-none text-gray-700 p-1" data-placeholder="Opsi Baru"></div>
-</div>
-
-               
+            <div class="option flex items-center gap-3 w-full">
+                <input type="radio" disabled class="shrink-0">
+                <div contenteditable="true" class="border-b flex-grow focus:outline-none text-gray-700 p-1" data-placeholder="Opsi Baru"></div>
                 <select class="form-select text-sm bg-white p-1 rounded border select-section">
                     ${getSectionOptions()}
                 </select>
@@ -123,7 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return question;
     }
 
-    // Fungsi untuk menambah section baru
     function createSection() {
         const section = document.createElement("div");
         section.classList.add(
@@ -137,44 +131,36 @@ document.addEventListener("DOMContentLoaded", function () {
             "max-w-2xl"
         );
         section.innerHTML = `
-                <!-- Contoh Section Tanpa Pertanyaan Awal -->
-                <div class="section-container p-6 rounded-lg shadow-md relative w-full max-w-2xl gap-5">
-                    <!-- Tombol Hapus Section -->
-                    <button class="absolute top-2 right-2 text-red-500 text-lg remove-section">&times;</button>
-
-                    <div class="d-flex flex-row pe-4 section-container-main">
-                        <div class="mb-4 d-flex flex-column me-3" style="width: 95%">
-                            <label for="judul" class="text-black">Tambahkan Judul Form</label>
-                            <input type="text"
-                                class=" mb-3 bg-white text-lg font-semibold border-b w-100 focus:outline-none"
-                                id="judul" placeholder="Masukkan Judul Formulir">
-                            <label for="judul" class="text-black">Tambahkan Deskripsi</label>
-                            <input type="text"
-                                class="mb-3 bg-white text-lg font-semibold border-b w-100 focus:outline-none" id="deskripsi"
-                                placeholder="Masukkan Deskripsi Formulir">
-                        </div>
-
-                        <!-- Floating Button -->
-                        <div class="floating-menu gap-3 py-3">
-                            <button class="floating-btn add-question" title="Tambah Pertanyaan">
-                                <i class="bx bx-plus bx-sm"></i>
-                            </button>
-                            <button class="floating-btn add-section" title="Tambah Section">
-                                <i class="bx bx-list-plus bx-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Container Pertanyaan yang Kosong -->
-                    <div class="questions space-y-4"></div>
-
+            <!-- Tombol Hapus Section -->
+            <button class="absolute top-2 right-2 text-red-500 text-lg remove-section">&times;</button>
+    
+            <div class="d-flex flex-row pe-4 section-container-main">
+                <div class="mb-4 d-flex flex-column me-3" style="width: 95%">
+                    <label for="judul" class="text-black">Tambahkan Judul Form</label>
+                    <input type="text"
+                        class="mb-3 bg-white text-lg font-semibold border-b w-100 focus:outline-none"
+                        id="judul" placeholder="Masukkan Judul Formulir">
+                    <label for="deskripsi" class="text-black">Tambahkan Deskripsi</label>
+                    <input type="text"
+                        class="mb-3 bg-white text-lg font-semibold border-b w-100 focus:outline-none"
+                        id="deskripsi" placeholder="Masukkan Deskripsi Formulir">
+                </div>
+    
+                <!-- Floating Button -->
+                <div class="floating-menu gap-3 py-3">
+                    <button class="floating-btn add-question" title="Tambah Pertanyaan">
+                        <i class="bx bx-plus bx-sm"></i>
+                    </button>
+                    <button class="floating-btn add-section" title="Tambah Section">
+                        <i class="bx bx-list-plus bx-sm"></i>
+                    </button>
                 </div>
             </div>
-        </div>
-
-            
-            
+    
+            <!-- Container Pertanyaan yang Kosong -->
+            <div class="questions space-y-4"></div>
         `;
+
         formSections.appendChild(section);
     }
 
