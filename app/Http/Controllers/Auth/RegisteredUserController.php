@@ -32,15 +32,21 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'nama' => ['required', 'string', 'max:255'],
+            'nim' => ['required', 'string', 'max:255', 'unique:' . User::class . ',nim'],
+            'username' => ['required', 'string', 'max:255', 'unique:' . User::class . ',username'],
+            'prodi' => ['required', 'string', 'max:255'],
+            'tahun_lulus' => ['required', 'numeric', 'digits:4', 'max:' . date('Y')],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'g-recaptcha-response' => ['required', new Recaptcha]
         ]);
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'nama' => $request->nama,
+            'nim' => $request->nim,
+            'username' => $request->username,
+            'prodi' => $request->prodi,
+            'tahun_lulus' => $request->tahun_lulus,
             'password' => Hash::make($request->password),
         ]);
 
@@ -48,6 +54,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('public.beranda', absolute: false));
     }
 }

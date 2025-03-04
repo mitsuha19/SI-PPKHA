@@ -27,14 +27,14 @@
                 @if (Route::has('login'))
                     @auth
                         <li>
-                            <a href="{{ route('dashboard') }}" class="inline-block px-5 py-1.5 text-white border border-transparent hover:border-white rounded-sm text-sm leading-normal">
-                                Dashboard
+                            <a href="{{ route('admin.dashboard') }}">
+                                Admin
                             </a>
                         </li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="inline-block px-5 py-1.5 text-white border border-transparent hover:border-white rounded-sm text-sm leading-normal">
+                                <button type="submit">
                                     Logout
                                 </button>
                             </form>

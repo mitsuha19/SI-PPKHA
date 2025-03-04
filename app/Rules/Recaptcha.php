@@ -21,6 +21,7 @@ class Recaptcha implements ValidationRule
             'remoteip' => \request()->ip()
         ]);
 
+        dd($g_response->json());
         if (!$g_response->json('success')) {
             $fail("The {$attribute} is invalid.");
         }

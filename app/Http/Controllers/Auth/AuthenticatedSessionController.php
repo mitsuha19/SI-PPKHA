@@ -11,9 +11,6 @@ use Illuminate\View\View;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Display the login view.
-     */
     public function create(): View
     {
         return view('auth.login');
@@ -28,7 +25,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('ppkha.beranda', absolute: false));
+        return redirect()->route('public.beranda');
+        // return redirect()->route('admin.dashboard'); // test redirect to Admin Dashboard
     }
 
     /**
@@ -36,6 +34,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
