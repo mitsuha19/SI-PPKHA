@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return `
         
             <div class="flex items-center gap-2 w-full">
-            // bikinlingkaran opsi barunya ke kiri plis
+            
     <input type="radio" disabled class="shrink-0">
     <div contenteditable="true" class="border-b flex-1 focus:outline-none text-gray-700 p-1" data-placeholder="Opsi Baru"></div>
 </div>
