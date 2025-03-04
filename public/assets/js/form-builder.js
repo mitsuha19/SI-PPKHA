@@ -2,17 +2,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const formSections = document.getElementById("form-sections");
 
     // Fungsi untuk membuat opsi jawaban dengan dropdown tujuan section
+
     function createOption() {
         return `
-          <div class="flex items-center space-x-2 option">
-              <input type="radio" disabled>
-              <input type="text" class="form-control border-b w-full focus:outline-none" placeholder="Opsi Baru">
-              <select class="form-select text-sm bg-white p-1 rounded border select-section">
-                  ${getSectionOptions()}
-              </select>
-              <button class="text-red-500 text-lg remove-option">&times;</button>
-          </div>
-      `;
+        
+            <div class="flex items-center gap-2 w-full">
+            // bikinlingkaran opsi barunya ke kiri plis
+    <input type="radio" disabled class="shrink-0">
+    <div contenteditable="true" class="border-b flex-1 focus:outline-none text-gray-700 p-1" data-placeholder="Opsi Baru"></div>
+</div>
+
+               
+                <select class="form-select text-sm bg-white p-1 rounded border select-section">
+                    ${getSectionOptions()}
+                </select>
+                <button class="text-red-500 text-lg remove-option">&times;</button>
+            </div>
+        `;
     }
 
     // Fungsi untuk mengambil daftar section sebagai dropdown tujuan
@@ -37,40 +43,83 @@ document.addEventListener("DOMContentLoaded", function () {
     formSections.addEventListener("click", function (e) {
         if (e.target.classList.contains("remove-section")) {
             e.target.closest(".section-container").remove();
-            updateAllSectionDropdowns(); // Update dropdown setelah menghapus section
+            updateAllSectionDropdowns();
         }
     });
 
-    // Fungsi untuk menambah pertanyaan baru
     function createQuestion() {
         const question = document.createElement("div");
         question.classList.add(
             "question-container",
-            "p-4",
+            "p-6",
             "rounded-lg",
             "shadow-sm",
-            "relative"
+            "relative",
+            "w-full",
+            "max-w-2xl",
+            "bg-gray-100"
         );
+
         question.innerHTML = `
-        <div class="d-flex flex-row gap-2">
-            <input type="text" class="form-control focus:outline-none"
-              placeholder="Pertanyaan">
-          <!--<button class="absolute top-0 right-0 text-red-500 text-lg remove-question">&times;</button>-->
-          <div class="d-flex justify-between items-center mt-3" style="width: 50%">
-              <select class="form-select text-sm bg-white p-2 rounded border question-type">
-                  <option value="multiple-choice">Pilihan Ganda</option>
-                  <option value="short-answer">Jawaban Singkat</option>
-                  <option value="paragraph">Paragraf</option>
-                  <option value="checkbox">Kotak Centang</option>
-                  <option value="dropdown">Drop-down</option>
-              </select>
-          </div>
-        </div>
-          <div class="answers space-y-2 mt-3">
-              ${createOption()}  <!-- Tambahkan opsi awal -->
-              <button class="text-blue-500 text-sm add-option">Tambah Opsi</button>
-          </div>
-      `;
+            <!-- Tombol Hapus Pertanyaan -->
+            <button class="absolute top-2 right-2 text-red-500 text-lg remove-question">&times;</button>
+    
+            <!-- Baris Pertanyaan & Dropdown -->
+            <div class="d-flex justify-between items-center mb-3 gap-5">
+                <input type="text" class="form-control font-semibold border-b flex-grow focus:outline-none"
+                    placeholder="Pertanyaan">
+    
+                <select class="form-select text-sm bg-white p-2 rounded border question-type w-2/3 select-arrow-right equal-radius">
+                    <option value="short-answer">Jawaban Singkat</option>
+                    <option value="paragraph">Paragraf</option>
+                    <option value="multiple-choice">Pilihan Ganda</option>
+                    <option value="checkbox">Kotak Centang</option>
+                    <option value="dropdown">Drop-down</option>
+                    <option value="linear-scale">Skala-Linier</option>
+                    <option value="location">Lokasi</option>
+                </select>
+            </div>
+    
+            <!-- Container Jawaban -->
+            <div class="answers space-y-2 mt-3"></div>
+
+          
+        `;
+
+        // Menambahkan event listener ke dropdown
+        const questionType = question.querySelector(".question-type");
+        const answersContainer = question.querySelector(".answers");
+
+        function updateAnswers() {
+            const selectedType = questionType.value;
+            if (
+                selectedType === "multiple-choice" ||
+                selectedType === "checkbox" ||
+                selectedType === "dropdown"
+            ) {
+                answersContainer.innerHTML = `
+                    ${createOption()} 
+                    <button class="text-blue-500 text-sm mt-2 add-option">Tambah Opsi</button>
+                `;
+            } else if (selectedType === "short-answer") {
+                answersContainer.innerHTML = `
+                    <input type="text" class="borderless-input"
+                        placeholder="Teks Jawaban Singkat">
+                `;
+            } else if (selectedType === "paragraph") {
+                answersContainer.innerHTML = `
+                    <textarea class="borderless-textarea"
+                        placeholder="Teks Jawaban Panjang"></textarea>
+                `;
+            }
+        }
+
+        // Set jawaban default pertama kali
+        updateAnswers();
+
+        // Event listener saat dropdown berubah
+        questionType.addEventListener("change", updateAnswers);
+
         return question;
     }
 
@@ -88,24 +137,44 @@ document.addEventListener("DOMContentLoaded", function () {
             "max-w-2xl"
         );
         section.innerHTML = `
-          <button class="absolute top-2 right-2 text-red-500 text-lg remove-section">&times;</button>
-          <div class="mb-4">
-              <input type="text" class="form-control text-lg font-semibold border-b w-full focus:outline-none"
-                  placeholder="Bagian Tanpa Judul">
-              <input type="text"
-                  class="form-control text-sm text-gray-600 border-b w-full mt-1 focus:outline-none"
-                  placeholder="Deskripsi (Opsional)">
-          </div>
-          <div class="questions space-y-4"></div>
-          <div class="floating-menu">
-              <button class="floating-btn bg-blue-500 hover:bg-blue-600 add-question" title="Tambah Pertanyaan">
-                  <i class="bx bx-plus"></i>
-              </button>
-              <button class="floating-btn bg-blue-500 hover:bg-blue-600 add-section" title="Tambah Section">
-                  <i class="bx bx-list-plus"></i>
-              </button>
-          </div>
-      `;
+                <!-- Contoh Section Tanpa Pertanyaan Awal -->
+                <div class="section-container p-6 rounded-lg shadow-md relative w-full max-w-2xl gap-5">
+                    <!-- Tombol Hapus Section -->
+                    <button class="absolute top-2 right-2 text-red-500 text-lg remove-section">&times;</button>
+
+                    <div class="d-flex flex-row pe-4 section-container-main">
+                        <div class="mb-4 d-flex flex-column me-3" style="width: 95%">
+                            <label for="judul" class="text-black">Tambahkan Judul Form</label>
+                            <input type="text"
+                                class=" mb-3 bg-white text-lg font-semibold border-b w-100 focus:outline-none"
+                                id="judul" placeholder="Masukkan Judul Formulir">
+                            <label for="judul" class="text-black">Tambahkan Deskripsi</label>
+                            <input type="text"
+                                class="mb-3 bg-white text-lg font-semibold border-b w-100 focus:outline-none" id="deskripsi"
+                                placeholder="Masukkan Deskripsi Formulir">
+                        </div>
+
+                        <!-- Floating Button -->
+                        <div class="floating-menu gap-3 py-3">
+                            <button class="floating-btn add-question" title="Tambah Pertanyaan">
+                                <i class="bx bx-plus bx-sm"></i>
+                            </button>
+                            <button class="floating-btn add-section" title="Tambah Section">
+                                <i class="bx bx-list-plus bx-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Container Pertanyaan yang Kosong -->
+                    <div class="questions space-y-4"></div>
+
+                </div>
+            </div>
+        </div>
+
+            
+            
+        `;
         formSections.appendChild(section);
     }
 
@@ -113,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
     formSections.addEventListener("click", function (e) {
         if (e.target.closest(".add-section")) {
             createSection();
-            updateAllSectionDropdowns(); // Update dropdown setelah menambah section
+            updateAllSectionDropdowns();
         }
     });
 
@@ -141,7 +210,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Event Listener untuk Tambah Opsi Jawaban
-    // Event Listener untuk Tambah Opsi Jawaban
     formSections.addEventListener("click", function (e) {
         if (e.target.classList.contains("add-option")) {
             const answersContainer = e.target.parentElement;
@@ -163,39 +231,6 @@ document.addEventListener("DOMContentLoaded", function () {
             const optionToRemove = e.target.closest(".option");
             if (optionToRemove) {
                 optionToRemove.remove();
-            }
-        }
-    });
-
-    // Event Listener untuk mengubah opsi jawaban sesuai dengan jenis yang dipilih
-    formSections.addEventListener("change", function (e) {
-        if (e.target.classList.contains("question-type")) {
-            const questionContainer = e.target.closest(".question-container");
-            const answersContainer =
-                questionContainer.querySelector(".answers");
-
-            if (e.target.value === "multiple-choice") {
-                // Jika pilihan ganda, tambahkan opsi dengan dropdown
-                answersContainer.innerHTML =
-                    createOption() +
-                    `
-                  <button class="text-blue-500 text-sm add-option">Tambah Opsi</button>
-              `;
-            } else if (e.target.value === "short-answer") {
-                // Jika jawaban singkat, hanya tampilkan input
-                answersContainer.innerHTML = `
-                  <input type="text" class="form-control border-b w-full focus:outline-none"
-                      placeholder="Jawaban Singkat">
-              `;
-            } else if (e.target.value === "paragraph") {
-                // Jika paragraf, tampilkan textarea
-                answersContainer.innerHTML = `
-                  <textarea class="form-control border w-full focus:outline-none"
-                      placeholder="Jawaban Panjang"></textarea>
-              `;
-            } else {
-                // Reset jika tipe lain dipilih
-                answersContainer.innerHTML = "";
             }
         }
     });

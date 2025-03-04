@@ -10,7 +10,7 @@
                 <!-- Contoh Section Tanpa Pertanyaan Awal -->
                 <div class="section-container p-6 rounded-lg shadow-md relative w-full max-w-2xl gap-5">
                     <!-- Tombol Hapus Section -->
-                    {{-- <button class="absolute top-2 right-2 text-red-500 text-lg remove-section">&times;</button> --}}
+                    <button class="absolute top-2 right-2 text-red-500 text-lg remove-section">&times;</button>
 
                     <div class="d-flex flex-row pe-4 section-container-main">
                         <div class="mb-4 d-flex flex-column me-3" style="width: 95%">

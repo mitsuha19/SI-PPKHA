@@ -64,19 +64,25 @@
     font-weight: bold; /* Bold text for emphasis */
 }
 
-.swal-confirm, .swal-cancel {
+.swal-confirm,
+.swal-cancel {
     border-radius: 10px; /* Rounded corners for buttons, matching your image */
     padding: 10px 20px; /* Adjust padding for button size */
     font-size: 20px; /* Match button text size */
     border: none; /* Remove the border entirely */
-    background: linear-gradient(to bottom, #a2d9e0, #468c98); /* Apply the teal gradient to both buttons */
+    background: linear-gradient(
+        to bottom,
+        #a2d9e0,
+        #468c98
+    ); /* Apply the teal gradient to both buttons */
     color: #000000; /* Black text for buttons, matching your image */
     transition: all 0.3s ease; /* Smooth transition for all properties */
     margin: 0 20px; /* Space between buttons */
     cursor: pointer; /* Show pointer cursor on hover for better UX */
 }
 
-.swal-confirm:hover, .swal-cancel:hover {
+.swal-confirm:hover,
+.swal-cancel:hover {
     opacity: 0.6; /* Fade on hover for interactivity */
     background: #468c98; /* Lighter/darker gradient on hover for subtle feedback */
 }
@@ -88,8 +94,15 @@
 }
 
 .swal2-backdrop-blur {
-    background-color: rgba(0, 0, 0, 0.4) !important; /* Semi-transparent overlay */
-    backdrop-filter: blur(5px) !important; /* Apply blur effect to the background */
+    background-color: rgba(
+        0,
+        0,
+        0,
+        0.4
+    ) !important; /* Semi-transparent overlay */
+    backdrop-filter: blur(
+        5px
+    ) !important; /* Apply blur effect to the background */
     -webkit-backdrop-filter: blur(5px) !important; /* For Safari support */
 }
 /* 
@@ -181,11 +194,11 @@ input[type="text"] {
     box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);
 }
 
-.message-lowongan{
+.message-lowongan {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    background-color: #EE5219;
+    background-color: #ee5219;
     width: fit-content;
     padding: 10px 20px;
     color: white;
@@ -439,4 +452,25 @@ input[type="file"] {
 }
 .question-container input {
     width: 50%;
+}
+
+.borderless-input,
+.borderless-textarea {
+    border: none;
+    border-bottom: 1px dashed #888;
+    background: transparent;
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+    outline: none;
+}
+
+[data-placeholder]:empty:before {
+    content: attr(data-placeholder);
+    color: gray;
+    pointer-events: none;
+}
+
+.equal-radius {
+    border-radius: 20000px;
 }
