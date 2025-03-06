@@ -223,48 +223,58 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.getElementById("save-form").addEventListener("click", function () {
-    let formTitle = document.getElementById("judul").value;
-    let formDescription = document.getElementById("deskripsi").value;
+    let formTitle = document.getElementById("judul")?.value || "";
+    let formDescription = document.getElementById("deskripsi")?.value || "";
     let questions = [];
 
     document
         .querySelectorAll(".question-container")
         .forEach((questionEl, qIndex) => {
             let questionText =
-                questionEl.querySelector("input.form-control").value;
-            let questionType = questionEl.querySelector(
-                "select.question-type"
-            ).value;
+                questionEl.querySelector("input.form-control")?.value || "";
+            let questionType =
+                questionEl.querySelector("select.question-type")?.value || "";
             let options = [];
 
-            questionEl
-                .querySelectorAll(".option")
-                .forEach((optionEl, oIndex) => {
-                    let optionText = optionEl
-                        .querySelector("div[contenteditable='true']")
-                        .innerText.trim();
-                    let nextSection =
-                        optionEl.querySelector("select.select-section")
-                            ?.value || null;
+            let optionElements = questionEl.querySelectorAll(".option");
 
-                    // Pastikan hanya melakukan .replace() jika nextSection bukan null atau undefined
-                    if (
-                        typeof nextSection === "string" &&
-                        nextSection.startsWith("section-")
-                    ) {
-                        nextSection = parseInt(
-                            nextSection.replace("section-", ""),
-                            10
-                        );
-                    } else {
-                        nextSection = null; // Set ke null jika tidak valid
-                    }
+            console.log(`Total opsi ditemukan: ${optionElements.length}`); // 🔍 Debugging
+
+            // Hindari duplikasi dengan membuat Set
+            let seenOptions = new Set();
+
+            optionElements.forEach((optionEl, oIndex) => {
+                let optionText =
+                    optionEl
+                        .querySelector("div[contenteditable='true']")
+                        ?.innerText.trim() || "";
+                let nextSection =
+                    optionEl.querySelector("select.select-section")?.value ||
+                    null;
+
+                if (
+                    typeof nextSection === "string" &&
+                    nextSection.startsWith("section-")
+                ) {
+                    nextSection = parseInt(
+                        nextSection.replace("section-", ""),
+                        10
+                    );
+                } else {
+                    nextSection = null;
+                }
+
+                // Cegah duplikasi dengan memeriksa apakah sudah ada
+                let optionKey = `${optionText}-${nextSection}`;
+                if (!seenOptions.has(optionKey)) {
+                    seenOptions.add(optionKey);
 
                     options.push({
                         text: optionText,
                         next_section: nextSection,
                     });
-                });
+                }
+            });
 
             questions.push({
                 text: questionText,
