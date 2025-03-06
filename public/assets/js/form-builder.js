@@ -221,3 +221,84 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+document.getElementById("save-form").addEventListener("click", function () {
+    let formTitle = document.getElementById("judul").value;
+    let formDescription = document.getElementById("deskripsi").value;
+    let questions = [];
+
+    document
+        .querySelectorAll(".question-container")
+        .forEach((questionEl, qIndex) => {
+            let questionText =
+                questionEl.querySelector("input.form-control").value;
+            let questionType = questionEl.querySelector(
+                "select.question-type"
+            ).value;
+            let options = [];
+
+            questionEl
+                .querySelectorAll(".option")
+                .forEach((optionEl, oIndex) => {
+                    let optionText = optionEl
+                        .querySelector("div[contenteditable='true']")
+                        .innerText.trim();
+                    let nextSection =
+                        optionEl.querySelector("select.select-section")
+                            ?.value || null;
+
+                    // Pastikan hanya melakukan .replace() jika nextSection bukan null atau undefined
+                    if (
+                        typeof nextSection === "string" &&
+                        nextSection.startsWith("section-")
+                    ) {
+                        nextSection = parseInt(
+                            nextSection.replace("section-", ""),
+                            10
+                        );
+                    } else {
+                        nextSection = null; // Set ke null jika tidak valid
+                    }
+
+                    options.push({
+                        text: optionText,
+                        next_section: nextSection,
+                    });
+                });
+
+            questions.push({
+                text: questionText,
+                type: questionType,
+                options: options,
+            });
+        });
+
+    let formData = {
+        title: formTitle,
+        description: formDescription,
+        questions: questions,
+    };
+
+    console.log("Data yang akan dikirim:", formData); // Debugging sebelum dikirim ke backend
+
+    fetch("/forms", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": document
+                .querySelector('meta[name="csrf-token"]')
+                .getAttribute("content"),
+            Accept: "application/json",
+        },
+        body: JSON.stringify(formData),
+    })
+        .then((response) => response.json())
+        .then((data) => alert("Form berhasil disimpan!"))
+        .catch((error) => console.error("Error:", error));
+});
+
+document.addEventListener("click", function () {
+    let mainContent = document.querySelector(".main-content");
+    mainContent.style.height = "auto"; // Biarkan tinggi menyesuaikan isi
+    mainContent.scrollTop = mainContent.scrollHeight; // Scroll otomatis ke bawah saat ada elemen baru
+});

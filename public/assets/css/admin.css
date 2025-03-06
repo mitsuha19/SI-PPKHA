@@ -148,7 +148,9 @@
     margin-left: 280px;
     padding: 20px 10px 0px 20px;
     overflow-y: auto;
-    height: 100vh;
+    min-height: 100vh; /* Gunakan min-height agar bisa bertambah */
+    height: auto !important; /* Izinkan tinggi menyesuaikan konten */
+    max-height: none; /* Pastikan tidak terbatas */
 }
 
 .main-content h1 {
@@ -517,4 +519,35 @@ input[type="file"] {
     color: red;
     font-size: 18px;
     cursor: pointer;
+}
+
+#form-sections {
+    max-height: 60vh; /* Batasi tinggi agar bisa scroll */
+    overflow-y: auto !important; /* Paksa scroll jika konten lebih besar */
+    display: block;
+    margin-bottom: 10px; /* Kurangi jarak bawah */
+    padding-bottom: 10px; /* Kurangi padding jika perlu */
+}
+
+.save-button-container {
+    position: relative; /* Pastikan tombol tidak melayang */
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    background: white; /* Agar tidak ketumpuk oleh elemen lain */
+}
+
+#save-form {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1000;
 }

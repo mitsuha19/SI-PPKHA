@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\BeritaController;
 
 Route::get('/', function () {
@@ -71,7 +72,6 @@ Route::prefix('admin')->group(function () {
     Route::get('/berita/{id}/edit', [BeritaController::class, 'index4'])->name('admin.berita.beritaEdit');
     Route::put('berita/{id}', [BeritaController::class, 'update'])->name('berita.update');
     Route::delete('/berita/{id}', [BeritaController::class, 'destroy'])->name('admin.berita.destroy');
-
 });
 
 
@@ -157,3 +157,8 @@ Route::get('/admin/tracer-study/create', function () {
 Route::get('/admin/user-survey', function () {
     return view('admin.userSurvey');
 });
+
+
+// form kuisioner
+Route::post('/forms', [FormController::class, 'store'])->name('forms.store');
+Route::get('/forms', [FormController::class, 'index'])->name('forms.index');

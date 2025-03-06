@@ -40,6 +40,10 @@
 
                 </div>
             </div>
+            <div class="text-center mt-3 save-button-container">
+                <button id="save-form" class="btn btn-primary">Simpan Form</button>
+            </div>
+
         </div>
     </div>
 @endsection
