@@ -99,12 +99,12 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (selectedType === "short-answer") {
                 answersContainer.innerHTML = `
                     <input type="text" class="borderless-input"
-                        placeholder="Teks Jawaban Singkat">
+                        placeholder="Teks Jawaban Singkat" disabled>
                 `;
             } else if (selectedType === "paragraph") {
                 answersContainer.innerHTML = `
                     <textarea class="borderless-textarea"
-                        placeholder="Teks Jawaban Panjang"></textarea>
+                        placeholder="Teks Jawaban Panjang" disabled></textarea>
                 `;
             }
         }

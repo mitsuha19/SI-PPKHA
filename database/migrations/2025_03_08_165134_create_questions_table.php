@@ -9,13 +9,15 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('form_id')->constrained('forms')->onDelete('cascade');
-            $table->string('question_text');
-            $table->string('question_type');
+            $table->foreignId('section_id')->constrained()->onDelete('cascade');
+            $table->text('question_body');
+            $table->foreignId('type_question_id')->constrained();
+            $table->boolean('is_required')->default(false);
+            $table->integer('question_order')->default(0);
             $table->timestamps();
         });
     }

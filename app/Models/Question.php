@@ -9,15 +9,20 @@ class Question extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['form_id', 'question_text', 'question_type'];
+    protected $fillable = ['section_id', 'question_body', 'type_question_id', 'is_required', 'question_order'];
 
-    public function form()
+    public function section()
     {
-        return $this->belongsTo(Form::class);
+        return $this->belongsTo(Section::class);
+    }
+
+    public function typeQuestion()
+    {
+        return $this->belongsTo(TypeQuestion::class);
     }
 
     public function options()
     {
-        return $this->hasMany(Option::class);
+        return $this->hasMany(Option::class)->orderBy('option_order');
     }
 }

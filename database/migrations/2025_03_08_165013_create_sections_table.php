@@ -9,22 +9,22 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('forms', function (Blueprint $table) {
+        Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            $table->string('judul_form');
-            $table->text('deskripsi_form')->nullable();
+            $table->foreignId('form_id')->constrained()->onDelete('cascade');
+            $table->string('section_name');
+            $table->integer('section_order')->default(0);
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('forms');
+        Schema::dropIfExists('sections');
     }
 };

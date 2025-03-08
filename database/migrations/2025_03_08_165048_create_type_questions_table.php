@@ -9,22 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('forms', function (Blueprint $table) {
+        Schema::create('type_questions', function (Blueprint $table) {
             $table->id();
-            $table->string('judul_form');
-            $table->text('deskripsi_form')->nullable();
+            $table->string('type_question_name');
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('forms');
+        Schema::dropIfExists('type_questions');
     }
 };

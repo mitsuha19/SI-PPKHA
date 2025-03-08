@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\TracerStudyController;
 
+// user ppkha
 Route::get('/', function () {
     return view('ppkha.beranda');
 });
@@ -16,16 +18,15 @@ Route::get('/berita/detail', function () {
     return view('ppkha.detailBerita');
 });
 
+Route::get('/pengumuman', function () {
+    return view('ppkha.pengumuman');
+});
 Route::get('/pengumuman/detail', function () {
     return view('ppkha.detailPengumuman');
 });
 
 Route::get('/artikel', function () {
     return view('ppkha.artikel');
-});
-
-Route::get('/pengumuman', function () {
-    return view('ppkha.pengumuman');
 });
 
 Route::get('/daftar_perusahaan', function () {
@@ -146,12 +147,15 @@ Route::get('/admin/lowongan-pekerjaan/edit', function () {
 });
 
 //tracerstudy
-Route::get('/admin/tracer-study', function () {
-    return view('admin.tracerStudy.tracerStudy');
-});
-Route::get('/admin/tracer-study/create', function () {
-    return view('admin.tracerStudy.tambahPertanyaan');
-});
+Route::get('/admin/tracer-study', [TracerStudyController::class, 'mainTracerStudy'])->name('admin.tracerStudy.tracerStudy');
+Route::get('/admin/tracer-study/create', [TracerStudyController::class, 'createTracerStudy']);
+Route::post('/admin/tracer-study/create', [TracerStudyController::class, 'store'])->name('admin.forms.store');
+Route::delete('/admin/tracer-study/delete/{id}', [TracerStudyController::class, 'destroy'])->name('tracer-study.destroy');
+Route::get('/admin/tracer-study/edit/{id}', [TracerStudyController::class, 'edit'])->name('admin.forms.edit');
+Route::post('/admin/tracer-study/create', [TracerStudyController::class, 'store'])->name('admin.forms.update');
+Route::resource('forms', TracerStudyController::class);
+Route::get('forms/{formId}/sections', [TracerStudyController::class, 'getSections']);
+Route::get('forms/{formId}/sections/{sectionId}/available', [TracerStudyController::class, 'getAvailableSections']);
 
 //user survey
 Route::get('/admin/user-survey', function () {
