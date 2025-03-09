@@ -152,7 +152,7 @@ Route::get('/admin/tracer-study/create', [TracerStudyController::class, 'createT
 Route::post('/admin/tracer-study/create', [TracerStudyController::class, 'store'])->name('admin.forms.store');
 Route::delete('/admin/tracer-study/delete/{id}', [TracerStudyController::class, 'destroy'])->name('tracer-study.destroy');
 Route::get('/admin/tracer-study/edit/{id}', [TracerStudyController::class, 'edit'])->name('admin.forms.edit');
-Route::post('/admin/tracer-study/create', [TracerStudyController::class, 'store'])->name('admin.forms.update');
+Route::put('/admin/tracer-study/edit/{id}', [TracerStudyController::class, 'update'])->name('admin.forms.update');
 Route::resource('forms', TracerStudyController::class);
 Route::get('forms/{formId}/sections', [TracerStudyController::class, 'getSections']);
 Route::get('forms/{formId}/sections/{sectionId}/available', [TracerStudyController::class, 'getAvailableSections']);

@@ -416,4 +416,263 @@
         </div>
     </template>
 
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            console.log('Script is running');
+
+            let sectionIndex = {{ count($form->sections) }};
+
+            $(document).on('click', '.toggle-section', function() {
+                const $icon = $(this).find('i');
+                const $sectionBody = $(this).closest('.section-card').find('.section-body');
+
+                $sectionBody.slideToggle();
+                $icon.toggleClass('fa-chevron-up fa-chevron-down');
+            });
+
+            function updateSectionNumbers() {
+                $('.section-card').each(function(index) {
+                    $(this).find('.section-number').text(index + 1);
+                });
+            }
+
+            $('#add-section').click(function() {
+                const sectionNumber = sectionIndex + 1;
+                const sectionTemplate = $('#section-template').html()
+                    .replace(/__SECTION_INDEX__/g, sectionIndex)
+                    .replace(/__SECTION_NUMBER__/g, sectionNumber);
+
+                $('#sections-container').append(sectionTemplate);
+                const $newSection = $('.section-card').last();
+                const sectionBottom = $newSection.offset().top + $newSection.outerHeight();
+                const viewportBottom = $(window).scrollTop() + $(window).height();
+                if (sectionBottom > viewportBottom) {
+                    $('html, body').animate({
+                        scrollTop: $(window).scrollTop() + (sectionBottom - viewportBottom) + 50
+                    }, 300);
+                }
+                sectionIndex++;
+            });
+
+            $(document).on('click', '.delete-section', function() {
+                if (confirm('Yakin ingin menghapus section ini?')) {
+                    $(this).closest('.section-card').remove();
+                    updateSectionNumbers();
+                    updateNextSectionDropdowns();
+                }
+            });
+
+            $(document).on('click', '.add-question', function() {
+                const sectionIndex = $(this).data('section-index');
+                const $questionsContainer = $(this).closest('.section-card').find('.questions-container');
+                const questionIndex = $questionsContainer.find('.question-card').length;
+
+                let questionTemplate = $('#question-template').html()
+                    .replace(/__SECTION_INDEX__/g, sectionIndex)
+                    .replace(/__QUESTION_INDEX__/g, questionIndex);
+
+                $questionsContainer.append(questionTemplate);
+            });
+
+            $(document).on('click', '.delete-question', function() {
+                if (confirm('Yakin ingin menghapus pertanyaan ini?')) {
+                    $(this).closest('.question-card').remove();
+                }
+            });
+
+            $(document).on('change', '.question-type', function() {
+                const typeId = parseInt($(this).val());
+                const sectionIndex = $(this).data('section-index');
+                const questionIndex = $(this).data('question-index');
+                const $optionsContainer = $(this).closest('.question-card').find('.options-container');
+
+                $optionsContainer.empty();
+
+                if ([3, 4, 5, 6].includes(typeId)) {
+                    $optionsContainer.show();
+
+                    if (typeId === 6) {
+                        const scaleTemplate = $('#option-scale-template').html()
+                            .replace(/__SECTION_INDEX__/g, sectionIndex)
+                            .replace(/__QUESTION_INDEX__/g, questionIndex);
+
+                        $optionsContainer.append(scaleTemplate);
+                    } else if (typeId === 3) {
+
+                        for (let i = 0; i < 2; i++) {
+                            addMCOption(sectionIndex, questionIndex, i, $optionsContainer);
+                        }
+
+                        const buttonHtml = `
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-sm btn-secondary add-option"
+                                        data-section-index="${sectionIndex}"
+                                        data-question-index="${questionIndex}">
+                                    <i class="fas fa-plus"></i> Tambah Opsi
+                                </button>
+                            </div>`;
+                        $optionsContainer.append(buttonHtml);
+                    } else {
+
+                        for (let i = 0; i < 2; i++) {
+                            addStandardOption(sectionIndex, questionIndex, i, $optionsContainer);
+                        }
+
+                        const buttonHtml = `
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-sm btn-secondary add-option"
+                                        data-section-index="${sectionIndex}"
+                                        data-question-index="${questionIndex}">
+                                    <i class="fas fa-plus"></i> Tambah Opsi
+                                </button>
+                            </div>`;
+                        $optionsContainer.append(buttonHtml);
+                    }
+                } else {
+                    $optionsContainer.hide();
+                }
+            });
+
+            function addStandardOption(sectionIndex, questionIndex, optionIndex, $container) {
+                const optionTemplate = $('#option-template').html()
+                    .replace(/__SECTION_INDEX__/g, sectionIndex)
+                    .replace(/__QUESTION_INDEX__/g, questionIndex)
+                    .replace(/__OPTION_INDEX__/g, optionIndex);
+
+                $container.append(optionTemplate);
+            }
+
+            function addMCOption(sectionIndex, questionIndex, optionIndex, $container) {
+                let optionTemplate = $('#option-mc-template').html()
+                    .replace(/__SECTION_INDEX__/g, sectionIndex)
+                    .replace(/__QUESTION_INDEX__/g, questionIndex)
+                    .replace(/__OPTION_INDEX__/g, optionIndex);
+
+                const $optionElement = $(optionTemplate);
+                $container.append($optionElement);
+
+                updateNextSectionDropdowns();
+            }
+
+            function updateNextSectionDropdowns() {
+                $('.next-section-select').each(function() {
+                    const $select = $(this);
+                    const currentSectionIndex = $select.closest('.section-card').data('section-index');
+                    const currentValue = $select.val();
+
+                    $select.find('option:gt(1)').remove();
+
+                    $('.section-card').each(function() {
+                        const sectionIndex = $(this).data('section-index');
+                        const sectionId = $(this).find(
+                                'input[name^="sections"][name$ = "[section_name]"]').attr('name')
+                            .match(/sections\[(\d+)\]/)[1];
+                        const sectionName = $(this).find(
+                            'input[name^="sections"][name$ = "[section_name]"]').val();
+
+                        if (sectionIndex > currentSectionIndex && sectionName) {
+                            $select.append(`<option value="${sectionId}">${sectionName}</option>`);
+                        }
+                    });
+
+                    if (currentValue) {
+                        $select.val(currentValue);
+                    }
+                });
+            }
+
+            $(document).on('click', '.add-option', function() {
+                const sectionIndex = $(this).data('section-index');
+                const questionIndex = $(this).data('question-index');
+                const $optionsContainer = $(this).closest('.options-container');
+                const typeId = parseInt($(this).closest('.question-card').find('.question-type').val());
+
+                const optionCount = $optionsContainer.find('.option-row').length;
+
+                if (typeId === 3) {
+                    addMCOption(sectionIndex, questionIndex, optionCount, $optionsContainer);
+                } else {
+                    addStandardOption(sectionIndex, questionIndex, optionCount, $optionsContainer);
+                }
+
+                const $buttonDiv = $(this).closest('.mb-3');
+                $optionsContainer.append($buttonDiv);
+            });
+
+            $(document).on('click', '.delete-option', function() {
+                const $optionRow = $(this).closest('.option-row');
+                const optionsCount = $optionRow.siblings('.option-row').length;
+
+                if (optionsCount < 1) {
+                    alert('Harus memiliki minimal 1 opsi!');
+                    return;
+                }
+
+                $optionRow.remove();
+            });
+
+            $('#formTracer').on('submit', function(e) {
+                let isValid = true;
+
+                if ($('.section-card').length === 0) {
+                    alert('Form harus memiliki minimal 1 section!');
+                    isValid = false;
+                }
+
+                $('.section-card').each(function() {
+                    const sectionName = $(this).find('input[name$="[section_name]"]').val();
+                    const questionCount = $(this).find('.question-card').length;
+
+                    if (!sectionName) {
+                        alert('Setiap section harus memiliki nama!');
+                        isValid = false;
+                        return false;
+                    }
+
+                    if (questionCount === 0) {
+                        alert(`Section "${sectionName}" harus memiliki minimal 1 pertanyaan!`);
+                        isValid = false;
+                        return false;
+                    }
+                });
+
+                $('.question-type').each(function() {
+                    if (!$(this).val()) {
+                        const questionText = $(this).closest('.question-card').find(
+                            'input[name$="[question_body]"]').val() || 'Pertanyaan';
+                        alert(`Tipe pertanyaan harus dipilih untuk "${questionText}"!`);
+                        isValid = false;
+                        return false;
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                }
+            });
+
+            updateNextSectionDropdowns();
+
+            $(document).on('change', 'input[name$="[section_name]"]', function() {
+                updateNextSectionDropdowns();
+            });
+        });
+    </script>
+
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .container {
+            height: 100vh;
+            overflow: auto;
+        }
+    </style>
 @endsection

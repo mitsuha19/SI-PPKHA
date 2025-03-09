@@ -41,12 +41,17 @@ class TracerStudyController extends Controller
                 'deskripsi_form' => $request->deskripsi_form,
             ]);
 
+            $sectionIds = [];
+            $questionIds = [];
+
             foreach ($request->sections as $sectionIndex => $sectionData) {
                 $section = Section::create([
                     'form_id' => $form->id,
                     'section_name' => $sectionData['section_name'],
                     'section_order' => $sectionIndex,
                 ]);
+
+                $sectionIds[$sectionIndex] = $section->id;
 
                 if (isset($sectionData['questions']) && is_array($sectionData['questions'])) {
                     foreach ($sectionData['questions'] as $questionIndex => $questionData) {
@@ -58,6 +63,18 @@ class TracerStudyController extends Controller
                             'question_order' => $questionIndex,
                         ]);
 
+                        if (!isset($questionIds[$sectionIndex])) {
+                            $questionIds[$sectionIndex] = [];
+                        }
+                        $questionIds[$sectionIndex][$questionIndex] = $question->id;
+                    }
+                }
+            }
+
+            foreach ($request->sections as $sectionIndex => $sectionData) {
+                if (isset($sectionData['questions']) && is_array($sectionData['questions'])) {
+                    foreach ($sectionData['questions'] as $questionIndex => $questionData) {
+                        $question_id = $questionIds[$sectionIndex][$questionIndex];
                         $needsOptions = in_array($questionData['type_question_id'], [3, 4, 5, 6]);
 
                         if ($needsOptions && isset($questionData['options']) && is_array($questionData['options'])) {
@@ -69,11 +86,15 @@ class TracerStudyController extends Controller
 
                                 $nextSectionId = null;
                                 if ($questionData['type_question_id'] == 3 && isset($optionData['next_section_id'])) {
-                                    $nextSectionId = $optionData['next_section_id'];
+                                    if ($optionData['next_section_id'] === 'submit') {
+                                        $nextSectionId = null;
+                                    } elseif (!empty($optionData['next_section_id'])) {
+                                        $nextSectionId = $sectionIds[$optionData['next_section_id']];
+                                    }
                                 }
 
                                 Option::create([
-                                    'question_id' => $question->id,
+                                    'question_id' => $question_id,
                                     'option_body' => $optionData['option_body'],
                                     'next_section_id' => $nextSectionId,
                                     'option_order' => $optionIndex,
