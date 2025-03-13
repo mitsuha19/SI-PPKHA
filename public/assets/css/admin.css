@@ -103,8 +103,8 @@
     backdrop-filter: blur(
         5px
     ) !important; /* Apply blur effect to the background */
-    -webkit-backdrop-filter: blur(5px) !important; /* For Safari support */
 }
+
 /* 
   ADMIN
   Styling sidebar admin 

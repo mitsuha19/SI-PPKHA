@@ -17,7 +17,7 @@
         </div>
 
         <!-- Berita Section -->
-        <div class="d-flex flex-column align-items-center gap-4">
+        <div class="pengumuman-section d-flex flex-column align-items-center gap-4">
             <div class="background-card">
                 <div class="horizontal-card">
                     <img src="{{asset('assets/images/image.png')}}" class="card-img-top" alt="...">
@@ -91,6 +91,18 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center w-100">
+            <div class="pagination" style="width: fit-content">
+                <a href="#" style="background-color: transparent">&laquo;</a>
+                <a class="active" href="#">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">...</a>
+                <a href="#" style="background-color: transparent">&raquo;</a>
             </div>
         </div>
     </div>
