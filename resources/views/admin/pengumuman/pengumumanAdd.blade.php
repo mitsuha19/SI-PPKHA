@@ -3,7 +3,7 @@
 @section('content')
     @include('components.navbarAdmin')
 
-    <div class="main-content">
+    <div class="main-content" id="main-content">
         <h1 class="poppins-bold text-black mt-3" style="font-size: 22px">Tambah Pengumuman</h1>
 
         <div class="box-form">
@@ -24,55 +24,113 @@
                         <i class='bx bx-upload me-1'></i>
                         Pilih File
                     </label>
-                    <input id="upload" type="file" name="lampiran[]" multiple onchange="previewFiles()">
+                    <input id="upload" type="file" name="lampiran[]" multiple
+                        accept="image/*, .pdf, .doc, .docx, .xls, .xlsx" onchange="previewFiles()">
                 </div>
 
-                <!-- Preview Lampiran -->
-                <div id="preview-container" class="mt-3"></div>
+                <div id="preview-container" class="mt-3" style="max-height: 200px; overflow-y: auto;"></div>
 
                 <div class="d-flex justify-content-end align-items-end gap-2 mt-3">
                     <a href="{{ route('admin.pengumuman.index') }}" class="btn btn-secondary">Batal</a>
                     <button type="submit" class="btn btn-primary">Tambah</button>
                 </div>
-
             </form>
         </div>
     </div>
 
     <script>
+        let selectedFiles = [];
+
         function previewFiles() {
             const previewContainer = document.getElementById("preview-container");
-            previewContainer.innerHTML = ""; // Kosongkan preview saat pengguna memilih file baru
-            const files = document.getElementById("upload").files;
+            const inputFiles = document.getElementById("upload").files;
 
-            if (files.length > 0) {
-                for (let i = 0; i < files.length; i++) {
-                    const file = files[i];
-                    const reader = new FileReader();
-
-                    reader.onload = function(e) {
-                        if (file.type.startsWith("image/")) {
-                            // Jika file adalah gambar, tampilkan sebagai gambar
-                            const imgElement = document.createElement("img");
-                            imgElement.src = e.target.result;
-                            imgElement.style.width = "100px";
-                            imgElement.style.height = "100px";
-                            imgElement.style.objectFit = "cover";
-                            imgElement.style.marginRight = "10px";
-                            imgElement.style.borderRadius = "5px";
-                            previewContainer.appendChild(imgElement);
-                        } else {
-                            // Jika file bukan gambar, tampilkan sebagai daftar file
-                            const fileElement = document.createElement("p");
-                            fileElement.textContent = file.name;
-                            fileElement.style.marginBottom = "5px";
-                            previewContainer.appendChild(fileElement);
-                        }
-                    };
-
-                    reader.readAsDataURL(file);
+            // Tambahkan file baru ke selectedFiles tanpa menggandakan
+            for (let i = 0; i < inputFiles.length; i++) {
+                const exists = selectedFiles.some(file => file.name === inputFiles[i].name && file.size === inputFiles[i]
+                    .size);
+                if (!exists) {
+                    selectedFiles.push(inputFiles[i]);
                 }
             }
+
+            renderPreview();
+
+            // 🔥 Auto-scroll ke preview-container
+            setTimeout(() => {
+                previewContainer.scrollTop = previewContainer.scrollHeight;
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: "smooth"
+                });
+            }, 100);
+        }
+
+        function renderPreview() {
+            const previewContainer = document.getElementById("preview-container");
+            previewContainer.innerHTML = "";
+
+            selectedFiles.forEach((file, index) => {
+                const fileWrapper = document.createElement("div");
+                fileWrapper.style.display = "flex";
+                fileWrapper.style.alignItems = "center";
+                fileWrapper.style.marginBottom = "5px";
+                fileWrapper.style.padding = "5px";
+                fileWrapper.style.border = "1px solid #ddd";
+                fileWrapper.style.borderRadius = "5px";
+                fileWrapper.style.justifyContent = "space-between";
+
+                const fileElement = document.createElement("p");
+                fileElement.textContent = file.name;
+                fileElement.style.margin = "0";
+                fileWrapper.appendChild(fileElement);
+
+                const deleteButton = document.createElement("button");
+                deleteButton.innerHTML = "❌";
+                deleteButton.setAttribute("type", "button");
+                deleteButton.classList.add("remove-lampiran");
+                deleteButton.style.background = "none";
+                deleteButton.style.border = "none";
+                deleteButton.style.color = "red";
+                deleteButton.style.fontSize = "10px";
+                deleteButton.style.padding = "2px";
+                deleteButton.style.margin = "0";
+                deleteButton.style.width = "15px";
+                deleteButton.style.height = "15px";
+                deleteButton.style.lineHeight = "1";
+                deleteButton.style.display = "flex";
+                deleteButton.style.alignItems = "center";
+                deleteButton.style.justifyContent = "center";
+                deleteButton.style.cursor = "pointer";
+
+                deleteButton.onclick = () => removeFile(index);
+                fileWrapper.appendChild(deleteButton);
+
+                previewContainer.appendChild(fileWrapper);
+            });
+
+            updateFileInput();
+        }
+
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            renderPreview();
+
+            // 🔥 Auto-scroll ke preview-container setelah menghapus file
+            setTimeout(() => {
+                const previewContainer = document.getElementById("preview-container");
+                previewContainer.scrollTop = previewContainer.scrollHeight;
+                window.scrollTo({
+                    top: document.body.scrollHeight,
+                    behavior: "smooth"
+                });
+            }, 100);
+        }
+
+        function updateFileInput() {
+            const dataTransfer = new DataTransfer();
+            selectedFiles.forEach(file => dataTransfer.items.add(file));
+            document.getElementById("upload").files = dataTransfer.files;
         }
     </script>
 @endsection

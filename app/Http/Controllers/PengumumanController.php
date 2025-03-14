@@ -19,75 +19,90 @@ class PengumumanController extends Controller
     return view('admin.pengumuman.pengumumanAdd');
   }
 
-  public function edit($id)
-  {
-    $pengumuman = Pengumuman::findOrFail($id);
-    return view('admin.pengumuman.pengumumanEdit', compact('pengumuman'));
-  }
-
   public function show($id)
   {
     $pengumuman = Pengumuman::findOrFail($id);
     return view('admin.pengumuman.pengumumanDetail', compact('pengumuman'));
   }
 
+
   public function store(Request $request)
   {
-    $validatedData = $request->validate([
+    $request->validate([
       'judul_pengumuman' => 'required|string|max:255',
       'deskripsi_pengumuman' => 'required|string',
-      'lampiran.*' => 'nullable|file|max:10240',
+      'lampiran.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx|max:2048' // Validasi file
     ]);
 
+    // Simpan lampiran
     $lampiranPaths = [];
     if ($request->hasFile('lampiran')) {
       foreach ($request->file('lampiran') as $file) {
-        $lampiranPaths[] = $file->store('lampiran', 'public');
+        $path = $file->store('lampiran_pengumuman', 'public'); // Simpan ke storage/app/public/lampiran_pengumuman
+        $lampiranPaths[] = $path;
       }
     }
 
-    Pengumuman::create([
-      'judul_pengumuman' => $validatedData['judul_pengumuman'],
-      'deskripsi_pengumuman' => $validatedData['deskripsi_pengumuman'],
-      'lampiran' => json_encode($lampiranPaths),
+    // Simpan data pengumuman ke database
+    $pengumuman = Pengumuman::create([
+      'judul_pengumuman' => $request->judul_pengumuman,
+      'deskripsi_pengumuman' => $request->deskripsi_pengumuman,
+      'lampiran' => count($lampiranPaths) > 0 ? json_encode($lampiranPaths) : null, // Simpan dalam format JSON
     ]);
 
-    return redirect()->route('pengumuman.index')->with('success', 'Pengumuman berhasil ditambahkan!');
+    return redirect()->route('admin.pengumuman.index')->with('success', 'Pengumuman berhasil ditambahkan!');
+  }
+
+  public function edit($id)
+  {
+    $pengumuman = Pengumuman::findOrFail($id);
+    return view('admin.pengumuman.pengumumanEdit', compact('pengumuman'));
   }
 
   public function update(Request $request, $id)
   {
-    $validatedData = $request->validate([
+    $pengumuman = Pengumuman::findOrFail($id);
+
+    // Validasi input
+    $request->validate([
       'judul_pengumuman' => 'required|string|max:255',
       'deskripsi_pengumuman' => 'required|string',
-      'lampiran.*' => 'nullable|file|max:10240',
+      'lampiran.*' => 'file|mimes:jpg,jpeg,png,pdf|max:2048',
     ]);
 
-    $pengumuman = Pengumuman::findOrFail($id);
-    $lampiranPaths = json_decode($pengumuman->lampiran ?? '[]', true);
+    // Update data pengumuman
+    $pengumuman->judul_pengumuman = $request->judul_pengumuman;
+    $pengumuman->deskripsi_pengumuman = $request->deskripsi_pengumuman;
 
-    // Hapus lampiran yang dicentang
+    // Hapus lampiran yang dipilih
     if ($request->has('hapus_lampiran')) {
+      $lampiranTerbaru = json_decode($pengumuman->lampiran, true) ?? [];
+
       foreach ($request->hapus_lampiran as $file) {
-        if (Storage::disk('public')->exists($file)) {
-          Storage::disk('public')->delete($file);
+        if ($file) { // Hanya hapus jika file tidak null
+          Storage::delete($file);
+          $lampiranTerbaru = array_filter($lampiranTerbaru, fn($item) => $item !== $file);
         }
-        $lampiranPaths = array_diff($lampiranPaths, [$file]);
       }
+
+      // Simpan kembali daftar lampiran yang tersisa
+      $pengumuman->lampiran = json_encode(array_values($lampiranTerbaru));
     }
 
-    // Simpan lampiran baru jika ada
+    // Tambahkan lampiran baru
     if ($request->hasFile('lampiran')) {
+      $lampiranBaru = [];
       foreach ($request->file('lampiran') as $file) {
-        $lampiranPaths[] = $file->store('lampiran', 'public');
+        $path = $file->store('lampiran_pengumuman', 'public');
+        $lampiranBaru[] = $path;
       }
+
+      // Gabungkan dengan lampiran yang masih ada
+      $lampiranLama = json_decode($pengumuman->lampiran, true) ?? [];
+      $pengumuman->lampiran = json_encode(array_merge($lampiranLama, $lampiranBaru));
     }
 
-    $pengumuman->update([
-      'judul_pengumuman' => $validatedData['judul_pengumuman'],
-      'deskripsi_pengumuman' => $validatedData['deskripsi_pengumuman'],
-      'lampiran' => json_encode(array_values($lampiranPaths)), // Pastikan array bersih
-    ]);
+    $pengumuman->save();
 
     return redirect()->route('admin.pengumuman.index')->with('success', 'Pengumuman berhasil diperbarui!');
   }
@@ -97,9 +112,8 @@ class PengumumanController extends Controller
   {
     try {
       $pengumuman = Pengumuman::findOrFail($id);
-
-      // Hapus lampiran dari storage
       $lampiranPaths = json_decode($pengumuman->lampiran ?? '[]', true);
+
       foreach ($lampiranPaths as $file) {
         if (Storage::disk('public')->exists($file)) {
           Storage::disk('public')->delete($file);

@@ -11,14 +11,11 @@ class Pengumuman extends Model
 
   protected $table = 'pengumuman'; // Sesuai dengan nama tabel di database
 
-  protected $fillable = [
-    'judul_pengumuman',
-    'deskripsi_pengumuman',
-    'gambar',
-  ];
+  protected $fillable = ['judul_pengumuman', 'deskripsi_pengumuman', 'lampiran'];
+
 
   protected $casts = [
-    'gambar' => 'array',
+    'lampiran' => 'array',
   ];
 }
 
