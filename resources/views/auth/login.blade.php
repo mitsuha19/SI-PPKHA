@@ -1,29 +1,41 @@
-@if(session('success'))
-  <div class="alert alert-success">
-      {{ session('success') }}
-  </div>
-@endif
+<!-- login.blade.php -->
+@extends('layouts.auth')
 
-<form method="POST" action="{{ route('login') }}">
-  @csrf
-  <div>
-      <label for="nim">NIM:</label>
-      <input type="text" name="nim" id="nim" value="{{ old('nim') }}" required>
-      @error('nim') <span class="error">{{ $message }}</span> @enderror
-  </div>
-  <div>
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password" required>
-      @error('password') <span class="error">{{ $message }}</span> @enderror
-  </div>
+@section('content')
+<div class="form-container">
+    @if(session('success'))
+      <div class="alert alert-success">
+          {{ session('success') }}
+      </div>
+    @endif
 
-  {!! NoCaptcha::renderJs() !!}
-  {!! NoCaptcha::display() !!}
-  
-  <br>
-  <span class="help-block">
-        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
-    </span>
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+        <h2>Login</h2>
 
-  <button type="submit">Login</button>
-</form>
+        <div class="form-group">
+            <label for="nim"><i class="icon fa fa-user"></i> NIM</label>
+            <input type="text" name="nim" id="nim" placeholder="Enter your NIM" value="{{ old('nim') }}" required>
+            @error('nim') <span class="error">{{ $message }}</span> @enderror
+        </div>
+
+        <div class="form-group">
+            <label for="password"><i class="icon fa fa-lock"></i> Password</label>
+            <input type="password" name="password" id="password" placeholder="Enter your Password" required>
+            @error('password') <span class="error">{{ $message }}</span> @enderror
+        </div>
+
+        <!-- reCAPTCHA -->
+        {!! NoCaptcha::renderJs() !!}
+        {!! NoCaptcha::display() !!}
+        <br>
+
+        <span class="help-block">
+            <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+        </span>
+
+        <button type="submit" class="btn btn-primary">Login</button>
+
+    </form>
+</div>
+@endsection

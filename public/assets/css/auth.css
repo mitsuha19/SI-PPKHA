@@ -1,0 +1,144 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom, #7FC7D9, #436973);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  height: 80vh;
+  max-width: 1100px;
+  /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); */
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.image-section {
+  flex: 1;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+}
+
+.image-section img {
+  width: 100%;
+  height: auto;
+  padding-right: 0px;
+  margin-top: 3 0px;
+}
+
+.form-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tab-switch {
+  display: flex;
+  justify-content: space-around;
+  width: 300px;
+  margin-bottom: 20px;
+}
+
+.tab-switch a {
+  padding: 10px 30px;
+  border: 2px solid white;
+  border-radius: 50px;
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tab-switch a.active {
+  background-color: white;
+  color: #436973;
+}
+
+.tab-switch a:hover {
+  background-color: #436973;
+  color: white;
+}
+
+.form-wrapper {
+  width: 400px;
+  background-color: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  margin-right: 20px;
+  margin-left: 0px;
+}
+
+/* Form styles */
+.form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #007bff;
+}
+
+input[type="text"], input[type="number"], input[type="password"] {
+  width: 85%;
+  padding: 12px 12px 12px 45px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f7f7f7;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus, input[type="number"]:focus, input[type="password"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background-color:#436973;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color:#7FC7D9;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.footer-text {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.footer-text a {
+  color: #1e69de;
+  text-decoration: none;
+}
+
+.footer-text a:hover {
+  text-decoration: underline;
+}

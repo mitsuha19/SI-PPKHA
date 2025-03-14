@@ -17,6 +17,19 @@ form {
   text-align: center;
 }
 
+.alert {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.alert-success {
+  background-color: #28a745;
+}
+
 h2 {
   font-family: 'Poppins', sans-serif;
   font-size: 24px;
@@ -79,13 +92,8 @@ h2 {
   background: linear-gradient(90deg, #439bff, #5ab4ff);
 }
 
-.footer-text {
+.help-block {
   font-size: 14px;
-  color: #333;
-  margin-top: 15px;
-}
-
-.footer-text a {
-  color: #52a7ff;
-  text-decoration: none;
+  color: red;
+  margin-top: -10px;
 }
