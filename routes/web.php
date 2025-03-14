@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\TracerStudyController;
@@ -166,3 +167,9 @@ Route::get('/admin/user-survey', function () {
 // form kuisioner
 Route::post('/forms', [FormController::class, 'store'])->name('forms.store');
 Route::get('/forms', [FormController::class, 'index'])->name('forms.index');
+
+// Auth
+Route::view('/register', 'auth.register')->name('register');
+Route::view('/login', 'auth.login')->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');

@@ -23,7 +23,8 @@
             <li><a href="/tracer_study">Tracer Study</a></li>
             <li><a href="/user_survey">User Survey</a></li>
             <li><a href="/tentang">Tentang</a></li>
-            <li><a href="/login">Login</a></li>
+            <li><a href="{{ route('login') }}">Login</a></li>
+            <li><a href="{{ route('register') }}">Register</a></li>
         </ul>
         </div>
     </div>

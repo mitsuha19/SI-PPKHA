@@ -1,0 +1,149 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Carbon\Carbon;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cache;
+
+class AuthController extends Controller
+{
+    /**
+     * Register a new user, validate against the external API,
+     * automatically log them in, and redirect to the home page.
+     */
+
+    // 2. Check that 'tahun_lulus' is within the last 2 years.
+    // $currentYear = \Carbon\Carbon::now()->year;
+    // if ($request->tahun_lulus < ($currentYear - 2) || $request->tahun_lulus > $currentYear) {
+    //     return redirect()->back()
+    //         ->withErrors(['tahun_lulus' => 'Tahun lulus must be within the last 2 years.'])
+    //         ->withInput();
+    // }
+    public function register(Request $request)
+    {
+        // 1. Validate input.
+        $request->validate([
+            'name'        => 'required|string|max:255',
+            'nim'         => 'required|string|max:255|unique:users,nim',
+            'prodi'       => 'required|string|max:255',
+            'tahun_lulus' => 'required|integer',
+            'fakultas'    => 'required|string|max:255',
+            'password'    => 'required|string|min:8|confirmed',
+        ]);
+
+        // 2. Get the API token (cached or fresh request).
+        $token = Cache::get('external_api_token') ?? $this->getExternalApiToken();
+
+        if (!$token) {
+            return redirect()->back()->withErrors(['api' => 'Failed to retrieve authentication token.']);
+        }
+
+        // 3. Query the external API (Only using 'nim' as parameter).
+        $apiUrl = "https://cis-dev.del.ac.id/api/library-api/alumni";
+        $response = Http::withToken($token)
+            ->withoutVerifying()
+            ->get($apiUrl, ['nim' => $request->nim]);
+
+        // 4. Check API response.
+        if ($response->failed()) {
+            return redirect()->back()->withErrors(['api' => 'Failed to fetch alumni data.']);
+        }
+
+        $apiData = $response->json();
+
+        // Ensure the structure exists and contains at least one alumni record.
+        if (!isset($apiData['data']['alumni']) || empty($apiData['data']['alumni'])) {
+            return redirect()->back()->withErrors(['api' => 'No matching record found in external API.']);
+        }
+
+        // 5. Compare API data with registration form data.
+        $alumni = $apiData['data']['alumni'][0];
+
+        if (
+            trim($alumni['nim']) != trim($request->nim) ||
+            trim($alumni['nama']) != trim($request->name) ||
+            trim($alumni['prodi_name']) != trim($request->prodi) ||
+            trim($alumni['tahun_lulus']) != trim($request->tahun_lulus) ||
+            trim($alumni['fakultas']) != trim($request->fakultas)
+        ) {
+            return redirect()->back()->withErrors(['data' => 'Registration data does not match our records.']);
+        }
+
+
+        // 6. Create the new user locally.
+        User::create([
+            'name'        => $request->name,
+            'nim'         => $request->nim,
+            'prodi'       => $request->prodi,
+            'tahun_lulus' => $request->tahun_lulus,
+            'fakultas'    => $request->fakultas,
+            'password'    => Hash::make($request->password)
+        ]);
+
+        // 7. Redirect to login page with success message.
+        return redirect()->route('login')->with('success', 'Registrasi sukses');
+    }
+
+
+    /**
+     * Login a user using local authentication,
+     * automatically log them in, and redirect to the home page.
+     */
+    public function login(Request $request)
+    {
+        // 1. Validate login credentials.
+        $credentials = $request->validate([
+            'nim'      => 'required|string|exists:users,nim',
+            'password' => 'required|string',
+        ]);
+
+        // 2. Retrieve the user.
+        $user = User::where('nim', $credentials['nim'])->first();
+
+        // 3. Check if the password is correct.
+        if (!$user || !Hash::check($credentials['password'], $user->password)) {
+            return redirect()->back()
+                ->withErrors(['nim' => 'Invalid credentials'])
+                ->withInput();
+        }
+
+        // 4. Log in the user.
+        Auth::login($user);
+
+        // 5. Redirect the user to the home page.
+        return redirect('/');
+    }
+
+    /**
+     * Log in to the external API to obtain the token for GET requests.
+     * This method can be called on app initialization.
+     */
+    public function getExternalApiToken()
+    {
+        $credentials = [
+            'username' => 'johannes',
+            'password' => 'Del@2022',
+        ];
+
+        $response = Http::withoutVerifying()
+            ->asForm()
+            ->post('https://cis-dev.del.ac.id/api/jwt-api/do-auth', $credentials);
+
+
+        if ($response->failed() || !$response->json('result')) {
+            // For web-based methods you might want to log the error instead of returning a redirect.
+            return null;
+        }
+
+        $apiToken = $response->json('token');
+        // Cache the token for one hour.
+        Cache::put('external_api_token', $apiToken, now()->addHour());
+
+        return $apiToken;
+    }
+}

@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'api' => [
+        'url' => env('API_URL', 'https://cis-dev.del.ac.id/api'),
+    ],
+
 ];
