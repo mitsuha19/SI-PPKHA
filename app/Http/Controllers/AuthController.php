@@ -100,6 +100,7 @@ class AuthController extends Controller
         $credentials = $request->validate([
             'nim'      => 'required|string|exists:users,nim',
             'password' => 'required|string',
+            'g-recaptcha-response' => 'required|captcha'
         ]);
 
         // 2. Retrieve the user.
@@ -136,7 +137,7 @@ class AuthController extends Controller
 
 
         if ($response->failed() || !$response->json('result')) {
-            // For web-based methods you might want to log the error instead of returning a redirect.
+            // For web-based methods you might want to   the error instead of returning a redirect.
             return null;
         }
 

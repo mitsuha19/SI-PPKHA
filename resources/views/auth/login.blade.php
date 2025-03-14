@@ -16,5 +16,14 @@
       <input type="password" name="password" id="password" required>
       @error('password') <span class="error">{{ $message }}</span> @enderror
   </div>
+
+  {!! NoCaptcha::renderJs() !!}
+  {!! NoCaptcha::display() !!}
+  
+  <br>
+  <span class="help-block">
+        <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+    </span>
+
   <button type="submit">Login</button>
 </form>
