@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\TracerStudyController;
+use App\Http\Controllers\PengumumanController;
 
 // user ppkha
 Route::get('/', function () {
@@ -75,25 +76,17 @@ Route::prefix('admin')->group(function () {
     Route::delete('/berita/{id}', [BeritaController::class, 'destroy'])->name('admin.berita.destroy');
 });
 
-
-
-
 //pengumuman 
-Route::get('/admin/pengumuman', function () {
-    return view('admin.pengumuman.pengumuman');
+Route::prefix('admin/pengumuman')->name('admin.pengumuman.')->group(function () {
+    Route::get('/', [PengumumanController::class, 'index'])->name('index');
+    Route::get('/create', [PengumumanController::class, 'create'])->name('create');
+    Route::post('/store', [PengumumanController::class, 'store'])->name('store');
+    Route::get('/{id}', [PengumumanController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [PengumumanController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [PengumumanController::class, 'update'])->name('update'); // <=== PASTIKAN ROUTE INI ADA
+    Route::delete('/{id}', [PengumumanController::class, 'destroy'])->name('destroy');
 });
 
-Route::get('/admin/pengumuman/add', function () {
-    return view('admin.pengumuman.pengumumanAdd');
-});
-
-Route::get('/admin/pengumuman/detail', function () {
-    return view('admin.pengumuman.pengumumanDetail');
-});
-
-Route::get('/admin/pengumuman/edit', function () {
-    return view('admin.pengumuman.pengumumanEdit');
-});
 
 // artikel
 Route::get('/admin/artikel', function () {
@@ -111,6 +104,11 @@ Route::get('/admin/artikel/detail', function () {
 Route::get('/admin/artikel/edit', function () {
     return view('admin.artikel.artikelEdit');
 });
+
+
+
+
+
 
 // daftar perusahaan
 Route::get('/admin/daftar-perusahaan', function () {
