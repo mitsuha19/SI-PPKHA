@@ -15,7 +15,7 @@ body {
 /* Styling navbar */
 nav {
     width: 100%;
-    background: linear-gradient(to bottom, #365486, #7FC7D9); /* Gradasi biru */
+    background: linear-gradient(to bottom, #365486, #7fc7d9); /* Gradasi biru */
     padding: 30px;
 }
 
@@ -89,7 +89,6 @@ nav ul li a:active {
     background-color: black;
 }
 
-
 /* Style Footer */
 footer {
     width: 100%;
@@ -107,7 +106,7 @@ footer {
 .montserrat-medium {
     font-family: "Montserrat", serif;
     font-weight: 600;
-    margin-top: 0,5rem;
+    margin-top: 0, 5rem;
 }
 
 .poppins-regular {
@@ -260,7 +259,7 @@ input[type="text"] {
     height: auto; /* Allow content to determine height, ensuring waves are fully visible */
 }
 
-.hero-container h2{
+.hero-container h2 {
     text-shadow: 2px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -281,11 +280,11 @@ input[type="text"] {
 }
 
 h1 {
-    font-size: 48px; 
-    margin: 0; 
-    color: #0a0a0a; 
-    font-weight: bold; 
-    line-height: 1.2; 
+    font-size: 48px;
+    margin: 0;
+    color: #0a0a0a;
+    font-weight: bold;
+    line-height: 1.2;
 }
 
 h2 {
@@ -301,17 +300,17 @@ h2 span {
 }
 
 .highlight {
-    font-style: 'Poppins', serif;
-    font-weight: 700; 
-    font-style: italic; 
-    color: #0F1035; 
+    font-style: "Poppins", serif;
+    font-weight: 700;
+    font-style: italic;
+    color: #0f1035;
     font-size: 96px;
 }
 
 .subheading {
-    font-size: 20px; 
-    margin: 0px; 
-    color: #0F1035; 
+    font-size: 20px;
+    margin: 0px;
+    color: #0f1035;
 }
 
 .description {
@@ -333,7 +332,7 @@ h2 span {
 
 .image-section img {
     height: 100%;
-    max-width: 400px; 
+    max-width: 400px;
     border-radius: 50%;
 }
 
@@ -365,7 +364,6 @@ h2 span {
     margin: auto;
 }
 
-
 .background-card:hover {
     transform: translateY(-5px);
 }
@@ -381,17 +379,17 @@ h2 span {
     text-align: left;
 }
 
-.card-detail a{
+.card-detail a {
     text-decoration: none;
-    font-family: 'Poppins', serif;
+    font-family: "Poppins", serif;
     font-style: italic;
     font-size: 14px;
     font-weight: 300;
     color: black;
 }
 
-.card-detail-perusahaan a{
-    font-family: 'Roboto', serif;
+.card-detail-perusahaan a {
+    font-family: "Roboto", serif;
     font-weight: 600;
     font-size: 22px;
     text-decoration: none;
@@ -399,7 +397,7 @@ h2 span {
     color: white;
 }
 
-.card-detail-perusahaan i{
+.card-detail-perusahaan i {
     font-weight: 600;
     color: black;
 }
@@ -440,16 +438,16 @@ h2 span {
 }
 
 .pengumuman-section .bg-card,
-.artikel-section .bg-card{
+.artikel-section .bg-card {
     padding: 10px 0px;
-    background-color: #0F1035;
+    background-color: #0f1035;
     border-radius: 21px;
     width: fit-content;
 }
 
-.pengumuman-grid, 
+.pengumuman-grid,
 .berita-grid,
-.artikel-grid{
+.artikel-grid {
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -460,18 +458,18 @@ h2 span {
 }
 
 .berita-grid .background-card,
-.artikel-grid .background-card{
-    background-color: #0F1035;
+.artikel-grid .background-card {
+    background-color: #0f1035;
     height: fit-content;
     border-radius: 15px;
 }
 
 .berita-grid .card,
 .pengumuman-grid .card,
-.artikel-grid .card{
+.artikel-grid .card {
     border-radius: 30px;
     padding: 20px;
-    background-color: #7FC7D9;
+    background-color: #7fc7d9;
 }
 
 .pengumuman-img {
@@ -493,9 +491,9 @@ h2 span {
 }
 
 .horizontal-card-text-section .horizontal-card-title {
-  font-weight: bold; /* Match .fw-bold from Bootstrap */
-  font-size: 1.25rem; /* Slightly larger for title, consistent with your design */
-  color: #000000;
+    font-weight: bold; /* Match .fw-bold from Bootstrap */
+    font-size: 1.25rem; /* Slightly larger for title, consistent with your design */
+    color: #000000;
 }
 
 .pills {
@@ -524,11 +522,11 @@ h2 span {
     padding: 15px; /* Add padding to the card */
 }
 
-.message-lowongan{
+.message-lowongan {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    background-color: #EE5219;
+    background-color: #ee5219;
     width: fit-content;
     padding: 10px 20px;
     color: white;
@@ -568,7 +566,7 @@ h2 span {
     white-space: nowrap; /* Mencegah teks terpotong */
     padding: 8px 12px;
     border: 2px solid black;
-    border-radius: 20px; 
+    border-radius: 20px;
 }
 
 /* First container (image, glued to the left) */
@@ -580,7 +578,8 @@ h2 span {
 }
 
 /* Card image styling */
-.horizontal-card2 img { /* ***CHANGE START***: Updated class name */
+.horizontal-card2 img {
+    /* ***CHANGE START***: Updated class name */
     max-width: fit-content;
     border-radius: 50px;
 } /* ***CHANGE END*** */
@@ -680,7 +679,7 @@ h2 span {
 
 /* Lamar button styling */
 .lamar-btn {
-    background: linear-gradient(to bottom, #008080, #00CED1);
+    background: linear-gradient(to bottom, #008080, #00ced1);
     color: white;
     font-weight: bold;
     font-size: 1.2rem;
@@ -730,8 +729,8 @@ h2 span {
 
 /* Load More button styling */
 .load-more-btn {
-    background-color: #1E3A8A; /* Dark blue background, matching the image */
-    color: #FFFFFF; /* White text */
+    background-color: #1e3a8a; /* Dark blue background, matching the image */
+    color: #ffffff; /* White text */
     font-family: "Poppins", serif; /* Match your site’s font */
     font-size: 1.2rem; /* Size to match the image */
     font-weight: bold; /* Bold text for emphasis */
@@ -745,18 +744,18 @@ h2 span {
 
 /* Hover effect for the button */
 .load-more-btn:hover {
-    background-color: #1A2F6F; /* Slightly darker blue on hover */
+    background-color: #1a2f6f; /* Slightly darker blue on hover */
 }
 
 /****************************************** HORIZONTAL CARD COMPONENT ******************************************/
 
 /* Card body background */
 body {
-  background-color: mintcream; /* Keep the mintcream background for the card */
+    background-color: mintcream; /* Keep the mintcream background for the card */
 }
 
-.content-with-background .background-card{
-    background-color: #0F1035;
+.content-with-background .background-card {
+    background-color: #0f1035;
     border-radius: 21px;
     height: fit-content;
     width: fit-content;
@@ -765,157 +764,156 @@ body {
 
 /* Horizontal card styling */
 .horizontal-card {
-  max-width: 65em;
-  display: flex;
-  flex-direction: row;
-  background-color: #91D3E6; /* Match search bar background for consistency */
-  border: 0;
-  border-radius: 32px;
-  box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18); /* Slightly adjust shadow to match your design */
+    max-width: 65em;
+    display: flex;
+    flex-direction: row;
+    background-color: #91d3e6; /* Match search bar background for consistency */
+    border: 0;
+    border-radius: 32px;
+    box-shadow: 0 7px 7px rgba(0, 0, 0, 0.18); /* Slightly adjust shadow to match your design */
 }
-
 
 /* Dark text for card (override Bootstrap .bg-info-subtle if needed) */
 .horizontal-card.dark {
-  color: #333; /* Darker text for readability, consistent with your design */
+    color: #333; /* Darker text for readability, consistent with your design */
 }
 
 /* Card image */
 .horizontal-card img {
-  max-width: 25%;
-  margin: auto;
-  padding: 1rem;
-  border-radius: 50px;
+    max-width: 25%;
+    margin: auto;
+    padding: 1rem;
+    border-radius: 50px;
 }
-
 
 /* Card body layout */
 .horizontal-card-body {
-  display: flex;
-  justify-content: space-between;
-  padding: 15px 15px 15px 5px;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 15px 15px 5px;
 }
 
 /* Text section */
 .horizontal-card-text-section {
-  max-width: 100%;
-  font-family: "Poppins", serif; /* Match your website's font */
-  color: #000000; /* Match search input text color */
-  margin-top: 15px;
+    max-width: 100%;
+    font-family: "Poppins", serif; /* Match your website's font */
+    color: #000000; /* Match search input text color */
+    margin-top: 15px;
 }
 
 .horizontal-card-text-section .horizontal-card-title {
-  font-weight: bold; /* Match .fw-bold from Bootstrap */
-  font-size: 1.25rem; /* Slightly larger for title, consistent with your design */
-  color: #000000;
-  font-style: italic;
+    font-weight: bold; /* Match .fw-bold from Bootstrap */
+    font-size: 1.25rem; /* Slightly larger for title, consistent with your design */
+    color: #000000;
+    font-style: italic;
 }
 
-
 .horizontal-card-text-section .horizontal-card-text {
-  font-size: 1rem; /* Consistent with your card text size */
-  text-align: justify;
+    font-size: 1rem; /* Consistent with your card text size */
+    text-align: justify;
 }
 
 /* CTA section */
 .horizontal-card-cta-section {
-  max-width: 40%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: space-between;
-  color: #333; /* Dark text for consistency */
+    max-width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    color: #333; /* Dark text for consistency */
 }
 
 .horizontal-card-cta-section .horizontal-card-price {
-  font-size: 1.1rem; /* Slightly larger for price */
-  font-weight: bold; /* Bold for emphasis */
+    font-size: 1.1rem; /* Slightly larger for price */
+    font-weight: bold; /* Bold for emphasis */
 }
 
 .horizontal-card-cta-section .horizontal-card-btn {
-  padding: 0.3em 0.5em;
-  background-color: #588996; /* Match your btn-primary color for consistency */
-  border: none;
-  color: white;
-  font-weight: 700;
-  border-radius: 8px; /* Match your button radius */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Consistent shadow */
-  text-decoration: none;
-  transition: background-color 0.3s ease; /* Smooth transition like search button */
+    padding: 0.3em 0.5em;
+    background-color: #588996; /* Match your btn-primary color for consistency */
+    border: none;
+    color: white;
+    font-weight: 700;
+    border-radius: 8px; /* Match your button radius */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Consistent shadow */
+    text-decoration: none;
+    transition: background-color 0.3s ease; /* Smooth transition like search button */
 }
 
 /* Ensure no overlap with existing .card classes */
-.card-berita, .card-artikel, .card-pengumuman {
-  /* Existing styles remain unchanged to avoid overlap */
+.card-berita,
+.card-artikel,
+.card-pengumuman {
+    /* Existing styles remain unchanged to avoid overlap */
 }
 
 /****************************************** PAGINATION COMPONENT ******************************************:
 
 /* Pagination container to center and style the pagination bar */
 .custom-pagination-container {
-  display: flex;
-  justify-content: center; /* Center the pagination horizontally */
-  margin: 1em auto; /* Reduced vertical spacing and center horizontally */
-  width: 100%; /* Full width for responsiveness */
-  background-color: #a0d8ef; /* Light blue background to match the card area */
-  padding: 0.5em 0; /* Reduced vertical padding for compactness */
+    display: flex;
+    justify-content: center; /* Center the pagination horizontally */
+    margin: 1em auto; /* Reduced vertical spacing and center horizontally */
+    width: 100%; /* Full width for responsiveness */
+    background-color: #a0d8ef; /* Light blue background to match the card area */
+    padding: 0.5em 0; /* Reduced vertical padding for compactness */
 }
 
 /* Custom pagination bar styling */
 .custom-pagination {
-  background-color: #d9d9d9; /* Light gray background for the pagination bar */
-  border-radius: 10px; /* Smaller rounded corners to match the image */
-  padding: 0.3em 0.5em; /* Reduced padding for compactness */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduced shadow for a smaller look */
-  display: inline-flex; /* Keep pagination inline for centering */
-  border-top: 3px solid #365486; /* Reduced top border thickness to match the image */
+    background-color: #d9d9d9; /* Light gray background for the pagination bar */
+    border-radius: 10px; /* Smaller rounded corners to match the image */
+    padding: 0.3em 0.5em; /* Reduced padding for compactness */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduced shadow for a smaller look */
+    display: inline-flex; /* Keep pagination inline for centering */
+    border-top: 3px solid #365486; /* Reduced top border thickness to match the image */
 }
 
 /* Pagination list items */
 .custom-pagination .page-item {
-  margin: 0 0.1em; /* Reduced spacing between items for compactness */
+    margin: 0 0.1em; /* Reduced spacing between items for compactness */
 }
 
 /* Pagination links (numbers, arrows, and ellipsis) */
 .custom-pagination .page-link {
-  background-color: #ffffff; /* White background for buttons */
-  border: none; /* Remove default Bootstrap border */
-  color: #000000; /* Black text for numbers and arrows */
-  border-radius: 8px; /* Smaller rounded corners for buttons */
-  padding: 0.3em 0.5em; /* Reduced padding for smaller buttons */
-  font-size: 0.9rem; /* Reduced font size for compactness */
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Reduced shadow for each button */
-  text-decoration: none; /* Remove underline */
-  transition: background-color 0.3s ease; /* Smooth hover transition */
+    background-color: #ffffff; /* White background for buttons */
+    border: none; /* Remove default Bootstrap border */
+    color: #000000; /* Black text for numbers and arrows */
+    border-radius: 8px; /* Smaller rounded corners for buttons */
+    padding: 0.3em 0.5em; /* Reduced padding for smaller buttons */
+    font-size: 0.9rem; /* Reduced font size for compactness */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Reduced shadow for each button */
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease; /* Smooth hover transition */
 }
 
 /* Active state for the current page (e.g., if you want to highlight the active page) */
 .custom-pagination .page-item.active .page-link {
-  background-color: #ffffff; /* Keep white for active, matching the image */
-  color: #000000; /* Black text for active */
-  font-weight: bold; /* Bold for emphasis */
+    background-color: #ffffff; /* Keep white for active, matching the image */
+    color: #000000; /* Black text for active */
+    font-weight: bold; /* Bold for emphasis */
 }
 
 /* Hover state for pagination links */
 .custom-pagination .page-link:hover {
-  background-color: #f0f0f0; /* Light gray on hover */
-  color: #000000; /* Black text on hover */
+    background-color: #f0f0f0; /* Light gray on hover */
+    color: #000000; /* Black text on hover */
 }
 
 /* Styling for Previous and Next arrows */
 .custom-pagination .page-link[aria-label="Previous"],
 .custom-pagination .page-link[aria-label="Next"] {
-  font-size: 0.8rem; /* Reduced size of arrows for compactness */
-  padding: 0.3em; /* Reduced padding for smaller arrows */
+    font-size: 0.8rem; /* Reduced size of arrows for compactness */
+    padding: 0.3em; /* Reduced padding for smaller arrows */
 }
 
 /* Ellipsis styling */
 .custom-pagination .page-link[href="#"]:not([aria-label]) {
-  background-color: #ffffff; /* White background for ellipsis */
-  border-radius: 8px; /* Smaller rounded corners for ellipsis */
-  padding: 0.3em 0.5em; /* Same reduced padding as numbers */
-  font-size: 0.9rem; /* Reduced font size */
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Reduced shadow */
+    background-color: #ffffff; /* White background for ellipsis */
+    border-radius: 8px; /* Smaller rounded corners for ellipsis */
+    padding: 0.3em 0.5em; /* Same reduced padding as numbers */
+    font-size: 0.9rem; /* Reduced font size */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Reduced shadow */
 }
 
 /****************************************** TOP SEARCH BAR COMPONENT ******************************************:
@@ -950,22 +948,22 @@ body {
 }
 
 .top-search-button {
-  border: none;
-  background: #d9d9d9;
-  padding: 10px;
-  width: 62x;
-  height: 50px;
-  border-radius: 15px;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: none;
+    background: #d9d9d9;
+    padding: 10px;
+    width: 62x;
+    height: 50px;
+    border-radius: 15px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .top-search-icon {
-  width: 16px;
-  height: 16px;
-  object-fit: contain;
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
 }
 
 .top-search-button:hover {
@@ -974,7 +972,7 @@ body {
 
 /********************  USER SURVEY  ********************/
 
-.user-survey{
+.user-survey {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1218,4 +1216,36 @@ body {
     .floating-menu {
         right: -30px;
     }
+}
+
+/* Pastikan opsi radio sejajar dan tidak membesar */
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Jarak antara radio button dan teks */
+    margin-bottom: 6px;
+}
+
+/* Ukuran radio button tetap proporsional */
+.form-check-input {
+    width: 16px !important;
+    height: 16px !important;
+    cursor: pointer;
+    flex-shrink: 0; /* Mencegah perubahan ukuran */
+    transform: scale(1); /* Pastikan tidak ada pembesaran */
+}
+
+/* Styling teks agar sejajar */
+.form-check-label {
+    font-size: 16px;
+    font-style: italic; /* Sesuai dengan contoh */
+    cursor: pointer;
+    margin-left: 5px; /* Jarak antara radio button dan teks */
+    line-height: 1.5;
+}
+
+/* Pastikan tidak ada style yang membesarkan input radio */
+input[type="radio"] {
+    appearance: auto !important;
+    transform: none !important;
 }

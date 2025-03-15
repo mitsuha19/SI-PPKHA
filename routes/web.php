@@ -1,10 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\BeritaController;
-use App\Http\Controllers\TracerStudyController;
+use App\Http\Controllers\KuesionerController;
 use App\Http\Controllers\PengumumanController;
+use App\Http\Controllers\TracerStudyController;
 
 // user ppkha
 Route::get('/', function () {
@@ -164,3 +166,39 @@ Route::get('/admin/user-survey', function () {
 // form kuisioner
 Route::post('/forms', [FormController::class, 'store'])->name('forms.store');
 Route::get('/forms', [FormController::class, 'index'])->name('forms.index');
+
+// Test Kuisioner ke user
+Route::get('/kuesioner', [KuesionerController::class, 'show'])->name('kuesioner.show');
+Route::post('/kuesioner/next/{sectionId}', [KuesionerController::class, 'nextSection'])->name('kuesioner.next');
+Route::get('/kuesioner/selesai', [KuesionerController::class, 'submit'])->name('kuesioner.submit');
+
+
+Route::get('/proxy/provinces', function () {
+    try {
+        $response = Http::withOptions(["verify" => false])
+            ->get('https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json');
+
+        if ($response->failed()) {
+            return response()->json(['error' => 'Gagal mengambil data dari API eksternal'], 500);
+        }
+
+        return response($response->body())->header('Content-Type', 'application/json');
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Server Error: ' . $e->getMessage()], 500);
+    }
+});
+
+Route::get('/proxy/regencies/{provinceId}', function ($provinceId) {
+    try {
+        $response = Http::withOptions(["verify" => false])
+            ->get("https://emsifa.github.io/api-wilayah-indonesia/api/regencies/$provinceId.json");
+
+        if ($response->failed()) {
+            return response()->json(['error' => 'Gagal mengambil data dari API eksternal'], 500);
+        }
+
+        return response($response->body())->header('Content-Type', 'application/json');
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Server Error: ' . $e->getMessage()], 500);
+    }
+});
