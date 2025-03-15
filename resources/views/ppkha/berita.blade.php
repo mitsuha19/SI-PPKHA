@@ -3,7 +3,7 @@
 @section('content')
     @include('components.navbar')
 
-    <div class="content-with-background">
+    <div class="content-with-background d-flex flex-column align-items-center">
         @include('components.bg') <!-- Renders the background waves -->
         
         <!-- Top Search Bar Section (New, positioned at the top of content) -->
@@ -15,83 +15,50 @@
                 </button>
             </div>
         </div>
+
         <!-- Berita Section -->
-        <div class="pengumuman-section d-flex flex-column align-items-center gap-4">
+        @foreach ($berita as $item)
             <div class="background-card">
-                <div class="horizontal-card">
-                    <img src="{{asset('assets/images/image.png')}}" class="card-img-top" alt="...">
-                    <div class="horizontal-card-body">
-                        <div class="horizontal-card-text-section card-detail">
-                            <h5 class="horizontal-card-title fw-bold">Ratusan Mahasiswa Indonesia Terima Beasiswa</h5>
-                            <p class="horizontal-card-text">204 Mahasiswa Menerima Beasiswa TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan soft skills</p>
-                            <div class="d-flex justify-content-end">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <div class="card-information d-flex align-items-center px-3">
+                    {{-- Ambil gambar pertama jika tersedia --}}
+                    @php
+                        $gambarArray = $item->gambar ?? []; // Laravel otomatis mengubah JSON ke array
+                    @endphp
+            
+                @if (!empty($gambarArray) && isset($gambarArray[0]))
+                <img 
+                    src="{{ asset('storage/' . $gambarArray[0]) }}" 
+                    alt="Gambar Berita">
+                @else
+                    <img 
+                    src="{{ asset('assets/images/image.png') }}" 
+                    alt="Default Gambar">
+                @endif
 
-            <div class="background-card">
-                <div class="horizontal-card">
-                    <img src="{{asset('assets/images/image.png')}}" class="card-img-top" alt="...">
-                    <div class="horizontal-card-body">
-                        <div class="horizontal-card-text-section card-detail">
-                            <h5 class="horizontal-card-title fw-bold">Ratusan Mahasiswa Indonesia Terima Beasiswa</h5>
-                            <p class="horizontal-card-text">204 Mahasiswa Menerima Beasiswa TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan soft skills</p>
-                            <div class="d-flex justify-content-end">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
+            
+                    <div class="ps-3 w-100">
+                        {{-- Judul Berita --}}
+                        <div class="d-flex flex-md-row flex-sm-column w-auto justify-content-start align-items-end">
+                            <h2 class="fst-italic roboto-title mb-0 align-self-center">
+                                {{ $item->judul_berita }}
+                            </h2>
+                        </div>
+            
+                        <hr class="my-2 w-100" style="border: 2px solid black; opacity:1">
+            
+                        {{-- Deskripsi Berita --}}
+                        <p class="roboto-light mb-1 mt-2" style="font-size: 15px">
+                            {{ Str::limit($item->deskripsi_berita, 200, '...') }}
+                        </p>
+            
+                        {{-- Link ke Detail Berita --}}
+                        <div class="detail">
+                        <a href="{{ route('ppkha.beritaDetail', ['id' => $item->id]) }}">Selengkapnya..</a>
                         </div>
                     </div>
                 </div>
             </div>
-    
-            <div class="background-card">
-                <div class="horizontal-card">
-                    <img src="{{asset('assets/images/image.png')}}" class="card-img-top" alt="...">
-                    <div class="horizontal-card-body">
-                        <div class="horizontal-card-text-section card-detail">
-                            <h5 class="horizontal-card-title fw-bold">Ratusan Mahasiswa Indonesia Terima Beasiswa</h5>
-                            <p class="horizontal-card-text">204 Mahasiswa Menerima Beasiswa TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan soft skills</p>
-                            <div class="d-flex justify-content-end">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="background-card">
-                <div class="horizontal-card">
-                    <img src="{{asset('assets/images/image.png')}}" class="card-img-top" alt="...">
-                    <div class="horizontal-card-body">
-                        <div class="horizontal-card-text-section card-detail">
-                            <h5 class="horizontal-card-title fw-bold">Ratusan Mahasiswa Indonesia Terima Beasiswa</h5>
-                            <p class="horizontal-card-text">204 Mahasiswa Menerima Beasiswa TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan soft skills</p>
-                            <div class="d-flex justify-content-end">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="background-card">
-                <div class="horizontal-card">
-                    <img src="{{asset('assets/images/image.png')}}" class="card-img-top" alt="...">
-                    <div class="horizontal-card-body">
-                        <div class="horizontal-card-text-section card-detail">
-                            <h5 class="horizontal-card-title fw-bold">Ratusan Mahasiswa Indonesia Terima Beasiswa</h5>
-                            <p class="horizontal-card-text">204 Mahasiswa Menerima Beasiswa TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan soft skills</p>
-                            <div class="d-flex justify-content-end">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
 
         <div class="d-flex justify-content-center align-items-center w-100">
             <div class="pagination" style="width: fit-content">

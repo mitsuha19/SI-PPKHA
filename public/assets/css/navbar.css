@@ -164,7 +164,11 @@ footer {
     width: 100%;
     background: linear-gradient(to bottom, #7fc7d9, #436973); /* Gradasi biru */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 30px;
+    padding: 30px 50px;
+}
+
+.detail-content img{
+    width: 70%;
 }
 
 /* Style Berita Admin */
@@ -429,12 +433,63 @@ h2 span {
    * 5) Pengumuman Section Styling
    *************************************************************/
 .pengumuman-section,
+.box-section,
 .artikel-section {
     position: relative; /* Ensure it stays above the background */
     z-index: 1; /* Above the waves */
     text-align: center;
     padding: 50px 20px;
+    width: 100%;
     background-color: transparent; /* So the waves remain visible */
+}
+
+.box-section img{
+    width: 10%;
+    margin: auto;
+    padding: 1rem;
+    border-radius: 50px;
+}
+
+.background-card {
+    background-color: black;
+    border-radius: 25px;
+    width: 80%;
+    height: fit-content;
+    margin-bottom: 20px;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-information{
+    background-color: #7fc7d9;
+    border-radius: 32px;
+    width: 100%;
+    height: fit-content;
+    padding: 10px 0px;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);   
+}
+
+.card-information img{
+    width: 18%; 
+    height: auto; 
+    object-fit: contain; 
+    border-radius: 8px;
+}
+
+.card-information a {
+    text-decoration: none;
+    font-family: "Poppins", serif;
+    font-style: italic;
+    font-weight: 275;
+    font-size: 15px;
+    color: black;
+}
+
+.card-lowongan h2 {
+    width: 75%;
+}
+
+.card-information .detail{
+    justify-self: end;
 }
 
 .pengumuman-section .bg-card,
@@ -470,24 +525,6 @@ h2 span {
     border-radius: 30px;
     padding: 20px;
     background-color: #7fc7d9;
-}
-
-.pengumuman-img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.pengumuman-body {
-    padding: 15px;
-    text-align: center;
-}
-
-.pengumuman-title {
-    font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333; /* Matches the screenshot */
 }
 
 .horizontal-card-text-section .horizontal-card-title {
@@ -754,14 +791,6 @@ body {
     background-color: mintcream; /* Keep the mintcream background for the card */
 }
 
-.content-with-background .background-card {
-    background-color: #0f1035;
-    border-radius: 21px;
-    height: fit-content;
-    width: fit-content;
-    align-items: center;
-}
-
 /* Horizontal card styling */
 .horizontal-card {
     max-width: 65em;
@@ -776,14 +805,6 @@ body {
 /* Dark text for card (override Bootstrap .bg-info-subtle if needed) */
 .horizontal-card.dark {
     color: #333; /* Darker text for readability, consistent with your design */
-}
-
-/* Card image */
-.horizontal-card img {
-    max-width: 25%;
-    margin: auto;
-    padding: 1rem;
-    border-radius: 50px;
 }
 
 /* Card body layout */

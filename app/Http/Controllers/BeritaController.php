@@ -8,10 +8,19 @@ use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
-    public function index2()
-    {
+    public function index2(){
         $berita = Berita::orderBy('created_at', 'desc')->get();
         return view('admin.berita.berita', compact('berita'));
+    }
+
+    public function showBeritaUser(){
+        $berita = Berita::orderBy('created_at', 'desc')->get();
+        return view('ppkha.berita', compact('berita'));
+    }
+
+    public function showBeritaDetailUser($id){
+        $berita = Berita::where('id', $id)->first();
+        return view('ppkha.detailBerita', compact('berita'));
     }
 
     public function index3()

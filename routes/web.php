@@ -17,16 +17,21 @@ Route::get('/berita', function () {
     return view('ppkha.berita');
 });
 
+Route::get('/berita', [BeritaController::class, 'showBeritaUser'])->name('ppkha.berita');
+
 Route::get('/berita/detail', function () {
     return view('ppkha.detailBerita');
 });
 
-Route::get('/pengumuman', function () {
-    return view('ppkha.pengumuman');
-});
+Route::get('/berita/detail/{id}', [BeritaController::class, 'showBeritaDetailUser'])->name('ppkha.beritaDetail');
+
+Route::get('/pengumuman', [PengumumanController::class, 'showPengumumanUser'])->name('ppkha.pengumuman');
+
 Route::get('/pengumuman/detail', function () {
     return view('ppkha.detailPengumuman');
 });
+
+Route::get('pengumuman/detail/{id}', [PengumumanController::class, 'showPengumumanDetailUser'])->name('ppkha.pengumumanDetail');
 
 Route::get('/artikel', function () {
     return view('ppkha.artikel');

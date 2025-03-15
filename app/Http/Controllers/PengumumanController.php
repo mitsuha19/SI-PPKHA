@@ -14,6 +14,18 @@ class PengumumanController extends Controller
     return view('admin.pengumuman.pengumuman', compact('pengumuman'));
   }
 
+  public function showPengumumanUser()
+  {
+    $pengumuman = Pengumuman::paginate(10);
+    return view('ppkha.pengumuman', compact('pengumuman'));
+  }
+
+  public function showPengumumanDetailUser($id)
+  {
+    $pengumuman = Pengumuman::findOrFail($id);
+    return view('ppkha.detailPengumuman', compact('pengumuman'));
+  }
+
   public function create()
   {
     return view('admin.pengumuman.pengumumanAdd');
