@@ -24,6 +24,7 @@ class AuthController extends Controller
     //         ->withErrors(['tahun_lulus' => 'Tahun lulus must be within the last 2 years.'])
     //         ->withInput();
     // }
+
     public function register(Request $request)
     {
         // 1. Validate input.
@@ -76,7 +77,7 @@ class AuthController extends Controller
 
 
         // 6. Create the new user locally.
-        User::create([
+        $user = User::create([
             'name'        => $request->name,
             'nim'         => $request->nim,
             'prodi'       => $request->prodi,
@@ -84,6 +85,8 @@ class AuthController extends Controller
             'fakultas'    => $request->fakultas,
             'password'    => Hash::make($request->password)
         ]);
+
+        $user->assignRole('alumni');
 
         // 7. Redirect to login page with success message.
         return redirect()->route('login')->with('success', 'Registrasi sukses');
@@ -119,6 +122,22 @@ class AuthController extends Controller
         // 5. Redirect the user to the home page.
         return redirect('/');
     }
+
+    public function logout(Request $request)
+    {
+        // Log out the user from the session
+        Auth::logout();
+
+        // Invalidate the current session.
+        $request->session()->invalidate();
+
+        // Regenerate the CSRF token for security.
+        $request->session()->regenerateToken();
+
+        // Redirect to the login page with a success message.
+        return redirect('/')->with('success', 'Logged out successfully');
+    }
+
 
     /**
      * Log in to the external API to obtain the token for GET requests.

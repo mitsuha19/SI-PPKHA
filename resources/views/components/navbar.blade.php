@@ -23,8 +23,28 @@
             <li><a href="/tracer_study">Tracer Study</a></li>
             <li><a href="/user_survey">User Survey</a></li>
             <li><a href="/tentang">Tentang</a></li>
-            <li><a href="{{ route('login') }}">Login</a></li>
-            <li><a href="{{ route('register') }}">Register</a></li>
+            @guest
+                <!-- When the user is not logged in -->
+                <li class="me-3"><a href="{{ route('login') }}" class="text-white">Login</a></li>
+                <li class="me-3"><a href="{{ route('register') }}" class="text-white">Register</a></li>
+            @endguest
+
+            @auth
+                <!-- When the user is logged in: display profile dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle text-white" href="#" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ Auth::user()->name }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                        <li>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="dropdown-item">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            @endauth
         </ul>
         </div>
     </div>
