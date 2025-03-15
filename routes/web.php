@@ -85,10 +85,9 @@ Route::prefix('admin/pengumuman')->name('admin.pengumuman.')->group(function () 
     Route::post('/store', [PengumumanController::class, 'store'])->name('store');
     Route::get('/{id}', [PengumumanController::class, 'show'])->name('show');
     Route::get('/{id}/edit', [PengumumanController::class, 'edit'])->name('edit');
-    Route::put('/{id}', [PengumumanController::class, 'update'])->name('update'); // <=== PASTIKAN ROUTE INI ADA
+    Route::put('/{id}', [PengumumanController::class, 'update'])->name('update');
     Route::delete('/{id}', [PengumumanController::class, 'destroy'])->name('destroy');
 });
-
 
 // artikel
 Route::get('/admin/artikel', function () {
