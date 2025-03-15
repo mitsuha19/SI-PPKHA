@@ -8,7 +8,7 @@
     <div class="montserrat-medium mb-0">
       <h2>Norxel Teknologi Indonesia</h2>
       <p>Kota Semarang, Indonesia</p>
-      <div class="d-flex flex-row" style="gap: 100px;">
+      <div class="d-flex flex-md-row flex-sm-column" style="gap: 100px;">
         <p><span style="color: #656565;">Industri</span><br>Industri Perbankan</p>
         <p><span style="color: #656565;">Website</span><br><a>https://norxel.com/</a></p>
       </div>

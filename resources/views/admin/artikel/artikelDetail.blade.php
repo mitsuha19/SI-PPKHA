@@ -6,11 +6,11 @@
   <h1>Artikel</h1>
 
   <div class="background-card" style="margin-bottom:100px">
-    <div class="card-artikel d-flex align-items-center px-3">
-      <div class="ps-3">
+    <div class="card-information d-flex align-items-center px-3">
+      <div class="ps-3 w-100">
         {{-- Judul Artikel dan button Edit dan Delete --}}
-        <div class="d-flex flex-row w-auto justify-content-start align-items-enc">
-          <h2 class="fst-italic roboto-title mb-0 align-self-center" style="width: 80%;">
+        <div class="d-flex flex-md-row flex-sm-column w-auto justify-content-start align-items-center">
+          <h2 class="fst-italic roboto-title mb-0 align-self-center">
             Ratusan Mahasiswa Indonesia Terima Mahasiswa 
           </h2>
   
@@ -18,19 +18,19 @@
           <div class="align-self-start">
             <button type="button" class="btn">
               <i class='bx bx-pencil'></i>
-              Edit
+              <span class="d-none d-xl-inline ms-1">Edit</span>
             </button>
             <button type="button" class="btn">
               <i class='bx bx-trash' ></i>
-              Hapus
+              <span class="d-none d-xl-inline ms-1">Hapus</span>
             </button>
           </div>
         </div>
 
-        <hr class="my-2" style="border: 1.5px solid black; opacity : 1;" >
+        <hr class="my-2 w-100" style="border: 1.5px solid black; opacity : 1;" >
 
         <div class="d-flex justify-content-center">
-          <img style="width: 365px" src="{{ asset('assets/images/image.png') }}">
+          <img style="width: 80%" src="{{ asset('assets/images/image.png') }}">
         </div>
 
         <p class="roboto-light mb-1 mt-2" style="font-size: 15px">

@@ -6,24 +6,26 @@
   <h1>Berita</h1>
 
   <div class="background-card" style="margin-bottom:100px">
-    <div class="card-berita d-flex align-items-center px-3">
-      <div class="ps-3">
+    <div class="card-information d-flex align-items-center px-3">
+      <div class="ps-3 w-100">
         {{-- Judul Berita dan button Edit dan Delete --}}
-        <div class="d-flex flex-row w-auto justify-content-start align-items-enc">
-          <h2 class="fst-italic roboto-title mb-0 align-self-center" style="width: 80%;">
+        <div class="d-flex flex-md-row flex-sm-column w-auto justify-content-start align-items-center">
+          <h2 class="fst-italic roboto-title mb-0 align-self-center">
             {{ $berita->judul_berita }}
           </h2>
   
           {{-- Button --}}
           <div class="align-self-start">
             <a href="{{ route('admin.berita.beritaEdit', ['id' => $berita->id]) }}" class="btn">
-              <i class='bx bx-pencil'></i> Edit
+              <i class='bx bx-pencil'></i> 
+              <span class="d-none d-xl-inline ms-1">Edit</span>
             </a>
             <form action="{{ route('admin.berita.destroy', ['id' => $berita->id]) }}" method="POST" style="display:inline;">
               @csrf
               @method('DELETE')
               <button type="submit" class="btn" onclick="return confirm('Yakin ingin menghapus berita ini?');">
-                <i class='bx bx-trash'></i> Hapus
+                <i class='bx bx-trash'></i>
+                <span class="d-none d-xl-inline ms-1">Hapus</span>
               </button>
             </form>
           </div>
@@ -39,9 +41,9 @@
               $gambarArray = is_array($gambarArray) ? $gambarArray : [];
           @endphp
           @if (!empty($gambarArray) && isset($gambarArray[0]))
-              <img style="width: 365px" src="{{ asset('storage/' . $gambarArray[0]) }}">
+              <img style="width: 80%" src="{{ asset('storage/' . $gambarArray[0]) }}">
           @else
-              <img style="width: 365px" src="{{ asset('assets/images/image.png') }}">
+              <img style="width: 80%" src="{{ asset('assets/images/image.png') }}">
           @endif
         </div>
 

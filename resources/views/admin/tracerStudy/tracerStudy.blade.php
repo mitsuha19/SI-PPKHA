@@ -5,34 +5,45 @@
     <div class="main-content d-flex flex-column align-items-center">
         <h1>Tracer Study</h1>
 
-        <div class="d-flex flex-row gap-2 mb-4">
-            <form action="/admin/tracer-study">
-                <input type="text" id="artikel" name="search" placeholder="Cari Artikel" value="{{ request('search') }}">
+        <div class="d-flex flex-row justify-content-center gap-2 w-100 mb-3">
+            <form class="w-50" action="/admin/tracer-study">
+              <input type="text" id="form" name="form" value="Cari Form" value="{{ request('search') }}">
             </form>
-            <div class="search-logo d-flex justify-content-center align-items-center">
-                <i class='bx bx-search-alt-2'></i>
+            <div class="search-logo d-flex justify-content-center align-items-center" >
+              <i class='bx bx-search-alt-2'></i>
             </div>
-        </div>
+          </div>
+
+          <div class="d-flex flex-column align-items-center w-100 gap-2">
+            <div class="d-flex justify-content-end" style="width: 80%">
+                <button type="button" class="btn btn-primary" onclick="window.location.href='/admin/tracer-study/create'">
+                    <i class='bx bx-plus-circle'></i>
+                    <span class="d-none d-xl-inline">Tambah Form</span>
+                </button>
+            </div>
 
 
         @foreach ($forms as $tracerStudy)
-            <div class="background-card mb-4">
-                <div class="card-artikel d-flex align-items-center px-3">
-                    <img style="width: 151px" src="{{ asset('assets/images/image.png') }}" alt="Tracer Study Image">
-                    <div class="ps-3">
-                        <div class="d-flex flex-row w-auto justify-content-start align-items-center">
+            <div class="background-card">
+                <div class="card-information d-flex align-items-center px-3">
+                    <img src="{{ asset('assets/images/image.png') }}" alt="Tracer Study Image">
+                    <div class="ps-3 w-100">
+                        <div class="d-flex flex-md-row flex-sm-column w-auto justify-content-start align-items-center">
                             <h2 class="fst-italic roboto-title mb-0 align-self-center">{{ $tracerStudy->judul_form }}</h2>
                             <div class="align-self-start">
+                                <div class="ms-auto d-flex gap-2">
+                                    <a href="{{ route('admin.forms.edit', $tracerStudy->id) }}" 
+                                        class="btn btn-sm btn-info"> 
+                                        <i class='bx bx-pencil'></i>
+                                        <span class="d-none d-xl-inline ms-1">Edit</span>
+                                    </a>
 
-                                <a href="{{ route('admin.forms.edit', $tracerStudy->id) }}" class="btn btn-sm btn-info"> <i
-                                        class='bx bx-pencil'></i>
-                                    Edit</a>
-
-                                <a href="javascript:void(0);" class="btn btn-danger btn-delete"
-                                    data-id="{{ $tracerStudy->id }}">
-                                    <i class='bx bx-trash'></i>
-                                    Hapus
-                                </a>
+                                    <a href="javascript:void(0);" class="btn btn-danger btn-delete"
+                                        data-id="{{ $tracerStudy->id }}">
+                                        <i class='bx bx-trash'></i>
+                                        <span class="d-none d-xl-inline ms-1">Hapus</span>
+                                    </a>
+                                </div>
 
                             </div>
                         </div>
@@ -76,14 +87,6 @@
                 <a href="{{ $forms->nextPageUrl() }}" style="background-color: transparent">
                     &raquo;
                 </a>
-            </div>
-
-
-            <div class="align-self-end justify-self-end" style="margin-bottom: 100px">
-                <button type="button" class="btn" onclick="window.location.href='/admin/tracer-study/create'">
-                    <i class='bx bx-plus-circle'></i>
-                    Tambah Form
-                </button>
             </div>
         @endif
     </div>

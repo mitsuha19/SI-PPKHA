@@ -1,3 +1,8 @@
+html, body {
+    height: 100%;
+    overflow: hidden; /* Hindari double scrollbar */
+}
+
 .poppins-regular {
     font-family: "Poppins", serif;
     font-weight: 400;
@@ -150,12 +155,13 @@
     overflow-y: auto;
     min-height: 100vh; /* Gunakan min-height agar bisa bertambah */
     height: auto !important; /* Izinkan tinggi menyesuaikan konten */
-    max-height: none; /* Pastikan tidak terbatas */
+    max-height: 100vh; /* Pastikan tidak terbatas */
 }
 
 .main-content h1 {
     color: #0f1035;
     text-shadow: 0px 5px 4px #00000030;
+    font-size: 3rem;
 }
 
 .circle {
@@ -172,7 +178,7 @@ input[type="text"] {
     padding: 5px 20px;
     border-radius: 20px;
     height: 55px;
-    width: 424px;
+    width: 100%;
     border: none;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -190,7 +196,7 @@ input[type="text"] {
 .background-card {
     background-color: black;
     border-radius: 25px;
-    width: 900px;
+    width: 80%;
     height: fit-content;
     margin-bottom: 20px;
     box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);
@@ -207,8 +213,17 @@ input[type="text"] {
     border-radius: 10px;
 }
 
+
+.card-information{
+    background-color: #7fc7d9;
+    border-radius: 32px;
+    width: 100%;
+    height: fit-content;
+    padding: 10px 0px;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);   
+}
+
 .card-lowongan,
-.card-berita,
 .card-artikel,
 .card-pengumuman {
     background-color: #7fc7d9;
@@ -220,7 +235,7 @@ input[type="text"] {
 }
 
 .card-artikel .btn,
-.card-berita .btn,
+.card-information .btn,
 .card-lowongan .btn,
 .card-pengumuman .btn,
 .align-self-end > .btn {
@@ -228,10 +243,17 @@ input[type="text"] {
     border: none;
     color: white;
     font-weight: 700;
-    height: 38px;
+    height: fit-content;
 }
 
-.card-berita a,
+.card-information img{
+    width: 18%; 
+    height: auto; 
+    object-fit: contain; 
+    border-radius: 8px;
+}
+
+.card-information a,
 .card-lowongan a,
 .card-artikel a,
 .card-pengumuman a {
@@ -244,13 +266,13 @@ input[type="text"] {
 }
 
 .card-lowongan h2,
-.card-berita h2,
+.card-information h2,
 .card-artikel h2,
 .card-pengumuman h2 {
     width: 75%;
 }
 
-.card-berita .detail,
+.card-information .detail,
 .card-lowongan .detail,
 .card-artikel .detail,
 .card-pengumuman .detail {
@@ -264,6 +286,7 @@ input[type="text"] {
     padding: 8px;
     gap: 10px;
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 150px;
 }
 
 .pagination a {
@@ -357,6 +380,7 @@ input[type="file"] {
     font-weight: 600;
     align-items: center;
     display: inline-block;
+    width: fit-content;
     white-space: nowrap; /* Mencegah teks terpotong */
 }
 /* Style the active/current link */

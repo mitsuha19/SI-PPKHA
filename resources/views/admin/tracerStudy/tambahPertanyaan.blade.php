@@ -2,7 +2,7 @@
 
 @section('content')
     @include('components.navbarAdmin')
-    <div class="container">
+    <div class="main-content">
         <div class="row mb-4">
             <div class="col">
                 <br />
@@ -51,7 +51,7 @@
             </div>
 
             <div class="mb-4">
-                <button type="submit" class="btn btn-primary">Simpan Tracer Study</button>
+                <button type="submit" class="btn btn-primary" style="margin-bottom: 100px">Simpan Tracer Study</button>
             </div>
         </form>
     </div>
@@ -471,19 +471,4 @@
         });
     </script>
 
-    <style>
-        html,
-        body {
-            height: 100%;
-            overflow: hidden;
-            /* This would prevent scrolling */
-        }
-
-        .container {
-            height: 100vh;
-            /* or a fixed pixel height */
-            overflow: auto;
-            /* or hidden */
-        }
-    </style>
 @endsection
