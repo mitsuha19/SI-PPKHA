@@ -21,49 +21,49 @@
       <li class="nav-item">
         <a href="/admin" class="nav-link active" aria-current="page">
           <i class='bx bx-home-alt'></i>
-          Dashboard
+          <span class="d-none d-xl-inline ms-1">Dashboard</span>
         </a>
       </li>
       <li>
         <a href="/admin/berita" class="nav-link ">
           <i class='bx bx-info-circle' ></i>
-          Berita
+          <span class="d-none d-xl-inline ms-1">Berita</span>
         </a>
       </li>
       <li>
         <a href="/admin/pengumuman" class="nav-link ">
           <i class='bx bx-bell' ></i>
-          Pengumuman
+          <span class="d-none d-xl-inline ms-1">Pengumuman</span>
         </a>
       </li>
       <li>
         <a href="/admin/artikel" class="nav-link ">
           <i class='bx bx-book' ></i>
-          Artikel
+          <span class="d-none d-xl-inline ms-1">Artikel</span>
         </a>
       </li>
       <li>
         <a href="/admin/daftar-perusahaan" class="nav-link">
           <i class='bx bx-home-circle' ></i>
-          Daftar Perusahaan
+          <span class="d-none d-xl-inline ms-1">Daftar Perusahaan</span>
         </a>
       </li>
       <li>
         <a href="/admin/lowongan-pekerjaan" class="nav-link">
           <i class='bx bx-briefcase-alt' ></i>
-          Lowongan Pekerjaan
+          <span class="d-none d-xl-inline ms-1">Lowongan Pekerjaan</span>
         </a>
       </li>
       <li>
         <a href="/admin/tracer-study" class="nav-link">
           <i class='bx bx-group'></i>
-          Tracer Study
+          <span class="d-none d-xl-inline ms-1">Tracer Study</span>
         </a>
       </li>
       <li>
         <a href="/admin/user-survey" class="nav-link">
           <i class='bx bx-notepad'></i>
-          User Survey
+          <span class="d-none d-xl-inline ms-1">User Survey</span>
         </a>
       </li>
     </ul>

@@ -127,7 +127,7 @@ html, body {
 }
 
 .sidebar-admin {
-    width: 280px;
+    width: fit-content;
     background-color: #f5f7fa;
     position: fixed; /* Sidebar fixed */
     left: 0;
@@ -150,12 +150,12 @@ html, body {
 }
 
 .main-content {
-    margin-left: 280px;
     padding: 20px 10px 0px 20px;
     overflow-y: auto;
     min-height: 100vh; /* Gunakan min-height agar bisa bertambah */
     height: auto !important; /* Izinkan tinggi menyesuaikan konten */
     max-height: 100vh; /* Pastikan tidak terbatas */
+    /* transition: margin-left 0.1s ease-in-out; */
 }
 
 .main-content h1 {

@@ -247,14 +247,16 @@
 
                 // Check if the new section is in view
                 const sectionBottom = $newSection.offset().top + $newSection.outerHeight();
-                const viewportBottom = $(window).scrollTop() + $(window).height();
+                const mainContent = $('#main-content'); // Target div yang akan discroll
+                const mainContentScrollTop = mainContent.scrollTop();
+                const mainContentHeight = mainContent.height();
+                const mainContentBottom = mainContentScrollTop + mainContentHeight;
 
                 // Only scroll if the section isn't fully visible
-                if (sectionBottom > viewportBottom) {
+                if (sectionBottom > mainContentBottom) {
                     // Scroll just enough to show the section, keeping context
-                    $('html, body').animate({
-                        scrollTop: $(window).scrollTop() + (sectionBottom - viewportBottom) +
-                            50 // Add a little padding
+                    mainContent.animate({
+                        scrollTop: mainContentScrollTop + (sectionBottom - mainContentBottom) + 50
                     }, 300);
                 }
                 sectionIndex++;
