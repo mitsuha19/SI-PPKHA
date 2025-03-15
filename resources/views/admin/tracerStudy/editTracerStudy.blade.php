@@ -2,7 +2,7 @@
 
 @section('content')
     @include('components.navbarAdmin')
-    <div class="container">
+    <div class="main-content">
         <div class="row mb-4">
             <div class="col">
                 <br />
