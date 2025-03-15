@@ -187,7 +187,8 @@ class TracerStudyController extends Controller
             }
 
             DB::commit();
-            return redirect()->route('admin.tracerStudy.tracerStudy')->with('success', 'Form berhasil diperbarui!');
+            Alert::success('Success', 'Form berhasil diperbaharui!');
+            return redirect()->route('admin.tracerStudy.tracerStudy');
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors(['msg' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
