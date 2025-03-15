@@ -43,6 +43,7 @@
 
             <div id="sections-container">
                 @foreach ($form->sections as $sectionIndex => $section)
+                    <input type="hidden" name="sections[{{ $sectionIndex }}][id]" value="{{ $section->id }}">
                     <div class="card mb-4 section-card" data-section-index="{{ $sectionIndex }}">
                         <div class="card-header bg-light d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
@@ -64,6 +65,9 @@
                         <div class="card-body section-body">
                             <div class="questions-container">
                                 @foreach ($section->questions as $questionIndex => $question)
+                                    <input type="hidden"
+                                        name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][id]"
+                                        value="{{ $question->id }}">
                                     <div class="card mb-3 question-card" data-question-index="{{ $questionIndex }}">
                                         <div class="card-body">
                                             <div class="row mb-3">
@@ -108,6 +112,7 @@
 
                                             <div class="options-container"
                                                 @if (!in_array($question->type_question_id, [3, 4, 5, 6])) style="display: none;" @endif>
+
                                                 @if ($question->type_question_id == 6)
                                                     {{-- Skala Linier --}}
                                                     <div class="row mb-3 scale-options">
@@ -158,6 +163,11 @@
                                                 @elseif(in_array($question->type_question_id, [3, 4, 5]))
                                                     {{-- Pilihan Ganda, Kotak Centang, Dropdown --}}
                                                     @foreach ($question->options as $optionIndex => $option)
+                                                        <input type="hidden"
+                                                            name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][options][{{ $optionIndex }}][id]"
+                                                            value="{{ $option->id }}">
+
+
                                                         <div class="row mb-2 option-row"
                                                             data-option-index="{{ $optionIndex }}">
                                                             @if ($question->type_question_id == 3)
@@ -171,8 +181,7 @@
                                                                 <div class="col-md-4">
                                                                     <select class="form-select next-section-select"
                                                                         name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][options][{{ $optionIndex }}][next_section_id]">
-                                                                        <option value="">Pilih Section Selanjutnya
-                                                                        </option>
+
                                                                         <option value="submit"
                                                                             @if ($option->next_section_id === null) selected @endif>
                                                                             Kirim Formulir</option>
@@ -350,6 +359,10 @@
 
     <template id="option-mc-template">
         <div class="row mb-2 option-row" data-option-index="__OPTION_INDEX__">
+            <input type="hidden"
+                name="sections[__SECTION_INDEX__][questions][__QUESTION_INDEX__][options][__OPTION_INDEX__][id]"
+                value="">
+
             <div class="col-md-6">
                 <input type="text" class="form-control"
                     name="sections[__SECTION_INDEX__][questions][__QUESTION_INDEX__][options][__OPTION_INDEX__][option_body]"
@@ -455,6 +468,7 @@
                     }, 300);
                 }
                 sectionIndex++;
+                updateNextSectionDropdowns();
             });
 
             $(document).on('click', '.delete-section', function() {
@@ -501,34 +515,32 @@
 
                         $optionsContainer.append(scaleTemplate);
                     } else if (typeId === 3) {
-
                         for (let i = 0; i < 2; i++) {
                             addMCOption(sectionIndex, questionIndex, i, $optionsContainer);
                         }
 
                         const buttonHtml = `
-                            <div class="mb-3">
-                                <button type="button" class="btn btn-sm btn-secondary add-option"
-                                        data-section-index="${sectionIndex}"
-                                        data-question-index="${questionIndex}">
-                                    <i class="fas fa-plus"></i> Tambah Opsi
-                                </button>
-                            </div>`;
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-sm btn-secondary add-option"
+                                data-section-index="${sectionIndex}"
+                                data-question-index="${questionIndex}">
+                            <i class="fas fa-plus"></i> Tambah Opsi
+                        </button>
+                    </div>`;
                         $optionsContainer.append(buttonHtml);
                     } else {
-
                         for (let i = 0; i < 2; i++) {
                             addStandardOption(sectionIndex, questionIndex, i, $optionsContainer);
                         }
 
                         const buttonHtml = `
-                            <div class="mb-3">
-                                <button type="button" class="btn btn-sm btn-secondary add-option"
-                                        data-section-index="${sectionIndex}"
-                                        data-question-index="${questionIndex}">
-                                    <i class="fas fa-plus"></i> Tambah Opsi
-                                </button>
-                            </div>`;
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-sm btn-secondary add-option"
+                                data-section-index="${sectionIndex}"
+                                data-question-index="${questionIndex}">
+                            <i class="fas fa-plus"></i> Tambah Opsi
+                        </button>
+                    </div>`;
                         $optionsContainer.append(buttonHtml);
                     }
                 } else {
@@ -546,6 +558,8 @@
             }
 
             function addMCOption(sectionIndex, questionIndex, optionIndex, $container) {
+                updateMCOptionTemplate();
+
                 let optionTemplate = $('#option-mc-template').html()
                     .replace(/__SECTION_INDEX__/g, sectionIndex)
                     .replace(/__QUESTION_INDEX__/g, questionIndex)
@@ -554,32 +568,125 @@
                 const $optionElement = $(optionTemplate);
                 $container.append($optionElement);
 
-                updateNextSectionDropdowns();
+                const currentSectionIndex = parseInt(sectionIndex);
+                const $nextSectionSelect = $optionElement.find('.next-section-select');
+
+                $nextSectionSelect.find('option').each(function() {
+                    const value = $(this).val();
+                    if (value && value !== 'submit') {
+                        let optionSectionIndex;
+
+                        if (value.startsWith('new_')) {
+                            optionSectionIndex = parseInt(value.replace('new_', ''));
+                        } else {
+                            const sectionElement = $(
+                                `input[name^="sections"][name$="[id]"][value="${value}"]`).closest(
+                                '.section-card');
+                            if (sectionElement.length) {
+                                optionSectionIndex = parseInt(sectionElement.data('section-index'));
+                            }
+                        }
+
+                        if (optionSectionIndex !== undefined && optionSectionIndex <= currentSectionIndex) {
+                            $(this).prop('disabled', true);
+                        }
+                    }
+                });
+            }
+
+            function updateMCOptionTemplate() {
+                const $mcTemplate = $('#option-mc-template');
+                let templateHtml = $mcTemplate.html();
+
+                const regex =
+                    /<option value="">Pilih Section Selanjutnya<\/option>\s*<option value="submit">Kirim Formulir<\/option>(?:\s*<option[^>]*>[^<]*<\/option>)*/;
+
+                let newOptions = '<option value="">Pilih Section Selanjutnya</option>\n';
+                newOptions += '<option value="submit">Kirim Formulir</option>\n';
+
+                $('.section-card').each(function() {
+                    const sectionIndex = $(this).data('section-index');
+                    const sectionName = $(this).find('input[name$="[section_name]"]').val();
+                    const sectionId = $(this).find('input[name$="[id]"]').val() || `new_${sectionIndex}`;
+
+                    if (sectionName) {
+                        newOptions += `<option value="${sectionId}">${sectionName}</option>\n`;
+                    }
+                });
+
+                const updatedTemplateHtml = templateHtml.replace(regex, newOptions);
+                $mcTemplate.html(updatedTemplateHtml);
             }
 
             function updateNextSectionDropdowns() {
+                updateMCOptionTemplate();
+
                 $('.next-section-select').each(function() {
                     const $select = $(this);
-                    const currentSectionIndex = $select.closest('.section-card').data('section-index');
+                    const currentSectionIndex = parseInt($select.closest('.section-card').data(
+                        'section-index'));
                     const currentValue = $select.val();
 
-                    $select.find('option:gt(1)').remove();
+                    const $defaultOptions = $select.find('option:lt(2)').clone();
+
+                    $select.empty();
+
+                    $select.append($defaultOptions);
 
                     $('.section-card').each(function() {
-                        const sectionIndex = $(this).data('section-index');
-                        const sectionId = $(this).find(
-                                'input[name^="sections"][name$ = "[section_name]"]').attr('name')
-                            .match(/sections\[(\d+)\]/)[1];
-                        const sectionName = $(this).find(
-                            'input[name^="sections"][name$ = "[section_name]"]').val();
+                        const sectionIndex = parseInt($(this).data('section-index'));
+                        const sectionId = $(this).find('input[name$="[id]"]').val() ||
+                            `new_${sectionIndex}`;
+                        const sectionName = $(this).find('input[name$="[section_name]"]').val();
 
-                        if (sectionIndex > currentSectionIndex && sectionName) {
-                            $select.append(`<option value="${sectionId}">${sectionName}</option>`);
+                        function updateNextSectionDropdowns() {
+                            updateMCOptionTemplate();
+
+                            $('.next-section-select').each(function() {
+                                const $select = $(this);
+                                const currentSectionIndex = parseInt($select.closest(
+                                    '.section-card').data('section-index'));
+                                const currentValue = $select.val();
+
+                                const $defaultOptions = $select.find('option:lt(2)')
+                            .clone();
+
+                                $select.empty();
+
+                                $select.append($defaultOptions);
+
+                                $('.section-card').each(function() {
+                                    const sectionIndex = parseInt($(this).data(
+                                        'section-index'));
+                                    const sectionId = $(this).find(
+                                        'input[name$="[id]"]').val();
+                                    const sectionName = $(this).find(
+                                        'input[name$="[section_name]"]').val();
+
+                                    if (sectionIndex > currentSectionIndex &&
+                                        sectionName) {
+                                        const optionValue = sectionId ||
+                                            `new_${sectionIndex}`;
+                                        $select.append(
+                                            `<option value="${optionValue}">${sectionName}</option>`
+                                            );
+                                    }
+                                });
+
+                                if (currentValue) {
+                                    if ($select.find(`option[value="${currentValue}"]`)
+                                        .length) {
+                                        $select.val(currentValue);
+                                    }
+                                }
+                            });
                         }
                     });
 
                     if (currentValue) {
-                        $select.val(currentValue);
+                        if ($select.find(`option[value="${currentValue}"]`).length) {
+                            $select.val(currentValue);
+                        }
                     }
                 });
             }
@@ -656,7 +763,7 @@
 
             updateNextSectionDropdowns();
 
-            $(document).on('change', 'input[name$="[section_name]"]', function() {
+            $(document).on('input', 'input[name$="[section_name]"]', function() {
                 updateNextSectionDropdowns();
             });
         });
