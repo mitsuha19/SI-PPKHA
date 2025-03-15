@@ -2,7 +2,7 @@
 
 @section('content')
     @include('components.navbarAdmin')
-    <div class="main-content">
+    <div class="main-content" style="padding-bottom: 5%">
         <div class="row mb-4">
             <div class="col">
                 <br />
