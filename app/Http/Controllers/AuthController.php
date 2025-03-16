@@ -99,27 +99,32 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        // 1. Validate login credentials.
+        // Validate login credentials.
         $credentials = $request->validate([
             'nim'      => 'required|string|exists:users,nim',
             'password' => 'required|string',
             'g-recaptcha-response' => 'required|captcha'
         ]);
 
-        // 2. Retrieve the user.
+        // Retrieve the user.
         $user = User::where('nim', $credentials['nim'])->first();
 
-        // 3. Check if the password is correct.
+        // Check if the password is correct.
         if (!$user || !Hash::check($credentials['password'], $user->password)) {
             return redirect()->back()
                 ->withErrors(['nim' => 'Invalid credentials'])
                 ->withInput();
         }
 
-        // 4. Log in the user.
+        // Log in the user.
         Auth::login($user);
 
-        // 5. Redirect the user to the home page.
+        // Check if the user has the admin role using Spatie's hasRole() method
+        if ($user->hasRole('admin')) {
+            return redirect('/admin')->with('success', 'Welcome, Ketua Guild!');
+        }
+
+        // Redirect the user "alumni" to the home page.
         return redirect('/');
     }
 
