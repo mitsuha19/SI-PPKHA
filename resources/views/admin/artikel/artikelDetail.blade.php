@@ -11,19 +11,25 @@
         {{-- Judul Artikel dan button Edit dan Delete --}}
         <div class="d-flex flex-md-row flex-sm-column w-auto justify-content-start align-items-center">
           <h2 class="fst-italic roboto-title mb-0 align-self-center">
-            Ratusan Mahasiswa Indonesia Terima Mahasiswa 
+            {{ $artikel->judul_artikel }}
           </h2>
   
           {{-- Button --}}
           <div class="align-self-start">
-            <button type="button" class="btn">
+            <a href="{{ route('admin.artikel.artikelEdit', ['id' => $artikel->id]) }}" class="btn">
               <i class='bx bx-pencil'></i>
               <span class="d-none d-xl-inline ms-1">Edit</span>
-            </button>
-            <button type="button" class="btn">
-              <i class='bx bx-trash' ></i>
-              <span class="d-none d-xl-inline ms-1">Hapus</span>
-            </button>
+            </a>
+            <form action="{{ route('admin.artikel.destroy', ['id' => $artikel->id]) }}" method="POST"
+              style="display:inline;">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="btn"
+                  onclick="return confirm('Yakin ingin menghapus artikel ini?');">
+                  <i class='bx bx-trash'></i>
+                  <span class="d-none d-xl-inline ms-1">Hapus</span>
+              </button>
+            </form>
           </div>
         </div>
 
@@ -34,24 +40,12 @@
         </div>
 
         <p class="roboto-light mb-1 mt-2" style="font-size: 15px">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud 
-          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute 
-          irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
-          deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipiscing 
-          elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim 
-          veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla 
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt 
-          mollit anim id est laborum.
+          {!! nl2br(e($artikel->deskripsi_artikel)) !!}
         </p>
   
         {{-- Link to detail news --}}
         <div class="detail">
-          <button type="button" class="btn px-3">
-            Tutup
-          </button>
+          <a href="{{ route('admin.artikel.artikel') }}" class="btn px-3">Tutup</a>
         </div>
         
       </div>

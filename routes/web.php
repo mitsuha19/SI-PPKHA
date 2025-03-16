@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArtikelController;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
@@ -94,10 +95,16 @@ Route::prefix('admin/pengumuman')->name('admin.pengumuman.')->group(function () 
     Route::delete('/{id}', [PengumumanController::class, 'destroy'])->name('destroy');
 });
 
-// artikel
-Route::get('/admin/artikel', function () {
-    return view('admin.artikel.artikel');
+Route::prefix('admin/artikel')->name('admin.artikel.')->group(function () {
+    Route::get('/', [ArtikelController::class, 'showArtikelAdmin'])->name('artikel');
+    Route::get('/create', [ArtikelController::class, 'createArtikel'])->name('create');
+    Route::post('/', [ArtikelController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [ArtikelController::class, 'showArtikelEditAdmin'])->name('artikelEdit');
+    Route::put('/{id}', [ArtikelController::class, 'update'])->name('update');
+    Route::delete('/{id}', [ArtikelController::class, 'destroy'])->name('destroy');
+    Route::get('/{id}', [ArtikelController::class, 'show'])->name('show');
 });
+
 
 Route::get('/admin/artikel/add', function () {
     return view('admin.artikel.artikelAdd');

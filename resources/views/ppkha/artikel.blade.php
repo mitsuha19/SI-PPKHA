@@ -18,7 +18,7 @@
         <div class="pengumuman-section d-flex flex-column align-items-center gap-4">
             <div class="pengumuman-grid" style="display: flex; flex-wrap: wrap;">
                 <!-- Static Cards -->
-                <div class="background-card">
+                <div class="background-card-artikel">
                     <div class="card" style="width: 18rem;">
                         <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
                         <div class="card-detail">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <div class="background-card">
+                <div class="background-card-artikel">
                     <div class="card" style="width: 18rem;">
                         <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
                         <div class="card-detail">
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="background-card">
+                <div class="background-card-artikel">
                     <div class="card" style="width: 18rem;">
                         <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
                         <div class="card-detail">

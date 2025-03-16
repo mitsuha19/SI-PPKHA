@@ -368,7 +368,8 @@ h2 span {
     margin: auto;
 }
 
-.background-card:hover {
+.background-card:hover
+.background-card-artikel:hover {
     transform: translateY(-5px);
 }
 
@@ -454,6 +455,15 @@ h2 span {
     background-color: black;
     border-radius: 25px;
     width: 80%;
+    height: fit-content;
+    margin-bottom: 20px;
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);
+}
+
+.background-card-artikel{
+    background-color: black;
+    border-radius: 25px;
+    width: fit-content;
     height: fit-content;
     margin-bottom: 20px;
     box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);
