@@ -6,6 +6,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\LowonganController;
+use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\KuesionerController;
 use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\TracerStudyController;
@@ -99,21 +101,27 @@ Route::group([
     Route::get('/artikel/detail', fn() => view('admin.artikel.artikelDetail'));
     Route::get('/artikel/edit', fn() => view('admin.artikel.artikelEdit'));
 
-    // Daftar Perusahaan routes
-    Route::prefix('daftar-perusahaan')->group(function () {
-        Route::get('/', fn() => view('admin.daftarPerusahaan.daftarPerusahaan'));
-        Route::get('/add', fn() => view('admin.daftarPerusahaan.daftarPerusahaanAdd'));
-        Route::get('/edit', fn() => view('admin.daftarPerusahaan.daftarPerusahaanEdit'));
-        Route::get('/detail', fn() => view('admin.daftarPerusahaan.daftarPerusahaanDetail'));
+    // daftar perusahaan
+Route::prefix('daftar-perusahaan')->group(function () {
+    Route::get('/', [PerusahaanController::class, 'index2'])->name('admin.daftarPerusahaan.daftarPerusahaan');
+    Route::post('/', [PerusahaanController::class, 'store'])->name('admin.perusahaan.store');
+    Route::get('/detail/{id}', [PerusahaanController::class, 'show1'])->name('admin.daftarPerusahaan.daftarPerusahaanDetail');
+    Route::get('/{id}/edit', [PerusahaanController::class, 'index4'])->name('admin.perusahaan.edit');
+    Route::put('/{id}', [PerusahaanController::class, 'update'])->name('perusahaan.update');
+    Route::delete('/{id}', [PerusahaanController::class, 'destroy'])->name('admin.daftarPerusahaan.destroy');
     });
 
-    // Lowongan Pekerjaan routes
-    Route::prefix('lowongan-pekerjaan')->group(function () {
-        Route::get('/', fn() => view('admin.lowonganPekerjaan.lowonganPekerjaan'));
-        Route::get('/detail', fn() => view('admin.lowonganPekerjaan.lowonganPekerjaanDetail'));
-        Route::get('/add', fn() => view('admin.lowonganPekerjaan.lowonganPekerjaanAdd'));
-        Route::get('/edit', fn() => view('admin.lowonganPekerjaan.lowonganPekerjaanEdit'));
-    });
+
+//lowongan pekerjaan
+Route::prefix('lowongan-pekerjaan')->group(function () {
+    Route::get('/', [LowonganController::class, 'index2'])->name('admin.lowonganPekerjaan.lowonganPekerjaan');
+    Route::post('/', [LowonganController::class, 'store'])->name('admin.lowonganPekerjaan.store');
+    Route::get('/add', [LowonganController::class, 'index3'])->name('admin.lowonganPekerjaan.add');
+    Route::get('/detail/{id}', [LowonganController::class, 'show1'])->name('admin.lowonganPekerjaan.lowonganPekerjaanDetail');
+    Route::get('/{id}/edit', [LowonganController::class, 'index4'])->name('admin.lowonganPekerjaan.edit');
+    Route::put('/{id}', [LowonganController::class, 'update'])->name('lowongan.update');
+    Route::delete('/{id}', [LowonganController::class, 'destroy'])->name('admin.lowonganPekerjaan.destroy');
+});
 
     // Tracer Study routes
     Route::get('/tracer-study', [TracerStudyController::class, 'mainTracerStudy'])->name('admin.tracerStudy.tracerStudy');

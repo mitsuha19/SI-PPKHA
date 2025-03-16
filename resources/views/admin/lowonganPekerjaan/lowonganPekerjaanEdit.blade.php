@@ -5,48 +5,100 @@
 <div class="main-content">
   <h1 class="poppins-bold text-black mt-3" style="font-size: 22px">Edit Lowongan Pekerjaan</h1>
   <div class="box-form">
-      <form action="">
-        <label for="namaPerusahaan" class="poppins-bold text-black mb-2">Nama Perusahaan:</label>
-        <input type="text" class="form-control mb-3" id="namaPerusahaan" placeholder="Masukkan nama Perusahaan">
+  <form action="{{ route('lowongan.update', $lowongan->id) }}" method="POST" enctype="multipart/form-data">
+      @csrf 
+      @method('PUT')
 
-        <label for="alamatPerusahaan" class="poppins-bold text-black mb-2">Alamat Perusahaan:</label>
-        <input type="text" class="form-control mb-3" id="alamatPerusahaan" placeholder="Pilih Kota/Kabupaten Perusahaan">
+        <label for="judulLowongan" class="poppins-bold text-black mb-2">Judul Lowongan:</label>
+        <input type="text" class="form-control mb-3" id="judulLowongan" name="judulLowongan" value="{{ old('judulLowongan', $lowongan->judulLowongan) }}" required>
 
-        <label for="jenisLowongan" class="poppins-bold text-black mb-2">Jenis Lowongan * <span style="font-size: 12px">Departement</span>:</label>
-        <input type="text" class="form-control mb-3" id="jenisLowongan" placeholder="Masukkan Jenis Lowongan, contoh: FullStack; Administrasi; ">
+        <label for="jenisLowongan" class="poppins-bold text-black mb-2">Jenis Lowongan:</label>
+        <input type="text" class="form-control mb-3" id="jenisLowongan" name="jenisLowongan" value="{{ old('jenisLowongan', $lowongan->jenisLowongan) }}" required>
 
-        <label for="deskripsi" class="form-label poppins-bold text-black mb-2">Deskripsi Lowongan:</label>
-        <textarea class="form-control mb-3" id="deskripsi" placeholder="Masukkan deskripsi Lowongan"></textarea>
+        <label for="tipeLowongan" class="poppins-bold text-black mb-2">Tipe Lowongan:</label>
+        <select name="tipeLowongan" class="form-select" required>
+                      <option value="Full-time" {{ $lowongan->tipeLowongan == 'Full-time' ? 'selected' : '' }}>Full-time</option>
+                      <option value="Part-time" {{ $lowongan->tipeLowongan == 'Part-time' ? 'selected' : '' }}>Part-time</option>
+                      <option value="Magang" {{ $lowongan->tipeLowongan == 'Magang' ? 'selected' : '' }}>Magang</option>
+                      <option value="Kontrak" {{ $lowongan->tipeLowongan == 'Kontrak' ? 'selected' : '' }}>Kontrak</option>
+        </select>
+
+        <label for="deskripsiLowongan" class="form-label poppins-bold text-black mb-2">Deskripsi Lowongan:</label>
+        <textarea class="form-control mb-3" id="deskripsiLowongan" name="deskripsiLowongan" placeholder="Masukkan Deskripsi Lowongan" required>{{ old('deskripsiLowongan', $lowongan->deskripsiLowongan) }}</textarea>
 
         <label for="kualifikasi" class="form-label poppins-bold text-black mb-2">Kualifikasi Lowongan:</label>
-        <textarea class="form-control mb-3" id="kualifikasi" placeholder="Masukkan Kualifikasi Lowongan"></textarea>  
+        <textarea class="form-control mb-3" id="kualifikasi" name="kualifikasi" placeholder="Masukkan Kualifikasi Lowongan" required>{{ old('kualifikasi', $lowongan->kualifikasi) }}</textarea>  
 
         <label for="benefit" class="form-label poppins-bold text-black mb-2">Benefit Lowongan:</label>
-        <textarea class="form-control mb-3" id="benefit" placeholder="Masukkan Benefit Lowongan"></textarea>  
+        <textarea class="form-control mb-3" id="benefit" name="benefit" placeholder="Masukkan Benefit Lowongan" required>{{ old('benefit', $lowongan->benefit) }}</textarea>  
 
-        <label for="keahlian" class="poppins-bold text-black mb-2">Keahlian Lowongan: </label>
-        <input type="text" class="form-control mb-3" id="keahlian" placeholder="Pilih Keahlian Lowongan">
+        <label for="keahlian" class="poppins-bold text-black mb-2">Tambahkan Keahlian Lowongan:</label>
+        <div id="keahlianContainer">
+    @php
+        $keahlianArray = old('keahlian', isset($lowongan->keahlian) ? explode(',', $lowongan->keahlian) : []);
+    @endphp
 
-        <label for="batasLamaran" class="poppins-bold text-black mb-2">Tambahkan batas Lamaran: </label>
-        <div class="d-flex flex-row">
-          <input type="date" class="form-control mb-3" id="batasMulai">
-          <i class='bx bx-md bx-minus'></i>
-          <input type="date" class="form-control mb-3" id="batasAkhir">
-        </div>
+    @foreach($keahlianArray as $keahlian)
+    <div class="keahlian-item d-flex mb-2">
+        <input type="text" class="form-control me-2" name="keahlian[]" value="{{ trim($keahlian) }}" required>
+        <button type="button" class="btn btn-danger btn-sm" onclick="removeKeahlian(this)">❌</button>
+    </div>
+    @endforeach
+    <button type="button" class="btn btn-success btn-sm mt-2" onclick="addKeahlian()">+ Tambah Keahlian</button>
+</div>
+
+
+    <label for="batasMulai" class="poppins-bold text-black mb-2">Batas Mulai Lamaran:</label>
+<input type="date" class="form-control mb-3" id="batasMulai" name="batasMulai" 
+    value="{{ old('batasMulai', isset($lowongan->batasMulai) ? date('Y-m-d', strtotime($lowongan->batasMulai)) : '') }}" required>
+
+<label for="batasAkhir" class="poppins-bold text-black mb-2">Batas Akhir Lamaran:</label>
+<input type="date" class="form-control mb-3" id="batasAkhir" name="batasAkhir" 
+    value="{{ old('batasAkhir', isset($lowongan->batasAkhir) ? date('Y-m-d', strtotime($lowongan->batasAkhir)) : '') }}" required>
+
+   
+
         
-        <label for="myFile" class="form-label poppins-bold text-black mt-2">Tambahkan Gambar/Logo:</label>
-        <div class="button-wrap">
-          <label class="buttonUploadFile" for="upload">
-            <i class='bx bx-upload me-1'></i>
-            Choose a File
-          </label>
-          <input id="upload" type="file">
-        </div>
+        
         <div class="d-flex justify-content-end align-items-end gap-2">
-          <button>Batal</button>
-          <button>Tambah</button>
+        <button type="submit" class="btn" style="background-color: #13C56B; color: white; border: none;">
+          Perbarui
+        </button>
+        <a href="{{ route('admin.lowonganPekerjaan.lowonganPekerjaan') }}" class="btn btn-secondary">Batal</a>
+          
         </div>
       </form>
   </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    let keahlianInput = document.getElementById("keahlian");
+    keahlianInput.addEventListener("input", function() {
+        this.value = this.value.replace(/[^a-zA-Z0-9, ]/g, '');
+    });
+});
+</script>
+
+<script>
+ function addKeahlian() {
+    let container = document.getElementById('keahlianContainer');
+    let newInput = document.createElement('div');
+    newInput.classList.add('keahlian-item', 'd-flex', 'mb-2');
+    newInput.innerHTML = `
+        <input type="text" class="form-control me-2" name="keahlian[]" placeholder="Masukkan Keahlian" required>
+        <button type="button" class="btn btn-danger btn-sm" onclick="removeKeahlian(this)">❌</button>
+    `;
+    container.appendChild(newInput);
+}
+
+function removeKeahlian(button) {
+    let container = document.getElementById('keahlianContainer');
+    if (container.children.length > 1) { // Pastikan minimal satu input tetap ada
+        button.parentElement.remove();
+    }
+}
+</script>
+
+
 @endsection
