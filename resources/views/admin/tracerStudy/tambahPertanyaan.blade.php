@@ -275,6 +275,7 @@
                 if (result.isConfirmed) {
                     $(this).closest('.section-card').remove();
                     updateSectionNumbers();
+                    updateAllSectionDropdowns();
                     Swal.fire(
                         'Dihapus!',
                         'Section ini telah dihapus.',
@@ -283,6 +284,13 @@
                 }
             });
         });
+
+        function updateAllSectionDropdowns() {
+            $('.section-card').each(function() {
+                const sectionIndex = $(this).data('section-index');
+                updateAvailableSections(sectionIndex);
+            });
+        }
 
 
         // Toggle Section (minimize/maximize)
@@ -339,21 +347,19 @@
         </div>
     `);
 
-            if ([3, 4, 5, 6].includes(typeId)) { 
+            if ([3, 4, 5, 6].includes(typeId)) {
                 $optionsContainer.show();
 
-                if (typeId === 6) { 
+                if (typeId === 6) {
                     const scaleTemplate = $('#option-scale-template').html()
                         .replace(/__SECTION_INDEX__/g, sectionIndex)
                         .replace(/__QUESTION_INDEX__/g, questionIndex);
 
                     $optionsContainer.prepend(scaleTemplate);
-                }
-                else if (typeId === 3) { 
+                } else if (typeId === 3) {
                     addMultipleChoiceOption(sectionIndex, questionIndex, 0, $optionsContainer);
                     updateAvailableSections(sectionIndex);
-                }
-                else {
+                } else {
                     addOption(sectionIndex, questionIndex, 0, $optionsContainer);
                 }
             } else {
@@ -376,6 +382,7 @@
 
             if (typeId === 3) { // Pilihan Ganda
                 addMultipleChoiceOption(sectionIndex, questionIndex, optionIndex, $optionsContainer);
+                // Make sure to update available sections when adding a new option
                 updateAvailableSections(sectionIndex);
             } else {
                 addOption(sectionIndex, questionIndex, optionIndex, $optionsContainer);
@@ -421,9 +428,10 @@
                 // Add sections that come after this one
                 $('.section-card').each(function() {
                     const sectionIndex = parseInt($(this).data('section-index'));
+                    const sectionNumber = $(this).find('.section-number').text(); // Get the current section number
                     const sectionName = $(this).find(
                             'input[name^="sections"][name$="[section_name]"]').val() ||
-                        `Section ${sectionIndex + 1}`;
+                        `Section ${sectionNumber}`; // Use section number instead of index+1
 
                     if (sectionIndex > currentSectionIndex) {
                         $select.append(
