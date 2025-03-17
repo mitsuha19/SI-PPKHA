@@ -2,12 +2,12 @@
 
 @section('content')
 @include('components.navbarAdmin')
-<div class="main-content align-items-center" style="max-height: 80vh; overflow-y: auto; padding: 15px;">
+<div class="main-content d-flex flex-column align-items-center">
 <h1>Lowongan Pekerjaan</h1>
 
 <div class="d-flex flex-row justify-content-center gap-2 w-100 mb-3">
   <form class="w-50">
-    <input type="text" id="berita" name="berita" value="Cari Berita">
+    <input type="text" id="lowongan-pekerjaan" name="lowongan-pekerjaan" value="Cari Lowongan Pekerjaan">
   </form>
   <div class="search-logo d-flex justify-content-center align-items-center" >
     <i class='bx bx-search-alt-2'></i>
@@ -36,7 +36,8 @@
 
                         <div class="align-self-start">
                             <a href="{{ route('admin.lowonganPekerjaan.edit', $l->id) }}" class="btn">
-                                <i class='bx bx-pencil'></i> Edit
+                                <i class='bx bx-pencil'></i> 
+                                <span class="d-none d-xl-inline">Edit</span>
                             </a>
                             <button type="button" class="btn" onclick="openDeleteModal({{ $l->id }}, '{{ $l->judulLowongan }}')">
                           <i class='bx bx-trash'></i> 

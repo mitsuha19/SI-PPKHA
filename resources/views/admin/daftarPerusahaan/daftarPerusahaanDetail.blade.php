@@ -2,7 +2,7 @@
 
 @section('content')
 @include('components.navbarAdmin')
-<div class="main-content" style="max-height: 80vh; overflow-y: auto; padding: 15px;">
+<div class="main-content d-flex flex-column align-items-start gap-3">
   <div class="card-perusahaan d-flex flex-row align-items-center gap-5">
     <img style="height: 92px; width: auto;" src="{{ asset($perusahaan->logo ? 'storage/' . $perusahaan->logo : 'assets/images/default-logo.png') }}">
     <div class="montserrat-medium mb-0">

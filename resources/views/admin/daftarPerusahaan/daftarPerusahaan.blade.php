@@ -2,12 +2,12 @@
 
 @section('content')
 @include('components.navbarAdmin')
-<div class="main-content" style="max-height: 80vh; overflow-y: auto; padding: 15px;">
+<div class="main-content d-flex flex-column align-items-center">
   <h1>Daftar Perusahaan</h1>
 
-  <div class="d-flex flex-row gap-2 mb-4">
-    <form>
-      <input type="text" id="cariPerusahaan" name="cariPerusahaan" placeholder="Cari Perusahaan">
+  <div class="d-flex flex-row justify-content-center gap-2 w-100 mb-3">
+    <form class="w-50">
+      <input type="text" id="daftar-perusahaan" name="daftar-perusahaan" placeholder="Cari Nama Perusahaan">
     </form>
     <div class="search-logo d-flex justify-content-center align-items-center">
       <i class='bx bx-search-alt-2'></i>
@@ -17,8 +17,8 @@
   @foreach($perusahaan as $p)
   <div class="background-card">
   <div class="card-information d-flex align-items-center px-3">
-      <img style="width: 130px" src="{{ $p->logo ? asset('storage/' . $p->logo) : asset('assets/images/default-logo.png') }}">
-      <div class="ps-3">
+      <img src="{{ $p->logo ? asset('storage/' . $p->logo) : asset('assets/images/default-logo.png') }}">
+      <div class="ps-3 w-100">
         <h2 class="fst-italic roboto-title mb-0 align-self-center">
           {{ $p->namaPerusahaan }}
         </h2>

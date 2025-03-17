@@ -7,7 +7,7 @@
         <!-- Berita Section -->
         <div class="message-lowongan montserrat-medium align-items-center">
             <i class='bx bx-md bx-message-error'></i>
-            <p class="mb-0">Kamu dapat melamar lowongan ini pada 18 Feb 2025 - 17 Apr 2025</p>
+            <p class="mb-0">Kamu dapat melamar lowongan ini pada {{ date('d M Y', strtotime($lowongan->batasMulai)) }} - {{ date('d M Y', strtotime($lowongan->batasAkhir)) }}</p>
         </div>
 
         <div class="horizontal-card2 mt-4">
@@ -21,21 +21,21 @@
                 <!-- Second Container: Text (center) -->
                 <div class="text-container">
                     <div class="horizontal-card-text-section2">
-                        <h5 class="montserrat-medium mb-0" style="font-size: 36px;">GENERAL ADMIN STAFF</h5>
+                        <h5 class="montserrat-medium mb-0" style="font-size: 36px;">{{ $lowongan->judulLowongan }}</h5>
                         <p class="montserrat-medium" style="font-size: 15px;">
-                            Norxel Teknologi Indonesia<br>
+                            {{ $lowongan->perusahaan->namaPerusahaan ?? 'Perusahaan tidak tersedia'}}<br>
                         <div class="text-row montserrat-medium" style="width: fit-content">
                             <div class="info-item">
                                 <span class="text-label">Lokasi</span>
-                                <span class="text-value">Kota Jakarta Utara</span>
+                                <span class="text-value">{{ $lowongan->perusahaan->lokasiPerusahaan ?? 'Lokasi  tidak ada' }}</span>
                             </div>
                             <div class="info-item">
                                 <span class="text-label">Departemen</span>
-                                <span class="text-value">Administrasi</span>
+                                <span class="text-value">{{ $lowongan->jenisLowongan }}</span>
                             </div>
                             <div class="info-item">
                                 <span class="text-label">Jenis Pekerjaan</span>
-                                <span class="text-value">Full Time</span>
+                                <span class="text-value">{{ $lowongan->tipeLowongan }}</span>
                             </div>
                         </div>
                         </p>
@@ -65,45 +65,25 @@
         <div class="horizontal-card3 mt-4">
             <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Deskripsi Lowongan</h5>
             <hr class="mt-1" style="opacity: 1">
-            <ul class="mb-0 montserrat-medium" style="font-size: 12px">
-                <li> Membuat laporan dan report </li>
-                <li> Menguasai microsoft excel dan microsoft word </li>
-                <li> Melakukan filing dokumen </li>
-                <li> Melakukan entry data </li>
-            </ul>
+            <p class="mb-0 montserrat-medium" style="font-size: 12px">
+                {!! nl2br(e(Str::limit($lowongan->deskripsiLowongan, 100, '...'))) !!}
+            </p>
         </div>
 
         <div class="horizontal-card3 mt-4">
-            <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Deskripsi Lowongan</h5>
+            <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Kualifikasi</h5>
             <hr class="mt-1" style="opacity: 1">
-            <ul class="mb-0 montserrat-medium" style="font-size: 12px">
-                <li> Membuat laporan dan report </li>
-                <li> Menguasai microsoft excel dan microsoft word </li>
-                <li> Melakukan filing dokumen </li>
-                <li> Melakukan entry data </li>
-            </ul>
+            <p class="mb-0 montserrat-medium" style="font-size: 12px">
+                {!! nl2br(e($lowongan->kualifikasi ?: 'Belum ada kualifikasi dari lowongan pekerjaan ini')) !!}
+            </p>
         </div>
 
         <div class="horizontal-card3 mt-4">
-            <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Deskripsi Lowongan</h5>
+            <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Benefit</h5>
             <hr class="mt-1" style="opacity: 1">
-            <ul class="mb-0 montserrat-medium" style="font-size: 12px">
-                <li> Membuat laporan dan report </li>
-                <li> Menguasai microsoft excel dan microsoft word </li>
-                <li> Melakukan filing dokumen </li>
-                <li> Melakukan entry data </li>
-            </ul>
-        </div>
-
-        <div class="horizontal-card3 mt-4">
-            <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Deskripsi Lowongan</h5>
-            <hr class="mt-1" style="opacity: 1">
-            <ul class="mb-0 montserrat-medium" style="font-size: 12px">
-                <li> Membuat laporan dan report </li>
-                <li> Menguasai microsoft excel dan microsoft word </li>
-                <li> Melakukan filing dokumen </li>
-                <li> Melakukan entry data </li>
-            </ul>
+            <p class="mb-0 montserrat-medium" style="font-size: 12px">
+                {!! nl2br(e($lowongan->benefit ?: 'Belum ada benefit dari lowongan pekerjaan ini')) !!}
+            </p>
         </div>
 
         <div class="horizontal-card3">
@@ -111,16 +91,18 @@
                 <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Keahlian</h5>
                 <hr class="mt-1" style="opacity: 1">
                 <div class="skills-container gap-3">
-                    <span class="skill-badge">Business Development</span>
-                    <span class="skill-badge">Teamwork</span>
-                    <span class="skill-badge">Management</span>
-                    <span class="skill-badge">Office Administration</span>
-                    <span class="skill-badge">Good Communication Skills</span>
-                    <span class="skill-badge">Project Management</span>
-                    <span class="skill-badge">Finance</span>
-                    <span class="skill-badge">Administration</span>
-                    <span class="skill-badge">Microsoft Office</span>
-                    <span class="skill-badge">Customer Service</span>
+                    
+                    @php
+                        $keahlian = !empty($lowongan->keahlian) ? explode(',', $lowongan->keahlian) : [];
+                    @endphp
+
+                    @if(count($keahlian) > 0)
+                        @foreach($keahlian as $skill)
+                            <span class="skill-badge">{{ trim($skill) }}</span>
+                        @endforeach
+                    @else
+                        <p>Belum ada keahlian yang dicantumkan.</p>
+                    @endif
                 </div>
             </div>
         </div>

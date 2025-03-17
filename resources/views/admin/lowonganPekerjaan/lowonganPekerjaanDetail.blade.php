@@ -2,7 +2,7 @@
 
 @section('content')
 @include('components.navbarAdmin')
-<div class="main-content" style="max-height: 80vh; overflow-y: auto; padding: 15px;">
+<div class="main-content d-flex flex-column align-items-start gap-3">
     
   <div class="message-lowongan montserrat-medium align-items-center">
     <i class='bx bx-md bx-message-error'></i>

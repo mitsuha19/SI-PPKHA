@@ -81,7 +81,10 @@
         <button type="button" class="btn btn-danger btn-sm" onclick="removeKeahlian(this)">❌</button>
     </div>
     @endforeach
-    <button type="button" class="btn btn-success btn-sm mt-2" onclick="addKeahlian()">+ Tambah Keahlian</button>
+    <button type="button" class="btn btn-success mt-1 mb-3" style="width: fit-content; height: fit-content;" onclick="addKeahlian()">
+      <i class='bx bx-plus'></i>
+      Tambah Keahlian
+    </button>   
 </div>
 </div>
 
@@ -116,8 +119,10 @@
     let newInput = document.createElement('div');
     newInput.classList.add('keahlian-item', 'd-flex', 'mb-2');
     newInput.innerHTML = `
+    <div class="d-flex flex-row align-items-center w-100">
         <input type="text" class="form-control me-2" name="keahlian[]" placeholder="Masukkan Keahlian" required>
-        <button type="button" class="btn btn-danger btn-sm" onclick="removeKeahlian(this)">❌</button>
+        <button type="button" class="btn btn-danger btn-sm mt-0" onclick="removeKeahlian(this)">❌</button>
+    </div>
     `;
     container.appendChild(newInput);
 }

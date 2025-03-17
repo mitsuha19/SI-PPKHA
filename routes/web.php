@@ -36,10 +36,11 @@ Route::get('pengumuman/detail/{id}', [PengumumanController::class, 'showPengumum
 
 Route::get('/artikel', fn() => view('ppkha.artikel'));
 
-Route::get('/daftar_perusahaan', fn() => view('ppkha.daftar_perusahaan'));
-Route::get('/daftar_perusahaan/detail', fn() => view('ppkha.detailperusahaan'));
+Route::get('/daftar_perusahaan', [PerusahaanController::class, 'showPerusahaanUser'])->name('ppkha.daftarPerusahaan');
+Route::get('/daftar_perusahaan/detail/{id}', [PerusahaanController::class, 'showPerusahaanDetailUser'])->name('ppkha.daftarPerusahaanDetail');
 
-Route::get('/lowongan_pekerjaan', fn() => view('ppkha.lowongan_pekerjaan'));
+Route::get('/lowongan_pekerjaan', [LowonganController::class, 'showLowonganUser'])->name('ppkha.lowonganPekerjaan');
+Route::get('/lowongan_pekerjaan/detail/{id}', [LowonganController::class, 'showLowonganDetailUser'])->name('ppkha.lowonganPekerjaanDetail');
 Route::get('/lowongan_pekerjaan/detail', fn() => view('ppkha.detaillowongan'));
 
 // tracer_study route accessible only to authenticated users with role "admin" or "alumni"
