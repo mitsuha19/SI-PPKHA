@@ -5,13 +5,14 @@
 <div class="main-content d-flex flex-column align-items-center">
 <h1>Lowongan Pekerjaan</h1>
 
-<div class="d-flex flex-row justify-content-center gap-2 w-100 mb-3">
-  <form class="w-50">
-    <input type="text" id="lowongan-pekerjaan" name="lowongan-pekerjaan" value="Cari Lowongan Pekerjaan">
-  </form>
-  <div class="search-logo d-flex justify-content-center align-items-center" >
-    <i class='bx bx-search-alt-2'></i>
-  </div>
+{{-- Form Pencarian --}}
+  <div class="d-flex flex-row justify-content-center gap-2 w-100 mb-3">
+    <form class="w-50 d-flex" action="{{ route('admin.lowonganPekerjaan.lowonganPekerjaan') }}" method="GET">
+        <input type="text" id="lowongan" name="search" class="form-control" placeholder="Cari Berita..." value="{{ request('search') }}">
+        <button type="submit" class="btn btn-primary ms-2">
+            <i class='bx bx-search-alt-2'></i>
+        </button>
+    </form>
 </div>
 
 <div class="d-flex flex-column align-items-center w-100 gap-2">
@@ -25,7 +26,7 @@
         <div class="background-card">
         <div class="card-information d-flex align-items-center px-3">
             @if ($l->perusahaan && $l->perusahaan->logo)
-                <img style="width: 130px" src="{{ asset('storage/' . $l->perusahaan->logo) }}" alt="Logo Perusahaan">
+                <img style="width: 100px" src="{{ asset('storage/' . $l->perusahaan->logo) }}" alt="Logo Perusahaan">
             @endif
 
                 <div class="ps-3 w-100">
@@ -34,16 +35,19 @@
                             {{ $l->judulLowongan }}
                         </h2>
 
+                       
                         <div class="align-self-start">
-                            <a href="{{ route('admin.lowonganPekerjaan.edit', $l->id) }}" class="btn">
-                                <i class='bx bx-pencil'></i> 
-                                <span class="d-none d-xl-inline">Edit</span>
-                            </a>
-                            <button type="button" class="btn" onclick="openDeleteModal({{ $l->id }}, '{{ $l->judulLowongan }}')">
-                          <i class='bx bx-trash'></i> 
-                          <span class="d-none d-xl-inline">Hapus</span>
-                        </button>   
+                                    <div class="ms-auto d-flex gap-2">
+                            <button type="button" class="btn btn-primary px-4 py-2 fw-bold d-flex align-items-center" onclick="window.location.href='{{ route('admin.lowonganPekerjaan.edit', $l->id) }}'">
+                                <i class='bx bx-pencil fs-5 me-2'></i> Edit
+                            </button>
+                            
+                            <button type="button" class="btn btn-primary px-4 py-2 fw-bold d-flex align-items-center" onclick="openDeleteModal({{ $l->id }}, '{{ $l->judulLowongan }}')">
+                                <i class='bx bx-trash fs-5 me-2'></i> Hapus
+                            </button>                      
                         </div>
+                        </div>
+                    
                     </div>
 
                     <hr class="my-2" style="border: 2px solid black; opacity: 1">
@@ -71,7 +75,7 @@
     @endforeach
 
     <div class="pagination">
-        {{ $lowongan->links() }}
+    {{ $lowongan->appends(request()->query())->links() }}
     </div>
 
    

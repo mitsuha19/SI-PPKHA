@@ -8,10 +8,15 @@ use Illuminate\Support\Facades\Storage;
 
 class PengumumanController extends Controller
 {
-  public function index()
+  public function index(Request $request)
   {
-    $pengumuman = Pengumuman::paginate(10);
-    return view('admin.pengumuman.pengumuman', compact('pengumuman'));
+    $search = $request->input('search');
+
+    $pengumuman = Pengumuman::when($search, function ($query) use ($search) {
+        return $query->where('judul_pengumuman', 'like', "%{$search}%");
+    })->orderBy('created_at', 'desc')->paginate(2);
+
+    return view('admin.pengumuman.pengumuman', compact('pengumuman', 'search'));
   }
 
   public function showPengumumanUser()

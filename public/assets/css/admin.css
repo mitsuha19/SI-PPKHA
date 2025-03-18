@@ -150,7 +150,7 @@ html, body {
 }
 
 .main-content {
-    padding: 20px 10px 0px 20px;
+    padding: 20px 10px 10 px 20px;
     overflow-y: auto;
     min-height: 100vh; /* Gunakan min-height agar bisa bertambah */
     height: auto !important; /* Izinkan tinggi menyesuaikan konten */
@@ -278,26 +278,43 @@ input[type="text"] {
 .card-pengumuman .detail {
     justify-self: end;
 }
-
-.pagination {
-    border: 3px solid black;
-    border-radius: 15px;
-    background-color: #d9d9d9;
-    padding: 8px;
-    gap: 10px;
-    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 150px;
+.custom-pagination {
+    display: flex;
+    list-style: none;
+    padding: 10px;
+    background: #ddd;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
-.pagination a {
-    color: black;
-    float: left;
-    padding: 8px 16px;
+.custom-pagination li {
+    margin: 0 5px;
+}
+
+.custom-pagination li a,
+.custom-pagination li span {
+    display: flex;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
-    transition: transform 0.3s;
-    background-color: white;
+    background: white;
+    color: black;
     border-radius: 10px;
+    font-weight: bold;
 }
+
+.custom-pagination li.active span {
+    background: black;
+    color: white;
+}
+
+.custom-pagination li.disabled span {
+    opacity: 0.5;
+}
+
 
 .box-form label {
     font-family: "Poppins", serif;

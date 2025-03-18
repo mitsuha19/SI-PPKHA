@@ -9,22 +9,15 @@ use Illuminate\Support\Facades\DB;
 
 class LowonganController extends Controller
 {
-    public function index2()
+    public function index2(Request $request)
     {
-        $lowongan = Lowongan::paginate(10);
-        return view('admin.lowonganPekerjaan.lowonganPekerjaan', compact('lowongan'));
-    }
+        $search = $request->input('search');
 
-    public function showLowonganUser()
-    {
-        $lowongan = Lowongan::paginate(10);
-        return view('ppkha.lowongan_pekerjaan', compact('lowongan'));
-    }
+    $lowongan = Lowongan::when($search, function ($query) use ($search) {
+        return $query->where('judulLowongan', 'like', "%{$search}%");
+    })->orderBy('created_at', 'desc')->paginate(2);
 
-    public function showLowonganDetailUser($id)
-    {
-        $lowongan = Lowongan::findOrFail($id);
-        return view('ppkha.detaillowongan', compact('lowongan'));
+        return view('admin.lowonganPekerjaan.lowonganPekerjaan', compact('lowongan', 'search'));
     }
 
     public function index3()

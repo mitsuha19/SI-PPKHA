@@ -9,9 +9,16 @@ use Illuminate\Support\Facades\Storage;
 
 class ArtikelController extends Controller
 {
-    public function showArtikelAdmin(){
-        $artikel = Artikel::orderBy('created_at', 'desc')->get();
-        return view('admin.artikel.artikel', compact('artikel'));
+    public function showArtikelAdmin(Request $request){
+
+      $search = $request->input('search');
+
+    $artikel = Artikel::when($search, function ($query) use ($search) {
+        return $query->where('judul_artikel', 'like', "%{$search}%");
+    })->orderBy('created_at', 'desc')->paginate(2);
+
+        
+        return view('admin.artikel.artikel', compact('artikel', 'search'));
     }
 
     public function createArtikel(){

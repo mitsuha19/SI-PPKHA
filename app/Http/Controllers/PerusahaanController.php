@@ -10,24 +10,15 @@ use Illuminate\Support\Facades\Storage;
 class PerusahaanController extends Controller
 {
     // Menampilkan semua perusahaan
-    public function index2()
+    public function index2(Request $request)
 {
-    $perusahaan = Perusahaan::orderBy('created_at', 'desc')->paginate(10); // Pastikan pakai paginate()
-    return view('admin.daftarPerusahaan.daftarPerusahaan', compact('perusahaan'));
-}
+    $search = $request->input('search');
 
-public function showPerusahaanUser()
-{
-    $perusahaan = Perusahaan::orderBy('created_at', 'desc')->paginate(10); // Pastikan pakai paginate()
-    return view('ppkha.daftar_perusahaan', compact('perusahaan'));
+    $perusahaan = Perusahaan::when($search, function ($query) use ($search) {
+        return $query->where('namaPerusahaan', 'like', "%{$search}%");
+    })->orderBy('created_at', 'desc')->paginate(2);
+    return view('admin.daftarPerusahaan.daftarPerusahaan', compact('perusahaan', 'search'));
 }
-
-public function showPerusahaanDetailUser($id)
-    {
-        $perusahaan = Perusahaan::where('id', $id)->first();
-        $lowongan = Lowongan::where('perusahaan_id', $id)->get(); 
-        return view('ppkha.detailperusahaan', compact('perusahaan','lowongan'));
-    }
 
 public function index4($id)
     {

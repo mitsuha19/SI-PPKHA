@@ -6,13 +6,13 @@
         <h1>Pengumuman</h1>
 
         <div class="d-flex flex-row justify-content-center gap-2 w-100 mb-3">
-            <form class="w-50">
-                <input type="text" id="pengumuman" name="pengumuman" placeholder="Cari Pengumuman">
-            </form>
-            <div class="search-logo d-flex justify-content-center align-items-center" >
-              <i class='bx bx-search-alt-2'></i>
-            </div>
-        </div>
+    <form class="w-50 d-flex" action="{{ route('admin.pengumuman.index') }}" method="GET">
+        <input type="text" id="pengumuman" name="search" class="form-control" placeholder="Cari Berita..." value="{{ request('search') }}">
+        <button type="submit" class="btn btn-primary ms-2">
+            <i class='bx bx-search-alt-2'></i>
+        </button>
+    </form>
+</div>
 
         <div class="d-flex flex-column align-items-center w-100 gap-2">
             <div class="d-flex justify-content-end" style="width: 80%">
@@ -43,13 +43,12 @@
                                 </h2>
 
                                 <div class="ms-auto d-flex gap-2">
-                                    <button type="button" class="btn" onclick="window.location.href='{{ route('admin.pengumuman.edit', $item->id) }}'">
-                                    <i class='bx bx-pencil'></i> 
-                                    <span class="d-none d-xl-inline ms-1">Edit</span>
+                                    <button type="button" class="btn btn-primary px-4 py-2 fw-bold d-flex align-items-center" onclick="window.location.href='{{ route('admin.pengumuman.edit', $item->id) }}'">
+                                    <i class='bx bx-pencil fs-5 me-2'></i> Edit
                                     </button>
                                     
-                                    <button type="button" class="btn" onclick="openDeleteModal({{ $item->id }}, '{{ $item->judul_berita }}')">
-                                    <i class='bx bx-trash'></i> <span class="d-none d-xl-inline">Hapus</span>
+                                    <button type="button" class="btn btn-primary px-4 py-2 fw-bold d-flex align-items-center" onclick="openDeleteModal({{ $item->id }}, '{{ $item->judul_berita }}')">
+                                    <i class='bx bx-trash fs-5 me-2'></i> Hapus
                                     </button>                      
                                 </div>
                             </div>
@@ -70,7 +69,7 @@
         </div>
 
         <div class="pagination">
-            {{ $pengumuman->links() }}
+            {{ $pengumuman->appends(request()->query())->links() }}
         </div>
     </div>
 

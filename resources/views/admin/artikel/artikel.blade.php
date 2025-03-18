@@ -5,14 +5,15 @@
 <div class="main-content d-flex flex-column align-items-center" >
   <h1>Artikel</h1>
 
+  {{-- Form Pencarian --}}
   <div class="d-flex flex-row justify-content-center gap-2 w-100 mb-3">
-    <form class="w-50">
-      <input type="text" id="artikel" name="artikel" value="Cari Artikel">
+    <form class="w-50 d-flex" action="{{ route('admin.artikel.artikel') }}" method="GET">
+        <input type="text" id="artikel" name="search" class="form-control" placeholder="Cari Artikel..." value="{{ request('search') }}">
+        <button type="submit" class="btn btn-primary ms-2">
+            <i class='bx bx-search-alt-2'></i>
+        </button>
     </form>
-    <div class="search-logo d-flex justify-content-center align-items-center" >
-      <i class='bx bx-search-alt-2'></i>
-    </div>
-  </div>
+</div>
 
   <div class="d-flex flex-column align-items-center w-100 gap-2">
     <div class="d-flex justify-content-end" style="width: 80%">
@@ -32,7 +33,7 @@
         @if (!empty($gambarArray) && isset($gambarArray[0]))
         <img 
             src="{{ asset('storage/' . $gambarArray[0]) }}" 
-            alt="Gambar Berita">
+            alt="Gambar Artikel">
         @else
           <img 
             src="{{ asset('assets/images/image.png') }}" 
@@ -49,13 +50,12 @@
             {{-- Button --}}
             <div class="align-self-start">
               <div class="ms-auto d-flex gap-2">
-                <button type="button" class="btn" onclick="window.location.href='{{ route('admin.artikel.artikelEdit', $item->id) }}'">
-                  <i class='bx bx-pencil'></i> 
-                  <span class="d-none d-xl-inline ms-1">Edit</span>
+                <button type="button" class="btn btn-primary px-4 py-2 fw-bold d-flex align-items-center" onclick="window.location.href='{{ route('admin.artikel.artikelEdit', $item->id) }}'">
+                <i class='bx bx-pencil fs-5 me-2'></i> Edit
                 </button>
                 
-                <button type="button" class="btn" onclick="openDeleteModal({{ $item->id }}, '{{ $item->judul_artikel }}')">
-                  <i class='bx bx-trash'></i> <span class="d-none d-xl-inline">Hapus</span>
+                <button type="button" class="btn btn-primary px-4 py-2 fw-bold d-flex align-items-center" onclick="openDeleteModal({{ $item->id }}, '{{ $item->judul_artikel }}')">
+                <i class='bx bx-trash fs-5 me-2'></i> Hapus
                 </button>                      
               </div>
             </div>
@@ -82,14 +82,8 @@
   </div>
   
   <div class="pagination">
-    <a href="#" style="background-color: transparent">&laquo;</a>
-    <a class="active" href="#">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
-    <a href="#">4</a>
-    <a href="#">...</a>
-    <a href="#" style="background-color: transparent">&raquo;</a>
-  </div>
+  {{ $artikel->appends(request()->query())->links() }}
+        </div>
 </div>
 
 <!-- Modal Hapus -->
