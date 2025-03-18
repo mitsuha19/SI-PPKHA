@@ -38,6 +38,7 @@ class KuesionerController extends Controller
      */
     public function nextSection(Request $request, $sectionId)
     {
+        $nextSectionId = null;
         // Simpan jawaban user
         foreach ($request->input('answers', []) as $questionId => $answerValue) {
             if (is_array($answerValue)) {
@@ -48,16 +49,40 @@ class KuesionerController extends Controller
                 'question_id' => $questionId,
                 'answer_value' => $answerValue,
             ]);
+
+            $option = Option::where('question_id', $questionId)
+                ->where('id', $answerValue)
+                ->first();
+
+            if ($option && $option->next_section_id) {
+                $nextSectionId = $option->next_section_id;
+            }
         }
 
-        // Cek apakah ada next_section_id yang dipilih
-        $nextSectionId = $request->input('next_section_id');
+        // Ambil form berdasarkan section saat ini
+        $currentSection = Section::find($sectionId);
+        if (!$currentSection) {
+            return redirect()->route('kuesioner.submit'); // Jika tidak ada section, anggap selesai
+        }
+
+        $form = Form::find($currentSection->form_id);
 
         if ($nextSectionId) {
             $nextSection = Section::find($nextSectionId);
-            if ($nextSection) {
-                return view('user.kuesioner', compact('form', 'firstSection'));
-            }
+        } else {
+            // Jika tidak ada next_section_id, cari section berikutnya berdasarkan section_order
+            $nextSection = Section::where('form_id', $currentSection->form_id)
+                ->where('section_order', '>', $currentSection->section_order)
+                ->orderBy('section_order')
+                ->first();
+        }
+
+        // Jika ada section berikutnya, tampilkan kuisioner
+        if ($nextSection) {
+            return view('ppkha.kuisioner', [
+                'form' => $form,
+                'firstSection' => $nextSection
+            ]);
         }
 
         // Jika tidak ada next_section_id atau tidak ditemukan, anggap selesai
@@ -69,6 +94,6 @@ class KuesionerController extends Controller
      */
     public function submit()
     {
-        return view('user.kuesioner_selesai');
+        return view('ppkha.kuisionerSubmit');
     }
 }
