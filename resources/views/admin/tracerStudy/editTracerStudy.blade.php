@@ -47,8 +47,11 @@
                     <div class="card mb-4 section-card" data-section-index="{{ $sectionIndex }}">
                         <div class="card-header bg-light d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
-                                <span class="me-2">Section <span
-                                        class="section-number">{{ $sectionIndex + 1 }}</span></span>
+                                {{-- <span class="me-2">Section 
+                                    <span class="section-number">{{ $sectionIndex + 1 }}</span>
+                                </span> --}}
+
+
                                 <input type="text" class="form-control form-control-sm"
                                     name="sections[{{ $sectionIndex }}][section_name]" placeholder="Nama Section" required
                                     value="{{ $section->section_name }}" style="max-width: 300px;">
@@ -261,7 +264,7 @@
         <div class="card mb-4 section-card" data-section-index="__SECTION_INDEX__">
             <div class="card-header bg-light d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
-                    <span class="me-2">Section <span class="section-number">__SECTION_NUMBER__</span></span>
+                    {{-- <span class="me-2">Section <span class="section-number">__SECTION_NUMBER__</span></span> --}}
                     <input type="text" class="form-control form-control-sm"
                         name="sections[__SECTION_INDEX__][section_name]" placeholder="Nama Section" required
                         style="max-width: 300px;">
@@ -619,38 +622,40 @@
             }
 
             function updateNextSectionDropdowns() {
-    updateMCOptionTemplate();
-    
-    $('.next-section-select').each(function() {
-        const $select = $(this);
-        const currentSectionIndex = parseInt($select.closest('.section-card').data('section-index'));
-        const currentValue = $select.val();
+                updateMCOptionTemplate();
 
-        const $defaultOptions = $select.find('option:lt(2)').clone();
-        
-        $select.empty();
-        
-        $select.append($defaultOptions);
+                $('.next-section-select').each(function() {
+                    const $select = $(this);
+                    const currentSectionIndex = parseInt($select.closest('.section-card').data(
+                        'section-index'));
+                    const currentValue = $select.val();
 
-        $('.section-card').each(function() {
-            const sectionIndex = parseInt($(this).data('section-index'));
-            const sectionId = $(this).find('input[name$="[id]"]').val();
-            const sectionName = $(this).find('input[name$="[section_name]"]').val();
+                    const $defaultOptions = $select.find('option:lt(2)').clone();
 
-            if (sectionIndex > currentSectionIndex && sectionName) {
-       
-                const optionValue = sectionId || `new_${sectionIndex}`;
-                $select.append(`<option value="${optionValue}">${sectionName}</option>`);
+                    $select.empty();
+
+                    $select.append($defaultOptions);
+
+                    $('.section-card').each(function() {
+                        const sectionIndex = parseInt($(this).data('section-index'));
+                        const sectionId = $(this).find('input[name$="[id]"]').val();
+                        const sectionName = $(this).find('input[name$="[section_name]"]').val();
+
+                        if (sectionIndex > currentSectionIndex && sectionName) {
+
+                            const optionValue = sectionId || `new_${sectionIndex}`;
+                            $select.append(
+                                `<option value="${optionValue}">${sectionName}</option>`);
+                        }
+                    });
+
+                    if (currentValue) {
+                        if ($select.find(`option[value="${currentValue}"]`).length) {
+                            $select.val(currentValue);
+                        }
+                    }
+                });
             }
-        });
-
-        if (currentValue) {
-            if ($select.find(`option[value="${currentValue}"]`).length) {
-                $select.val(currentValue);
-            }
-        }
-    });
-}
             $(document).on('click', '.add-option', function() {
                 const sectionIndex = $(this).data('section-index');
                 const questionIndex = $(this).data('question-index');
