@@ -35,6 +35,15 @@
                                 @elseif($question->type_question_id == 2)
                                     <!-- Paragraf -->
                                     <textarea class="form-control" name="answers[{{ $question->id }}]" rows="3" required></textarea>
+                                @elseif($question->type_question_id == 5)
+                                    <!-- Dropdown -->
+                                    <select class="form-select" name="answers[{{ $question->id }}]" required>
+                                        <option value="">Pilih salah satu</option>
+                                        @foreach ($question->options as $option)
+                                            <option value="{{ $option->id }}">{{ $option->option_body }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 @elseif(in_array($question->type_question_id, [3, 4, 5]))
                                     <!-- Pilihan Ganda, Kotak Centang, Dropdown -->
                                     @foreach ($question->options as $option)
@@ -55,15 +64,6 @@
                                                     name="answers[{{ $question->id }}][]" value="{{ $option->id }}">
                                                 <label class="form-check-label">{{ $option->option_body }}</label>
                                             </div>
-                                        @elseif($question->type_question_id == 5)
-                                            <!-- Dropdown -->
-                                            <select class="form-select" name="answers[{{ $question->id }}]" required>
-                                                <option value="">Pilih salah satu</option>
-                                                @foreach ($question->options as $option)
-                                                    <option value="{{ $option->id }}">{{ $option->option_body }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
                                         @endif
                                     @endforeach
                                 @elseif($question->type_question_id == 6)
