@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Form;
+use App\Models\Answer;
+use App\Models\Option;
 use App\Models\Section;
 use App\Models\Question;
-use App\Models\Option;
-use App\Models\Answer;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KuesionerController extends Controller
 {
@@ -33,12 +34,10 @@ class KuesionerController extends Controller
         return view('ppkha.kuisioner', compact('form', 'firstSection'));
     }
 
-    /**
-     * Menampilkan section berikutnya berdasarkan jawaban user.
-     */
     public function nextSection(Request $request, $sectionId)
     {
         $nextSectionId = null;
+
         // Simpan jawaban user
         foreach ($request->input('answers', []) as $questionId => $answerValue) {
             if (is_array($answerValue)) {
@@ -47,9 +46,11 @@ class KuesionerController extends Controller
 
             Answer::create([
                 'question_id' => $questionId,
+                'user_id' => Auth::id(),
                 'answer_value' => $answerValue,
             ]);
 
+            // Ambil next_section_id dari opsi pilihan ganda
             $option = Option::where('question_id', $questionId)
                 ->where('id', $answerValue)
                 ->first();
@@ -67,27 +68,35 @@ class KuesionerController extends Controller
 
         $form = Form::find($currentSection->form_id);
 
+        // **LOGIKA PENGAMBILAN SECTION BERIKUTNYA**
         if ($nextSectionId) {
+            // Jika ada `next_section_id` dari jawaban, gunakan itu dan simpan di session
+            session(['next_section_id' => $nextSectionId]);
             $nextSection = Section::find($nextSectionId);
         } else {
-            // Jika tidak ada next_section_id, cari section berikutnya berdasarkan section_order
+            $excludedSections = Option::whereNotNull('next_section_id')->pluck('next_section_id')->toArray();
+
             $nextSection = Section::where('form_id', $currentSection->form_id)
                 ->where('section_order', '>', $currentSection->section_order)
+                ->whereNotIn('id', $excludedSections) // Hindari section yang menjadi tujuan dari `next_section_id`
                 ->orderBy('section_order')
                 ->first();
         }
 
-        // Jika ada section berikutnya, tampilkan kuisioner
         if ($nextSection) {
+            session()->forget('next_section_id'); // Reset session agar tidak digunakan lagi
+
             return view('ppkha.kuisioner', [
                 'form' => $form,
                 'firstSection' => $nextSection
             ]);
         }
 
-        // Jika tidak ada next_section_id atau tidak ditemukan, anggap selesai
+        // Jika tidak ada section berikutnya, anggap selesai
         return redirect()->route('kuesioner.submit');
     }
+
+
 
     /**
      * Halaman setelah kuisioner selesai diisi.
