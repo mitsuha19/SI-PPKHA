@@ -20,6 +20,18 @@ class LowonganController extends Controller
         return view('admin.lowonganPekerjaan.lowonganPekerjaan', compact('lowongan', 'search'));
     }
 
+    public function showLowonganUser()
+    {
+        $lowongan = Lowongan::paginate(10);
+        return view('ppkha.lowongan_pekerjaan', compact('lowongan'));
+    }
+
+    public function showLowonganDetailUser($id)
+    {
+        $lowongan = Lowongan::findOrFail($id);
+        return view('ppkha.detaillowongan', compact('lowongan'));
+    }
+
     public function index3()
     {
         $perusahaan = Perusahaan::all();
