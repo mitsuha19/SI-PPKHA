@@ -79,17 +79,17 @@ class TracerStudyController extends Controller
 
                         if ($needsOptions && isset($questionData['options']) && is_array($questionData['options'])) {
                             foreach ($questionData['options'] as $optionIndex => $optionData) {
-                                $labelAngka = null;
-                                if ($questionData['type_question_id'] == 6 && isset($optionData['label_angka'])) {
-                                    $labelAngka = $optionData['label_angka'];
-                                }
+                                $labelAngka = $questionData['type_question_id'] == 6 && isset($optionData['label_angka'])
+                                    ? $optionData['label_angka']
+                                    : null;
 
-                                $nextSectionId = null;
+                                $nextSectionId = $sectionIds[$sectionIndex]; // Default ke section saat ini
+
                                 if ($questionData['type_question_id'] == 3 && isset($optionData['next_section_id'])) {
                                     if ($optionData['next_section_id'] === 'submit') {
                                         $nextSectionId = null;
                                     } elseif (!empty($optionData['next_section_id'])) {
-                                        $nextSectionId = $sectionIds[$optionData['next_section_id']];
+                                        $nextSectionId = $sectionIds[$optionData['next_section_id']] ?? $sectionIds[$sectionIndex];
                                     }
                                 }
 
@@ -134,30 +134,13 @@ class TracerStudyController extends Controller
             ]);
 
             $form = Form::with('sections.questions.options')->findOrFail($id);
-
             $form->update([
                 'judul_form' => $request->judul_form,
                 'deskripsi_form' => $request->deskripsi_form,
             ]);
 
             $existingSectionIds = $form->sections->pluck('id')->toArray();
-            $existingQuestionIds = [];
-            $existingOptionIds = [];
-
-            foreach ($form->sections as $section) {
-                foreach ($section->questions as $question) {
-                    $existingQuestionIds[] = $question->id;
-                    foreach ($question->options as $option) {
-                        $existingOptionIds[] = $option->id;
-                    }
-                }
-            }
-
             $sectionIdMap = [];
-            $processedSectionIds = [];
-            $processedQuestionIds = [];
-            $processedOptionIds = [];
-            $pendingOptionUpdates = [];
 
             foreach ($request->sections as $sectionIndex => $sectionData) {
                 $sectionId = $sectionData['id'] ?? null;
@@ -168,7 +151,6 @@ class TracerStudyController extends Controller
                         'section_name' => $sectionData['section_name'],
                         'section_order' => $sectionIndex,
                     ]);
-                    $processedSectionIds[] = $sectionId;
                 } else {
                     $section = Section::create([
                         'form_id' => $form->id,
@@ -177,93 +159,58 @@ class TracerStudyController extends Controller
                     ]);
                 }
 
-                $sectionIdMap["new_$sectionIndex"] = $section->id;
-                $sectionIdMap[$section->id] = $section->id;
+                $sectionIdMap[$sectionIndex] = $section->id;
             }
 
             foreach ($request->sections as $sectionIndex => $sectionData) {
-                $currentSectionId = $sectionIdMap["new_$sectionIndex"] ?? null;
+                $currentSectionId = $sectionIdMap[$sectionIndex] ?? null;
 
                 if (!$currentSectionId) continue;
 
                 if (isset($sectionData['questions']) && is_array($sectionData['questions'])) {
                     foreach ($sectionData['questions'] as $questionIndex => $questionData) {
-                        $questionId = $questionData['id'] ?? null;
-
-                        if ($questionId && in_array($questionId, $existingQuestionIds)) {
-                            $question = Question::find($questionId);
-                            $question->update([
+                        $question = Question::updateOrCreate(
+                            ['id' => $questionData['id'] ?? null],
+                            [
                                 'section_id' => $currentSectionId,
                                 'question_body' => $questionData['question_body'],
                                 'type_question_id' => $questionData['type_question_id'],
                                 'is_required' => isset($questionData['is_required']) ? 1 : 0,
                                 'question_order' => $questionIndex,
-                            ]);
-                            $processedQuestionIds[] = $questionId;
-                        } else {
-                            $question = Question::create([
-                                'section_id' => $currentSectionId,
-                                'question_body' => $questionData['question_body'],
-                                'type_question_id' => $questionData['type_question_id'],
-                                'is_required' => isset($questionData['is_required']) ? 1 : 0,
-                                'question_order' => $questionIndex,
-                            ]);
-                        }
+                            ]
+                        );
 
                         $needsOptions = in_array($questionData['type_question_id'], [3, 4, 5, 6]);
 
                         if ($needsOptions && isset($questionData['options']) && is_array($questionData['options'])) {
                             foreach ($questionData['options'] as $optionIndex => $optionData) {
-                                $optionId = $optionData['id'] ?? null;
+                                $labelAngka = $questionData['type_question_id'] == 6 && isset($optionData['label_angka'])
+                                    ? $optionData['label_angka']
+                                    : null;
 
-                                $labelAngka = null;
-                                if ($questionData['type_question_id'] == 6 && isset($optionData['label_angka'])) {
-                                    $labelAngka = $optionData['label_angka'];
-                                }
+                                $nextSectionId = $currentSectionId; // Default ke section saat ini
 
-                                $nextSectionId = null;
                                 if ($questionData['type_question_id'] == 3 && isset($optionData['next_section_id'])) {
                                     if ($optionData['next_section_id'] !== 'submit' && !empty($optionData['next_section_id'])) {
-                                        $nextSectionId = $sectionIdMap[$optionData['next_section_id']] ?? null;
+                                        $nextSectionId = $sectionIdMap[$optionData['next_section_id']] ?? $currentSectionId;
                                     }
                                 }
 
-                                if ($optionId && in_array($optionId, $existingOptionIds)) {
-                                    $option = Option::find($optionId);
-                                    $option->update([
+                                Option::updateOrCreate(
+                                    ['id' => $optionData['id'] ?? null],
+                                    [
                                         'question_id' => $question->id,
                                         'option_body' => $optionData['option_body'],
                                         'next_section_id' => $nextSectionId,
                                         'option_order' => $optionIndex,
                                         'label_angka' => $labelAngka,
-                                    ]);
-                                    $processedOptionIds[] = $optionId;
-                                } else {
-                                    $option = Option::create([
-                                        'question_id' => $question->id,
-                                        'option_body' => $optionData['option_body'],
-                                        'next_section_id' => $nextSectionId,
-                                        'option_order' => $optionIndex,
-                                        'label_angka' => $labelAngka,
-                                    ]);
-                                }
+                                    ]
+                                );
                             }
                         }
                     }
                 }
             }
-
-            Section::whereIn('id', array_diff($existingSectionIds, $processedSectionIds))
-                ->where('form_id', $form->id)
-                ->delete();
-
-            Question::whereIn('id', array_diff($existingQuestionIds, $processedQuestionIds))
-                ->whereIn('section_id', $existingSectionIds)
-                ->delete();
-
-            Option::whereIn('id', array_diff($existingOptionIds, $processedOptionIds))
-                ->whereIn('question_id', $existingQuestionIds)
-                ->delete();
 
             DB::commit();
             Alert::success('Success', 'Form berhasil diperbaharui!');

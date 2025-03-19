@@ -18,7 +18,7 @@
             <div class="d-flex justify-content-end" style="width: 80%">
                 <button type="button" class="btn btn-primary" onclick="window.location.href='/admin/tracer-study/create'">
                     <i class='bx bx-plus-circle'></i>
-                    <span class="d-none d-xl-inline">Tambah Form</span>
+                    <span class="d-none d-xl-inline">Tambah</span>
                 </button>
             </div>
 
@@ -71,10 +71,10 @@
                     <h1 class="fw-bold fst-italic mt-4">Ops</h1>
                     <h2 class="fw-bold mt-3 text-dark">Tidak ada Form!</h2>
 
-                    <a href="/admin/tracer-study/create" class="tambah-btn">
+                    {{-- <a href="/admin/tracer-study/create" class="tambah-btn">
                         <span class="icon-box"><i class="bx bx-plus"></i></span> <span
                             class="fw-bold fst-italic">Tambah</span>
-                    </a>
+                    </a> --}}
                 </div>
             @else
                 <div class="pagination">
