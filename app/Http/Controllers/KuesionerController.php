@@ -21,14 +21,14 @@ class KuesionerController extends Controller
         $form = Form::orderBy('id')->first();
 
         if (!$form) {
-            return redirect()->route('home')->with('error', 'Tidak ada kuisioner yang tersedia.');
+            return view('ppkha.kuisioner', ['form' => null, 'firstSection' => null]);
         }
 
         // Ambil section pertama dari form tersebut
         $firstSection = Section::where('form_id', $form->id)->orderBy('section_order')->first();
 
         if (!$firstSection) {
-            return redirect()->route('home')->with('error', 'Form tidak memiliki section.');
+            return view('ppkha.kuisioner', ['form' => $form, 'firstSection' => null]);
         }
 
         return view('ppkha.kuisioner', compact('form', 'firstSection'));
