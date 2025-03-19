@@ -8,7 +8,9 @@
       {{ $berita->judul_berita }}
     </h1>
     <hr>
-    <p style = "font-family: 'Roboto Mono', serif ; font-size : 18px; font-weight: 400; color: white" class="mb-1">Selasa, 18 Feb 2025 07:00 WIB</p>
+    <p style = "font-family: 'Roboto Mono', serif ; font-size : 18px; font-weight: 400; color: white" class="mb-1">
+    {{ date('d M Y H:i:s', strtotime($berita->updated_at)) }} WIB
+    </p>
   </div>
   <div class="max-width d-flex justify-content-center">
     @php
