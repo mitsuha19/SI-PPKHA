@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('judul_artikel');
             $table->text('deskripsi_artikel');
+            $table->string('sumber_artikel');
             $table->json('gambar')->nullable();
             $table->timestamps();
         });

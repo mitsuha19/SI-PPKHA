@@ -44,6 +44,7 @@ class ArtikelController extends Controller
         $validatedData = $request->validate([
             'judul_artikel' => 'required|string',
             'deskripsi_artikel' => 'required|string',
+            'sumber_artikel' => 'nullable|url',
             'gambar.*' => 'nullable|file|mimes:jpg,jpeg,png',
         ]);
 
@@ -57,6 +58,7 @@ class ArtikelController extends Controller
         Artikel::create([
             'judul_artikel' => $validatedData['judul_artikel'],
             'deskripsi_artikel' => $validatedData['deskripsi_artikel'],
+            'sumber_artikel' => $validatedData['sumber_artikel'],
             'gambar' => $gambarPaths,
         ]);
 
@@ -75,12 +77,14 @@ class ArtikelController extends Controller
         $request->validate([
             'judul_artikel' => 'required|string|max:255',
             'deskripsi_artikel' => 'required|string',
+            'sumber_artikel' => 'nullable|url',
             'gambar.*' => 'file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
         // Update data pengumuman
         $artikel->judul_artikel = $request->judul_artikel;
         $artikel->deskripsi_artikel = $request->deskripsi_artikel;
+        $artikel->sumber_artikel = $request->sumber_artikel;
 
         // Hapus lampiran yang dipilih
         if ($request->has('hapus_gambar')) {

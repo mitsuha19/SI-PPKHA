@@ -50,6 +50,9 @@
 
         <p class="roboto-light mb-1 mt-2" style="font-size: 15px">
           {!! nl2br(e($artikel->deskripsi_artikel)) !!}
+          <br>
+          Sumber : <br>
+          <a class="text-white" href="{{ $artikel->sumber_artikel }}"> {{ $artikel->sumber_artikel }}</a>
         </p>
   
         {{-- Link to detail news --}}

@@ -25,7 +25,7 @@
     @endif
   </div>
   <div class="p-4">
-    <p style="font-family: 'Roboto Mono', serif; line-height: 45px; font-weight: 500; color: white; text-indent: 0.5in;">     
+    <p style="font-family: 'Roboto Mono', serif; font-weight: 500; color: white;">     
       {{ $berita->deskripsi_berita }}
     </p>
   </div>

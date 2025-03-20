@@ -12,7 +12,7 @@
   </div>
   
   <div class="p-4">
-    <p style="font-family: 'Roboto Mono', serif; line-height: 45px; font-weight: 500; color: white; text-indent: 0.5in;">     
+    <p style="font-family: 'Roboto Mono', serif; font-weight: 500; color: white;">     
     {!! nl2br(e($pengumuman->deskripsi_pengumuman)) !!}
    </p>
   </div>
@@ -25,12 +25,12 @@
 @endphp
 
 @if (!empty($lampiran) && is_array($lampiran) && count($lampiran))
-<ul style="font-size: 1rem; color: #007bff; list-style: none; padding: 0;">
+<ul style="font-size: 1rem; color: white; list-style: none; padding: 0;">
 @foreach ($lampiran as $file)
             <li style="margin-bottom: 10px;">
                 @if (Storage::disk('public')->exists($file))
                     <a href="{{ asset('storage/' . $file) }}" target="_blank"
-                        style="text-decoration: none; color: #007bff;">
+                        style="color: white;">
                         {{ basename($file) }}
                     </a>
                 @else
