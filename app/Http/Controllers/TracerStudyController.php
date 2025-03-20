@@ -30,21 +30,41 @@ class TracerStudyController extends Controller
     {
         DB::beginTransaction();
         try {
+            // Validasi input
             $request->validate([
                 'judul_form' => 'required|string|max:255',
                 'deskripsi_form' => 'nullable|string',
                 'sections' => 'required|array',
             ]);
 
+            // Buat form baru
             $form = Form::create([
                 'judul_form' => $request->judul_form,
                 'deskripsi_form' => $request->deskripsi_form,
             ]);
 
+            // Pastikan form memiliki section "Kirim Formulir" atau buat jika belum ada
+            $sendSection = Section::where('form_id', $form->id)
+                ->where('section_name', 'Kirim Formulir')
+                ->first();
+
+            if (!$sendSection) {
+                // Buat section khusus dengan ID 9999 jika tidak ada
+                $sendSection = Section::create([
+                    'form_id' => $form->id,
+                    'section_name' => 'Kirim Formulir',
+                    'section_order' => 999, // Atur order sesuai kebutuhan
+                ]);
+                $sendSection->id = 9999; // Ubah id menjadi 9999
+                $sendSection->save();
+            }
+
+            // Penyimpanan section dan pertanyaan lainnya
             $sectionIds = [];
             $questionIds = [];
 
             foreach ($request->sections as $sectionIndex => $sectionData) {
+                // Create new section
                 $section = Section::create([
                     'form_id' => $form->id,
                     'section_name' => $sectionData['section_name'],
@@ -55,6 +75,7 @@ class TracerStudyController extends Controller
 
                 if (isset($sectionData['questions']) && is_array($sectionData['questions'])) {
                     foreach ($sectionData['questions'] as $questionIndex => $questionData) {
+                        // Create new question
                         $question = Question::create([
                             'section_id' => $section->id,
                             'question_body' => $questionData['question_body'],
@@ -63,14 +84,12 @@ class TracerStudyController extends Controller
                             'question_order' => $questionIndex,
                         ]);
 
-                        if (!isset($questionIds[$sectionIndex])) {
-                            $questionIds[$sectionIndex] = [];
-                        }
                         $questionIds[$sectionIndex][$questionIndex] = $question->id;
                     }
                 }
             }
 
+            // Penyimpanan opsi untuk setiap pertanyaan
             foreach ($request->sections as $sectionIndex => $sectionData) {
                 if (isset($sectionData['questions']) && is_array($sectionData['questions'])) {
                     foreach ($sectionData['questions'] as $questionIndex => $questionData) {
@@ -83,15 +102,15 @@ class TracerStudyController extends Controller
                                     ? $optionData['label_angka']
                                     : null;
 
-                                // Default: Tidak ada next_section_id
+                                // Periksa jika opsi memiliki next_section_id yang valid
                                 $nextSectionId = null;
-
-                                // Periksa apakah opsi memiliki next_section_id yang valid
-                                if (!empty($optionData['next_section_id']) && $optionData['next_section_id'] !== 'submit') {
-                                    $nextSectionIndex = (int) $optionData['next_section_id']; // Ambil indeks section dari form
-                                    $nextSectionId = $sectionIds[$nextSectionIndex] ?? null; // Pastikan nilai ada dalam sectionIds
+                                if (!empty($optionData['next_section_id']) && $optionData['next_section_id'] === 'submit') {
+                                    $nextSectionId = 9999; // Kirim Formulir akan mengarah ke section 9999
+                                } elseif (!empty($optionData['next_section_id'])) {
+                                    $nextSectionId = $sectionIds[(int)$optionData['next_section_id']] ?? null;
                                 }
 
+                                // Simpan opsi ke database
                                 Option::create([
                                     'question_id' => $question_id,
                                     'option_body' => $optionData['option_body'],
@@ -105,7 +124,6 @@ class TracerStudyController extends Controller
                 }
             }
 
-
             DB::commit();
             Alert::success('Success', 'Form berhasil dibuat!');
             return redirect()->route('admin.tracerStudy.tracerStudy');
@@ -114,6 +132,7 @@ class TracerStudyController extends Controller
             return back()->withErrors(['msg' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
         }
     }
+
 
     public function edit($id)
     {
@@ -125,6 +144,7 @@ class TracerStudyController extends Controller
 
     public function update(Request $request, $id)
     {
+
         DB::beginTransaction();
         try {
             $request->validate([

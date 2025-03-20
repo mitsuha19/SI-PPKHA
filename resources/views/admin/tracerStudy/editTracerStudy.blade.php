@@ -184,9 +184,10 @@
                                                                 <div class="col-md-4">
                                                                     <select class="form-select next-section-select"
                                                                         name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][options][{{ $optionIndex }}][next_section_id]">
-
-                                                                        <option value="submit"
-                                                                            @if ($option->next_section_id === null) selected @endif>
+                                                                        <option value="">Pilih Section Selanjutnya
+                                                                        </option>
+                                                                        <option value="999"
+                                                                            @if ($option->next_section_id == 999) selected @endif>
                                                                             Kirim Formulir</option>
                                                                         @foreach ($form->sections as $nextIndex => $nextSection)
                                                                             @if ($nextIndex > $sectionIndex)
@@ -197,6 +198,7 @@
                                                                             @endif
                                                                         @endforeach
                                                                     </select>
+
                                                                 </div>
                                                             @else
                                                                 {{-- Kotak Centang, Dropdown --}}
