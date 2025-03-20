@@ -47,7 +47,7 @@
           <div id="file-preview" class="mt-2"></div>
         </div>
 
-        <label for="jenisLowongan" class="poppins-bold text-black mb-2">Jenis Lowongan:</label>
+        <label for="jenisLowongan" class="poppins-bold text-black mb-2">Departemen:</label>
         <input type="text" class="form-control mb-3" id="jenisLowongan" name="jenisLowongan" placeholder="Contoh: FullStack, Administrasi" required>
 
         <label for="tipeLowongan" class="poppins-bold text-black mb-2">Tipe Lowongan:</label>

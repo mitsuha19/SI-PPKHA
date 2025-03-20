@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\LowonganController;
@@ -20,11 +21,12 @@ use App\Http\Controllers\UserSurveyController;
 */
 
 // Home & other public pages
-Route::get('/', fn() => view('ppkha.beranda'));
 
-Route::get('/berita', function () {
-    return view('ppkha.berita');
-});
+Route::get('/', [BerandaController::class, 'index'])->name('ppkha.beranda');
+
+
+
+
 // Overwriting /berita route to show user-specific data:
 Route::get('/berita', [BeritaController::class, 'showBeritaUser'])->name('ppkha.berita');
 Route::get('/berita/detail/{id}', [BeritaController::class, 'showBeritaDetailUser'])->name('ppkha.detailBerita');

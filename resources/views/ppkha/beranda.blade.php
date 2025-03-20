@@ -41,50 +41,31 @@
                 </div>
 
                 <!-- Static Cards -->
-                <div class="background-card">
+                @foreach ($berita as $item)
+                <div class="bg-card">
                     <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                        <div class="card-detail">
-                            <h5 class="card-title text-start roboto-title">Ratusan Mahasiswa Indonesia Terima Beasiswa</h5>
-                            <p class="roboto-light text-white" style="font-size: 14px">204 Mahasiswa Menerima Beasiswa
-                                TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan
-                                soft skills</p>
+                    {{-- Ambil gambar pertama jika tersedia --}}
+                    @php
+                            $gambarArray = $item->gambar ?? []; // Laravel otomatis mengubah JSON ke array
+                        @endphp
+
+                        @if (!empty($gambarArray) && isset($gambarArray[0]))
+                            <img src="{{ asset('storage/' . $gambarArray[0]) }}" class="card-img-top" alt="Berita">
+                        @else
+                            <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="artikel">
+                        @endif
+                        <div class="card-body">
+                            <h5 class="card-title text-start roboto-title">{{ $item->judul_berita }}</h5>
+                            <p class="roboto-light text-white" style="font-size: 14px"> {{ Str::limit($item->deskripsi_berita, 200, '...') }}</p>
                             <div class="d-flex justify-content-end ">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            <a href="{{ route('ppkha.detailBerita', ['id' => $item->id]) }}">Selengkapnya..</a>
 
-                <div class="background-card">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                        <div class="card-detail">
-                            <h5 class="card-title text-start roboto-title">Ratusan Mahasiswa Indonesia Terima Beasiswa</h5>
-                            <p class="roboto-light text-white" style="font-size: 14px">204 Mahasiswa Menerima Beasiswa
-                                TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan
-                                soft skills</p>
-                            <div class="d-flex justify-content-end">
-                                <a href="#">Selengkapnya...</a>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="background-card">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                        <div class="card-detail">
-                            <h5 class="card-title text-start roboto-title">Ratusan Mahasiswa Indonesia Terima Beasiswa</h5>
-                            <p class="roboto-light text-white" style="font-size: 14px">204 Mahasiswa Menerima Beasiswa
-                                TELADAN. Beasiswa ini untuk menciptakan pemimpin-pemimpin masa depan yang dibekali dengan
-                                soft skills</p>
-                            <div class="d-flex justify-content-end">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                
 
                 <div class="d-flex justify-content-center align-items-center">
                     <i class='bx bx-chevron-right bx-lg'></i>
@@ -94,6 +75,7 @@
         </div>
 
         <!-- Pengumuman Section -->
+
         <div class="pengumuman-section">
             <h2 class="section-title">PENGUMUMAN</h2>
             <div class="pengumuman-grid">
@@ -102,44 +84,20 @@
                 </div>
 
                 <!-- Static Cards -->
+                @foreach ($pengumuman as $item)
                 <div class="bg-card">
                     <div class="card" style="width: 18rem;">
                         <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
                         <div class="card-detail">
-                            <h5 class="card-title text-center roboto-title mb-3">IT Del Akan Mengadakan KMC (Keluarga
-                                Mahasiswa Cup)</h5>
+                            <h5 class="card-title text-center roboto-title mb-3">{{ $item->judul_pengumuman }}</h5>
                             <div class="d-flex justify-content-end">
-                                <a href="#">Selengkapnya...</a>
+                            <a href="{{ route('ppkha.pengumumanDetail', ['id' => $item->id]) }}">Selengkapnya..</a>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="bg-card">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                        <div class="card-detail">
-                            <h5 class="card-title text-center roboto-title mb-3">IT Del Akan Mengadakan KMC (Keluarga
-                                Mahasiswa Cup)</h5>
-                            <div class="d-flex justify-content-end">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-card">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                        <div class="card-detail">
-                            <h5 class="card-title text-center roboto-title mb-3">IT Del Akan Mengadakan KMC (Keluarga
-                                Mahasiswa Cup)</h5>
-                            <div class="d-flex justify-content-end">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                
 
                 <div class="d-flex justify-content-center align-items-center">
                     <i class='bx bx-chevron-right bx-lg'></i>
@@ -152,29 +110,29 @@
             <h2 class="section-title">ARTIKEL</h2>
             <div class="pengumuman-grid">
                 <!-- Static Cards -->
+                @foreach ($artikel as $item)
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                    <div class="card-body">
-                        <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                        <a href="#" class="btn btn-primary">Selengkapnya</a>
-                    </div>
-                </div>
+                        @php
+                            $gambarArray = $item->gambar ?? []; // Laravel otomatis mengubah JSON ke array
+                        @endphp
 
-                <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 2">
-                    <div class="card-body">
-                        <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                        <a href="#" class="btn btn-primary">Selengkapnya</a>
-                    </div>
-                </div>
+                        @if (!empty($gambarArray) && isset($gambarArray[0]))
+                            <img src="{{ asset('storage/' . $gambarArray[0]) }}" class="card-img-top" alt="Artikel">
+                        @else
+                            <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="artikel">
+                        @endif
 
-                <div class="card" style="width: 18rem;">
-                    <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 3">
                     <div class="card-body">
-                        <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                        <a href="#" class="btn btn-primary">Selengkapnya</a>
+                        <h5 class="card-title">{{ $item->judul_artikel }}</h5>
+                        <div class="d-flex justify-content-end">
+                        <a href="{{ route('ppkha.detailArtikel', ['id' => $item->id]) }}">Selengkapnya..</a>
+</div>
                     </div>
                 </div>
+                @endforeach
+
+
+               
             </div>
         </div>
     </div>

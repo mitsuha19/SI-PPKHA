@@ -1,3 +1,4 @@
+//detaillowongan
 
 @extends('layouts.app')
 
@@ -15,8 +16,9 @@
             <div class="horizontal-card-body2">
                 <!-- First Container: Image -->
                 <div class="image-container">
-                    <img src="{{ asset('assets/images/Norxel.png') }}" class="horizontal-card2 img" alt="...">
-                </div>
+                <img style="height: 92px; width: auto;" 
+     src="{{ isset($lowongan->perusahaan) && $lowongan->perusahaan->logo ? asset('storage/' . $lowongan->perusahaan->logo) : asset('public\assets\images\image.png') }}" 
+     alt="Logo Perusahaan"></div>
 
                 <!-- Second Container: Text -->
                 <div class="text-container">
@@ -136,3 +138,4 @@
 
     @include('components.footer')
 @endsection
+
