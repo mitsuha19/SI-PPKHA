@@ -78,8 +78,8 @@
   </div>
   
   <div class="pagination">
-  {{ $artikel->appends(request()->query())->links() }}
-        </div>
+    {{ $artikel->appends(request()->query())->links() }}
+  </div>
 </div>
 
 <!-- Modal Hapus -->

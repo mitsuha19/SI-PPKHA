@@ -20,11 +20,10 @@
             <i class='bx bx-upload me-1'></i>
             Choose a File
           </label>
-          <input id="upload" type="file" name="gambar[]" multiple
-                        accept="image/*, .pdf, .doc, .docx, .xls, .xlsx" onchange="previewFiles()">
+          <input id="upload" type="file" name="gambar[]" class="form-control d-none" multiple accept="image/*, .pdf, .doc, .docx, .xls, .xlsx" onchange="previewFiles()">
         </div>
 
-        <div id="preview-container" class="mt-3" style="max-height: 200px; overflow-y: auto;"></div>
+        <div id="file-preview" class="mt-2"></div>
 
         <div class="d-flex justify-content-end align-items-end gap-2">
           <a href="{{ route('admin.artikel.artikel') }}" class="btn btn-secondary">Batal</a>
@@ -33,4 +32,35 @@
       </form>
   </div>
 </div>
+
+<script>
+  function previewFiles() {
+      let input = document.getElementById('upload');
+      let preview = document.getElementById('file-preview');
+      preview.innerHTML = ''; // Reset tampilan sebelumnya
+
+      if (input.files.length > 0) {
+          for (let i = 0; i < input.files.length; i++) {
+              let file = input.files[i];
+              let fileReader = new FileReader();
+
+              fileReader.onload = function (e) {
+                  let fileType = file.type.split('/')[0]; // Cek tipe file
+                  let fileDisplay = document.createElement('div');
+                  fileDisplay.classList.add('mb-2');
+
+                  if (fileType === 'image') {
+                      fileDisplay.innerHTML = `<img src="${e.target.result}" alt="Preview" class="img-thumbnail" width="100">`;
+                  } else {
+                      fileDisplay.innerHTML = `<p>${file.name}</p>`;
+                  }
+
+                  preview.appendChild(fileDisplay);
+              };
+
+              fileReader.readAsDataURL(file);
+          }
+      }
+  }
+</script>
 @endsection
