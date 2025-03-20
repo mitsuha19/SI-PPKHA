@@ -8,13 +8,15 @@
 
         <!-- Top Search Bar Section (New, positioned at the top of content) -->
         <div class="top-search-bar-container">
-            <div class="top-search-bar gap-3">
-                <input type="text" class="top-search-input" placeholder="Cari Lowongan Pekerjaan" />
-                <button class="top-search-button">
-                    <i class='bx bx-search bx-sm'></i>
-                </button>
-            </div>
-        </div>
+    <div class="top-search-bar d-flex align-items-center">
+        <form class="d-flex w-100" action="{{ route('ppkha.lowonganPekerjaan') }}" method="GET">
+            <input type="text" id="lowongan" name="search" class="form-control me-2" placeholder="Cari Lowongan Pekerjaan..." value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary">
+                <i class='bx bx-search bx-sm'></i>
+            </button>
+        </form>
+    </div>
+</div>
 
         <div class="d-flex flex-column align-items-center gap-4">
 
@@ -62,11 +64,11 @@
                 </div>
             @endforeach
 
+            <div class="pagination">
+            {{ $lowongan->appends(request()->query())->links() }}
+        </div>
         </div>
 
-        <div class="load-more-container">
-            <button class="load-more-btn">Muat Lebih Banyak</button>
-        </div>
     </div>
 
     @include('components.footer')

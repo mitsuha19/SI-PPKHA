@@ -1,93 +1,75 @@
 @extends('layouts.app')
 
 @section('content')
-@include('components.navbar')
+    @include('components.navbar')
 
-<div class="p-3 detail-content">
-    <!-- Berita Section -->
-    <div class="horizontal-card2 mt-4">
-        <!-- ***CHANGE START***: Added horizontal-card-body2 as a Flexbox container -->
-        <div class="horizontal-card-body2">
-            <!-- First Container: Image (left) -->
-            <div class="image-container">
-                <img src="{{asset('assets/images/Norxel.png')}}" class="horizontal-card2 img" alt="...">
+    <div class="content-with-background">
+        @include('components.bg') <!-- Renders the background waves -->
+
+        <!-- Top Search Bar Section -->
+        <div class="top-search-bar-container">
+            <div class="top-search-bar d-flex align-items-center">
+                <form class="d-flex w-100" action="{{ route('ppkha.daftarPerusahaan') }}" method="GET">
+                    <input type="text" id="perusahaan" name="search" class="form-control me-2" placeholder="Cari Perusahaan..." value="{{ request('search') }}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class='bx bx-search bx-sm'></i>
+                    </button>
+                </form>
             </div>
-            
-            <!-- Second Container: Text (center) -->
-            <div class="text-container">
-                <div class="horizontal-card-text-section2">
-                    <h5 class="horizontal-card-title2">
-                      {{ $perusahaan->namaPerusahaan }}
-                    </h5>
-                    <p class="horizontal-card-text2">
-                        Norxel Teknologi Indonesia<br>
-                        @forelse ($lowongan as $job)
-                        <div class="text-row">
-                            <div class="info-item">
-                                <span class="text-label">Lokasi</span>
-                                <span class="text-value">{{ $perusahaan->lokasiPerusahaan }}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="text-label">Departemen</span>
-                                <span class="text-value">{{ $job->jenisLowongan }}</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="text-label">Jenis Pekerjaan</span>
-                                <span class="text-value">{{ $job->tipeLowongan }}</span>
+        </div>
+
+        <!-- Daftar Perusahaan Section -->
+        <div class="container">
+            <div class="d-flex flex-column align-items-center gap-4">
+                @if($perusahaan->isEmpty())
+                    <!-- Tampilkan pesan jika tidak ada perusahaan -->
+                    <div class="no-content text-center d-flex justify-content-center align-items-center w-100">
+                        <strong>Upss, Belum Ada Perusahaan yang tersedia nih</strong>
+                    </div>
+                @else
+                    @foreach($perusahaan as $p)
+                        <div class="background-card">
+                            <div class="card-information d-flex align-items-center px-3">
+                                <img src="{{ $p->logo ? asset('storage/' . $p->logo) : asset('assets/images/default-logo.png') }}" alt="Logo Perusahaan">
+                                <div class="ps-3 w-100">
+                                    <div class="horizontal-card-text-section card-detail-perusahaan">
+                                        <div class="d-flex flex-row justify-content-between align-items-center w-100">
+                                            <h5 class="horizontal-card-title fw-bold mb-0">
+                                                {{ $p->namaPerusahaan }}
+                                            </h5>
+                                            <div class="d-flex flex-row justify-content-center align-items-center gap-1 detail">
+                                                <a href="{{ route('ppkha.daftarPerusahaanDetail', ['id' => $p->id]) }}">Detail</a>
+                                                <i class='bx bx-sm bx-right-arrow-alt'></i>       
+                                            </div>
+                                        </div>
+
+                                        <hr class="my-1" style="border: 2px solid black; opacity: 1">
+
+                                        <div class="d-flex flex-row align-items-center mb-2" style="gap: 5px">
+                                            <p class="mb-0 montserrat-light">{{ $p->lokasiPerusahaan }}</p>
+                                            <div class="circle"></div>
+                                            <p class="mb-0 montserrat-medium">{{ $p->industriPerusahaan }}</p>
+                                        </div>
+
+                                        <p class="horizontal-card-text">
+                                            {{ $p->deskripsiPerusahaan }}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        @empty
-                          <p>Tidak ada lowongan tersedia saat ini.</p>
-                        @endforelse
-                    </p>
-                </div>
+                    @endforeach
+                @endif
             </div>
         </div>
+
+        <!-- Load More Button (Hanya muncul jika ada lebih dari X perusahaan) -->
+        @if($perusahaan->count() > 5) 
+            <div class="load-more-container">
+                <button class="load-more-btn">Muat Lebih Banyak</button>
+            </div>
+        @endif
     </div>
 
-    <div class="horizontal-card3 mt-4">
-      <div class="horizontal-card-body3">
-        <div class="text-container">
-          <div class="horizontal-card-text-section3">
-            <h5 class="horizontal-card-title3" >TENTANG KAMI</h5>
-            <p class="horizontal-card-text2"> 
-              {{ $perusahaan->deskripsiPerusahaan }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>  
-
-    <div class="horizontal-card3 mt-4"> 
-      <h2 class="title">Lowongan</h2>
-      @foreach($lowongan as $l)
-      <div style="border-bottom: 1px solid #000; padding: 10px;">
-      <div style="display: flex; align-items: start; gap: 20px;  padding: 10px;">
-        <img src="{{ asset('assets/images/Norxel.png') }}" alt="Norxel Logo" style="width: 100px; height: auto;">
-        
-        <div class="job-info" style="display: grid; gap: 10px;">
-            <h3>{{ $job->judulLowongan }}</h3>
-            <ul style="margin: 0; padding-left: 20px;">
-                <li>{{ $job->deskripsiLowongan }}</li>
-            </ul> 
-        </div>
-        
-        <a href="{{ route('ppkha.lowonganPekerjaanDetail', ['id' => $l->id]) }}" class="detail d-flex flex-row gap-1 align-items-center" style="margin-left: auto; text-decoration: none; color: black; font-weight: bold;">
-          Detail 
-          <i class='bx bx-right-arrow-alt'></i>
-        </a>
-        
-    </div>
-    <div class="job-tags" style="display: flex; gap: 10px; flex-wrap: wrap;">
-      <span style="background: #f3f3f3; padding: 5px 10px; border-radius: 5px;">{{ strtoupper($job->perusahaan->lokasiPerusahaan) }}</span>
-      <span style="background: #f3f3f3; padding: 5px 10px; border-radius: 5px;">{{ $job->jenisLowongan }}</span>
-      <span style="background: #f3f3f3; padding: 5px 10px; border-radius: 5px;">{{ $job->tipeLowongan }}</span>
-  </div>
-  </div>
-  @endforeach
-
-  </div> 
-</div>
-
-@include('components.footer')
+    @include('components.footer')
 @endsection

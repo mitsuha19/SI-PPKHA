@@ -278,6 +278,20 @@ input[type="text"] {
 .card-pengumuman .detail {
     justify-self: end;
 }
+/****************************************** PAGINATION COMPONENT *******************************************/
+
+/* Menghapus background biru */
+.custom-pagination-container {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0; /* Menghilangkan padding tambahan */
+    margin: 0 auto; /* Pusatkan jika perlu */
+    display: flex;
+    justify-content: center;
+}
+
+/* Styling utama pagination */
 .custom-pagination {
     display: flex;
     list-style: none;
@@ -286,12 +300,15 @@ input[type="text"] {
     border-radius: 20px;
     justify-content: center;
     align-items: center;
+    margin: 0; /* Hilangkan margin bawaan */
 }
 
+/* Mengatur setiap item pagination */
 .custom-pagination li {
     margin: 0 5px;
 }
 
+/* Styling tombol angka & navigasi */
 .custom-pagination li a,
 .custom-pagination li span {
     display: flex;
@@ -304,16 +321,36 @@ input[type="text"] {
     color: black;
     border-radius: 10px;
     font-weight: bold;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
+/* Warna untuk halaman aktif */
 .custom-pagination li.active span {
     background: black;
     color: white;
 }
 
+/* Warna untuk tombol disabled */
 .custom-pagination li.disabled span {
     opacity: 0.5;
+    pointer-events: none; /* Mencegah interaksi */
 }
+
+/* Hover effect untuk tombol pagination */
+.custom-pagination li a:hover {
+    background: #bbb;
+    color: white;
+}
+
+.no-content {
+    font-size: 55px; /* Memperbesar ukuran font */
+    font-weight: bold; /* Membuat teks lebih tebal */
+    height: 200px; /* Menentukan tinggi agar bisa sejajar di tengah */
+    display: flex;
+    justify-content: center; /* Pusatkan horizontal */
+    align-items: center; /* Pusatkan vertikal */
+}
+
 
 
 .box-form label {
@@ -400,10 +437,7 @@ input[type="file"] {
     width: fit-content;
     white-space: nowrap; /* Mencegah teks terpotong */
 }
-/* Style the active/current link */
-.pagination a.active {
-    transform: scale(1.2);
-}
+
 
 .card-perusahaan,
 .card-lowongan {

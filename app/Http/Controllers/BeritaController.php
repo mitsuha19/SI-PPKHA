@@ -8,19 +8,27 @@ use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
-    public function index2(Request $request){
+    public function index2(Request $request)
+{
+    $search = $request->input('search');
+
+    $berita = Berita::when($search, function ($query) use ($search) {
+        return $query->where('judul_berita', 'like', "%{$search}%");
+    })->orderBy('created_at', 'desc')->paginate(2);
+
+    return view('admin.berita.berita', compact('berita', 'search'));
+}
+
+
+
+    public function showBeritaUser(Request $request){
         $search = $request->input('search');
 
-        $berita = Berita::when($search, function ($query) use ($search) {
-            return $query->where('judul_berita', 'like', "%{$search}%");
-        })->orderBy('created_at', 'desc')->paginate(2);
-
-        return view('admin.berita.berita', compact('berita', 'search'));
-    }
-
-    public function showBeritaUser(){
-        $berita = Berita::orderBy('created_at', 'desc')->get();
-        return view('ppkha.berita', compact('berita'));
+    $berita = Berita::when($search, function ($query) use ($search) {
+        return $query->where('judul_berita', 'like', "%{$search}%");
+    })->orderBy('created_at', 'desc')->paginate(5);
+    
+        return view('ppkha.berita', compact('berita','search'));
     }
 
     public function showBeritaDetailUser($id){

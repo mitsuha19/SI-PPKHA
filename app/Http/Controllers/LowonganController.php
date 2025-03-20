@@ -20,10 +20,14 @@ class LowonganController extends Controller
         return view('admin.lowonganPekerjaan.lowonganPekerjaan', compact('lowongan', 'search'));
     }
 
-    public function showLowonganUser()
+    public function showLowonganUser(Request $request)
     {
-        $lowongan = Lowongan::paginate(10);
-        return view('ppkha.lowongan_pekerjaan', compact('lowongan'));
+        $search = $request->input('search');
+
+    $lowongan = Lowongan::when($search, function ($query) use ($search) {
+        return $query->where('judulLowongan', 'like', "%{$search}%");
+    })->orderBy('created_at', 'desc')->paginate(3);
+        return view('ppkha.lowongan_pekerjaan', compact('lowongan', 'search'));
     }
 
     public function showLowonganDetailUser($id)

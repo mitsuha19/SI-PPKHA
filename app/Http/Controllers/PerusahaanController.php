@@ -20,10 +20,14 @@ class PerusahaanController extends Controller
     return view('admin.daftarPerusahaan.daftarPerusahaan', compact('perusahaan', 'search'));
 }
 
-public function showPerusahaanUser()
+public function showPerusahaanUser(Request $request)
 {
-    $perusahaan = Perusahaan::orderBy('created_at', 'desc')->paginate(10); // Pastikan pakai paginate()
-    return view('ppkha.daftar_perusahaan', compact('perusahaan'));
+    $search = $request->input('search');
+
+    $perusahaan = Perusahaan::when($search, function ($query) use ($search) {
+        return $query->where('namaPerusahaan', 'like', "%{$search}%");
+    })->orderBy('created_at', 'desc')->paginate(3);
+    return view('ppkha.daftar_perusahaan', compact('perusahaan', 'search'));
 }
 
 public function showPerusahaanDetailUser($id)

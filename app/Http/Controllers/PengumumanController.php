@@ -19,10 +19,14 @@ class PengumumanController extends Controller
     return view('admin.pengumuman.pengumuman', compact('pengumuman', 'search'));
   }
 
-  public function showPengumumanUser()
+  public function showPengumumanUser(Request $request)
   {
-    $pengumuman = Pengumuman::paginate(10);
-    return view('ppkha.pengumuman', compact('pengumuman'));
+    $search = $request->input('search');
+
+    $pengumuman = Pengumuman::when($search, function ($query) use ($search) {
+        return $query->where('judul_pengumuman', 'like', "%{$search}%");
+    })->orderBy('created_at', 'desc')->paginate(3);
+    return view('ppkha.pengumuman', compact('pengumuman','search'));
   }
 
   public function showPengumumanDetailUser($id)
@@ -144,3 +148,4 @@ class PengumumanController extends Controller
     }
   }
 }
+

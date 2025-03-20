@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -11,14 +12,13 @@
         </div>
 
         <div class="horizontal-card2 mt-4">
-            <!-- ***CHANGE START***: Added horizontal-card-body2 as a Flexbox container -->
             <div class="horizontal-card-body2">
-                <!-- First Container: Image (left) -->
+                <!-- First Container: Image -->
                 <div class="image-container">
                     <img src="{{ asset('assets/images/Norxel.png') }}" class="horizontal-card2 img" alt="...">
                 </div>
 
-                <!-- Second Container: Text (center) -->
+                <!-- Second Container: Text -->
                 <div class="text-container">
                     <div class="horizontal-card-text-section2">
                         <h5 class="montserrat-medium mb-0" style="font-size: 36px;">{{ $lowongan->judulLowongan }}</h5>
@@ -27,7 +27,7 @@
                         <div class="text-row montserrat-medium" style="width: fit-content">
                             <div class="info-item">
                                 <span class="text-label">Lokasi</span>
-                                <span class="text-value">{{ $lowongan->perusahaan->lokasiPerusahaan ?? 'Lokasi  tidak ada' }}</span>
+                                <span class="text-value">{{ $lowongan->perusahaan->lokasiPerusahaan ?? 'Lokasi tidak ada' }}</span>
                             </div>
                             <div class="info-item">
                                 <span class="text-label">Departemen</span>
@@ -42,21 +42,25 @@
                     </div>
                 </div>
 
-                <!-- Third Container: Right Section (right) -->
+                <!-- Third Container: Right Section -->
                 <div class="right-section">
                     <button class="lamar-btn">Lamar</button>
                     <div class="share-section">
-                        <a href="https://del.ac.id.com"><img src="{{ asset('assets/images/share_icon.png') }}"
-                                class="share-icon" alt="Share">
-                            <span class="share-text">Bagikan</span>
+                        <button onclick="copyLink()" class="btn btn-primary">
+                            Bagikan
+                        </button>
                     </div>
                     <div class="social-icons">
-                        <a href="https://facebook.com"><img src="{{ asset('assets/images/facebook-logo.png') }}"
-                                alt="Facebook"></a>
-                        <a href="https://instagram.com"><img src="{{ asset('assets/images/instagram.png') }}"
-                                alt="Instagram"></a>
-                        <a href="https://whatsapp.com"><img src="{{ asset('assets/images/whatsapp.png') }}"
-                                alt="WhatsApp"></a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" target="_blank">
+                            <img src="{{ asset('assets/images/facebook-logo.png') }}" alt="Facebook">
+                        </a>
+                        <a href="https://www.instagram.com/direct/new/?text={{ urlencode('Cek lowongan ini: ' . request()->fullUrl()) }}" target="_blank">
+                            <img src="{{ asset('assets/images/instagram.png') }}" alt="Instagram DM">
+                        </a>
+                       
+                        <a id="whatsappShare" onclick="shareToWhatsAppStory()" target="_blank">
+                            <img src="{{ asset('assets/images/Whatsapp-logo.png') }}" alt="WhatsApp">
+                        </a>
                     </div>
                 </div>
             </div>
@@ -64,7 +68,7 @@
 
         <div class="horizontal-card3 mt-4">
             <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Deskripsi Lowongan</h5>
-            <hr class="mt-1" style="opacity: 1">
+            <hr class="mt-1">
             <p class="mb-0 montserrat-medium" style="font-size: 12px">
                 {!! nl2br(e(Str::limit($lowongan->deskripsiLowongan, 100, '...'))) !!}
             </p>
@@ -72,7 +76,7 @@
 
         <div class="horizontal-card3 mt-4">
             <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Kualifikasi</h5>
-            <hr class="mt-1" style="opacity: 1">
+            <hr class="mt-1">
             <p class="mb-0 montserrat-medium" style="font-size: 12px">
                 {!! nl2br(e($lowongan->kualifikasi ?: 'Belum ada kualifikasi dari lowongan pekerjaan ini')) !!}
             </p>
@@ -80,7 +84,7 @@
 
         <div class="horizontal-card3 mt-4">
             <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Benefit</h5>
-            <hr class="mt-1" style="opacity: 1">
+            <hr class="mt-1">
             <p class="mb-0 montserrat-medium" style="font-size: 12px">
                 {!! nl2br(e($lowongan->benefit ?: 'Belum ada benefit dari lowongan pekerjaan ini')) !!}
             </p>
@@ -89,9 +93,8 @@
         <div class="horizontal-card3">
             <div class="horizontal-card-text-section3">
                 <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Keahlian</h5>
-                <hr class="mt-1" style="opacity: 1">
+                <hr class="mt-1">
                 <div class="skills-container gap-3">
-                    
                     @php
                         $keahlian = !empty($lowongan->keahlian) ? explode(',', $lowongan->keahlian) : [];
                     @endphp
@@ -107,6 +110,29 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function copyLink() {
+            var link = window.location.href;
+            var tempInput = document.createElement("input");
+            tempInput.value = link;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            alert("Link telah disalin!");
+
+            var whatsappLink = "https://wa.me/?text=" + encodeURIComponent("Cek lowongan ini: " + link);
+            document.getElementById("whatsappShare").href = whatsappLink;
+        }
+
+        function shareToWhatsAppStory() {
+            var text = "Cek lowongan ini: " + window.location.href;
+            var whatsappUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text);
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
 
     @include('components.footer')
 @endsection
