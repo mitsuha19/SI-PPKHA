@@ -83,14 +83,13 @@ class TracerStudyController extends Controller
                                     ? $optionData['label_angka']
                                     : null;
 
-                                $nextSectionId = $sectionIds[$sectionIndex]; // Default ke section saat ini
+                                // Default: Tidak ada next_section_id
+                                $nextSectionId = null;
 
-                                if ($questionData['type_question_id'] == 3 && isset($optionData['next_section_id'])) {
-                                    if ($optionData['next_section_id'] === 'submit') {
-                                        $nextSectionId = null;
-                                    } elseif (!empty($optionData['next_section_id'])) {
-                                        $nextSectionId = $sectionIds[$optionData['next_section_id']] ?? $sectionIds[$sectionIndex];
-                                    }
+                                // Periksa apakah opsi memiliki next_section_id yang valid
+                                if (!empty($optionData['next_section_id']) && $optionData['next_section_id'] !== 'submit') {
+                                    $nextSectionIndex = (int) $optionData['next_section_id']; // Ambil indeks section dari form
+                                    $nextSectionId = $sectionIds[$nextSectionIndex] ?? null; // Pastikan nilai ada dalam sectionIds
                                 }
 
                                 Option::create([
@@ -105,6 +104,7 @@ class TracerStudyController extends Controller
                     }
                 }
             }
+
 
             DB::commit();
             Alert::success('Success', 'Form berhasil dibuat!');
@@ -188,7 +188,7 @@ class TracerStudyController extends Controller
                                     ? $optionData['label_angka']
                                     : null;
 
-                                $nextSectionId = $currentSectionId; // Default ke section saat ini
+                                $nextSectionId = null;
 
                                 if ($questionData['type_question_id'] == 3 && isset($optionData['next_section_id'])) {
                                     if ($optionData['next_section_id'] !== 'submit' && !empty($optionData['next_section_id'])) {
