@@ -21,31 +21,43 @@ class ArtikelController extends Controller
         return view('admin.artikel.artikel', compact('artikel', 'search'));
     }
 
+    public function showArtikelUser(){
+        $artikel = Artikel::orderBy('created_at', 'desc')->get();
+        return view('ppkha.artikel', compact('artikel'));
+    }
+
+    public function showArtikelDetailUser($id) {
+        // Ambil artikel yang sedang ditampilkan
+        $artikel = Artikel::findOrFail($id);
+        
+        // Ambil semua artikel sebagai rekomendasi
+        $artikelRekomendasi = Artikel::orderBy('created_at', 'desc')->get();
+        
+        return view('ppkha.detailArtikel', compact('artikel', 'artikelRekomendasi'));
+    }
+
     public function createArtikel(){
         return view('admin.artikel.artikelAdd');
     }
 
-    public function store(Request $request){
-        $request->validate([
-        'judul_artikel' => 'required|string|max:255',
-        'deskripsi_artikel' => 'required|string',
-        'gambar.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx|max:2048' // Validasi file
+    public function store(Request $request) {
+        $validatedData = $request->validate([
+            'judul_artikel' => 'required|string',
+            'deskripsi_artikel' => 'required|string',
+            'gambar.*' => 'nullable|file|mimes:jpg,jpeg,png',
         ]);
 
-        // Simpan lampiran
         $gambarPaths = [];
         if ($request->hasFile('gambar')) {
-        foreach ($request->file('gambar') as $file) {
-            $path = $file->store('gambar_artikel', 'public'); // Simpan ke storage/app/public/lampiran_artikel
-            $gambarPaths[] = $path;
-        }
+            foreach ($request->file('gambar') as $file) {
+                $gambarPaths[] = $file->store('gambar', 'public');
+            }
         }
 
-        // Simpan data pengumuman ke database
-        $artikel = Artikel::create([
-        'judul_artikel' => $request->judul_artikel,
-        'deskripsi_artikel' => $request->deskripsi_artikel,
-        'gambar' => count($gambarPaths) > 0 ? json_encode($gambarPaths) : null, // Simpan dalam format JSON
+        Artikel::create([
+            'judul_artikel' => $validatedData['judul_artikel'],
+            'deskripsi_artikel' => $validatedData['deskripsi_artikel'],
+            'gambar' => $gambarPaths,
         ]);
 
         return redirect()->route('admin.artikel.artikel')->with('success', 'Artikel berhasil ditambahkan!');

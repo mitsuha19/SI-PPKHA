@@ -27,15 +27,14 @@ Route::get('/berita', function () {
 });
 // Overwriting /berita route to show user-specific data:
 Route::get('/berita', [BeritaController::class, 'showBeritaUser'])->name('ppkha.berita');
-
-Route::get('/berita/detail', fn() => view('ppkha.detailBerita'));
-Route::get('/berita/detail/{id}', [BeritaController::class, 'showBeritaDetailUser'])->name('ppkha.beritaDetail');
+Route::get('/berita/detail/{id}', [BeritaController::class, 'showBeritaDetailUser'])->name('ppkha.detailBerita');
 
 Route::get('/pengumuman', [PengumumanController::class, 'showPengumumanUser'])->name('ppkha.pengumuman');
 Route::get('/pengumuman/detail', fn() => view('ppkha.detailPengumuman'));
 Route::get('pengumuman/detail/{id}', [PengumumanController::class, 'showPengumumanDetailUser'])->name('ppkha.pengumumanDetail');
 
-Route::get('/artikel', fn() => view('ppkha.artikel'));
+Route::get('/artikel', [ArtikelController::class, 'showArtikelUser'])->name('ppkha.artikel');
+Route::get('/artikel/detail/{id}', [ArtikelController::class, 'showArtikelDetailUser'])->name('ppkha.detailArtikel');
 
 Route::get('/daftar_perusahaan', [PerusahaanController::class, 'showPerusahaanUser'])->name('ppkha.daftarPerusahaan');
 Route::get('/daftar_perusahaan/detail/{id}', [PerusahaanController::class, 'showPerusahaanDetailUser'])->name('ppkha.daftarPerusahaanDetail');

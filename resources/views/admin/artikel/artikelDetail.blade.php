@@ -36,7 +36,16 @@
         <hr class="my-2 w-100" style="border: 1.5px solid black; opacity : 1;" >
 
         <div class="d-flex justify-content-center">
-          <img style="width: 80%" src="{{ asset('assets/images/image.png') }}">
+          @php
+              // Pastikan $berita->gambar adalah string sebelum di-decode
+              $gambarArray = is_string($artikel->gambar) ? json_decode($artikel->gambar, true) : $artikel->gambar;
+              $gambarArray = is_array($gambarArray) ? $gambarArray : [];
+          @endphp
+          @if (!empty($gambarArray) && isset($gambarArray[0]))
+              <img style="width: 80%" src="{{ asset('storage/' . $gambarArray[0]) }}">
+          @else
+              <img style="width: 80%" src="{{ asset('assets/images/image.png') }}">
+          @endif
         </div>
 
         <p class="roboto-light mb-1 mt-2" style="font-size: 15px">

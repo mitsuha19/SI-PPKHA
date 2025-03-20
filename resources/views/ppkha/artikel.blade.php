@@ -18,113 +18,32 @@
         <div class="pengumuman-section d-flex flex-column align-items-center gap-4">
             <div class="pengumuman-grid" style="display: flex; flex-wrap: wrap;">
                 <!-- Static Cards -->
+
+                @foreach ($artikel as $item)
                 <div class="background-card-artikel">
                     <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                        <div class="card-detail">
-                            <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                            <div class="d-flex justify-content-end mt-4">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                         @php
+                            $gambarArray = $item->gambar ?? []; // Laravel otomatis mengubah JSON ke array
+                        @endphp
 
-                <div class="background-card-artikel">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                        <div class="card-detail">
-                            <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                            <div class="d-flex justify-content-end mt-4">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        @if (!empty($gambarArray) && isset($gambarArray[0]))
+                            <img src="{{ asset('storage/' . $gambarArray[0]) }}" alt="Gambar Artikel">
+                        @else
+                            <img src="{{ asset('assets/images/image.png') }}" alt="Default Gambar">
+                        @endif
 
-                <div class="background-card-artikel">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
                         <div class="card-detail">
-                            <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
+                            <h5 class="card-title">
+                                {{ $item->judul_artikel }}
+                            </h5>
                             <div class="d-flex justify-content-end mt-4">
-                                <a href="#">Selengkapnya...</a>
+                                <a href="{{ route('ppkha.detailArtikel', ['id' => $item->id]) }}">Selengkapnya..</a>
                             </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
 
-                <div class="background-card">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                        <div class="card-detail">
-                            <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                            <div class="d-flex justify-content-end mt-4">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="background-card">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                        <div class="card-detail">
-                            <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                            <div class="d-flex justify-content-end mt-4">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="background-card">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                        <div class="card-detail">
-                            <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                            <div class="d-flex justify-content-end mt-4">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="background-card">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                        <div class="card-detail">
-                            <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                            <div class="d-flex justify-content-end mt-4">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="background-card">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                        <div class="card-detail">
-                            <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                            <div class="d-flex justify-content-end mt-4">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="background-card">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                        <div class="card-detail">
-                            <h5 class="card-title">IT Del Akan Mengadakan KMC (Keluarga Mahasiswa Cup)</h5>
-                            <div class="d-flex justify-content-end mt-4">
-                                <a href="#">Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 

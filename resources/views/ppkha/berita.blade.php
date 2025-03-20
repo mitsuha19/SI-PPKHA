@@ -53,7 +53,7 @@
             
                         {{-- Link ke Detail Berita --}}
                         <div class="detail">
-                        <a href="{{ route('ppkha.beritaDetail', ['id' => $item->id]) }}">Selengkapnya..</a>
+                        <a href="{{ route('ppkha.detailBerita', ['id' => $item->id]) }}">Selengkapnya..</a>
                         </div>
                     </div>
                 </div>

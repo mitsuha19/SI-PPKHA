@@ -27,18 +27,14 @@
       <div class="card-information d-flex align-items-center px-3">
         {{-- Ambil gambar pertama jika tersedia --}}
         @php
-          $gambarArray = $item->gambar ?? []; // Laravel otomatis mengubah JSON ke array
-        @endphp
+              $gambarArray = $item->gambar ?? []; // Laravel otomatis mengubah JSON ke array
+          @endphp
 
-        @if (!empty($gambarArray) && isset($gambarArray[0]))
-        <img 
-            src="{{ asset('storage/' . $gambarArray[0]) }}" 
-            alt="Gambar Artikel">
-        @else
-          <img 
-            src="{{ asset('assets/images/image.png') }}" 
-            alt="Default Gambar">
-        @endif
+          @if (!empty($gambarArray) && isset($gambarArray[0]))
+            <img style="height: 245px" src="{{ asset('storage/' . $gambarArray[0]) }}" alt="Gambar Artikel">
+          @else
+            <img src="{{ asset('assets/images/image.png') }}" alt="Default Gambar">
+          @endif
 
         <div class="ps-3 w-100">
           {{-- Judul Artikel dan button Edit dan Delete --}}

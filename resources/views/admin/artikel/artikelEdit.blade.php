@@ -32,31 +32,30 @@
         <div class="mt-3">
             <p class="poppins-bold text-black" style="font-size: 14px;">Lampiran Saat Ini:</p>
             <ul id="gambar-list" style="list-style: none; padding: 0;">
-                @foreach (json_decode($artikel->gambar, true) as $gambar)
-                    <li id="gambar-{{ md5($gambar) }}"
-                        style="display: flex; align-items: center; gap: 8px; font-size: 12px; margin-bottom: 3px;">
-
-                        {{-- Link Lampiran --}}
-                        <a href="{{ asset('storage/' . $gambar) }}" target="_blank"
-                            style="text-decoration: none; color: blue; font-size: 12px;">
-                            {{ basename($gambar) }}
-                        </a>
-
-                        {{-- Tombol Hapus (❌) --}}
-                        <button type="button" class="remove-gambar" data-file="{{ $gambar }}"
-                            data-target="gambar-{{ md5($gambar) }}"
-                            style="background: none; border: none; color: red; font-size: 10px; padding: 2px; margin: 0; width: 15px; height: 15px; line-height: 1; display: flex; align-items: center; justify-content: center; cursor: pointer;">
-                            ❌
-                        </button>
-
-                        {{-- Input Hidden untuk Menghapus Lampiran --}}
-                        <input type="hidden" name="hapus_gambar[]" value=""
-                            class="hapus-gambar-input">
-                    </li>
-                @endforeach
+              @if (!empty($artikel->gambar))
+              @php
+                  $gambarArray = is_array($artikel->gambar) ? $artikel->gambar : json_decode($artikel->gambar, true);
+              @endphp
+          
+              @if(is_array($gambarArray))
+                  @foreach ($gambarArray as $index => $file)
+                      <div id="lampiran-item-{{ $index }}" class="d-flex align-items-center mb-2">
+                          <img src="{{ asset('storage/' . $file) }}" alt="Gambar Artikel" width="100" class="me-2">
+                          <label class="ms-2">
+                              <input type="checkbox" name="hapus_gambar[]" value="{{ $file }}"> Hapus
+                          </label>
+                      </div>
+                  @endforeach
+              @else
+                  <p>Tidak ada gambar</p>
+              @endif
+          @else
+              <p>Tidak ada gambar</p>
+          @endif
             </ul>
         </div>
-    @endif
+        @endif
+
 
         <div class="d-flex justify-content-end align-items-end gap-2">
           <a href="{{ route('admin.artikel.artikel') }}" class="btn btn-secondary">Batal</a>
