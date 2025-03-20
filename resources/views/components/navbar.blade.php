@@ -1,3 +1,63 @@
+<!-- Include SweetAlert2 CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<!-- Custom SweetAlert2 CSS -->
+<style>
+    /* Popup container style */
+    .swal-popup {
+        border-radius: 20px;
+        /* Smooth corners */
+        padding: 15px;
+        color: #000;
+        /* Text color */
+        font-family: 'Times New Roman', serif;
+        /* Serif font like in the image */
+        box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
+        /* Add a shadow effect */
+    }
+
+    /* Title style */
+    .swal-title {
+        font-size: 40px;
+        font-weight: normal;
+        font-style: normal;
+        margin-bottom: 20px;
+    }
+
+    /* Confirm and cancel button styles */
+    .swal-confirm,
+    .swal-cancel {
+        padding: 10px 30px;
+        font-size: 20px;
+        font-weight: normal;
+        border-radius: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        margin-bottom: 15px;
+        margin-right: 10px;
+        /* Text shadow for the buttons */
+    }
+
+    /* Confirm button with gradient */
+    .swal-confirm {
+        background: linear-gradient(to right, #4aa3a3, #357f80);
+        /* Gradient teal for confirm */
+        color: #000;
+        margin-right: 10px;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* Cancel button */
+    .swal-cancel {
+        background: linear-gradient(to right, #4aa3a3, #357f80);
+        color: #000;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
 <nav class="shadow-md">
     <div class="container">
         <!-- Logo dan Judul -->
@@ -31,28 +91,26 @@
                 @endphp
 
                 @foreach ($menus as $route => $name)
-                    @php
-                        $isActive = Request::is(trim($route, '/')) || ($route == '/' && Request::is('/'));
-                    @endphp
+                                @php
+                                    $isActive = Request::is(trim($route, '/')) || ($route == '/' && Request::is('/'));
+                                @endphp
 
-                    <li style="position: relative; text-align: center;">
-                        <a href="{{ $route }}" class="{{ $isActive ? 'fw-bold' : '' }}"
-                            style="text-decoration: none; color: white; font-weight: {{ $isActive ? 'bold' : 'normal' }}; display: inline-block;">
-                            {{ $name }}
-                        </a>
+                                <li style="position: relative; text-align: center;">
+                                    <a href="{{ $route }}" class="{{ $isActive ? 'fw-bold' : '' }}"
+                                        style="text-decoration: none; color: white; font-weight: {{ $isActive ? 'bold' : 'normal' }}; display: inline-block;">
+                                        {{ $name }}
+                                    </a>
 
-                        @if ($isActive)
-                            <div
-                                style="position: absolute; left: 50%; transform: translateX(-50%); bottom: -13px; width: 100%;">
-                                <svg width="100%" height="4" viewBox="0 0 100 4" preserveAspectRatio="none">
-                                    <ellipse cx="50" cy="2" rx="50" ry="1.5"
-                                        fill="#3B3B3B" />
-                                    <ellipse cx="50" cy="2" rx="45" ry="1"
-                                        fill="#1A1A1A" />
-                                </svg>
-                            </div>
-                        @endif
-                    </li>
+                                    @if ($isActive)
+                                        <div
+                                            style="position: absolute; left: 50%; transform: translateX(-50%); bottom: -13px; width: 100%;">
+                                            <svg width="100%" height="4" viewBox="0 0 100 4" preserveAspectRatio="none">
+                                                <ellipse cx="50" cy="2" rx="50" ry="1.5" fill="#3B3B3B" />
+                                                <ellipse cx="50" cy="2" rx="45" ry="1" fill="#1A1A1A" />
+                                            </svg>
+                                        </div>
+                                    @endif
+                                </li>
                 @endforeach
 
                 @guest
@@ -61,15 +119,13 @@
 
                 @auth
                     <li>
-                        <!-- Public Logout Form with Inline Confirmation -->
+                        <!-- Public Logout Form with Custom SweetAlert2 Confirmation -->
                         <form id="public-logout-form" action="{{ route('logout') }}" method="POST"
-                            class="d-flex align-items-center text-decoration-none"
-                            style="margin-left:auto; margin-right: 1%; background: none; border: none; padding: 0;">
+                            class="d-flex align-items-center justify-content-center text-decoration-none"
+                            style="margin-left: auto; margin-right: auto; background: none; border: none; padding: 0;">
                             @csrf
-                            <button type="submit"
-                                class="btn btn-transparent d-flex align-items-center text-decoration-none"
-                                style="background: none; border: none; padding: 0;"
-                                onclick="return confirm('Are you sure you want to logout?');">
+                            <button type="button" class="btn btn-transparent d-flex align-items-center text-decoration-none"
+                                style="background: none; border: none; padding: 0;" onclick="showLogoutConfirmation(event)">
                                 <span class="fw-bold" style="font-size: 14px; margin-right: 5px; color: #FFFFFF;">
                                     Hi, {{ Auth::user()->name }}
                                 </span>
@@ -79,6 +135,47 @@
                         </form>
                     </li>
                 @endauth
+
+                <script>
+                    function showLogoutConfirmation(event) {
+                        event.preventDefault(); // Prevent default form submission
+                        Swal.fire({
+                            title: "Are you sure you want to leave?",
+                            showCancelButton: true,
+                            confirmButtonText: "Yes",
+                            cancelButtonText: "Cancel",
+                            background: "linear-gradient(to bottom, #a2d9e0, #468c98)", // Teal gradient background
+                            backdrop: true, // Default backdrop or blurred
+                            width: '500px', // Larger width for popup
+                            customClass: {
+                                popup: 'swal-popup',
+                                title: 'swal-title',
+                                confirmButton: 'swal-confirm',
+                                cancelButton: 'swal-cancel'
+                            },
+                            buttonsStyling: false // Disable default button styling to apply custom CSS
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                Swal.fire({
+                                    title: "Logged out!",
+                                    text: "You have successfully logged out.",
+                                    icon: "success",
+                                    background: "linear-gradient(to bottom, #a2d9e0, #468c98)", // Match background
+                                    confirmButtonColor: "#4aa3a3", // Teal confirm button for success message
+                                    width: '500px', // Maintain width for success message
+                                    customClass: {
+                                        popup: 'swal-popup',
+                                        title: 'swal-title',
+                                        confirmButton: 'swal-confirm'
+                                    },
+                                    buttonsStyling: false
+                                }).then(() => {
+                                    document.getElementById('public-logout-form').submit(); // Submit form
+                                });
+                            }
+                        });
+                    }
+                </script>
             </ul>
         </div>
     </div>
