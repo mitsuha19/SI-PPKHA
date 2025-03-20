@@ -33,7 +33,8 @@ class LowonganController extends Controller
     public function showLowonganDetailUser($id)
     {
         $lowongan = Lowongan::findOrFail($id);
-        return view('ppkha.detaillowongan', compact('lowongan'));
+        $perusahaan = Perusahaan::where('id', $id)->get();
+        return view('ppkha.detaillowongan', compact('lowongan', 'perusahaan'));
     }
 
     public function index3()

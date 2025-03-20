@@ -1,5 +1,3 @@
-//detaillowongan
-
 @extends('layouts.app')
 
 @section('content')
@@ -25,7 +23,14 @@
                     <div class="horizontal-card-text-section2">
                         <h5 class="montserrat-medium mb-0" style="font-size: 36px;">{{ $lowongan->judulLowongan }}</h5>
                         <p class="montserrat-medium" style="font-size: 15px;">
-                            {{ $lowongan->perusahaan->namaPerusahaan ?? 'Perusahaan tidak tersedia'}}<br>
+                        @if ($lowongan->perusahaan)
+        <a href="{{ route('ppkha.daftarPerusahaanDetail', ['id' => $lowongan->perusahaan->id]) }}" 
+           class="text-decoration-none text-dark">
+            {{ $lowongan->perusahaan->namaPerusahaan }}
+        </a>
+    @else
+        Perusahaan tidak tersedia
+    @endif<br>
                         <div class="text-row montserrat-medium" style="width: fit-content">
                             <div class="info-item">
                                 <span class="text-label">Lokasi</span>
