@@ -47,16 +47,20 @@ class TracerStudyController extends Controller
             $sendSection = Section::where('form_id', $form->id)
                 ->where('section_name', 'Kirim Formulir')
                 ->first();
+            $sectionId = 9999;
+            $existingSection = Section::find($sectionId);
 
-            if (!$sendSection) {
-                // Buat section khusus dengan ID 9999 jika tidak ada
-                $sendSection = Section::create([
+            if (!$existingSection) {
+                // Jika belum ada, buat baru
+                $section = Section::create([
+                    'id' => $sectionId,
                     'form_id' => $form->id,
                     'section_name' => 'Kirim Formulir',
-                    'section_order' => 999, // Atur order sesuai kebutuhan
+                    'section_order' => 999,
                 ]);
-                $sendSection->id = 9999; // Ubah id menjadi 9999
-                $sendSection->save();
+            } else {
+                // Gunakan section yang sudah ada
+                $section = $existingSection;
             }
 
             // Penyimpanan section dan pertanyaan lainnya
