@@ -43,32 +43,27 @@ class TracerStudyController extends Controller
                 'deskripsi_form' => $request->deskripsi_form,
             ]);
 
-            // Pastikan form memiliki section "Kirim Formulir" atau buat jika belum ada
-            $sendSection = Section::where('form_id', $form->id)
-                ->where('section_name', 'Kirim Formulir')
-                ->first();
-            $sectionId = 9999;
-            $existingSection = Section::find($sectionId);
+            // **Cek apakah Section 9999 sudah ada dalam form ini**
+            $sendSection = Section::where('form_id', $form->id)->where('section_name', 'Kirim Formulir')->first();
 
-            if (!$existingSection) {
-                // Jika belum ada, buat baru
-                $section = Section::create([
-                    'id' => $sectionId,
-                    'form_id' => $form->id,
+            if (!$sendSection) {
+                // **Buat section "Kirim Formulir" untuk form ini**
+                $sendSection = Section::create([
+                    'form_id' => $form->id, // Harus terhubung ke form yang baru dibuat
                     'section_name' => 'Kirim Formulir',
                     'section_order' => 999,
                 ]);
-            } else {
-                // Gunakan section yang sudah ada
-                $section = $existingSection;
             }
 
-            // Penyimpanan section dan pertanyaan lainnya
+            // **Simpan ID section "Kirim Formulir" untuk digunakan di next_section_id**
+            $submitSectionId = $sendSection->id;
+
+            // **Penyimpanan section dan pertanyaan lainnya**
             $sectionIds = [];
             $questionIds = [];
 
             foreach ($request->sections as $sectionIndex => $sectionData) {
-                // Create new section
+                // Buat section baru
                 $section = Section::create([
                     'form_id' => $form->id,
                     'section_name' => $sectionData['section_name'],
@@ -79,7 +74,7 @@ class TracerStudyController extends Controller
 
                 if (isset($sectionData['questions']) && is_array($sectionData['questions'])) {
                     foreach ($sectionData['questions'] as $questionIndex => $questionData) {
-                        // Create new question
+                        // Buat pertanyaan baru
                         $question = Question::create([
                             'section_id' => $section->id,
                             'question_body' => $questionData['question_body'],
@@ -93,7 +88,7 @@ class TracerStudyController extends Controller
                 }
             }
 
-            // Penyimpanan opsi untuk setiap pertanyaan
+            // **Penyimpanan opsi untuk setiap pertanyaan**
             foreach ($request->sections as $sectionIndex => $sectionData) {
                 if (isset($sectionData['questions']) && is_array($sectionData['questions'])) {
                     foreach ($sectionData['questions'] as $questionIndex => $questionData) {
@@ -106,10 +101,10 @@ class TracerStudyController extends Controller
                                     ? $optionData['label_angka']
                                     : null;
 
-                                // Periksa jika opsi memiliki next_section_id yang valid
+                                // **Periksa apakah opsi mengarah ke "Kirim Formulir"**
                                 $nextSectionId = null;
                                 if (!empty($optionData['next_section_id']) && $optionData['next_section_id'] === 'submit') {
-                                    $nextSectionId = 9999; // Kirim Formulir akan mengarah ke section 9999
+                                    $nextSectionId = $submitSectionId; // Gunakan ID yang sesuai dalam form ini
                                 } elseif (!empty($optionData['next_section_id'])) {
                                     $nextSectionId = $sectionIds[(int)$optionData['next_section_id']] ?? null;
                                 }
@@ -136,6 +131,7 @@ class TracerStudyController extends Controller
             return back()->withErrors(['msg' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
         }
     }
+
 
 
     public function edit($id)
