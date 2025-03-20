@@ -78,23 +78,22 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-    function updateMainContentMargin() {
-        const sidebar = document.querySelector(".sidebar-admin");
-        const mainContent = document.querySelector(".main-content");
+            function updateMainContentMargin() {
+                const sidebar = document.querySelector(".sidebar-admin");
+                const mainContent = document.querySelector(".main-content");
 
-        if (sidebar && mainContent) {
-            const sidebarWidth = sidebar.offsetWidth; // Ambil lebar sidebar
-            mainContent.style.marginLeft = sidebarWidth + "px"; // Sesuaikan margin-left
-        }
-    }
+                if (sidebar && mainContent) {
+                    const sidebarWidth = sidebar.offsetWidth; // Ambil lebar sidebar
+                    mainContent.style.marginLeft = sidebarWidth + "px"; // Sesuaikan margin-left
+                }
+            }
 
-    // Panggil fungsi saat halaman dimuat
-    updateMainContentMargin();
+            // Panggil fungsi saat halaman dimuat
+            updateMainContentMargin();
 
-    // Tambahkan event listener jika sidebar bisa berubah ukuran
-    window.addEventListener("resize", updateMainContentMargin);
-});
-
+            // Tambahkan event listener jika sidebar bisa berubah ukuran
+            window.addEventListener("resize", updateMainContentMargin);
+        });
     </script>
 </body>
 @include('sweetalert::alert')

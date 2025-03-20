@@ -1008,7 +1008,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    max-width: 70vw;
+    max-width: 300vh; /* Increased from 70vw to make the card wider */
     margin: 0 auto;
     padding: 20px;
 }
@@ -1021,16 +1021,22 @@ body {
 }
 
 .card-user-survey {
-    /* max-width: 70vw; Dynamic scaling based on viewport width */
-    /* width: min(450px, 90%); */
-    background-color: #ffffff; /* White background */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%; /* Stretches to fill the parent */
+    max-width: 300vh; /* Adjust this (e.g., 1000px or 600px) for maximum width */
+    min-width: 150vh; /* Adjust this (e.g., 500px or 300px) for minimum width */
+    min-height: 200px; /* Add this (e.g., 500px or 300px) for minimum height */
+    background-color: #ffffff;
     border: 0;
     border-radius: 20px;
     margin: auto;
     margin-bottom: 1.5rem;
-    padding: 20px; /* Increased padding to match design spacing */
-    box-shadow: 0px 10px 10px 5px rgba(0, 0, 0, 0.5); /* Added shadow to match lifted effect */
-    width: 90%; /* Ensures responsiveness */
+    padding: 20px; /* Adjust this (e.g., 30px or 40px) for internal spacing */
+    box-shadow: 0px 10px 10px 5px rgba(0, 0, 0, 0.5);
+    /* Optional: Add overflow-y: auto; if content exceeds min-height */
+    /* overflow-y: auto; */
 }
 
 .box-form label {
@@ -1091,6 +1097,12 @@ body {
     background-color: grey; /* Change button color to grey */
     color: white; /* Change text color to white */
     box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2); /* Reduce shadow on hover */
+}
+
+@media (max-width: 450px) {
+    .card-user-survey {
+        min-width: 100%; /* Takes full available width on small screens */
+    }
 }
 
 /* Responsif: Jika layar kecil, ubah tata letak */

@@ -10,13 +10,13 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('questions', function (Blueprint $table) {
+        Schema::create('surveys', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('section_id')->constrained()->onDelete('cascade');
+            $table->foreignId('survey_sections_id')->constrained('survey_sections')->onDelete('cascade');
+            $table->string('question_title');
             $table->text('question_body');
-            $table->foreignId('type_question_id')->constrained();
+            $table->foreignId('type_question_id')->constrained('type_questions');
             $table->boolean('is_required')->default(false);
-            $table->integer('question_order')->default(0);
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('questions');
+        Schema::dropIfExists('surveys');
     }
 };

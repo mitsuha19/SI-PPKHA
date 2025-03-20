@@ -25,7 +25,7 @@
                         '/daftar_perusahaan' => 'Daftar Perusahaan',
                         '/lowongan_pekerjaan' => 'Lowongan Pekerjaan',
                         '/tracer_study' => 'Tracer Study',
-                        '/user_survey' => 'User Survey',
+                        '/user-survey' => 'User Survey',
                         '/tentang' => 'Tentang',
                     ];
                 @endphp
