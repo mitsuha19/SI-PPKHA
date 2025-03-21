@@ -26,6 +26,12 @@
         </div>
 
         <div class="form-group">
+            <i class="icon fa fa-building-o"></i>
+            <input type="text" name="fakultas" id="fakultas" placeholder="Enter Your Faculty" value="{{ old('fakultas') }}" required>
+            @error('fakultas') <span class="error">{{ $message }}</span> @enderror
+        </div>
+
+        <div class="form-group">
             <i class="icon fa fa-calendar"></i>
             <input type="number" name="tahun_lulus" id="tahun_lulus" placeholder="Enter Your Graduate Year" value="{{ old('tahun_lulus') }}" required>
             @error('tahun_lulus') <span class="error">{{ $message }}</span> @enderror
