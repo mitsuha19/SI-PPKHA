@@ -3,10 +3,10 @@
 @section('content')
     @include('components.navbar')
 
-    <div class="content-with-background">
+    <div class="detail-content">
 
         <div class="user-survey">
-            <div class="user-survey-content">
+            <div class="user-survey-content" style="padding: 0px 160px; margin-top: 10px">
 
                 @if (!$form)
                     <div class="card-user-survey">
@@ -23,8 +23,8 @@
 
                     <!-- Card untuk Pertanyaan Kuisioner -->
                     <div class="card-user-survey">
-                        <h3 class="montserrat-medium text-primary">{{ $firstSection->section_name }}</h3>
-                        <hr>
+                        <h3 class="montserrat-medium text-black section-title">{{ $firstSection->section_name }}</h3>
+
 
                         <form action="{{ route('kuesioner.next', $firstSection->id) }}" method="POST">
                             @csrf
@@ -47,7 +47,7 @@
                                     @elseif($question->type_question_id == 5)
                                         <!-- Dropdown -->
                                         <select class="form-select" name="answers[{{ $question->id }}]" required>
-                                            <option value="">Pilih salah satu</option>
+                                            <option value="">Pilih </option>
                                             @foreach ($question->options as $option)
                                                 <option value="{{ $option->id }}">{{ $option->option_body }}
                                                 </option>
@@ -109,6 +109,8 @@
         </div>
     </div>
 
+
+
     @include('components.footer')
 
     <script>
@@ -160,6 +162,14 @@
                         })
                         .catch(error => console.error("Gagal mengambil data kabupaten/kota:", error));
                 }
+            });
+
+            let selects = document.querySelectorAll("select");
+            selects.forEach(select => {
+                select.style.color = "black";
+                select.addEventListener("change", function() {
+                    this.style.color = "black";
+                });
             });
         });
     </script>

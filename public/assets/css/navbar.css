@@ -140,7 +140,6 @@ footer {
     font-style: normal;
     font-size: 12px;
     color: white;
-    line-height: -15px;
 }
 
 .roboto-title {
@@ -168,7 +167,7 @@ footer {
     padding: 30px 50px;
 }
 
-.detail-content img{
+.detail-content img {
     width: 70%;
 }
 
@@ -369,8 +368,7 @@ h2 span {
     margin: auto;
 }
 
-.background-card:hover
-.background-card-artikel:hover {
+.background-card:hover .background-card-artikel:hover {
     transform: translateY(-5px);
 }
 
@@ -445,7 +443,7 @@ h2 span {
     background-color: transparent; /* So the waves remain visible */
 }
 
-.box-section img{
+.box-section img {
     width: 10%;
     margin: auto;
     padding: 1rem;
@@ -461,7 +459,7 @@ h2 span {
     box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);
 }
 
-.background-card-artikel{
+.background-card-artikel {
     background-color: black;
     border-radius: 25px;
     width: fit-content;
@@ -470,19 +468,19 @@ h2 span {
     box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);
 }
 
-.card-information{
+.card-information {
     background-color: #7fc7d9;
     border-radius: 32px;
     width: 100%;
     height: fit-content;
     padding: 10px 0px;
-    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);   
+    box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.1);
 }
 
-.card-information img{
-    width: 18%; 
-    height: auto; 
-    object-fit: contain; 
+.card-information img {
+    width: 18%;
+    height: auto;
+    object-fit: contain;
     border-radius: 8px;
 }
 
@@ -499,7 +497,7 @@ h2 span {
     width: 75%;
 }
 
-.card-information .detail{
+.card-information .detail {
     justify-self: end;
 }
 
@@ -1055,8 +1053,13 @@ body {
     margin-bottom: 15px; /* Reduced from 100px to match spacing in screenshot */
 }
 
+select.form-select option {
+    background-color: #d9d9d9;
+    color: white; /* Ensures text remains readable */
+}
+
 .box-form input {
-    border-radius: 5px;
+    border-radius: 10px;
     background-color: #e4e4e4; /* Light gray to match inputs in screenshot */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Lighter shadow to match design */
     width: 100%;
@@ -1275,6 +1278,7 @@ body {
     width: 16px !important;
     height: 16px !important;
     cursor: pointer;
+    color: black !important;
     flex-shrink: 0; /* Mencegah perubahan ukuran */
     transform: scale(1); /* Pastikan tidak ada pembesaran */
 }
@@ -1284,6 +1288,7 @@ body {
     font-size: 16px;
     font-style: italic; /* Sesuai dengan contoh */
     cursor: pointer;
+    color: black !important;
     margin-left: 5px; /* Jarak antara radio button dan teks */
     line-height: 1.5;
 }
@@ -1292,4 +1297,17 @@ body {
 input[type="radio"] {
     appearance: auto !important;
     transform: none !important;
+}
+
+/* tracerstudy */
+.section-title {
+    font-style: italic;
+    color: black !important;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+select,
+option {
+    color: black !important;
 }
