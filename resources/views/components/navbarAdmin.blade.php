@@ -2,55 +2,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- Custom SweetAlert2 CSS -->
-<style>
-    /* Popup container style */
-    .swal-popup {
-        border-radius: 20px;
-        padding: 15px;
-        color: #000; /* Text color */
-        font-family: 'Times New Roman', serif; /* Serif font */
-        box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3); /* Shadow effect */
-        background: linear-gradient(to bottom, #a2d9e0, #468c98); /* Teal gradient background */
-    }
-
-    /* Title style */
-    .swal-title {
-        font-size: 35px;
-        font-weight: normal;
-        font-style: normal;
-        margin-top: 0px;
-        margin-bottom: 20px;
-        color: #000;
-    }
-
-    /* Confirm and cancel button styles */
-    .swal-confirm,
-    .swal-cancel {
-        padding: 10px 30px;
-        font-size: 18px;
-        font-weight: normal;
-        border-radius: 10px;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Text shadow */
-        margin-bottom: 15px;
-    }
-
-    /* Confirm button with gradient */
-    .swal-confirm {
-        background: linear-gradient(to right, #4aa3a3, #357f80); /* Gradient teal for confirm */
-        color: #fff;
-        border: none;
-        cursor: pointer;
-    }
-
-    /* Cancel button */
-    .swal-cancel {
-        background: linear-gradient(to right, #a2d9e0, #357f80); /* Gradient teal for cancel */
-        color: #000;
-        border: none;
-        cursor: pointer;
-    }
-</style>
+<!-- Custom Swal for Logout -->
+<link rel="stylesheet" href="{{ asset('assets/css/logout.css') }}">
 
 <div class="combined-header-sidebar sticky-top">
     <div class="container-fluid m-0 p-0 header-admin">
@@ -71,8 +24,7 @@
                 style="margin-left:auto; margin-right: 1%; background: none; border: none; padding: 0;">
                 @csrf
                 <button type="submit" class="btn btn-transparent d-flex align-items-center text-decoration-none"
-                    style="background: none; border: none; padding: 0;"
-                    onclick="return showLogoutConfirmation(event);">
+                    style="background: none; border: none; padding: 0;" onclick="return showLogoutConfirmation(event);">
                     <span class="fw-bold" style="font-size: 14px; margin-right: 5px; color: #000000;">
                         Hi, {{ Auth::user()->name }}
                     </span>
@@ -154,7 +106,8 @@
             confirmButtonText: "Yes",
             cancelButtonText: "Cancel",
             background: "linear-gradient(to bottom, #a2d9e0, #468c98)", // Teal gradient background
-            width: '400px', // Smaller width for popup
+            backdrop: true, // Default backdrop or blurred
+            width: '500px', // Larger width for popup
             customClass: {
                 popup: 'swal-popup',
                 title: 'swal-title',
@@ -170,7 +123,7 @@
                     icon: "success",
                     background: "linear-gradient(to bottom, #a2d9e0, #468c98)", // Match background
                     confirmButtonColor: "#4aa3a3", // Teal confirm button for success message
-                    width: '400px', // Maintain width for success message
+                    width: '500px', // Maintain width for success message
                     customClass: {
                         popup: 'swal-popup',
                         title: 'swal-title',

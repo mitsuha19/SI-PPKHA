@@ -4,59 +4,8 @@
 
 
 <!-- Custom SweetAlert2 CSS -->
-<style>
-    /* Popup container style */
-    .swal-popup {
-        border-radius: 20px;
-        /* Smooth corners */
-        padding: 15px;
-        color: #000;
-        /* Text color */
-        font-family: 'Times New Roman', serif;
-        /* Serif font like in the image */
-        box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3);
-        /* Add a shadow effect */
-    }
-
-    /* Title style */
-    .swal-title {
-        font-size: 40px;
-        font-weight: normal;
-        font-style: normal;
-        margin-bottom: 20px;
-    }
-
-    /* Confirm and cancel button styles */
-    .swal-confirm,
-    .swal-cancel {
-        padding: 10px 30px;
-        font-size: 20px;
-        font-weight: normal;
-        border-radius: 10px;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-        margin-bottom: 15px;
-        margin-right: 10px;
-        /* Text shadow for the buttons */
-    }
-
-    /* Confirm button with gradient */
-    .swal-confirm {
-        background: linear-gradient(to right, #4aa3a3, #357f80);
-        /* Gradient teal for confirm */
-        color: #000;
-        margin-right: 10px;
-        border: none;
-        cursor: pointer;
-    }
-
-    /* Cancel button */
-    .swal-cancel {
-        background: linear-gradient(to right, #4aa3a3, #357f80);
-        color: #000;
-        border: none;
-        cursor: pointer;
-    }
-</style>
+<!-- Custom Swal for Logout -->
+<link rel="stylesheet" href="{{ asset('assets/css/logout.css') }}">
 
 <nav class="shadow-md">
     <div class="container">
