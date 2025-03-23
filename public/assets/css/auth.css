@@ -83,7 +83,27 @@ body {
 /* Form styles */
 .form-group {
   margin-bottom: 20px;
-  position: relative;
+  position: relativ;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 15px 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 13px;
+  background-color: #f8f9fa;
+  color: #333;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  height: auto;
+}
+
+.form-group select:focus {
+  outline: none;
+  border-color: #52a7ff;
 }
 
 .icon {

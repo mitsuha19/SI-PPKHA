@@ -1,3 +1,57 @@
+<!-- Include SweetAlert2 CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Custom SweetAlert2 CSS -->
+<style>
+    /* Popup container style */
+    .swal-popup {
+        border-radius: 20px;
+        padding: 15px;
+        color: #000; /* Text color */
+        font-family: 'Times New Roman', serif; /* Serif font */
+        box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.3); /* Shadow effect */
+        background: linear-gradient(to bottom, #a2d9e0, #468c98); /* Teal gradient background */
+    }
+
+    /* Title style */
+    .swal-title {
+        font-size: 35px;
+        font-weight: normal;
+        font-style: normal;
+        margin-top: 0px;
+        margin-bottom: 20px;
+        color: #000;
+    }
+
+    /* Confirm and cancel button styles */
+    .swal-confirm,
+    .swal-cancel {
+        padding: 10px 30px;
+        font-size: 18px;
+        font-weight: normal;
+        border-radius: 10px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Text shadow */
+        margin-bottom: 15px;
+    }
+
+    /* Confirm button with gradient */
+    .swal-confirm {
+        background: linear-gradient(to right, #4aa3a3, #357f80); /* Gradient teal for confirm */
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+    /* Cancel button */
+    .swal-cancel {
+        background: linear-gradient(to right, #a2d9e0, #357f80); /* Gradient teal for cancel */
+        color: #000;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+
 <div class="combined-header-sidebar sticky-top">
     <div class="container-fluid m-0 p-0 header-admin">
         <header class="d-flex justify-content-start py-3 ps-4">
@@ -18,7 +72,7 @@
                 @csrf
                 <button type="submit" class="btn btn-transparent d-flex align-items-center text-decoration-none"
                     style="background: none; border: none; padding: 0;"
-                    onclick="return confirm('Are you sure you want to logout?');">
+                    onclick="return showLogoutConfirmation(event);">
                     <span class="fw-bold" style="font-size: 14px; margin-right: 5px; color: #000000;">
                         Hi, {{ Auth::user()->name }}
                     </span>
@@ -75,8 +129,7 @@
             </li>
 
             <li>
-                <a href="/admin/tracer-study"
-                    class="nav-link {{ Request::is('admin/tracer-study*') ? 'active' : '' }}">
+                <a href="/admin/tracer-study" class="nav-link {{ Request::is('admin/tracer-study*') ? 'active' : '' }}">
                     <i class='bx bx-group'></i>
                     <span class="d-none d-xl-inline ms-1">Tracer Study</span>
                 </a>
@@ -92,16 +145,42 @@
     </div>
 </div>
 
-<!-- Hidden logout form for admin -->
-<form id="admin-logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-    @csrf
-</form>
-
 <script>
     function showLogoutConfirmation(event) {
-        event.preventDefault();
-        if (confirm("Are you sure you want to logout?")) {
-            document.getElementById('admin-logout-form').submit();
-        }
+        event.preventDefault(); // Prevent default form submission
+        Swal.fire({
+            title: "Are you sure you want to logout?",
+            showCancelButton: true,
+            confirmButtonText: "Yes",
+            cancelButtonText: "Cancel",
+            background: "linear-gradient(to bottom, #a2d9e0, #468c98)", // Teal gradient background
+            width: '400px', // Smaller width for popup
+            customClass: {
+                popup: 'swal-popup',
+                title: 'swal-title',
+                confirmButton: 'swal-confirm',
+                cancelButton: 'swal-cancel'
+            },
+            buttonsStyling: false // Disable default button styling to apply custom CSS
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: "Logged out!",
+                    text: "You have successfully logged out.",
+                    icon: "success",
+                    background: "linear-gradient(to bottom, #a2d9e0, #468c98)", // Match background
+                    confirmButtonColor: "#4aa3a3", // Teal confirm button for success message
+                    width: '400px', // Maintain width for success message
+                    customClass: {
+                        popup: 'swal-popup',
+                        title: 'swal-title',
+                        confirmButton: 'swal-confirm'
+                    },
+                    buttonsStyling: false
+                }).then(() => {
+                    document.getElementById('admin-logout-form').submit(); // Submit form
+                });
+            }
+        });
     }
 </script>

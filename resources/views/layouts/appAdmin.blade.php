@@ -32,52 +32,10 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
-    </script>
+        </script>
 
     <script>
-        function showLogoutConfirmation(event) {
-            event.preventDefault(); // Prevent default link behavior
-            Swal.fire({
-                title: "Are you sure you want to leave?",
-                showCancelButton: true,
-                confirmButtonText: "Yes",
-                cancelButtonText: "Cancel",
-                background: "linear-gradient(to bottom, #a2d9e0, #468c98)", // Teal gradient matching your image
-                backdrop: true, // Use default backdrop (or 'swal2-backdrop-blur' for custom blur)
-                width: '500px', // Maintain larger width
-                customClass: {
-                    popup: 'swal-popup',
-                    title: 'swal-title',
-                    confirmButton: 'swal-confirm',
-                    cancelButton: 'swal-cancel'
-                },
-                buttonsStyling: false // Disable default button styling to apply custom CSS
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Logged out!",
-                        text: "You have successfully logged out.",
-                        icon: "success",
-                        background: "linear-gradient(to bottom, #a2d9e0, #468c98)", // Match the success message background
-                        confirmButtonColor: "#4aa3a3", // Teal color for the confirm button in success message
-                        width: '500px', // Maintain larger width for the success message
-                        backdrop: true, // Use default backdrop (or 'swal2-backdrop-blur' for custom blur)
-                        customClass: {
-                            popup: 'swal-popup',
-                            title: 'swal-title',
-                            confirmButton: 'swal-confirm'
-                        },
-                        buttonsStyling: false
-                    }).then(() => {
-                        window.location.href = '/logout'; // Replace with your actual logout route
-                    });
-                }
-            });
-        }
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             function updateMainContentMargin() {
                 const sidebar = document.querySelector(".sidebar-admin");
                 const mainContent = document.querySelector(".main-content");
