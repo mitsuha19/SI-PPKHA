@@ -247,19 +247,19 @@
 
                 // Check if the new section is in view
                 const sectionBottom = $newSection.offset().top + $newSection.outerHeight();
-                const mainContent = $('#main-content'); // Target div yang akan discroll
+                const mainContent = $('.main-content');
                 const mainContentScrollTop = mainContent.scrollTop();
                 const mainContentHeight = mainContent.height();
                 const mainContentBottom = mainContentScrollTop + mainContentHeight;
 
-                // Only scroll if the section isn't fully visible
                 if (sectionBottom > mainContentBottom) {
-                    // Scroll just enough to show the section, keeping context
                     mainContent.animate({
                         scrollTop: mainContentScrollTop + (sectionBottom - mainContentBottom) + 50
                     }, 300);
                 }
+
                 sectionIndex++;
+                updateAllSectionDropdowns(); // Perbarui semua dropdown setelah section baru ditambahkan
             });
 
             $(document).on('click', '.delete-section', function() {
@@ -285,19 +285,10 @@
                 });
             });
 
-            function updateAllSectionDropdowns() {
-                $('.section-card').each(function() {
-                    const sectionIndex = $(this).data('section-index');
-                    updateAvailableSections(sectionIndex);
-                });
-            }
-
-
             // Toggle Section (minimize/maximize)
             $(document).on('click', '.toggle-section', function() {
                 const $icon = $(this).find('i');
                 const $sectionBody = $(this).closest('.section-card').find('.section-body');
-
                 $sectionBody.slideToggle();
                 $icon.toggleClass('fa-chevron-up fa-chevron-down');
             });
@@ -328,6 +319,7 @@
                     $(this).closest('.question-card').remove();
                 }
             });
+
             // Question Type Change
             $(document).on('change', '.question-type', function() {
                 const typeId = parseInt($(this).val());
@@ -335,15 +327,14 @@
                 const questionIndex = $(this).data('question-index');
                 const $optionsContainer = $(this).closest('.question-card').find('.options-container');
 
-                // Clear ALL existing options completely
                 $optionsContainer.html(typeId !== 6 ? `
-        <div class="mb-3">
-            <button type="button" class="btn btn-sm btn-secondary add-option"
-                data-section-index="${sectionIndex}" data-question-index="${questionIndex}">
-                <i class="fas fa-plus"></i> Tambah Opsi
-            </button>
-        </div>
-    ` : '');
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-sm btn-secondary add-option"
+                            data-section-index="${sectionIndex}" data-question-index="${questionIndex}">
+                            <i class="fas fa-plus"></i> Tambah Opsi
+                        </button>
+                    </div>
+                ` : '');
 
                 if ([3, 4, 5, 6].includes(typeId)) {
                     $optionsContainer.show();
@@ -352,11 +343,10 @@
                         const scaleTemplate = $('#option-scale-template').html()
                             .replace(/__SECTION_INDEX__/g, sectionIndex)
                             .replace(/__QUESTION_INDEX__/g, questionIndex);
-
                         $optionsContainer.prepend(scaleTemplate);
                     } else if (typeId === 3) {
                         addMultipleChoiceOption(sectionIndex, questionIndex, 0, $optionsContainer);
-                        updateAvailableSections(sectionIndex);
+                        updateAllSectionDropdowns();
                     } else {
                         addOption(sectionIndex, questionIndex, 0, $optionsContainer);
                     }
@@ -374,14 +364,13 @@
                 const typeId = parseInt($questionCard.find('.question-type').val());
                 const optionIndex = $optionsContainer.find('.option-row').length;
 
-                if (typeId === 6) { // Skala Linier already has fixed options
+                if (typeId === 6) {
                     return;
                 }
 
-                if (typeId === 3) { // Pilihan Ganda
+                if (typeId === 3) {
                     addMultipleChoiceOption(sectionIndex, questionIndex, optionIndex, $optionsContainer);
-                    // Make sure to update available sections when adding a new option
-                    updateAvailableSections(sectionIndex);
+                    updateAllSectionDropdowns();
                 } else {
                     addOption(sectionIndex, questionIndex, optionIndex, $optionsContainer);
                 }
@@ -412,33 +401,40 @@
                 $(this).closest('.option-row').remove();
             });
 
-            // Update Available Sections for Next Section dropdown
-            function updateAvailableSections(currentSectionIndex) {
-                // Get all sections after this one
-                const $nextSectionSelects = $(
-                    `.section-card[data-section-index="${currentSectionIndex}"] .next-section-select`);
-
-                // Clear existing options except the default and submit
-                $nextSectionSelects.each(function() {
+            // Update All Section Dropdowns
+            function updateAllSectionDropdowns() {
+                $('.next-section-select').each(function() {
                     const $select = $(this);
+                    const currentSectionIndex = $select.closest('.section-card').data('section-index');
+                    const currentValue = $select.val();
+
+                    // Kosongkan opsi kecuali default dan "submit"
                     $select.find('option').not(':first').not('[value="submit"]').remove();
 
-                    // Add sections that come after this one
+                    // Tambahkan semua section kecuali section saat ini
                     $('.section-card').each(function() {
-                        const sectionIndex = parseInt($(this).data('section-index'));
-                        const sectionNumber = $(this).find('.section-number')
-                            .text(); // Get the current section number
-                        const sectionName = $(this).find(
-                                'input[name^="sections"][name$="[section_name]"]').val() ||
-                            `Section ${sectionNumber}`; // Use section number instead of index+1
+                        const sectionIdx = parseInt($(this).data('section-index'));
+                        // Pastikan mengambil nilai input terbaru
+                        const sectionNameInput = $(this).find(
+                            'input[name^="sections"][name$="[section_name]"]');
+                        const sectionName = sectionNameInput.val() || `Section ${sectionIdx + 1}`;
 
-                        if (sectionIndex !== currentSectionIndex) {
-                            $select.append(
-                                `<option value="${sectionIndex}">${sectionName}</option>`);
+                        if (sectionIdx !== currentSectionIndex) {
+                            $select.append(`<option value="${sectionIdx}">${sectionName}</option>`);
                         }
                     });
+
+                    // Pertahankan nilai yang dipilih jika masih ada
+                    if (currentValue && $select.find(`option[value="${currentValue}"]`).length) {
+                        $select.val(currentValue);
+                    }
                 });
             }
+
+            // Update dropdowns saat nama section diubah
+            $(document).on('input', 'input[name$="[section_name]"]', function() {
+                updateAllSectionDropdowns();
+            });
 
             // Add an initial section when the page loads
             $('#add-section').trigger('click');
@@ -454,10 +450,9 @@
                         confirmButtonText: 'OK',
                         confirmButtonColor: '#d33'
                     });
+                    return;
                 }
 
-
-                // Check each section has at least one question
                 let valid = true;
                 $('.section-card').each(function() {
                     const sectionName = $(this).find('input[name$="[section_name]"]').val();
@@ -474,7 +469,6 @@
                         });
                         return false;
                     }
-
                 });
 
                 if (!valid) {
