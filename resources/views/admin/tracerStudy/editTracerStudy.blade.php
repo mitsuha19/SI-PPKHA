@@ -41,17 +41,14 @@
                 </div>
             </div>
 
+            <input type="hidden" name="deleted_options" id="deleted_options" value="">
+
             <div id="sections-container">
                 @foreach ($form->sections as $sectionIndex => $section)
                     <input type="hidden" name="sections[{{ $sectionIndex }}][id]" value="{{ $section->id }}">
                     <div class="card mb-4 section-card" data-section-index="{{ $sectionIndex }}">
                         <div class="card-header bg-light d-flex justify-content-between align-items-center">
                             <div class="d-flex align-items-center">
-                                {{-- <span class="me-2">Section 
-                                    <span class="section-number">{{ $sectionIndex + 1 }}</span>
-                                </span> --}}
-
-
                                 <input type="text" class="form-control form-control-sm"
                                     name="sections[{{ $sectionIndex }}][section_name]" placeholder="Nama Section" required
                                     value="{{ $section->section_name }}" style="max-width: 300px;">
@@ -99,7 +96,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <label class="form-label">&nbsp;</label>
+                                                    <label class="form-label"> </label>
                                                     <div class="form-check mt-2">
                                                         <input class="form-check-input" type="checkbox"
                                                             name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][is_required]"
@@ -115,9 +112,7 @@
 
                                             <div class="options-container"
                                                 @if (!in_array($question->type_question_id, [3, 4, 5, 6])) style="display: none;" @endif>
-
                                                 @if ($question->type_question_id == 6)
-                                                    {{-- Skala Linier --}}
                                                     <div class="row mb-3 scale-options">
                                                         <div class="col-md-6">
                                                             <label class="form-label">Skala Mulai</label>
@@ -137,7 +132,10 @@
                                                                     <input type="text" class="form-control"
                                                                         name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][options][0][label_angka]"
                                                                         placeholder="Label (opsional)"
-                                                                        value="{{ $question->options[0]->label_angka }}">
+                                                                        value="{{ $question->options[0]->label_angka ?? '' }}">
+                                                                    <input type="hidden"
+                                                                        name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][options][0][id]"
+                                                                        value="{{ $question->options[0]->id }}">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -158,23 +156,22 @@
                                                                     <input type="text" class="form-control"
                                                                         name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][options][1][label_angka]"
                                                                         placeholder="Label (opsional)"
-                                                                        value="{{ $question->options[1]->label_angka }}">
+                                                                        value="{{ $question->options[1]->label_angka ?? '' }}">
+                                                                    <input type="hidden"
+                                                                        name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][options][1][id]"
+                                                                        value="{{ $question->options[1]->id }}">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                @elseif(in_array($question->type_question_id, [3, 4, 5]))
-                                                    {{-- Pilihan Ganda, Kotak Centang, Dropdown --}}
+                                                @elseif (in_array($question->type_question_id, [3, 4, 5]))
                                                     @foreach ($question->options as $optionIndex => $option)
-                                                        <input type="hidden"
-                                                            name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][options][{{ $optionIndex }}][id]"
-                                                            value="{{ $option->id }}">
-
-
                                                         <div class="row mb-2 option-row"
                                                             data-option-index="{{ $optionIndex }}">
+                                                            <input type="hidden"
+                                                                name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][options][{{ $optionIndex }}][id]"
+                                                                value="{{ $option->id }}">
                                                             @if ($question->type_question_id == 3)
-                                                                {{-- Pilihan Ganda --}}
                                                                 <div class="col-md-6">
                                                                     <input type="text" class="form-control"
                                                                         name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][options][{{ $optionIndex }}][option_body]"
@@ -187,21 +184,19 @@
                                                                         <option value="">Pilih Section Selanjutnya
                                                                         </option>
                                                                         <option value="999"
-                                                                            @if ($option->next_section_id == 999) selected @endif>
+                                                                            @if ($submitSection && $option->next_section_id == $submitSection->id) selected @endif>
                                                                             Kirim Formulir</option>
                                                                         @foreach ($form->sections as $nextIndex => $nextSection)
-                                                                            @if ($nextIndex > $sectionIndex)
-                                                                                <option value="{{ $nextSection->id }}"
+                                                                            @if ($nextIndex != $sectionIndex && $nextSection->section_name != 'Kirim Formulir')
+                                                                                <option value="{{ $nextIndex }}"
                                                                                     @if ($option->next_section_id == $nextSection->id) selected @endif>
                                                                                     {{ $nextSection->section_name }}
                                                                                 </option>
                                                                             @endif
                                                                         @endforeach
                                                                     </select>
-
                                                                 </div>
                                                             @else
-                                                                {{-- Kotak Centang, Dropdown --}}
                                                                 <div class="col-md-10">
                                                                     <input type="text" class="form-control"
                                                                         name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][options][{{ $optionIndex }}][option_body]"
@@ -211,15 +206,13 @@
                                                             @endif
                                                             <div class="col-md-2">
                                                                 <button type="button"
-                                                                    class="btn btn-sm btn-danger delete-option">
+                                                                    class="btn btn-sm btn-danger delete-option"
+                                                                    data-option-id="{{ $option->id }}">
                                                                     <i class="fas fa-times"></i>
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     @endforeach
-                                                @endif
-
-                                                @if (in_array($question->type_question_id, [3, 4, 5]))
                                                     <div class="mb-3">
                                                         <button type="button" class="btn btn-sm btn-secondary add-option"
                                                             data-section-index="{{ $sectionIndex }}"
@@ -229,7 +222,6 @@
                                                     </div>
                                                 @endif
                                             </div>
-
                                             <div class="mt-2 text-end">
                                                 <button type="button" class="btn btn-sm btn-danger delete-question">
                                                     <i class="fas fa-trash"></i> Hapus Pertanyaan
@@ -266,7 +258,6 @@
         <div class="card mb-4 section-card" data-section-index="__SECTION_INDEX__">
             <div class="card-header bg-light d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
-                    {{-- <span class="me-2">Section <span class="section-number">__SECTION_NUMBER__</span></span> --}}
                     <input type="text" class="form-control form-control-sm"
                         name="sections[__SECTION_INDEX__][section_name]" placeholder="Nama Section" required
                         style="max-width: 300px;">
@@ -281,8 +272,7 @@
                 </div>
             </div>
             <div class="card-body section-body">
-                <div class="questions-container">
-                </div>
+                <div class="questions-container"></div>
                 <div class="mt-3">
                     <button type="button" class="btn btn-info w-100 add-question"
                         data-section-index="__SECTION_INDEX__">
@@ -317,7 +307,7 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">&nbsp;</label>
+                        <label class="form-label"> </label>
                         <div class="form-check mt-2">
                             <input class="form-check-input" type="checkbox"
                                 name="sections[__SECTION_INDEX__][questions][__QUESTION_INDEX__][is_required]"
@@ -328,7 +318,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="options-container" style="display: none;">
                     <div class="mb-3">
                         <button type="button" class="btn btn-sm btn-secondary add-option"
@@ -337,7 +326,6 @@
                         </button>
                     </div>
                 </div>
-
                 <div class="mt-2 text-end">
                     <button type="button" class="btn btn-sm btn-danger delete-question">
                         <i class="fas fa-trash"></i> Hapus Pertanyaan
@@ -355,19 +343,16 @@
                     placeholder="Opsi Jawaban" required>
             </div>
             <div class="col-md-2">
-                <button type="button" class="btn btn-sm btn-danger delete-option">
+                <button type="button" class="btn btn-sm btn-danger delete-option" data-option-id="">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
         </div>
     </template>
 
+    <!-- Template untuk opsi multiple choice -->
     <template id="option-mc-template">
         <div class="row mb-2 option-row" data-option-index="__OPTION_INDEX__">
-            <input type="hidden"
-                name="sections[__SECTION_INDEX__][questions][__QUESTION_INDEX__][options][__OPTION_INDEX__][id]"
-                value="">
-
             <div class="col-md-6">
                 <input type="text" class="form-control"
                     name="sections[__SECTION_INDEX__][questions][__QUESTION_INDEX__][options][__OPTION_INDEX__][option_body]"
@@ -377,11 +362,12 @@
                 <select class="form-select next-section-select"
                     name="sections[__SECTION_INDEX__][questions][__QUESTION_INDEX__][options][__OPTION_INDEX__][next_section_id]">
                     <option value="">Pilih Section Selanjutnya</option>
-                    <option value="submit">Kirim Formulir</option>
+                    <option value="999">Kirim Formulir</option>
+                    <!-- Opsi lain akan ditambahkan oleh JavaScript -->
                 </select>
             </div>
             <div class="col-md-2">
-                <button type="button" class="btn btn-sm btn-danger delete-option">
+                <button type="button" class="btn btn-sm btn-danger delete-option" data-option-id="">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -389,7 +375,7 @@
     </template>
 
     <template id="option-scale-template">
-        <div class="row mb-3">
+        <div class="row mb-3 scale-options">
             <div class="col-md-6">
                 <label class="form-label">Skala Mulai</label>
                 <div class="row align-items-center">
@@ -434,74 +420,56 @@
         </div>
     </template>
 
-
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            console.log('Script is running');
-
             let sectionIndex = {{ count($form->sections) }};
+            let deletedOptions = [];
 
+            // Toggle Section
             $(document).on('click', '.toggle-section', function() {
                 const $icon = $(this).find('i');
                 const $sectionBody = $(this).closest('.section-card').find('.section-body');
-
                 $sectionBody.slideToggle();
                 $icon.toggleClass('fa-chevron-up fa-chevron-down');
             });
 
-            function updateSectionNumbers() {
-                $('.section-card').each(function(index) {
-                    $(this).find('.section-number').text(index + 1);
-                });
-            }
-
+            // Add Section
             $('#add-section').click(function() {
-                const sectionNumber = sectionIndex + 1;
                 const sectionTemplate = $('#section-template').html()
-                    .replace(/__SECTION_INDEX__/g, sectionIndex)
-                    .replace(/__SECTION_NUMBER__/g, sectionNumber);
-
+                    .replace(/__SECTION_INDEX__/g, sectionIndex);
                 $('#sections-container').append(sectionTemplate);
-                const $newSection = $('.section-card').last();
-                const sectionBottom = $newSection.offset().top + $newSection.outerHeight();
-                const viewportBottom = $(window).scrollTop() + $(window).height();
-                if (sectionBottom > viewportBottom) {
-                    $('html, body').animate({
-                        scrollTop: $(window).scrollTop() + (sectionBottom - viewportBottom) + 50
-                    }, 300);
-                }
-                sectionIndex++;
                 updateNextSectionDropdowns();
+                sectionIndex++;
             });
 
+            // Delete Section
             $(document).on('click', '.delete-section', function() {
                 if (confirm('Yakin ingin menghapus section ini?')) {
                     $(this).closest('.section-card').remove();
-                    updateSectionNumbers();
                     updateNextSectionDropdowns();
                 }
             });
 
+            // Add Question
             $(document).on('click', '.add-question', function() {
                 const sectionIndex = $(this).data('section-index');
-                const $questionsContainer = $(this).closest('.section-card').find('.questions-container');
+                const $questionsContainer = $(this).closest('.section-body').find('.questions-container');
                 const questionIndex = $questionsContainer.find('.question-card').length;
-
-                let questionTemplate = $('#question-template').html()
+                const questionTemplate = $('#question-template').html()
                     .replace(/__SECTION_INDEX__/g, sectionIndex)
                     .replace(/__QUESTION_INDEX__/g, questionIndex);
-
                 $questionsContainer.append(questionTemplate);
             });
 
+            // Delete Question
             $(document).on('click', '.delete-question', function() {
                 if (confirm('Yakin ingin menghapus pertanyaan ini?')) {
                     $(this).closest('.question-card').remove();
                 }
             });
 
+            // Question Type Change
             $(document).on('change', '.question-type', function() {
                 const typeId = parseInt($(this).val());
                 const sectionIndex = $(this).data('section-index');
@@ -512,185 +480,105 @@
 
                 if ([3, 4, 5, 6].includes(typeId)) {
                     $optionsContainer.show();
-
                     if (typeId === 6) {
                         const scaleTemplate = $('#option-scale-template').html()
                             .replace(/__SECTION_INDEX__/g, sectionIndex)
                             .replace(/__QUESTION_INDEX__/g, questionIndex);
-
                         $optionsContainer.append(scaleTemplate);
-                    } else if (typeId === 3) {
-                        for (let i = 0; i < 2; i++) {
-                            addMCOption(sectionIndex, questionIndex, i, $optionsContainer);
-                        }
-
-                        const buttonHtml = `
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-sm btn-secondary add-option"
-                                data-section-index="${sectionIndex}"
-                                data-question-index="${questionIndex}">
-                            <i class="fas fa-plus"></i> Tambah Opsi
-                        </button>
-                    </div>`;
-                        $optionsContainer.append(buttonHtml);
                     } else {
-                        for (let i = 0; i < 2; i++) {
-                            addStandardOption(sectionIndex, questionIndex, i, $optionsContainer);
-                        }
-
                         const buttonHtml = `
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-sm btn-secondary add-option"
-                                data-section-index="${sectionIndex}"
-                                data-question-index="${questionIndex}">
-                            <i class="fas fa-plus"></i> Tambah Opsi
-                        </button>
-                    </div>`;
+                            <div class="mb-3">
+                                <button type="button" class="btn btn-sm btn-secondary add-option"
+                                    data-section-index="${sectionIndex}" data-question-index="${questionIndex}">
+                                    <i class="fas fa-plus"></i> Tambah Opsi
+                                </button>
+                            </div>`;
                         $optionsContainer.append(buttonHtml);
+                        if (typeId === 3 || typeId === 4 || typeId === 5) {
+                            addOption(sectionIndex, questionIndex, 0, typeId === 3);
+                        }
                     }
                 } else {
                     $optionsContainer.hide();
                 }
             });
 
-            function addStandardOption(sectionIndex, questionIndex, optionIndex, $container) {
-                const optionTemplate = $('#option-template').html()
-                    .replace(/__SECTION_INDEX__/g, sectionIndex)
-                    .replace(/__QUESTION_INDEX__/g, questionIndex)
-                    .replace(/__OPTION_INDEX__/g, optionIndex);
-
-                $container.append(optionTemplate);
-            }
-
-            function addMCOption(sectionIndex, questionIndex, optionIndex, $container) {
-                updateMCOptionTemplate();
-
-                let optionTemplate = $('#option-mc-template').html()
-                    .replace(/__SECTION_INDEX__/g, sectionIndex)
-                    .replace(/__QUESTION_INDEX__/g, questionIndex)
-                    .replace(/__OPTION_INDEX__/g, optionIndex);
-
-                const $optionElement = $(optionTemplate);
-                $container.append($optionElement);
-
-                const currentSectionIndex = parseInt(sectionIndex);
-                const $nextSectionSelect = $optionElement.find('.next-section-select');
-
-                $nextSectionSelect.find('option').each(function() {
-                    const value = $(this).val();
-                    if (value && value !== 'submit') {
-                        let optionSectionIndex;
-
-                        if (value.startsWith('new_')) {
-                            optionSectionIndex = parseInt(value.replace('new_', ''));
-                        } else {
-                            const sectionElement = $(
-                                `input[name^="sections"][name$="[id]"][value="${value}"]`).closest(
-                                '.section-card');
-                            if (sectionElement.length) {
-                                optionSectionIndex = parseInt(sectionElement.data('section-index'));
-                            }
-                        }
-
-                        if (optionSectionIndex !== undefined && optionSectionIndex <= currentSectionIndex) {
-                            $(this).prop('disabled', true);
-                        }
-                    }
-                });
-            }
-
-            function updateMCOptionTemplate() {
-                const $mcTemplate = $('#option-mc-template');
-                let templateHtml = $mcTemplate.html();
-
-                const regex =
-                    /<option value="">Pilih Section Selanjutnya<\/option>\s*<option value="submit">Kirim Formulir<\/option>(?:\s*<option[^>]*>[^<]*<\/option>)*/;
-
-                let newOptions = '<option value="">Pilih Section Selanjutnya</option>\n';
-                newOptions += '<option value="submit">Kirim Formulir</option>\n';
-
-                $('.section-card').each(function() {
-                    const sectionIndex = $(this).data('section-index');
-                    const sectionName = $(this).find('input[name$="[section_name]"]').val();
-                    const sectionId = $(this).find('input[name$="[id]"]').val() || `new_${sectionIndex}`;
-
-                    if (sectionName) {
-                        newOptions += `<option value="${sectionId}">${sectionName}</option>\n`;
-                    }
-                });
-
-                const updatedTemplateHtml = templateHtml.replace(regex, newOptions);
-                $mcTemplate.html(updatedTemplateHtml);
-            }
-
-            function updateNextSectionDropdowns() {
-                updateMCOptionTemplate();
-
-                $('.next-section-select').each(function() {
-                    const $select = $(this);
-                    const currentSectionIndex = parseInt($select.closest('.section-card').data(
-                        'section-index'));
-                    const currentValue = $select.val();
-
-                    const $defaultOptions = $select.find('option:lt(2)').clone();
-
-                    $select.empty();
-
-                    $select.append($defaultOptions);
-
-                    $('.section-card').each(function() {
-                        const sectionIndex = parseInt($(this).data('section-index'));
-                        const sectionId = $(this).find('input[name$="[id]"]').val();
-                        const sectionName = $(this).find('input[name$="[section_name]"]').val();
-
-                        if (sectionIndex > currentSectionIndex && sectionName) {
-
-                            const optionValue = sectionId || `new_${sectionIndex}`;
-                            $select.append(
-                                `<option value="${optionValue}">${sectionName}</option>`);
-                        }
-                    });
-
-                    if (currentValue) {
-                        if ($select.find(`option[value="${currentValue}"]`).length) {
-                            $select.val(currentValue);
-                        }
-                    }
-                });
-            }
+            // Add Option
             $(document).on('click', '.add-option', function() {
                 const sectionIndex = $(this).data('section-index');
                 const questionIndex = $(this).data('question-index');
                 const $optionsContainer = $(this).closest('.options-container');
                 const typeId = parseInt($(this).closest('.question-card').find('.question-type').val());
+                const optionIndex = $optionsContainer.find('.option-row').length;
 
-                const optionCount = $optionsContainer.find('.option-row').length;
-
-                if (typeId === 3) {
-                    addMCOption(sectionIndex, questionIndex, optionCount, $optionsContainer);
-                } else {
-                    addStandardOption(sectionIndex, questionIndex, optionCount, $optionsContainer);
-                }
-
-                const $buttonDiv = $(this).closest('.mb-3');
-                $optionsContainer.append($buttonDiv);
+                if (typeId === 6) return; // Skala tidak bisa tambah opsi
+                addOption(sectionIndex, questionIndex, optionIndex, typeId === 3);
             });
 
+            function addOption(sectionIndex, questionIndex, optionIndex, isMultipleChoice) {
+                const $optionsContainer = $(
+                    `.section-card[data-section-index="${sectionIndex}"] .question-card[data-question-index="${questionIndex}"] .options-container`
+                );
+                const template = isMultipleChoice ? '#option-mc-template' : '#option-template';
+                const optionHtml = $(template).html()
+                    .replace(/__SECTION_INDEX__/g, sectionIndex)
+                    .replace(/__QUESTION_INDEX__/g, questionIndex)
+                    .replace(/__OPTION_INDEX__/g, optionIndex);
+                $optionsContainer.find('.mb-3').before(optionHtml);
+
+                if (isMultipleChoice) {
+                    updateSingleNextSectionDropdown($optionsContainer.find('.next-section-select').last(),
+                        sectionIndex);
+                }
+            }
+
+            // Delete Option
             $(document).on('click', '.delete-option', function() {
                 const $optionRow = $(this).closest('.option-row');
-                const optionsCount = $optionRow.siblings('.option-row').length;
+                const optionId = $(this).data('option-id');
 
-                if (optionsCount < 1) {
-                    alert('Harus memiliki minimal 1 opsi!');
-                    return;
+                if ($optionRow.siblings('.option-row').length >= 1) {
+                    if (optionId) { // Jika opsi sudah ada di database
+                        deletedOptions.push(optionId);
+                        $('#deleted_options').val(deletedOptions.join(','));
+                    }
+                    $optionRow.remove();
+                } else {
+                    alert('Minimal harus ada 1 opsi!');
                 }
-
-                $optionRow.remove();
             });
 
+            // Update All Next Section Dropdowns
+            function updateNextSectionDropdowns() {
+                $('.next-section-select').each(function() {
+                    const $select = $(this);
+                    const sectionIndex = $select.closest('.section-card').data('section-index');
+                    updateSingleNextSectionDropdown($select, sectionIndex);
+                });
+            }
+
+            function updateSingleNextSectionDropdown($select, currentSectionIndex) {
+                const currentValue = $select.val();
+                $select.empty();
+                $select.append('<option value="">Pilih Section Selanjutnya</option>');
+                $select.append('<option value="999">Kirim Formulir</option>');
+
+                $('.section-card').each(function() {
+                    const sectionIdx = $(this).data('section-index');
+                    const sectionName = $(this).find('input[name$="[section_name]"]').val();
+                    if (sectionIdx !== currentSectionIndex && sectionName && sectionName !==
+                        'Kirim Formulir') {
+                        $select.append(`<option value="${sectionIdx}">${sectionName}</option>`);
+                    }
+                });
+
+                if (currentValue && $select.find(`option[value="${currentValue}"]`).length) {
+                    $select.val(currentValue);
+                }
+            }
+            // Form Submission Validation
             $('#formTracer').on('submit', function(e) {
                 let isValid = true;
-
                 if ($('.section-card').length === 0) {
                     alert('Form harus memiliki minimal 1 section!');
                     isValid = false;
@@ -699,13 +587,11 @@
                 $('.section-card').each(function() {
                     const sectionName = $(this).find('input[name$="[section_name]"]').val();
                     const questionCount = $(this).find('.question-card').length;
-
                     if (!sectionName) {
                         alert('Setiap section harus memiliki nama!');
                         isValid = false;
                         return false;
                     }
-
                     if (questionCount === 0) {
                         alert(`Section "${sectionName}" harus memiliki minimal 1 pertanyaan!`);
                         isValid = false;
@@ -715,9 +601,7 @@
 
                 $('.question-type').each(function() {
                     if (!$(this).val()) {
-                        const questionText = $(this).closest('.question-card').find(
-                            'input[name$="[question_body]"]').val() || 'Pertanyaan';
-                        alert(`Tipe pertanyaan harus dipilih untuk "${questionText}"!`);
+                        alert('Semua pertanyaan harus memiliki tipe!');
                         isValid = false;
                         return false;
                     }
@@ -728,25 +612,21 @@
                 }
             });
 
+            // Initialize Dropdowns
             updateNextSectionDropdowns();
 
+            // Update Dropdowns on Section Name Change
             $(document).on('input', 'input[name$="[section_name]"]', function() {
                 updateNextSectionDropdowns();
             });
         });
     </script>
 
-
     <style>
-        html,
-        body {
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .container {
-            height: 100vh;
-            overflow: auto;
+        .main-content {
+            overflow-y: auto;
+            height: calc(100vh - 100px);
+            /* Adjust based on navbar height */
         }
     </style>
 @endsection
