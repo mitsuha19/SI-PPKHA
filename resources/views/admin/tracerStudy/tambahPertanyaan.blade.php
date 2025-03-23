@@ -432,7 +432,7 @@
                                 'input[name^="sections"][name$="[section_name]"]').val() ||
                             `Section ${sectionNumber}`; // Use section number instead of index+1
 
-                        if (sectionIndex > currentSectionIndex) {
+                        if (sectionIndex !== currentSectionIndex) {
                             $select.append(
                                 `<option value="${sectionIndex}">${sectionName}</option>`);
                         }
