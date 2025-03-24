@@ -895,7 +895,6 @@ body {
     padding: 0.5em 0; /* Reduced vertical padding for compactness */
 }
 
-
 /* Pagination list items */
 .custom-pagination .page-item {
     margin: 0 0.1em; /* Reduced spacing between items for compactness */
@@ -1091,13 +1090,16 @@ select.form-select option {
     border-radius: 20px; /* Rounded corners */
     padding: 10px 20px;
     border: none;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 
 .userSurveyButton:hover {
-    background-color: grey; /* Change button color to grey */
-    color: white; /* Change text color to white */
-    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2); /* Reduce shadow on hover */
+    background-color: grey;
+    color: white;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 450px) {

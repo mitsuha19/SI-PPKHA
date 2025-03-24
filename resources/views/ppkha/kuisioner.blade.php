@@ -7,26 +7,32 @@
         <div class="user-survey">
             <div class="user-survey-content" style="padding: 0px 160px; margin-top: 10px">
                 @if (!$form)
-                    <div class="card-user-survey">
-                        <h1 class="montserrat-medium text-black text-center">Belum Ada Kuisioner</h1>
-                        <p class="text-muted text-center">Saat ini belum ada kuisioner yang tersedia.</p>
+                    <div class="card-user-survey text-start">
+                        <h1 class="montserrat-medium text-black">Belum Ada Kuisioner</h1>
+                        <p class="text-muted">Saat ini belum ada kuisioner yang tersedia.</p>
                     </div>
                 @else
-                    <div class="card-user-survey">
-                        <h1 class="montserrat-medium text-black text-center" style="font-size: 24px;">{{ $form->judul_form }}
+                    <div class="card-user-survey text-start">
+                        <h1 class="text-black" style="font-size: 24px; font-family: 'Roboto';">
+                            {{ $form->judul_form }}
                         </h1>
-                        <p class="text-muted text-center">{{ $form->deskripsi_form }}</p>
+                        <p class="text-muted" style="font-size: 15px; font-family: 'Poppins';">
+                            {!! nl2br(e($form->deskripsi_form)) !!}
+                        </p>
                     </div>
 
-                    <div class="card-user-survey">
-                        <h3 class="montserrat-medium text-black section-title">{{ $firstSection->section_name }}</h3>
 
-                        <form action="{{ route('kuesioner.next', $firstSection->id) }}" method="POST">
+                    <form action="{{ route('kuesioner.next', $firstSection->id) }}" method="POST">
+                        <div class="card-user-survey">
+                            <h3 class="montserrat-medium text-black section-title"
+                                style="font-size: 24px; font-family: 'Roboto'">{{ $firstSection->section_name }}</h3>
+
                             @csrf
 
                             @foreach ($firstSection->questions as $question)
                                 <div class="box-form">
-                                    <label class="montserrat-medium text-black">{{ $question->question_body }}
+                                    <label class="montserrat-medium text-black section-title"
+                                        style="font-size: 18px; font-family: 'Roboto'">{{ $question->question_body }}
                                         @if ($question->is_required)
                                             <span class="text-danger">*</span>
                                         @endif
@@ -75,37 +81,56 @@
                                             @endif
                                         @endforeach
                                     @elseif($question->type_question_id == 6)
-                                        <input type="range" class="form-range" name="answers[{{ $question->id }}]"
-                                            min="1" max="10" value="{{ $previousAnswer ?? 5 }}"
-                                            @if ($question->is_required) required @endif>
-                                    @elseif($question->type_question_id == 7)
-                                        <div class="mb-2">
-                                            <label class="fw-bold">Pilih Provinsi</label>
-                                            <select class="form-select province"
-                                                name="answers[{{ $question->id }}][province]">
-                                                <option value="">Pilih Provinsi</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label class="fw-bold">Pilih Kabupaten/Kota</label>
-                                            <select class="form-select regency"
-                                                name="answers[{{ $question->id }}][regency]" disabled>
-                                                <option value="">Pilih Kabupaten/Kota</option>
-                                            </select>
+                                        <!-- Linear Scale -->
+                                        <div class="box-form">
+                                            {{-- <label class="montserrat-medium text-black mb-2">
+                                                {{ $question->question_body }}
+                                                @if ($question->is_required)
+                                                    <span class="text-danger">*</span>
+                                                @endif
+                                            </label> --}}
+                                            <div class="linear-scale d-flex align-items-center gap-2">
+                                                @php
+                                                    $options = $question->options
+                                                        ->pluck('option_body')
+                                                        ->map(function ($value) {
+                                                            return is_numeric($value) ? (int) $value : 0;
+                                                        })
+                                                        ->sort()
+                                                        ->values();
+                                                    $start = $options->isNotEmpty() ? $options->first() : 0;
+                                                    $end = $options->isNotEmpty() ? $options->last() : 5;
+                                                    $end = max($start, $end);
+                                                @endphp
+                                                @for ($i = $start; $i <= $end; $i++)
+                                                    <div class="form-check form-check-inline">
+                                                        <input class="form-check-input" type="radio"
+                                                            name="answers[{{ $question->id }}]"
+                                                            id="option_{{ $question->id }}_{{ $i }}"
+                                                            value="{{ $i }}"
+                                                            @if ($previousAnswer == $i) checked @endif
+                                                            @if ($question->is_required) required @endif>
+                                                        <label class="form-check-label" style="font-style: italic;"
+                                                            for="option_{{ $question->id }}_{{ $i }}">{{ $i }}</label>
+                                                    </div>
+                                                @endfor
+                                            </div>
                                         </div>
                                     @endif
                                 </div>
                             @endforeach
+                        </div>
 
-                            <div class="text-end">
-                                @if (isset($previousSectionId))
-                                    <a href="{{ route('kuesioner.previous', $previousSectionId) }}"
-                                        class="btn btn-secondary me-2">Sebelumnya</a>
-                                @endif
-                                <button type="submit" class="userSurveyButton">Berikutnya</button>
-                            </div>
-                        </form>
-                    </div>
+
+                        <div class="text-end">
+                            @if (isset($previousSectionId))
+                                <a href="{{ route('kuesioner.previous', $previousSectionId) }}"
+                                    class="userSurveyButton">Kembali</a>
+                            @endif
+                            <button type="submit" class="userSurveyButton">Berikutnya</button>
+                        </div>
+
+                    </form>
                 @endif
             </div>
         </div>
