@@ -161,7 +161,8 @@ Route::get('/forms', [FormController::class, 'index'])->name('forms.index');
 // Test Kuisioner for User
 Route::get('/kuesioner', [KuesionerController::class, 'show'])->name('kuesioner.show');
 Route::post('/kuesioner/next/{sectionId}', [KuesionerController::class, 'nextSection'])->name('kuesioner.next');
-Route::get('/kuesioner/selesai', [KuesionerController::class, 'submit'])->name('kuesioner.submit');
+Route::get('/kuesioner/previous/{sectionId}', [KuesionerController::class, 'previousSection'])->name('kuesioner.previous');
+Route::get('/kuesioner/submit', [KuesionerController::class, 'submit'])->name('kuesioner.submit');
 
 // Proxy routes for external API data
 Route::get('/proxy/provinces', function () {
