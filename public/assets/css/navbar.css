@@ -378,6 +378,12 @@ h2 span {
     object-fit: cover;
 }
 
+.card-img-top-detail {
+    width: fit-content;
+    height: 500px;
+    object-fit: cover;
+}
+
 .card-detail {
     padding: 15px 0px;
     text-align: left;

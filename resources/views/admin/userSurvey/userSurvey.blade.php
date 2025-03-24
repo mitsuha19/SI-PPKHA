@@ -9,10 +9,10 @@
         <div class="survey-wrapper d-flex flex-column align-items-center w-100 gap-2"
             style="overflow-y: auto; max-height: calc(100vh - 100px);">
             <div class="d-flex justify-content-end" style="width: 80%">
-                <button type="button" class="btn btn-primary"
+                <button type="button" class="btn btn-tambah mt-2"
                     onclick="window.location.href='{{ route('admin.surveys.create') }}'">
                     <i class='bx bx-plus-circle'></i>
-                    <span class="d-none d-xl-inline">Tambah Section</span>
+                    <span class="d-none d-xl-inline">Tambah</span>
                 </button>
             </div>
 

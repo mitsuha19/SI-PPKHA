@@ -150,7 +150,7 @@ html, body {
 }
 
 .main-content {
-    padding: 20px 10px 10 px 20px;
+    padding: 20px 10px 10px 20px;
     overflow-y: auto;
     min-height: 100vh; /* Gunakan min-height agar bisa bertambah */
     height: auto !important; /* Izinkan tinggi menyesuaikan konten */
@@ -191,6 +191,7 @@ input[type="text"] {
     width: 55px;
     border: none;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    margin-left: 6px;
 }
 
 .background-card {
@@ -387,18 +388,67 @@ input[type="text"] {
     height: 200px;
 }
 
-.box-form button {
-    background-color: #7fc7d9;
+.box-form button,
+.main-content .btn-tambah,
+.box-form .btn-batal {
     font-family: "Poppins", serif;
     font-weight: 700;
     text-align: center;
-    width: 103px;
+    width: fit-content;
     height: 42px;
     border-radius: 8px;
-    border: none;
     box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
     margin-top: 50px;
+    color: white;
 }
+
+.box-form button,
+.main-content .btn-tambah {
+    background-color: #7fc7d9;
+    color: white;
+    border: 3px solid #7fc7d9;
+}
+
+.box-form button:hover,
+.main-content .btn-tambah:hover{
+    background-color: transparent;
+    color: black;
+    border: 3px solid black;
+}
+
+.box-form .btn-batal {
+    background-color: #5A6268;
+    color: white;
+    border: 3px solid #5A6268;
+}
+
+.box-form .btn-batal:hover{
+    background-color: transparent;
+    color: #5A6268;
+    border: 3px solid #5A6268;
+}
+
+#btn-edit{
+    background-color: #588996;
+    border: 3px solid #588996;
+}
+
+#btn-edit:hover{
+    background-color: transparent;
+    border: 3px solid black;
+    color: black;
+}
+
+#btn-hapus{
+    background-color: #FF0033;
+    border: 3px solid #FF0033;
+}
+
+#btn-hapus:hover{
+    background-color: transparent;
+    color: #FF0033;
+}
+
 
 input[type="file"] {
     position: absolute;

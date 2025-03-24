@@ -17,7 +17,7 @@
 
                         {{-- Tombol Edit dan Hapus --}}
                         <div class="align-self-start">
-                            <a href="{{ route('admin.pengumuman.edit', ['id' => $pengumuman->id]) }}" class="btn">
+                            <a href="{{ route('admin.pengumuman.edit', ['id' => $pengumuman->id]) }}" class="btn" id="btn-edit">
                                 <i class='bx bx-pencil'></i> 
                                 <span class="d-none d-xl-inline ms-1">Edit</span>
                             </a>
@@ -25,7 +25,7 @@
                                 style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn"
+                                <button type="submit" class="btn" id="btn-hapus"
                                     onclick="return confirm('Yakin ingin menghapus pengumuman ini?');">
                                     <i class='bx bx-trash'></i>
                                     <span class="d-none d-xl-inline ms-1">Hapus</span>

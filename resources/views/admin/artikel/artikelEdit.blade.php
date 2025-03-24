@@ -58,8 +58,8 @@
 
 
         <div class="d-flex justify-content-end align-items-end gap-2">
-          <a href="{{ route('admin.artikel.artikel') }}" class="btn btn-secondary">Batal</a>
-          <button type="submit" class="btn btn-primary">Edit</button>
+          <a href="{{ route('admin.artikel.artikel') }}" class="btn btn-batal">Batal</a>
+          <button type="submit" class="btn">Edit</button>
         </div>
       </form>
   </div>

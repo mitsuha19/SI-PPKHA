@@ -38,7 +38,7 @@
             </div>
 
             <div class="mb-4">
-                <button type="submit" class="btn btn-primary" style="margin-bottom: 100px">Simpan Survey</button>
+                <button type="submit" class="btn btn-tambah mt-2" style="margin-bottom: 100px">Simpan Survey</button>
             </div>
         </form>
     </div>

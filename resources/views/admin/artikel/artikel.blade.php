@@ -9,7 +9,7 @@
   <div class="d-flex flex-row justify-content-center gap-2 w-100 mb-3">
     <form class="w-50 d-flex" action="{{ route('admin.artikel.artikel') }}" method="GET">
         <input type="text" id="artikel" name="search" class="form-control" placeholder="Cari Artikel..." value="{{ request('search') }}">
-        <button type="submit" class="btn btn-primary ms-2">
+        <button type="submit" class="search-logo d-flex justify-content-center align-items-center">
             <i class='bx bx-search-alt-2'></i>
         </button>
     </form>
@@ -17,7 +17,7 @@
 
   <div class="d-flex flex-column align-items-center w-100 gap-2">
     <div class="d-flex justify-content-end" style="width: 80%">
-      <a href="{{ route('admin.artikel.create') }}" class="btn btn-primary">
+      <a href="{{ route('admin.artikel.create') }}" class="btn btn-tambah mt-2">
         <i class='bx bx-plus-circle'></i> Tambah
       </a>
     </div>
@@ -46,11 +46,11 @@
             {{-- Button --}}
             <div class="align-self-start">
               <div class="ms-auto d-flex gap-2">
-                <button type="button" class="btn btn-primary px-4 py-2 fw-bold d-flex align-items-center" onclick="window.location.href='{{ route('admin.artikel.artikelEdit', $item->id) }}'">
+                <button type="button" id="btn-edit" class="btn btn-primary px-4 py-2 fw-bold d-flex align-items-center" onclick="window.location.href='{{ route('admin.artikel.artikelEdit', $item->id) }}'">
                 <i class='bx bx-pencil fs-5 me-2'></i> Edit
                 </button>
                 
-                <button type="button" class="btn btn-primary px-4 py-2 fw-bold d-flex align-items-center" onclick="openDeleteModal({{ $item->id }}, '{{ $item->judul_artikel }}')">
+                <button type="button" id="btn-hapus" class="btn btn-primary px-4 py-2 fw-bold d-flex align-items-center" onclick="openDeleteModal({{ $item->id }}, '{{ $item->judul_artikel }}')">
                 <i class='bx bx-trash fs-5 me-2'></i> Hapus
                 </button>                      
               </div>

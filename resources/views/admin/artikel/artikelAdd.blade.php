@@ -29,8 +29,8 @@
         <div id="preview-container" class="mt-3 d-flex flex-wrap gap-2"></div>
 
         <div class="d-flex justify-content-end align-items-end gap-2">
-          <a href="{{ route('admin.artikel.artikel') }}" class="btn btn-secondary">Batal</a>
-          <button type="submit" class="btn btn-primary">Tambah</button>
+          <a href="{{ route('admin.artikel.artikel') }}" class="btn btn-batal">Batal</a>
+          <button type="submit" class="btn">Tambah</button>
         </div>
       </form>
   </div>

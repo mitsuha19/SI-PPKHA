@@ -16,7 +16,7 @@
 
         <div class="d-flex flex-column align-items-center w-100 gap-2">
             <div class="d-flex justify-content-end" style="width: 80%">
-                <button type="button" class="btn btn-primary" onclick="window.location.href='/admin/tracer-study/create'">
+                <button type="button" class="btn btn-tambah mt-2" onclick="window.location.href='/admin/tracer-study/create'">
                     <i class='bx bx-plus-circle'></i>
                     <span class="d-none d-xl-inline">Tambah</span>
                 </button>

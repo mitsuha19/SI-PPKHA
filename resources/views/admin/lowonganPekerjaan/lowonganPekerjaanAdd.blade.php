@@ -81,7 +81,7 @@
         <button type="button" class="btn btn-danger btn-sm" onclick="removeKeahlian(this)">❌</button>
     </div>
     @endforeach
-    <button type="button" class="btn btn-success mt-1 mb-3" style="width: fit-content; height: fit-content;" onclick="addKeahlian()">
+    <button type="button" class="btn mt-1 mb-3" style="width: fit-content; height: fit-content;" onclick="addKeahlian()">
       <i class='bx bx-plus'></i>
       Tambah Keahlian
     </button>   
@@ -97,8 +97,8 @@
         <input type="date" class="form-control mb-3" id="batasAkhir" name="batasAkhir" required>
        
         <div class="d-flex justify-content-end align-items-end gap-2">
-        <a href="{{ route('admin.lowonganPekerjaan.lowonganPekerjaan') }}" class="btn btn-secondary">Batal</a>
-        <button type="submit" class="btn btn-primary">Tambah</button>
+        <a href="{{ route('admin.lowonganPekerjaan.lowonganPekerjaan') }}" class="btn btn-batal">Batal</a>
+        <button type="submit" class="btn">Tambah</button>
       </div>
 
       </form>

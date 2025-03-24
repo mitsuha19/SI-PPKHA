@@ -9,7 +9,7 @@
   <div class="d-flex flex-row justify-content-center gap-2 w-100 mb-3">
     <form class="w-50 d-flex" action="{{ route('admin.daftarPerusahaan.daftarPerusahaan') }}" method="GET">
         <input type="text" id="perusahaan" name="search" class="form-control" placeholder="Cari Nama Perusahaan..." value="{{ request('search') }}">
-        <button type="submit" class="btn btn-primary ms-2">
+        <button type="submit" class="search-logo d-flex justify-content-center align-items-center">
             <i class='bx bx-search-alt-2'></i>
         </button>
     </form>
@@ -27,11 +27,11 @@
 
         <div class="align-self-start">
         <div class="ms-auto d-flex gap-2">
-                  <button type="button" class="btn btn-primary px-4 py-2 fw-bold d-flex align-items-center" onclick="window.location.href='{{ route('admin.perusahaan.edit', $p->id) }}'">
+                  <button type="button" id="btn-edit" class="btn btn-primary px-4 py-2 fw-bold d-flex align-items-center" onclick="window.location.href='{{ route('admin.perusahaan.edit', $p->id) }}'">
                       <i class='bx bx-pencil fs-5 me-2'></i> Edit
                   </button>
                   
-                  <button type="button" class="btn btn-primary px-4 py-2 fw-bold d-flex align-items-center" onclick="openDeleteModal({{ $p->id }}, '{{ $p->namaPerusahaan }}')">
+                  <button type="button" id="btn-hapus" class="btn btn-primary px-4 py-2 fw-bold d-flex align-items-center" onclick="openDeleteModal({{ $p->id }}, '{{ $p->namaPerusahaan }}')">
                       <i class='bx bx-trash fs-5 me-2'></i> Hapus
                   </button>                      
               </div>

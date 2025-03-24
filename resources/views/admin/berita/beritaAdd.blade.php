@@ -28,8 +28,8 @@
                 <div id="preview-container" class="mt-3" style="max-height: 200px; overflow-y: auto;"></div>
 
                 <div class="d-flex justify-content-end align-items-end gap-2 mt-3">
-                    <a href="{{ route('admin.berita.berita') }}" class="btn btn-secondary">Batal</a>
-                    <button type="submit" class="btn btn-primary">Tambah</button>
+                    <a href="{{ route('admin.berita.berita') }}" class="btn btn-batal">Batal</a>
+                    <button type="submit" class="btn">Tambah</button>
                 </div>
             </form>
         </div>
