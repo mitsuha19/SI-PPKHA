@@ -23,21 +23,16 @@
             <div class="background-card">
                 <div class="card-information d-flex align-items-center px-3">
                     {{-- Ambil gambar pertama jika tersedia --}}
-                    @php
+                @php
                         $gambarArray = $item->gambar ?? []; // Laravel otomatis mengubah JSON ke array
                     @endphp
             
                 @if (!empty($gambarArray) && isset($gambarArray[0]))
-                <img 
-                    src="{{ asset('storage/' . $gambarArray[0]) }}" 
-                    alt="Gambar Berita">
+                    <img class="card-img-top" src="{{ asset('storage/' . $gambarArray[0]) }}" alt="Gambar Berita">
                 @else
-                    <img 
-                    src="{{ asset('assets/images/image.png') }}" 
-                    alt="Default Gambar">
+                    <img class="card-img-top" src="{{ asset('assets/images/image.png') }}" alt="Default Gambar">
                 @endif
 
-            
                     <div class="ps-3 w-100">
                         {{-- Judul Berita --}}
                         <div class="d-flex flex-md-row flex-sm-column w-auto justify-content-start align-items-end">
@@ -62,7 +57,7 @@
             </div>
         @endforeach
 
-        <div class="pagination">
+        <div class="">
             {{ $berita->appends(request()->query())->links() }}
         </div>
 

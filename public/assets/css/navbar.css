@@ -895,15 +895,6 @@ body {
     padding: 0.5em 0; /* Reduced vertical padding for compactness */
 }
 
-/* Custom pagination bar styling */
-.custom-pagination {
-    background-color: #d9d9d9; /* Light gray background for the pagination bar */
-    border-radius: 10px; /* Smaller rounded corners to match the image */
-    padding: 0.3em 0.5em; /* Reduced padding for compactness */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Reduced shadow for a smaller look */
-    display: inline-flex; /* Keep pagination inline for centering */
-    border-top: 3px solid #365486; /* Reduced top border thickness to match the image */
-}
 
 /* Pagination list items */
 .custom-pagination .page-item {
