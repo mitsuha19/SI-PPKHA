@@ -29,9 +29,12 @@
     <div class="montserrat-medium mb-0 w-100">
       <h2 class="mb-0">Deskripsi Lowongan</h2>
       <hr style="opacity:1; margin: 10px 0px">
-      <p class="roboto-light text-black mb-1" style="font-size: 15px">{!! nl2br(e(Str::limit($lowongan->deskripsiLowongan, 100, '...'))) !!}</p>
+      <p class="roboto-light text-black mb-1" style="font-size: 15px">
+        {!! nl2br(e($lowongan->deskripsiLowongan)) !!}
+      </p>
     </div>
-  </div>
+</div>
+
 
   <div class="card-lowongan-about d-flex flex-row align-items-center gap-5">
     <div class="montserrat-medium mb-0 w-100">

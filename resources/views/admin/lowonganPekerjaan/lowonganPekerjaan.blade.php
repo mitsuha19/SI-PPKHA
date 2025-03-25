@@ -55,7 +55,7 @@
                     <p class="mb-0 montserrat-light">{{ $l->perusahaan->namaPerusahaan ?? 'Perusahaan tidak tersedia'}}</p>
 
                     <ul class="roboto-light text-black mb-1 mt-2" style="font-size: 15px">
-                        <li>{!! nl2br(e(Str::limit($l->deskripsiLowongan, 100, '...'))) !!}</li>
+                        {!! nl2br(e(Str::limit($l->deskripsiLowongan, 50, '...'))) !!}
                     </ul>
 
                     <div class="d-flex flex-row gap-2">
