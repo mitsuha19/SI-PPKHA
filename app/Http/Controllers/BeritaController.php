@@ -26,7 +26,7 @@ class BeritaController extends Controller
 
     $berita = Berita::when($search, function ($query) use ($search) {
         return $query->where('judul_berita', 'like', "%{$search}%");
-    })->orderBy('created_at', 'desc')->paginate(5);
+    })->orderBy('created_at', 'desc')->paginate(10);
     
         return view('ppkha.berita', compact('berita','search'));
     }
@@ -82,7 +82,7 @@ class BeritaController extends Controller
       $validatedData = $request->validate([
           'judul_berita' => 'required|string',
           'deskripsi_berita' => 'required|string',
-          'gambar.*' => 'nullable|file|mimes:jpg,jpeg,png,gif,pdf,doc,docx,xlsx,xls|max:5120',
+          'gambar.*' => 'nullable|file|mimes:jpg,jpeg,png,gif',
       ]);
   
       $berita = Berita::findOrFail($id);

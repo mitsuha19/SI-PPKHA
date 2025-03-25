@@ -57,7 +57,7 @@
   
         {{-- Link to detail news --}}
         <div class="detail">
-          <a href="{{ route('admin.artikel.artikel') }}" class="btn px-3">Tutup</a>
+          <a href="{{ route('admin.artikel.artikel') }}" class="btn px-3">Kembali</a>
         </div>
         
       </div>

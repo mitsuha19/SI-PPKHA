@@ -50,9 +50,9 @@ class PengumumanController extends Controller
   public function store(Request $request)
   {
     $request->validate([
-      'judul_pengumuman' => 'required|string|max:255',
+      'judul_pengumuman' => 'required|string',
       'deskripsi_pengumuman' => 'required|string',
-      'lampiran.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx|max:2048' // Validasi file
+      'lampiran.*' => 'file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx' // Validasi file
     ]);
 
     // Simpan lampiran
@@ -86,9 +86,9 @@ class PengumumanController extends Controller
 
     // Validasi input
     $request->validate([
-      'judul_pengumuman' => 'required|string|max:255',
+      'judul_pengumuman' => 'required|string',
       'deskripsi_pengumuman' => 'required|string',
-      'lampiran.*' => 'file|mimes:jpg,jpeg,png,pdf|max:2048',
+      'lampiran.*' => 'file|mimes:jpg,jpeg,png,pdf',
     ]);
 
     // Update data pengumuman

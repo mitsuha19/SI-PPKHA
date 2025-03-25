@@ -45,7 +45,7 @@
           <p class="mb-0 montserrat-medium">{{ $p->industriPerusahaan }}</p>
         </div>
         <p class="roboto mb-1 mt-2" style="font-size: 15px">
-          {{ $p->deskripsiPerusahaan }}
+        {!! nl2br(e(Str::limit($p->deskripsiPerusahaan, 50, '...'))) !!}
         </p>
         <div class="detail">
           <a href="{{ route('admin.daftarPerusahaan.daftarPerusahaanDetail', ['id' => $p->id]) }}">

@@ -41,9 +41,36 @@
                         {!! nl2br(e($pengumuman->deskripsi_pengumuman)) !!}
                     </p>
 
+                    
+  <h5 style="font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; color: white;">Nama File:</h5>
+  <hr>
+
+  @php
+    $lampiran = json_decode($pengumuman->lampiran, true) ?? [];
+@endphp
+
+@if (!empty($lampiran) && is_array($lampiran) && count($lampiran))
+<ul style="font-size: 1rem; color: white; list-style: none; padding: 0;">
+@foreach ($lampiran as $file)
+            <li style="margin-bottom: 10px;">
+                @if (Storage::disk('public')->exists($file))
+                    <a href="{{ asset('storage/' . $file) }}" target="_blank"
+                        style="color: white;">
+                        {{ basename($file) }}
+                    </a>
+                @else
+                    <span style="color: #999;">File tidak tersedia</span>
+                @endif
+            </li>
+        @endforeach
+    </ul>
+@else
+    <p style="font-size: 1rem; color: #777;">Tidak ada lampiran tersedia.</p>
+@endif
+
                     {{-- Tombol Kembali --}}
                     <div class="detail">
-                        <a href="{{ route('admin.pengumuman.index') }}" class="btn px-3">Tutup</a>
+                        <a href="{{ route('admin.pengumuman.index') }}" class="btn px-3">Kembali</a>
                     </div>
                 </div>
             </div>

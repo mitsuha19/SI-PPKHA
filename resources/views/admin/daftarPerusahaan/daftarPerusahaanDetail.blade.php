@@ -20,7 +20,7 @@
       <h2 class="mb-0">Tentang Kami</h2>
       <hr style="opacity:1; margin: 10px 0px">
       <p>
-        {{ $perusahaan->deskripsiPerusahaan }}
+         {!! nl2br(e($perusahaan->deskripsiPerusahaan)) !!}
       </p>
     </div>
   </div>
@@ -37,7 +37,7 @@
               <h3 class="mb-0 ps-3">{{ $job->judulLowongan }}</h3>
               <ul class="roboto-light text-black mb-1" style="font-size: 15px">
                 
-                  <li>{{ $job->deskripsiLowongan }}</li>
+                  {!! nl2br(e(Str::limit($job->deskripsiLowongan, 50, '...'))) !!}
                 
               </ul>
             </div>

@@ -21,8 +21,12 @@ class ArtikelController extends Controller
         return view('admin.artikel.artikel', compact('artikel', 'search'));
     }
 
-    public function showArtikelUser(){
-        $artikel = Artikel::orderBy('created_at', 'desc')->get();
+    public function showArtikelUser(Request $request){
+        $search = $request->input('search');
+
+    $artikel = Artikel::when($search, function ($query) use ($search) {
+        return $query->where('judul_artikel', 'like', "%{$search}%");
+    })->orderBy('created_at', 'desc')->paginate(10);
         return view('ppkha.artikel', compact('artikel'));
     }
 

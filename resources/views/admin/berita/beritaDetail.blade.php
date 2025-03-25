@@ -76,7 +76,7 @@
 
         {{-- Link ke berita --}}
         <div class="detail">
-          <a href="{{ route('admin.berita.berita') }}" class="btn px-3">Tutup</a>
+          <a href="{{ route('admin.berita.berita') }}" class="btn px-3">Kembali</a>
         </div>
       </div>
     </div>

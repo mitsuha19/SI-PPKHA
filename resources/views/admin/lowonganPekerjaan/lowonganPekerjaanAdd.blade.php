@@ -70,9 +70,11 @@
         <label for="keahlian" class="poppins-bold text-black mb-2">Tambahkan Keahlian Lowongan:</label>
 <div id="keahlianContainer">
 @php
-    $keahlianArray = explode(',', old('keahlian', $lowongan->keahlian ?? ''));
-    $keahlianArray = array_filter($keahlianArray); // Hapus elemen kosong agar tidak ada input kosong
+    $keahlian = old('keahlian', $lowongan->keahlian ?? '');
+    $keahlianArray = is_string($keahlian) ? explode(',', $keahlian) : $keahlian;
+    $keahlianArray = array_filter((array) $keahlianArray); // Pastikan selalu array
 @endphp
+
 
 <div id="keahlianContainer">
     @foreach($keahlianArray as $keahlian)
