@@ -21,11 +21,11 @@
                     placeholder="Masukkan deskripsi Pengumuman" required>{{ $pengumuman->deskripsi_pengumuman }}</textarea>
 
                 {{-- Upload Lampiran --}}
-                <label for="myFile" class="form-label poppins-bold text-black mt-2">Tambahkan Gambar:</label>
+                <label for="myFile" class="form-label poppins-bold text-black mt-2">Tambahkan Lampiran:</label>
                 <div class="button-wrap">
                     <label class="buttonUploadFile" for="upload">
                         <i class='bx bx-upload me-1'></i>
-                        Choose a File
+                        Choose File
                     </label>
                     <input id="upload" type="file" name="lampiran[]" multiple>
                 </div>

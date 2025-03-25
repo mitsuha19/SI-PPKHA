@@ -18,11 +18,11 @@
                 <textarea class="form-control mb-3" id="deskripsi" name="deskripsi_pengumuman"
                     placeholder="Masukkan deskripsi Pengumuman" required></textarea>
 
-                <label for="upload" class="form-label poppins-bold text-black mt-2">Lampiran:</label>
+                <label for="upload" class="form-label poppins-bold text-black mt-2">Tambahkan Lampiran:</label>
                 <div class="button-wrap">
                     <label class="buttonUploadFile" for="upload">
                         <i class='bx bx-upload me-1'></i>
-                        Pilih File
+                        Choose File
                     </label>
                     <input id="upload" type="file" name="lampiran[]" multiple
                         accept="image/*, .pdf, .doc, .docx, .xls, .xlsx" onchange="previewFiles()">
