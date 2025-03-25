@@ -26,8 +26,8 @@ class ArtikelController extends Controller
 
     $artikel = Artikel::when($search, function ($query) use ($search) {
         return $query->where('judul_artikel', 'like', "%{$search}%");
-    })->orderBy('created_at', 'desc')->paginate(10);
-        return view('ppkha.artikel', compact('artikel'));
+    })->orderBy('created_at', 'desc')->paginate(9);
+        return view('ppkha.artikel', compact('artikel','search'));
     }
 
     public function showArtikelDetailUser($id) {

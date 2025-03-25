@@ -8,13 +8,15 @@
         
         <!-- Top Search Bar Section (New, positioned at the top of content) -->
         <div class="top-search-bar-container">
-            <div class="top-search-bar">
-                <input type="text" class="top-search-input h-100" placeholder="Cari Artikel" />
-                <button class="top-search-button h-100">
-                    <i class='bx bx-search bx-sm'></i>
-                </button>
-            </div>
-        </div>
+    <div class="top-search-bar d-flex align-items-center">
+        <form class="d-flex w-100" action="{{ route('ppkha.artikel') }}" method="GET">
+            <input type="text" id="artikel" name="search" class="form-control me-2" placeholder="Cari Artikel..." value="{{ request('search') }}">
+            <button type="submit" class="btn btn-primary">
+                <i class='bx bx-search bx-sm'></i>
+            </button>
+        </form>
+    </div>
+</div>
         <div class="pengumuman-section d-flex flex-column align-items-center gap-4">
             <div class="pengumuman-grid" style="display: flex; flex-wrap: wrap;">
                 <!-- Static Cards -->
@@ -44,22 +46,15 @@
                 </div>
                 @endforeach
 
-            </div>
-        </div>
 
-        <div class="d-flex justify-content-center align-items-center w-100">
-            <div class="pagination" style="width: fit-content">
-                <a href="#" style="background-color: transparent">&laquo;</a>
-                <a class="active" href="#">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">...</a>
-                <a href="#" style="background-color: transparent">&raquo;</a>
             </div>
+            <div class="">
+            {{ $artikel->appends(request()->query())->links() }}
+        </div>
         </div>
 
     </div>
+    
 
     @include('components.footer')
 @endsection
