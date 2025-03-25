@@ -21,7 +21,6 @@
                         </p>
                     </div>
 
-
                     <form action="{{ route('kuesioner.next', $firstSection->id) }}" method="POST">
                         <div class="card-user-survey">
                             <h3 class="montserrat-medium text-black section-title"
@@ -81,21 +80,12 @@
                                             @endif
                                         @endforeach
                                     @elseif($question->type_question_id == 6)
-                                        <!-- Linear Scale -->
                                         <div class="box-form">
-                                            {{-- <label class="montserrat-medium text-black mb-2">
-                                                {{ $question->question_body }}
-                                                @if ($question->is_required)
-                                                    <span class="text-danger">*</span>
-                                                @endif
-                                            </label> --}}
                                             <div class="linear-scale d-flex align-items-center gap-2">
                                                 @php
                                                     $options = $question->options
                                                         ->pluck('option_body')
-                                                        ->map(function ($value) {
-                                                            return is_numeric($value) ? (int) $value : 0;
-                                                        })
+                                                        ->map(fn($value) => is_numeric($value) ? (int) $value : 0)
                                                         ->sort()
                                                         ->values();
                                                     $start = $options->isNotEmpty() ? $options->first() : 0;
@@ -116,11 +106,27 @@
                                                 @endfor
                                             </div>
                                         </div>
+                                    @elseif($question->type_question_id == 7)
+                                        <div class="mb-2">
+                                            <label class="fw-bold text-black"
+                                                style="font-size: 15px; font-family: 'Roboto';">Pilih Provinsi</label>
+                                            <select class="form-select province"
+                                                name="answers[{{ $question->id }}][province]">
+                                                <option value="">Pilih Provinsi</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label class="fw-bold text-black"
+                                                style="font-size: 15px; font-family: 'Roboto';">Pilih Kabupaten/Kota</label>
+                                            <select class="form-select regency"
+                                                name="answers[{{ $question->id }}][regency]" disabled>
+                                                <option value="">Pilih Kabupaten/Kota</option>
+                                            </select>
+                                        </div>
                                     @endif
                                 </div>
                             @endforeach
                         </div>
-
 
                         <div class="text-end">
                             @if (isset($previousSectionId))
@@ -129,7 +135,6 @@
                             @endif
                             <button type="submit" class="userSurveyButton">Berikutnya</button>
                         </div>
-
                     </form>
                 @endif
             </div>
@@ -143,9 +148,12 @@
             const provinceSelect = document.querySelector(".province");
             const regencySelect = document.querySelector(".regency");
 
+            // Ambil data provinsi dari proxy Laravel
             fetch("/proxy/provinces")
                 .then(response => {
-                    if (!response.ok) throw new Error("Gagal mengambil data provinsi dari server");
+                    if (!response.ok) {
+                        throw new Error("Gagal mengambil data provinsi dari server");
+                    }
                     return response.json();
                 })
                 .then(data => {
@@ -154,56 +162,50 @@
                         const option = document.createElement("option");
                         option.value = province.id;
                         option.textContent = province.name;
+                        option.style.color = "black"; // Warna teks hitam
                         provinceSelect.appendChild(option);
                     });
-
-                    // Muat jawaban sebelumnya jika ada
-                    const previousProvince = "{{ $previousAnswer['province'] ?? '' }}";
-                    if (previousProvince) {
-                        provinceSelect.value = previousProvince;
-                        loadRegencies(previousProvince);
-                    }
                 })
                 .catch(error => console.error("Gagal mengambil data provinsi:", error));
 
+            // Event listener saat user memilih provinsi
             provinceSelect.addEventListener("change", function() {
                 const provinceId = this.value;
                 regencySelect.innerHTML = '<option value="">Pilih Kabupaten/Kota</option>';
                 regencySelect.disabled = true;
 
                 if (provinceId) {
-                    loadRegencies(provinceId);
+                    fetch(`/proxy/regencies/${provinceId}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error("Gagal mengambil data kabupaten/kota dari server");
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            regencySelect.disabled = false;
+                            data.forEach(regency => {
+                                const option = document.createElement("option");
+                                option.value = regency.id;
+                                option.textContent = regency.name;
+                                option.style.color = "black"; // Warna teks hitam
+                                regencySelect.appendChild(option);
+                            });
+                        })
+                        .catch(error => console.error("Gagal mengambil data kabupaten/kota:", error));
                 }
             });
 
-            function loadRegencies(provinceId) {
-                fetch(`/proxy/regencies/${provinceId}`)
-                    .then(response => {
-                        if (!response.ok) throw new Error("Gagal mengambil data kabupaten/kota dari server");
-                        return response.json();
-                    })
-                    .then(data => {
-                        regencySelect.disabled = false;
-                        data.forEach(regency => {
-                            const option = document.createElement("option");
-                            option.value = regency.id;
-                            option.textContent = regency.name;
-                            regencySelect.appendChild(option);
-                        });
-
-                        const previousRegency = "{{ $previousAnswer['regency'] ?? '' }}";
-                        if (previousRegency) regencySelect.value = previousRegency;
-                    })
-                    .catch(error => console.error("Gagal mengambil data kabupaten/kota:", error));
-            }
-
+            // Tambahan untuk memastikan semua <select> tetap hitam
             let selects = document.querySelectorAll("select");
             selects.forEach(select => {
-                select.style.color = "black";
+                select.style.color = "black"; // Warna teks pada <select> 
                 select.addEventListener("change", function() {
-                    this.style.color = "black";
+                    this.style.color = "black"; // Memastikan tetap hitam setelah dipilih
                 });
             });
         });
     </script>
+
+
 @endsection
