@@ -133,7 +133,6 @@ class KuesionerController extends Controller
         $sectionHistory = session('section_history', []);
         $userId = Auth::id();
 
-        // Filter jawaban berdasarkan section yang relevan
         $validSectionIds = $this->getValidSectionIds($sectionHistory, $answers);
         $filteredAnswers = array_filter($answers, function ($questionId) use ($validSectionIds) {
             $question = Question::find($questionId);

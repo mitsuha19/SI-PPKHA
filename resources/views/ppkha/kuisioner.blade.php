@@ -123,6 +123,11 @@
                                                 <option value="">Pilih Kabupaten/Kota</option>
                                             </select>
                                         </div>
+                                    @elseif($question->type_question_id == 8)
+                                        <!-- Tipe Date -->
+                                        <input type="date" class="form-control" name="answers[{{ $question->id }}]"
+                                            value="{{ $previousAnswer }}"
+                                            @if ($question->is_required) required @endif>
                                     @endif
                                 </div>
                             @endforeach
@@ -148,33 +153,47 @@
             const provinceSelect = document.querySelector(".province");
             const regencySelect = document.querySelector(".regency");
 
-            // Ambil data provinsi dari proxy Laravel
-            fetch("/proxy/provinces")
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Gagal mengambil data provinsi dari server");
+            // Pastikan elemen ada sebelum menjalankan logika
+            if (provinceSelect && regencySelect) {
+                // Ambil data provinsi dari proxy Laravel
+                fetch("/proxy/provinces")
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Gagal mengambil data provinsi dari server");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        provinceSelect.innerHTML = '<option value="">Pilih Provinsi</option>';
+                        data.forEach(province => {
+                            const option = document.createElement("option");
+                            option.value = province.id;
+                            option.textContent = province.name;
+                            option.style.color = "black"; // Warna teks hitam
+                            provinceSelect.appendChild(option);
+                        });
+
+                        // Muat jawaban sebelumnya untuk provinsi jika ada
+                        const previousProvince = "{{ $previousAnswer['province'] ?? '' }}";
+                        if (previousProvince) {
+                            provinceSelect.value = previousProvince;
+                            loadRegencies(previousProvince);
+                        }
+                    })
+                    .catch(error => console.error("Gagal mengambil data provinsi:", error));
+
+                // Event listener saat user memilih provinsi
+                provinceSelect.addEventListener("change", function() {
+                    const provinceId = this.value;
+                    regencySelect.innerHTML = '<option value="">Pilih Kabupaten/Kota</option>';
+                    regencySelect.disabled = true;
+
+                    if (provinceId) {
+                        loadRegencies(provinceId);
                     }
-                    return response.json();
-                })
-                .then(data => {
-                    provinceSelect.innerHTML = '<option value="">Pilih Provinsi</option>';
-                    data.forEach(province => {
-                        const option = document.createElement("option");
-                        option.value = province.id;
-                        option.textContent = province.name;
-                        option.style.color = "black"; // Warna teks hitam
-                        provinceSelect.appendChild(option);
-                    });
-                })
-                .catch(error => console.error("Gagal mengambil data provinsi:", error));
+                });
 
-            // Event listener saat user memilih provinsi
-            provinceSelect.addEventListener("change", function() {
-                const provinceId = this.value;
-                regencySelect.innerHTML = '<option value="">Pilih Kabupaten/Kota</option>';
-                regencySelect.disabled = true;
-
-                if (provinceId) {
+                function loadRegencies(provinceId) {
                     fetch(`/proxy/regencies/${provinceId}`)
                         .then(response => {
                             if (!response.ok) {
@@ -191,21 +210,23 @@
                                 option.style.color = "black"; // Warna teks hitam
                                 regencySelect.appendChild(option);
                             });
+
+                            // Muat jawaban sebelumnya untuk kabupaten/kota jika ada
+                            const previousRegency = "{{ $previousAnswer['regency'] ?? '' }}";
+                            if (previousRegency) regencySelect.value = previousRegency;
                         })
                         .catch(error => console.error("Gagal mengambil data kabupaten/kota:", error));
                 }
-            });
+            }
 
             // Tambahan untuk memastikan semua <select> tetap hitam
             let selects = document.querySelectorAll("select");
             selects.forEach(select => {
-                select.style.color = "black"; // Warna teks pada <select> 
+                select.style.color = "black"; // Warna teks pada <select>
                 select.addEventListener("change", function() {
                     this.style.color = "black"; // Memastikan tetap hitam setelah dipilih
                 });
             });
         });
     </script>
-
-
 @endsection

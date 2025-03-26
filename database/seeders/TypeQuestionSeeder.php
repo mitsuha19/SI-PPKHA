@@ -17,6 +17,7 @@ class TypeQuestionSeeder extends Seeder
       ['type_question_name' => 'Dropdown'],
       ['type_question_name' => 'Skala Linier'],
       ['type_question_name' => 'Lokasi'],
+      ['type_question_name' => 'Date'],
     ];
 
     foreach ($types as $type) {

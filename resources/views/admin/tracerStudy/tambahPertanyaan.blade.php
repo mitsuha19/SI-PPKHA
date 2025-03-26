@@ -347,11 +347,11 @@
                     } else if (typeId === 3) {
                         addMultipleChoiceOption(sectionIndex, questionIndex, 0, $optionsContainer);
                         updateAllSectionDropdowns();
-                    } else {
+                    } else if ([4, 5].includes(typeId)) {
                         addOption(sectionIndex, questionIndex, 0, $optionsContainer);
                     }
                 } else {
-                    $optionsContainer.hide();
+                    $optionsContainer.hide(); // Sembunyikan untuk tipe lain termasuk Date (ID: 8)
                 }
             });
 
