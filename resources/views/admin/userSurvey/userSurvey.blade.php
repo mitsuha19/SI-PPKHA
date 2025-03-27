@@ -48,7 +48,7 @@
                                     <ul class="question-list"
                                         style="word-wrap: break-word; max-height: 100px; overflow-y: auto;">
                                         @foreach ($section->surveys as $survey)
-                                            <li>{{ $survey->question_title }} - {{ $survey->question_body }}</li>
+                                            <li>{{ $survey->question_title }}</li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -98,13 +98,6 @@
                                                                     name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][question_title]"
                                                                     placeholder="Tulis judul pertanyaan di sini"
                                                                     value="{{ $question->question_title }}" required>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <label class="form-label">Isi Pertanyaan</label>
-                                                                <input type="text" class="form-control"
-                                                                    name="sections[{{ $sectionIndex }}][questions][{{ $questionIndex }}][question_body]"
-                                                                    placeholder="Tulis isi pertanyaan di sini"
-                                                                    value="{{ $question->question_body }}" required>
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
@@ -376,12 +369,6 @@
                     <input type="text" class="form-control"
                         name="sections[__SECTION_INDEX__][questions][__QUESTION_INDEX__][question_title]"
                         placeholder="Tulis judul pertanyaan di sini" required>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Isi Pertanyaan</label>
-                    <input type="text" class="form-control"
-                        name="sections[__SECTION_INDEX__][questions][__QUESTION_INDEX__][question_body]"
-                        placeholder="Tulis isi pertanyaan di sini" required>
                 </div>
             </div>
             <div class="row mb-3">

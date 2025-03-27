@@ -208,7 +208,7 @@
                             </div>
                         @endforeach
                         <button type="submit" class="userSurveyButton" style="justify-content: center" id="submitButton">
-                            <span class="button-text">Kirim</span>
+                            <span>Kirim</span>
                             <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                         </button>
                     </form>

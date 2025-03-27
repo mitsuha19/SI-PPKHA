@@ -12,7 +12,6 @@ class Survey extends Model
     protected $fillable = [
         'survey_sections_id',
         'question_title',
-        'question_body',
         'type_question_id',
         'is_required'
     ];

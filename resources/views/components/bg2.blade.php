@@ -1,11 +1,12 @@
 <div class="background-container">
     <div class="wave wave-top">
-        <svg viewBox="0 150 1200 671">
+        <svg viewBox="0 250 1200 700">
             <defs>
                 <linearGradient id="waveGradientTop" x1="0" y1="0" x2="0" y2="1"
                     gradientUnits="objectBoundingBox">
-                    <stop offset="10%" stop-color="#91D3E6" />
-                    <stop offset="60%" stop-color="#6FAEC7" />
+                    <stop offset="0%" stop-color="#7FC6D9" />
+                    <stop offset="10%" stop-color="#7FC6D9" />
+                    <stop offset="60%" stop-color="#7FC6D9" />
                     <stop offset="100%" stop-color="#436973" />
                 </linearGradient>
             </defs>

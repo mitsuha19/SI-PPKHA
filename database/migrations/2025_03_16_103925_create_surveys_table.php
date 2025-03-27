@@ -14,7 +14,6 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('survey_sections_id')->constrained('survey_sections')->onDelete('cascade');
             $table->string('question_title');
-            $table->text('question_body');
             $table->foreignId('type_question_id')->constrained('type_questions');
             $table->boolean('is_required')->default(false);
             $table->timestamps();

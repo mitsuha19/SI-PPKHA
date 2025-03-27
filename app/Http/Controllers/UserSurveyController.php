@@ -54,7 +54,6 @@ class UserSurveyController extends Controller
                 'sections.*.survey_sections_name' => 'required|string|max:255',
                 'sections.*.questions' => 'required|array|min:1',
                 'sections.*.questions.*.question_title' => 'required|string|max:255',
-                'sections.*.questions.*.question_body' => 'required|string',
                 'sections.*.questions.*.type_question_id' => 'required|exists:type_questions,id',
                 'sections.*.questions.*.is_required' => 'required|boolean',
                 'sections.*.questions.*.options' => 'sometimes|array',
@@ -63,7 +62,6 @@ class UserSurveyController extends Controller
             ], [
                 'sections.*.survey_sections_name.required' => 'Nama section wajib diisi.',
                 'sections.*.questions.*.question_title.required' => 'Judul pertanyaan wajib diisi.',
-                'sections.*.questions.*.question_body.required' => 'Isi pertanyaan wajib diisi.',
                 'sections.*.questions.*.type_question_id.required' => 'Tipe pertanyaan wajib dipilih.',
                 'sections.*.questions.*.is_required.required' => 'Status wajib diisi harus ditentukan.',
                 'sections.*.questions.*.options.*.option_body.required_if' => 'Opsi jawaban wajib diisi untuk tipe pertanyaan ini.',
@@ -83,7 +81,6 @@ class UserSurveyController extends Controller
                     $survey->id = $this->getNextAvailableId('surveys');
                     $survey->survey_sections_id = $section->id;
                     $survey->question_title = $question['question_title'];
-                    $survey->question_body = $question['question_body'];
                     $survey->type_question_id = $question['type_question_id'];
                     // Use array_key_exists to avoid undefined key error
                     $survey->is_required = isset($question['is_required']) ? (bool) $question['is_required'] : false;
@@ -130,7 +127,6 @@ class UserSurveyController extends Controller
                 'sections.*.questions' => 'required|array|min:1',
                 'sections.*.questions.*.id' => 'nullable|exists:surveys,id',
                 'sections.*.questions.*.question_title' => 'required|string|max:255',
-                'sections.*.questions.*.question_body' => 'required|string',
                 'sections.*.questions.*.type_question_id' => 'required|exists:type_questions,id',
                 'sections.*.questions.*.is_required' => 'required|boolean',
                 'sections.*.questions.*.survey_options' => 'sometimes|array',
@@ -167,7 +163,6 @@ class UserSurveyController extends Controller
                         $survey = Survey::find($questionData['id']);
                         $survey->update([
                             'question_title' => $questionData['question_title'],
-                            'question_body' => $questionData['question_body'],
                             'type_question_id' => $questionData['type_question_id'],
                             'is_required' => $questionData['is_required'],
                         ]);
@@ -176,7 +171,6 @@ class UserSurveyController extends Controller
                         $survey->id = $this->getNextAvailableId('surveys');
                         $survey->survey_sections_id = $section->id;
                         $survey->question_title = $questionData['question_title'];
-                        $survey->question_body = $questionData['question_body'];
                         $survey->type_question_id = $questionData['type_question_id'];
                         $survey->is_required = $questionData['is_required'];
                         $survey->save();

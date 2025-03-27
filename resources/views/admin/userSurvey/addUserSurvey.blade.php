@@ -89,12 +89,6 @@
                             name="sections[__SECTION_INDEX__][questions][__QUESTION_INDEX__][question_title]"
                             placeholder="Tulis judul pertanyaan di sini" required>
                     </div>
-                    <div class="col-md-6">
-                        <label class="form-label">Isi Pertanyaan</label>
-                        <input type="text" class="form-control"
-                            name="sections[__SECTION_INDEX__][questions][__QUESTION_INDEX__][question_body]"
-                            placeholder="Tulis isi pertanyaan di sini" required>
-                    </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-8">
@@ -390,7 +384,7 @@
                 let valid = true;
                 $('.section-card').each(function() {
                     const sectionName = $(this).find('input[name$="[survey_sections_name]"]')
-                    .val() || `Section ${$(this).find('.section-number').text()}`;
+                        .val() || `Section ${$(this).find('.section-number').text()}`;
                     const questionCount = $(this).find('.question-card').length;
 
                     if (questionCount === 0) {
@@ -407,7 +401,7 @@
                     // Check if is_required is present for each question
                     $(this).find('.question-card').each(function() {
                         const isRequiredField = $(this).find(
-                        'input[name$="[is_required]"]');
+                            'input[name$="[is_required]"]');
                         if (isRequiredField.length === 0) {
                             valid = false;
                             Swal.fire({

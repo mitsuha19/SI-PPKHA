@@ -1,11 +1,11 @@
 <div class="background-container-mid">
-    <svg viewBox="0 100 1440 870" preserveAspectRatio="none">
+    <svg viewBox="0 100 1440 800" preserveAspectRatio="none">
         <defs>
             <linearGradient id="backgroundGradient2" x1="0" y1="0" x2="0" y2="1"
                 gradientUnits="objectBoundingBox">
-                <stop offset="0%" stop-color="#91D3E6" />
+                <stop offset="0%" stop-color="#6dabc5" />
                 <stop offset="40%" stop-color="#6FAEC7" />
-                <stop offset="60%" stop-color="#6FAEC7" />
+                <stop offset="60%" stop-color="#6199A7" />
                 <stop offset="100%" stop-color="#436973" />
             </linearGradient>
         </defs>
