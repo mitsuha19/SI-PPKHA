@@ -2,7 +2,121 @@
 
 @section('content')
 @include('components.navbarAdmin')
-<div class="main-content">
-  <h1 >Ini dashboard</h1>
-</div>
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>Tracer Study Dashboard</h1>
+    </div>
+
+    <!-- Display the numeric stats -->
+    <div class="row mb-3">
+      <div class="col text-center">
+          <h3>Total Alumni</h3>
+          <h4>{{ $totalAlumni }}</h4>
+      </div>
+      <div class="col text-center">
+          <h3>Belum Mengisi</h3>
+          <h4>{{ $belumMengisi }}</h4>
+      </div>
+      <div class="col text-center">
+          <h3>Sudah Mengisi</h3>
+          <h4>{{ $sudahMengisi }}</h4>
+      </div>
+    </div>
+    
+    <section class="section dashboard">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <div class="card flex-fill">
+            <div class="card-body">
+              <h5 class="card-title">Perbandingan Pengisian Kuesioner</h5>
+              <canvas id="chartPengisianKuesioner"></canvas>
+            </div>
+          </div>
+        </div>
+      <div class="col-md-6 mb-3">
+          <div class="card flex-fill">
+            <div class="card-body">
+              <h5 class="card-title">Jumlah Mahasiswa Tiap Kategori</h5>
+              <canvas id="chartJumlahMahasiswa"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Data for Chart 1: Jumlah Mahasiswa Tiap Kategori
+        const jumlahMahasiswaData = @json($jumlah_mahasiswa_tiap_kategori);
+
+        const configJumlahMahasiswa = {
+            type: 'bar',
+            data: {
+                labels: jumlahMahasiswaData.labels,
+                datasets: [{
+                    label: 'Total Responden',
+                    data: jumlahMahasiswaData.data,
+                    backgroundColor: ['#6C5B7B', '#355C7D', '#C06C84', '#F8B195', '#F67280'],
+                    borderColor: '#fff',
+                    borderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const total = jumlahMahasiswaData.data.reduce((sum, value) => sum + value, 0);
+                                const value = tooltipItem.raw;
+                                const percentage = ((value / total) * 100).toFixed(2);
+                                return `${jumlahMahasiswaData.labels[tooltipItem.dataIndex]}: ${value} (${percentage}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        new Chart(document.getElementById('chartJumlahMahasiswa'), configJumlahMahasiswa);
+
+        // Data for Chart 2: Perbandingan Pengisian Kuesioner
+        const pengisianKuesionerData = @json($perbandingan_pengisian_questioner);
+
+        const configPengisianKuesioner = {
+            type: 'pie',
+            data: {
+                labels: pengisianKuesionerData.labels,
+                datasets: [{
+                    label: 'Total Responden',
+                    data: pengisianKuesionerData.data,
+                    backgroundColor: ['#556270', '#4ECDC4', '#C44D58', '#FF6B6B', '#2A363B'],
+                    borderColor: '#333',
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const total = pengisianKuesionerData.data.reduce((sum, value) => sum + value, 0);
+                                const value = tooltipItem.raw;
+                                const percentage = ((value / total) * 100).toFixed(2);
+                                return `${pengisianKuesionerData.labels[tooltipItem.dataIndex]}: ${value} (${percentage}%)`;
+                            },
+                        },
+                    },
+                },
+            },
+        };
+
+        new Chart(document.getElementById('chartPengisianKuesioner'), configPengisianKuesioner);
+    });
+</script>
 @endsection

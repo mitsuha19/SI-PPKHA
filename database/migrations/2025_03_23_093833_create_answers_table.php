@@ -10,8 +10,8 @@ return new class extends Migration {
         Schema::create('answers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('question_id')->constrained('questions')->onDelete('cascade');
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null'); // Bisa null jika anonim
-            $table->text('answer_value'); // Bisa menyimpan teks, JSON (untuk multiple choice), atau angka
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->text('answer_value');
             $table->timestamps();
         });
     }

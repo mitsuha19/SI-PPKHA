@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('nim')->unique();
-            $table->string('prodi');
             $table->year('tahun_lulus');
-            $table->string('fakultas');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->foreignId('fakultas_id')->constrained('fakultas');
+            $table->foreignId('prodi_id')->constrained('prodi');
             $table->string('password');
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -6,13 +6,14 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\LowonganController;
-use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\KuesionerController;
 use App\Http\Controllers\PengumumanController;
-use App\Http\Controllers\TracerStudyController;
+use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\UserSurveyController;
+use App\Http\Controllers\TracerStudyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +24,6 @@ use App\Http\Controllers\UserSurveyController;
 // Home & other public pages
 
 Route::get('/', [BerandaController::class, 'index'])->name('ppkha.beranda');
-
-
-
 
 // Overwriting /berita route to show user-specific data:
 Route::get('/berita', [BeritaController::class, 'showBeritaUser'])->name('ppkha.berita');
@@ -65,7 +63,7 @@ Route::group([
 ], function () {
 
     // Dashboard
-    Route::get('/', fn() => view('admin.dashboard'));
+    Route::get('/', [ReportController::class, 'showTracerStudyStats'])->name('admin.dashboard');
 
     // Berita routes
     Route::prefix('berita')->group(function () {
@@ -150,6 +148,17 @@ Route::group([
 
 /*
 |--------------------------------------------------------------------------
+| Auth Routes
+|--------------------------------------------------------------------------
+*/
+Route::view('/register', 'auth.register')->name('register');
+Route::view('/login', 'auth.login')->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register.post');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+/*
+|--------------------------------------------------------------------------
 | Other Routes
 |--------------------------------------------------------------------------
 */
@@ -159,10 +168,24 @@ Route::post('/forms', [FormController::class, 'store'])->name('forms.store');
 Route::get('/forms', [FormController::class, 'index'])->name('forms.index');
 
 // Test Kuisioner for User
-Route::get('/kuesioner', [KuesionerController::class, 'show'])->name('kuesioner.show');
+Route::get('/kuesioner', [KuesionerController::class, 'show'])->name('kuesioner.show')
+    ->middleware(['auth', 'role:admin|alumni']);
 Route::post('/kuesioner/next/{sectionId}', [KuesionerController::class, 'nextSection'])->name('kuesioner.next');
 Route::get('/kuesioner/previous/{sectionId}', [KuesionerController::class, 'previousSection'])->name('kuesioner.previous');
 Route::get('/kuesioner/submit', [KuesionerController::class, 'submit'])->name('kuesioner.submit');
+
+// Route Kuesioner
+Route::get('/report-show', [ReportController::class, 'view'])->name('report-show');
+Route::get('/report', [ReportController::class, 'viewCards'])->name('report');
+// Route::get('/report-2021', function () {
+//     return redirect()->route('report')->with('error', 'Report belum tersedia');
+// })->name('report.2021');
+// Route::get('/report-2022', function () {
+//     return redirect()->route('report')->with('error', 'Report belum tersedia');
+// })->name('report.2022');
+// Route::get('/get-prodi', [ReportController::class, 'getProdi'])->name('report.get-prodi');
+// Route::get('/get-tahun-angkatan', [ReportController::class, 'getAngkatan'])->name('report.get-tahun-angkatan');
+// Route::get('/get-report', [ReportController::class, 'getReport'])->name('report.get-report');
 
 // Proxy routes for external API data
 Route::get('/proxy/provinces', function () {
@@ -194,14 +217,3 @@ Route::get('/proxy/regencies/{provinceId}', function ($provinceId) {
         return response()->json(['error' => 'Server Error: ' . $e->getMessage()], 500);
     }
 });
-
-/*
-|--------------------------------------------------------------------------
-| Auth Routes
-|--------------------------------------------------------------------------
-*/
-Route::view('/register', 'auth.register')->name('register');
-Route::view('/login', 'auth.login')->name('login');
-Route::post('/register', [AuthController::class, 'register'])->name('register.post');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

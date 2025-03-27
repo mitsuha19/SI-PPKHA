@@ -297,8 +297,6 @@ class TracerStudyController extends Controller
         }
     }
 
-
-
     public function getSections($formId)
     {
         $sections = Section::where('form_id', $formId)->orderBy('section_order')->get();

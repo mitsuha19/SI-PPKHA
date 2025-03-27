@@ -22,9 +22,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'nim',
-        'prodi',
+        'prodi_id',
         'tahun_lulus',
-        'fakultas',
+        'fakultas_id',
         'password',
     ];
 
@@ -51,8 +51,13 @@ class User extends Authenticatable
         ];
     }
 
-    // public function getAuthIdentifierName()
-    // {
-    //     return 'nim';
-    // }
+    public function fakultas()
+    {
+        return $this->belongsTo(Fakultas::class);
+    }
+
+    public function prodi()
+    {
+        return $this->belongsTo(Prodi::class);
+    }
 }

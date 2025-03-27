@@ -2,8 +2,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
-<!-- Custom SweetAlert2 CSS -->
 <!-- Custom Swal for Logout -->
 <link rel="stylesheet" href="{{ asset('assets/css/logout.css') }}">
 
@@ -33,6 +31,7 @@
                         '/artikel' => 'Artikel',
                         '/daftar_perusahaan' => 'Daftar Perusahaan',
                         '/lowongan_pekerjaan' => 'Lowongan Pekerjaan',
+                        '/kuesioner' => 'Kuesioner',
                         '/tracer_study' => 'Tracer Study',
                         '/user-survey' => 'User Survey',
                         '/tentang' => 'Tentang',
