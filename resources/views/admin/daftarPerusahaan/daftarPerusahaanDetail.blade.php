@@ -56,7 +56,7 @@
   </div>
 
   <div class="align-self-end justify-self-end" style="margin-bottom: 100px">
-    <a href="" class="btn btn-primary">Kembali</a>
+    <a href="{{ route('admin.daftarPerusahaan.daftarPerusahaan') }}" class="btn btn-primary">Kembali</a>
   </div>
 </div>
 @endsection

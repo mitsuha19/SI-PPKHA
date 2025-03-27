@@ -44,7 +44,11 @@
         <button type="button" class="btn btn-danger btn-sm" onclick="removeKeahlian(this)">❌</button>
     </div>
     @endforeach
-    <button type="button" class="btn btn-success btn-sm mt-2" onclick="addKeahlian()">+ Tambah Keahlian</button>
+    <button type="button" class="btn mt-1 mb-3" style="width: fit-content; height: fit-content;" onclick="addKeahlian()">
+      <i class='bx bx-plus'></i>
+      Tambah Keahlian
+    </button> 
+
 </div>
 
 
@@ -62,7 +66,7 @@
         
         <div class="d-flex justify-content-end align-items-end gap-2">
         <button type="submit" class="btn" style="background-color: #13C56B; color: white; border: none;">
-          Perbarui
+          Edit
         </button>
         <a href="{{ route('admin.lowonganPekerjaan.lowonganPekerjaan') }}" class="btn btn-secondary">Batal</a>
           

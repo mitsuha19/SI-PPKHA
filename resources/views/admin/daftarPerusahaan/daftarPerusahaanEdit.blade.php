@@ -44,7 +44,7 @@
 
         <div class="d-flex justify-content-end align-items-end gap-2 mt-3">
           <a href="{{ route('admin.daftarPerusahaan.daftarPerusahaan') }}" class="btn btn-secondary">Batal</a>
-          <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+          <button type="submit" class="btn btn-primary">Edit</button>
         </div>
       </form>
   </div>
