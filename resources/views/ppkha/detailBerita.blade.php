@@ -12,39 +12,41 @@
       {{ date('d M Y H:i:s', strtotime($berita->updated_at)) }} WIB
     </p>
   </div>
-  <div class="d-flex align-items-center justify-content-center m-2 w-100">
-    <div id="myCarousel" style="width: 80%" class="carousel slide mb-6" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        @php
-          $gambarArray = is_string($berita->gambar) ? json_decode($berita->gambar, true) : $berita->gambar;
-          $gambarArray = is_array($gambarArray) ? $gambarArray : [];
-        @endphp
-        @foreach ($gambarArray as $index => $gambar)
-          <button type="button" data-bs-target="#beritaCarousel" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}" aria-label="Slide {{ $index + 1 }}"></button>
-        @endforeach
-      </div>
-      <div class="carousel-inner">
-        @foreach ($gambarArray as $index => $gambar)
-          <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-            <img class="card-img-top-detail" src="{{ asset('storage/' . $gambar) }}" class="d-block w-100">
+  
+  {{-- Carousel untuk Gambar --}}
+        <div class="w-100 d-flex justify-content-center m-2">
+          <div id="beritaCarousel" style="width: 40%" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              @php
+                $gambarArray = is_string($berita->gambar) ? json_decode($berita->gambar, true) : $berita->gambar;
+                $gambarArray = is_array($gambarArray) ? $gambarArray : [];
+              @endphp
+              @foreach ($gambarArray as $index => $gambar)
+                <button type="button" data-bs-target="#beritaCarousel" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}" aria-label="Slide {{ $index + 1 }}"></button>
+              @endforeach
+            </div>
+            <div class="carousel-inner">
+              @foreach ($gambarArray as $index => $gambar)
+                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                  <img style="width: 100%" src="{{ asset('storage/' . $gambar) }}" class="d-block w-100">
+                </div>
+              @endforeach
+              @if (empty($gambarArray))
+                <div class="carousel-item active">
+                  <img style="width: 100%" src="{{ asset('assets/images/image.png') }}" class="d-block w-100">
+                </div>
+              @endif
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#beritaCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#beritaCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
-        @endforeach
-        @if (empty($gambarArray))
-          <div class="carousel-item active">
-            <img class="card-img-top-detail" src="{{ asset('assets/images/image.png') }}" class="d-block w-100">
-          </div>
-        @endif
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-  </div>
+        </div>
   
   <div class="p-4">
     <p style="font-family: 'Roboto Mono', serif; font-weight: 500; color: white;">     

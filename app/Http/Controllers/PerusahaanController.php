@@ -28,7 +28,7 @@ class PerusahaanController extends Controller
 
         $perusahaan = Perusahaan::when($search, function ($query) use ($search) {
             return $query->where('namaPerusahaan', 'like', "%{$search}%");
-        })->orderBy('created_at', 'desc')->paginate(3); // Gunakan paginate agar selalu berupa Collection
+        })->orderBy('created_at', 'desc')->paginate(10); // Gunakan paginate agar selalu berupa Collection
 
         return view('ppkha.daftar_perusahaan', compact('perusahaan', 'search'));
     }

@@ -26,7 +26,7 @@ class LowonganController extends Controller
 
     $lowongan = Lowongan::when($search, function ($query) use ($search) {
         return $query->where('judulLowongan', 'like', "%{$search}%");
-    })->orderBy('created_at', 'desc')->paginate(3);
+    })->orderBy('created_at', 'desc')->paginate(10);
         return view('ppkha.lowongan_pekerjaan', compact('lowongan', 'search'));
     }
 

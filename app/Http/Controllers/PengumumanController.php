@@ -25,7 +25,7 @@ class PengumumanController extends Controller
 
     $pengumuman = Pengumuman::when($search, function ($query) use ($search) {
         return $query->where('judul_pengumuman', 'like', "%{$search}%");
-    })->orderBy('created_at', 'desc')->paginate(3);
+    })->orderBy('created_at', 'desc')->paginate(10);
     return view('ppkha.pengumuman', compact('pengumuman','search'));
   }
 
