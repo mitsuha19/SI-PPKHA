@@ -36,9 +36,7 @@
         <div class="berita-section">
             <h2 class="section-title">BERITA</h2>
             <div class="berita-grid">
-                <div class="d-flex justify-content-center align-items-center">
-                    <i class='bx bx-chevron-left bx-lg'></i>
-                </div>
+            
 
                 <!-- Static Cards -->
                 @foreach ($berita as $item)
@@ -56,7 +54,9 @@
                         @endif
                         <div class="card-body">
                             <h5 class="card-title text-start roboto-title">{{ $item->judul_berita }}</h5>
-                            <p class="roboto-light text-white" style="font-size: 14px"> {{ Str::limit($item->deskripsi_berita, 200, '...') }}</p>
+                            <p class="roboto-light text-white" style="font-size: 14px; text-align: justify;"> 
+                                {{ Str::limit($item->deskripsi_berita, 200, '...') }}
+                            </p>
                             <div class="d-flex justify-content-end ">
                             <a href="{{ route('ppkha.detailBerita', ['id' => $item->id]) }}">Selengkapnya..</a>
 
@@ -67,9 +67,7 @@
                 @endforeach
                 
 
-                <div class="d-flex justify-content-center align-items-center">
-                    <i class='bx bx-chevron-right bx-lg'></i>
-                </div>
+                
 
             </div>
         </div>
@@ -79,9 +77,7 @@
         <div class="pengumuman-section">
             <h2 class="section-title">PENGUMUMAN</h2>
             <div class="pengumuman-grid">
-                <div class="d-flex justify-content-center align-items-center">
-                    <i class='bx bx-chevron-left bx-lg'></i>
-                </div>
+                
 
                 <!-- Static Cards -->
                 @foreach ($pengumuman as $item)
@@ -98,10 +94,6 @@
                 </div>
                 @endforeach
                 
-
-                <div class="d-flex justify-content-center align-items-center">
-                    <i class='bx bx-chevron-right bx-lg'></i>
-                </div>
             </div>
         </div>
 
@@ -126,13 +118,11 @@
                         <h5 class="card-title">{{ $item->judul_artikel }}</h5>
                         <div class="d-flex justify-content-end">
                         <a href="{{ route('ppkha.detailArtikel', ['id' => $item->id]) }}">Selengkapnya..</a>
-</div>
+                    </div>
                     </div>
                 </div>
                 @endforeach
 
-
-               
             </div>
         </div>
     </div>

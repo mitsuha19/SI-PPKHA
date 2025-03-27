@@ -86,4 +86,63 @@
 
 </div>
 
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background: linear-gradient(to bottom, #80C7D9, #446973);">
+      <div class="modal-body d-flex flex-column align-items-center justify-content-center gap-4">
+        
+        <h5 class="modal-title" id="deleteModalLabel"></h5>
+        <h2 class="text-center">Apakah anda yakin untuk menghapus <b id="beritaTitle"></b>?</h2>
+        
+        <div class="d-flex gap-3">
+          <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal" 
+            style="padding: 15px 40px; font-size: 1.5rem; background: linear-gradient(to bottom, #80C7D9, #446973); border: none;">
+            Cancel
+          </button>
+
+          <button type="button" class="btn btn-lg text-white" id="confirmDeleteButton" 
+            style="padding: 15px 40px; font-size: 1.5rem; background: linear-gradient(to bottom, #80C7D9, #446973); border: none;">
+            Yes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script>
+  let selectedId = null;
+
+  function openDeleteModal(id, title) {
+      selectedId = id;
+      document.getElementById('beritaTitle').innerText = title;
+      const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+      deleteModal.show();
+  }
+
+  document.getElementById('confirmDeleteButton').addEventListener('click', function() {
+      fetch(`/admin/berita/${selectedId}`, {
+              method: 'DELETE',
+              headers: {
+                  'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                  'Content-Type': 'application/json',
+              },
+          })
+          .then(response => {
+              if (!response.ok) throw new Error('Gagal menghapus data.');
+              return response.json();
+          })
+          .then(data => {
+              if (data.success) {
+                  window.location.href = '{{ route('admin.berita.berita') }}';
+              } else {
+                  console.error(data.message);
+              }
+          })
+          .catch(error => console.error('Error:', error));
+  });
+</script>
 @endsection

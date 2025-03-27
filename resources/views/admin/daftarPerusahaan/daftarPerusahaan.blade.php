@@ -69,25 +69,26 @@
 
 <!-- Modal Hapus -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="deleteModalLabel">Hapus Data Perusahaan</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-              <p>Apakah Kamu yakin ingin menghapus data Perusahaan <b id="namaPerusahaan"></b>?</p>
-          </div>
-          <div class="modal-footer">
-              <!-- Tombol Batal dengan warna abu-abu dan teks putih -->
-              <button type="button" class="btn btn-secondary" style="color: white;"
-                  data-bs-dismiss="modal">Batal</button>
-              <!-- Tombol Hapus dengan warna merah dan teks putih -->
-              <button type="button" class="btn"
-                  style="background-color: #FF0000; border: 1px solid #FF0000; color: white;"
-                  id="confirmDeleteButton">Ya, Tetap Hapus</button>
-          </div>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="background: linear-gradient(to bottom, #80C7D9, #446973);">
+      <div class="modal-body d-flex flex-column align-items-center justify-content-center gap-4">
+        
+        <h5 class="modal-title" id="deleteModalLabel"></h5>
+        <h2 class="text-center">Apakah anda yakin untuk menghapus <b id="namaPerusahaan"></b>?</h2>
+        
+        <div class="d-flex gap-3">
+          <button type="button" class="btn btn-secondary btn-lg" data-bs-dismiss="modal" 
+            style="padding: 15px 40px; font-size: 1.5rem; background: linear-gradient(to bottom, #80C7D9, #446973); border: none;">
+            Cancel
+          </button>
+
+          <button type="button" class="btn btn-lg text-white" id="confirmDeleteButton" 
+            style="padding: 15px 40px; font-size: 1.5rem; background: linear-gradient(to bottom, #80C7D9, #446973); border: none;">
+            Yes
+          </button>
+        </div>
       </div>
+    </div>
   </div>
 </div>
 

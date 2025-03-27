@@ -122,22 +122,16 @@ class ArtikelController extends Controller
         return redirect()->route('admin.artikel.artikel')->with('success', 'Artikel berhasil diupdate!');
     }
 
-    public function destroy($id){
-    try {
-      $artikel = Artikel::findOrFail($id);
-      $gambarPaths = json_decode($artikel->gambar ?? '[]', true);
-
-      foreach ($gambarPaths as $file) {
-        if (Storage::disk('public')->exists($file)) {
-          Storage::disk('public')->delete($file);
-        }
+    public function destroy($id)
+  {
+      try {
+          $artikel = Artikel::findOrFail($id);
+          $artikel->delete();
+  
+          return response()->json(['success' => true]);
+      } catch (\Exception $e) {
+          return response()->json(['success' => false, 'message' => 'Gagal menghapus berita.'], 500);
       }
-
-      $artikel->delete();
-      return response()->json(['success' => true]);
-    } catch (\Exception $e) {
-      return response()->json(['success' => false, 'message' => 'Gagal menghapus pengumuman.'], 500);
-    }
   }
 
   public function show($id){

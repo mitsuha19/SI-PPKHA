@@ -18,6 +18,10 @@
         placeholder="Masukkan deskripsi Artikel" required>
           {{ $artikel->deskripsi_artikel }}
         </textarea>  
+
+        <label for="sumber" class="form-label poppins-bold text-black mb-2">Sumber Artikel:</label>
+        <input class="form-control mb-3" id="sumber" name="sumber_artikel" value="{{ $artikel->sumber_artikel }}"></input>
+
         <label for="myFile" class="form-label poppins-bold text-black mt-2">Tambahkan Gambar:</label>
         <div class="button-wrap">
           <label class="buttonUploadFile" for="upload">
