@@ -24,64 +24,63 @@
             <!-- Menu Navigasi -->
             <ul class="text-white" style="list-style: none; padding: 0; display: flex; gap: 20px;">
                 @php
-                    $menus = [
-                        '/' => 'Beranda',
-                        '/berita' => 'Berita',
-                        '/pengumuman' => 'Pengumuman',
-                        '/artikel' => 'Artikel',
-                        '/daftar_perusahaan' => 'Daftar Perusahaan',
-                        '/lowongan_pekerjaan' => 'Lowongan Pekerjaan',
-                        '/kuesioner' => 'Kuesioner',
-                        '/tracer_study' => 'Tracer Study',
-                        '/user-survey' => 'User Survey',
-                        '/tentang' => 'Tentang',
-                    ];
+                $menus = [
+                '/' => 'Beranda',
+                '/berita' => 'Berita',
+                '/pengumuman' => 'Pengumuman',
+                '/artikel' => 'Artikel',
+                '/daftar_perusahaan' => 'Daftar Perusahaan',
+                '/lowongan_pekerjaan' => 'Lowongan Pekerjaan',
+                '/tracer_study' => 'Tracer Study',
+                '/user-survey' => 'User Survey',
+                '/tentang' => 'Tentang',
+                ];
                 @endphp
 
                 @foreach ($menus as $route => $name)
-                                @php
-                                    $isActive = Request::is(trim($route, '/')) || ($route == '/' && Request::is('/'));
-                                @endphp
+                @php
+                $isActive = Request::is(trim($route, '/')) || ($route == '/' && Request::is('/'));
+                @endphp
 
-                                <li style="position: relative; text-align: center;">
-                                    <a href="{{ $route }}" class="{{ $isActive ? 'fw-bold' : '' }}"
-                                        style="text-decoration: none; color: white; font-weight: {{ $isActive ? 'bold' : 'normal' }}; display: inline-block;">
-                                        {{ $name }}
-                                    </a>
+                <li style="position: relative; text-align: center;">
+                    <a href="{{ $route }}" class="{{ $isActive ? 'fw-bold' : '' }}"
+                        style="text-decoration: none; color: white; font-weight: {{ $isActive ? 'bold' : 'normal' }}; display: inline-block;">
+                        {{ $name }}
+                    </a>
 
-                                    @if ($isActive)
-                                        <div
-                                            style="position: absolute; left: 50%; transform: translateX(-50%); bottom: -13px; width: 100%;">
-                                            <svg width="100%" height="4" viewBox="0 0 100 4" preserveAspectRatio="none">
-                                                <ellipse cx="50" cy="2" rx="50" ry="1.5" fill="#3B3B3B" />
-                                                <ellipse cx="50" cy="2" rx="45" ry="1" fill="#1A1A1A" />
-                                            </svg>
-                                        </div>
-                                    @endif
-                                </li>
+                    @if ($isActive)
+                    <div
+                        style="position: absolute; left: 50%; transform: translateX(-50%); bottom: -13px; width: 100%;">
+                        <svg width="100%" height="4" viewBox="0 0 100 4" preserveAspectRatio="none">
+                            <ellipse cx="50" cy="2" rx="50" ry="1.5" fill="#3B3B3B" />
+                            <ellipse cx="50" cy="2" rx="45" ry="1" fill="#1A1A1A" />
+                        </svg>
+                    </div>
+                    @endif
+                </li>
                 @endforeach
 
                 @guest
-                    <li class="me-3"><a href="{{ route('login') }}" class="text-white">Login</a></li>
+                <li class="me-3"><a href="{{ route('login') }}" class="text-white">Login</a></li>
                 @endguest
 
                 @auth
-                    <li>
-                        <!-- Public Logout Form with Custom SweetAlert2 Confirmation -->
-                        <form id="public-logout-form" action="{{ route('logout') }}" method="POST"
-                            class="d-flex align-items-center justify-content-center text-decoration-none"
-                            style="margin-left: auto; margin-right: auto; background: none; border: none; padding: 0;">
-                            @csrf
-                            <button type="button" class="btn btn-transparent d-flex align-items-center text-decoration-none"
-                                style="background: none; border: none; padding: 0;" onclick="showLogoutConfirmation(event)">
-                                <span class="fw-bold" style="font-size: 14px; margin-right: 5px; color: #FFFFFF;">
-                                    Hi, {{ Auth::user()->name }}
-                                </span>
-                                <img src="{{ asset('assets/images/logout-04.png') }}" alt="Logout Icon"
-                                    style="margin-left: 5px;">
-                            </button>
-                        </form>
-                    </li>
+                <li>
+                    <!-- Public Logout Form with Custom SweetAlert2 Confirmation -->
+                    <form id="public-logout-form" action="{{ route('logout') }}" method="POST"
+                        class="d-flex align-items-center justify-content-center text-decoration-none"
+                        style="margin-left: auto; margin-right: auto; background: none; border: none; padding: 0;">
+                        @csrf
+                        <button type="button" class="btn btn-transparent d-flex align-items-center text-decoration-none"
+                            style="background: none; border: none; padding: 0;" onclick="showLogoutConfirmation(event)">
+                            <span class="fw-bold" style="font-size: 14px; margin-right: 5px; color: #FFFFFF;">
+                                Hi, {{ Auth::user()->name }}
+                            </span>
+                            <img src="{{ asset('assets/images/logout-04.png') }}" alt="Logout Icon"
+                                style="margin-left: 5px;">
+                        </button>
+                    </form>
+                </li>
                 @endauth
 
                 <script>

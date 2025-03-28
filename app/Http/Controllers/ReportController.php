@@ -91,9 +91,6 @@ class ReportController extends Controller
             return $ans->question->question_body;
         })->filter()->unique()->values();
 
-        // Debug: Uncomment to check question headers
-        // dd($questions->toArray());
-
         // 3. Build CSV header: fixed columns + question headers.
         $header = array_merge(['Name', 'NIM', 'Fakultas', 'Prodi'], $questions->toArray());
 
@@ -101,13 +98,13 @@ class ReportController extends Controller
         $filename = "responden_form_{$formId}_" . time() . ".csv";
         $handle = fopen($filename, 'w+');
 
-        // Optionally, do NOT write BOM to avoid Excel issues:
-        // fwrite($handle, "\xEF\xBB\xBF");
+        // Write a UTF-8 BOM to help Excel recognize the file encoding.
+        fwrite($handle, "\xEF\xBB\xBF");
 
         // Write the header row first.
         fputcsv($handle, $header);
 
-        // 5. Group answers by user_id.
+        // 5. Group answers by user_id so each user appears only once.
         $groupedData = $answers->groupBy('user_id');
         foreach ($groupedData as $userId => $responses) {
             if (!$userId) continue;
@@ -131,9 +128,11 @@ class ReportController extends Controller
 
         fclose($handle);
 
-        // Return download response.
-        return response()->download($filename, 'response.csv', [
+        $headers = [
             'Content-Type' => 'text/csv',
-        ])->deleteFileAfterSend(true);
+        ];
+
+        return response()->download($filename, 'response.csv', $headers)
+            ->deleteFileAfterSend(true);
     }
 }
