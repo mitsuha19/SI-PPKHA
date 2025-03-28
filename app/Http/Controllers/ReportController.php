@@ -7,7 +7,10 @@ use App\Models\Fakultas;
 use App\Models\Prodi;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
+use App\Models\Answer;
+
 
 class ReportController extends Controller
 {
@@ -72,5 +75,65 @@ class ReportController extends Controller
             'sudahMengisi',
             'belumMengisi'
         ));
+    }
+
+    public function unduhCSV($formId)
+    {
+        // 1. Fetch all answers for questions in the given form.
+        $answers = \App\Models\Answer::whereHas('question.section.form', function ($query) use ($formId) {
+            $query->where('id', $formId);
+        })
+            ->with(['question', 'user.fakultas', 'user.prodi'])
+            ->get();
+
+        // 2. Get a unique list of question texts.
+        $questions = $answers->map(function ($ans) {
+            return $ans->question->question_body;
+        })->filter()->unique()->values();
+
+        // Debug: Uncomment to check question headers
+        // dd($questions->toArray());
+
+        // 3. Build CSV header: fixed columns + question headers.
+        $header = array_merge(['Name', 'NIM', 'Fakultas', 'Prodi'], $questions->toArray());
+
+        // 4. Create a unique filename.
+        $filename = "responden_form_{$formId}_" . time() . ".csv";
+        $handle = fopen($filename, 'w+');
+
+        // Optionally, do NOT write BOM to avoid Excel issues:
+        // fwrite($handle, "\xEF\xBB\xBF");
+
+        // Write the header row first.
+        fputcsv($handle, $header);
+
+        // 5. Group answers by user_id.
+        $groupedData = $answers->groupBy('user_id');
+        foreach ($groupedData as $userId => $responses) {
+            if (!$userId) continue;
+            $firstResponse = $responses->first();
+            $user = $firstResponse->user;
+
+            $row = [
+                $user->name ?? '',
+                $user->nim ?? '',
+                $user->fakultas->name ?? '',
+                $user->prodi->name ?? '',
+            ];
+
+            // For each question header, add the answer from this user.
+            foreach ($questions as $questionText) {
+                $answer = $responses->firstWhere('question.question_body', $questionText)?->answer_value ?? '';
+                $row[] = $answer;
+            }
+            fputcsv($handle, $row);
+        }
+
+        fclose($handle);
+
+        // Return download response.
+        return response()->download($filename, 'response.csv', [
+            'Content-Type' => 'text/csv',
+        ])->deleteFileAfterSend(true);
     }
 }

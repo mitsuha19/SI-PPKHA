@@ -10,45 +10,57 @@
 
     <!-- Display the numeric stats -->
     <div class="row mb-3">
-      <div class="col text-center">
-          <h3>Total Alumni</h3>
-          <h4>{{ $totalAlumni }}</h4>
-      </div>
-      <div class="col text-center">
-          <h3>Belum Mengisi</h3>
-          <h4>{{ $belumMengisi }}</h4>
-      </div>
-      <div class="col text-center">
-          <h3>Sudah Mengisi</h3>
-          <h4>{{ $sudahMengisi }}</h4>
-      </div>
+        <div class="col text-center">
+            <h3>Total Alumni</h3>
+            <h4>{{ $totalAlumni }}</h4>
+        </div>
+        <div class="col text-center">
+            <h3>Belum Mengisi</h3>
+            <h4>{{ $belumMengisi }}</h4>
+        </div>
+        <div class="col text-center">
+            <h3>Sudah Mengisi</h3>
+            <h4>{{ $sudahMengisi }}</h4>
+        </div>
     </div>
-    
+
+    <!-- CSV -->
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h4>Hasil Tracer Study</h4>
+            <a href="{{ route('admin.unduh.csv', ['formId' => 1]) }}" class="btn btn-sm btn-primary">
+                Unduh CSV
+            </a>
+        </div>
+    </div>
+
     <section class="section dashboard">
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <div class="card flex-fill">
-            <div class="card-body">
-              <h5 class="card-title">Perbandingan Pengisian Kuesioner</h5>
-              <canvas id="chartPengisianKuesioner"></canvas>
+        <div class="row">
+            <!-- Pie chart -->
+            <div class="col-md-6 mb-3">
+                <div class="card flex-fill">
+                    <div class="card-body">
+                        <h5 class="card-title">Perbandingan Pengisian Kuesioner</h5>
+                        <canvas id="chartPengisianKuesioner"></canvas>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      <div class="col-md-6 mb-3">
-          <div class="card flex-fill">
-            <div class="card-body">
-              <h5 class="card-title">Jumlah Mahasiswa Tiap Kategori</h5>
-              <canvas id="chartJumlahMahasiswa"></canvas>
+            <!-- Bar graph -->
+            <div class="col-md-6 mb-3">
+                <div class="card flex-fill">
+                    <div class="card-body">
+                        <h5 class="card-title">Jumlah Mahasiswa Tiap Kategori</h5>
+                        <canvas id="chartJumlahMahasiswa"></canvas>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </section>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         // Data for Chart 1: Jumlah Mahasiswa Tiap Kategori
         const jumlahMahasiswaData = @json($jumlah_mahasiswa_tiap_kategori);
 
@@ -67,10 +79,12 @@
             options: {
                 responsive: true,
                 plugins: {
-                    legend: { position: 'top' },
+                    legend: {
+                        position: 'top'
+                    },
                     tooltip: {
                         callbacks: {
-                            label: function (tooltipItem) {
+                            label: function(tooltipItem) {
                                 const total = jumlahMahasiswaData.data.reduce((sum, value) => sum + value, 0);
                                 const value = tooltipItem.raw;
                                 const percentage = ((value / total) * 100).toFixed(2);
@@ -101,10 +115,12 @@
             options: {
                 responsive: true,
                 plugins: {
-                    legend: { position: 'top' },
+                    legend: {
+                        position: 'top'
+                    },
                     tooltip: {
                         callbacks: {
-                            label: function (tooltipItem) {
+                            label: function(tooltipItem) {
                                 const total = pengisianKuesionerData.data.reduce((sum, value) => sum + value, 0);
                                 const value = tooltipItem.raw;
                                 const percentage = ((value / total) * 100).toFixed(2);

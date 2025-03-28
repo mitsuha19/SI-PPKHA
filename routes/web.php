@@ -144,6 +144,10 @@ Route::group([
         Route::post('/update-all', [UserSurveyController::class, 'updateAll'])->name('update.all');
         Route::delete('/destroy/{id}', [UserSurveyController::class, 'destroy'])->name('destroy');
     });
+
+    // Download CSV
+    Route::get('/admin/unduh-data/csv/{formId}', [ReportController::class, 'unduhCSV'])
+        ->name('admin.unduh.csv');
 });
 
 /*
