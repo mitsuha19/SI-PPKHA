@@ -13,8 +13,8 @@ class FakultasSeeder extends Seeder
     public function run(): void
     {
         Fakultas::create(['name' => 'Vokasi']);
-        Fakultas::create(['name' => 'FITE']);
-        Fakultas::create(['name' => 'FTI']);
-        Fakultas::create(['name' => 'Bioteknologi']);
+        Fakultas::create(['name' => 'Fakultas Informatika dan Teknik Elektro']);
+        Fakultas::create(['name' => 'Fakultas Teknologi Industri']);
+        Fakultas::create(['name' => 'Fakultas Bioteknologi']);
     }
 }

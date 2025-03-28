@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Prodi;
+use App\Models\Fakultas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -75,20 +77,37 @@ class AuthController extends Controller
             return redirect()->back()->withErrors(['data' => 'Registration data does not match our records.']);
         }
 
+        // 6. Convert 'fakultas' and 'prodi' strings to their respective IDs
+        //    If the record doesn't exist, you can decide to create it or throw an error.
+        //    Below, we throw an error if not found.
 
-        // 6. Create the new user locally.
+        $fakultasRecord = Fakultas::where('name', $request->fakultas)->first();
+        if (!$fakultasRecord) {
+            return redirect()->back()->withErrors([
+                'fakultas' => "Fakultas '{$request->fakultas}' not found in local database."
+            ]);
+        }
+
+        $prodiRecord = Prodi::where('name', $request->prodi)->first();
+        if (!$prodiRecord) {
+            return redirect()->back()->withErrors([
+                'prodi' => "Prodi '{$request->prodi}' not found in local database."
+            ]);
+        }
+
+        // 7. Create the new user with IDs instead of strings.
         $user = User::create([
-            'name'        => $request->name,
-            'nim'         => $request->nim,
-            'prodi'       => $request->prodi,
-            'tahun_lulus' => $request->tahun_lulus,
-            'fakultas'    => $request->fakultas,
-            'password'    => Hash::make($request->password)
+            'name'         => $request->name,
+            'nim'          => $request->nim,
+            'tahun_lulus'  => $request->tahun_lulus,
+            'fakultas_id'  => $fakultasRecord->id,
+            'prodi_id'     => $prodiRecord->id,
+            'password'     => Hash::make($request->password)
         ]);
 
         $user->assignRole('alumni');
 
-        // 7. Redirect to login page with success message.
+        // 8. Redirect to login page with success message.
         return redirect()->route('login')->with('success', 'Registrasi sukses');
     }
 
