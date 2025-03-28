@@ -4,8 +4,8 @@
     @include('components.navbar')
 
     <div class="detail-content">
-        <div class="user-survey">
-            <div class="user-survey-content" style="padding: 0px 160px; margin-top: 10px">
+        <div class="d-flex justify-content-center" style="width: 90%">
+            <div class="">
                 @if (!$form)
                     <div class="card-user-survey text-start">
                         <h1 class="montserrat-medium text-black">Belum Ada Kuisioner</h1>
@@ -23,14 +23,14 @@
 
                     <form action="{{ route('kuesioner.next', $firstSection->id) }}" method="POST">
                         <div class="card-user-survey">
-                            <h3 class="montserrat-medium text-black section-title"
+                            <h3 class="montserrat-medium text-black title-section"
                                 style="font-size: 24px; font-family: 'Roboto'">{{ $firstSection->section_name }}</h3>
 
                             @csrf
 
                             @foreach ($firstSection->questions as $question)
                                 <div class="box-form">
-                                    <label class="montserrat-medium text-black section-title"
+                                    <label class="montserrat-medium text-black title-section"
                                         style="font-size: 18px; font-family: 'Roboto'">{{ $question->question_body }}
                                         @if ($question->is_required)
                                             <span class="text-danger">*</span>
@@ -66,7 +66,7 @@
                                                         id="option_{{ $option->id }}" value="{{ $option->id }}"
                                                         @if ($previousAnswer == $option->id) checked @endif
                                                         @if ($question->is_required) required @endif>
-                                                    <label class="form-check-label" for="option_{{ $option->id }}">
+                                                    <label class="form-check-label text-black" for="option_{{ $option->id }}">
                                                         <i>{{ $option->option_body }}</i>
                                                     </label>
                                                 </div>
@@ -75,7 +75,7 @@
                                                     <input class="form-check-input me-2" type="checkbox"
                                                         name="answers[{{ $question->id }}][]" value="{{ $option->id }}"
                                                         @if (is_array($previousAnswer) && in_array($option->id, json_decode($previousAnswer, true))) checked @endif>
-                                                    <label class="form-check-label">{{ $option->option_body }}</label>
+                                                    <label class="form-check-label text-black">{{ $option->option_body }}</label>
                                                 </div>
                                             @endif
                                         @endforeach
@@ -100,7 +100,7 @@
                                                             value="{{ $i }}"
                                                             @if ($previousAnswer == $i) checked @endif
                                                             @if ($question->is_required) required @endif>
-                                                        <label class="form-check-label" style="font-style: italic;"
+                                                        <label class="form-check-label text-black" style="font-style: italic;"
                                                             for="option_{{ $question->id }}_{{ $i }}">{{ $i }}</label>
                                                     </div>
                                                 @endfor
@@ -138,7 +138,7 @@
                                 <a href="{{ route('kuesioner.previous', $previousSectionId) }}"
                                     class="userSurveyButton">Kembali</a>
                             @endif
-                            <button type="submit" class="userSurveyButton">Berikutnya</button>
+                            <button type="submit" class="userSurveyButton mb-3">Berikutnya</button>
                         </div>
                     </form>
                 @endif

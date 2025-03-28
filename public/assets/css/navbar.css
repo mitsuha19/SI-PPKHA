@@ -366,6 +366,15 @@ h1 {
     color: #000000; /* Matches the screenshot */
 }
 
+.title-section {
+    font-size: 64px;
+    font-weight: bold;
+    font-style: italic;
+    text-underline-offset: 5px;
+    margin-bottom: 10px;
+    color: #000000; /* Matches the screenshot */
+}
+
 .footer-title {
     font-size: 64px;
     font-weight: bold;
@@ -1019,17 +1028,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    max-width: 300vh; /* Increased from 70vw to make the card wider */
-    margin: 0 auto;
-    padding: 20px;
+    width: 90%;
+    /* max-width: 300vh; Increased from 70vw to make the card wider */
 }
 
 .user-survey-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
 }
 
 .card-user-survey {
@@ -1093,6 +1099,7 @@ body {
 }
 
 .userSurveyButton {
+    text-decoration: none;
     background-color: white;
     color: black;
     font-weight: bold;

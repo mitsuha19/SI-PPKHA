@@ -288,6 +288,9 @@ input[type="text"] {
 /****************************************** PAGINATION COMPONENT *******************************************/
 
 /* Menghapus background biru */
+.pagination {
+    margin-bottom: 100px;
+}
 .custom-pagination-container {
     background: transparent !important;
     box-shadow: none !important;

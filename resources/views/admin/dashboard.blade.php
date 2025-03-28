@@ -3,13 +3,11 @@
 @section('content')
 @include('components.navbarAdmin')
 
-<main id="main" class="main">
-    <div class="pagetitle">
-        <h1>Tracer Study Dashboard</h1>
-    </div>
+<div class="main-content d-flex flex-column align-items-center">
+    <h1>Tracer Study Dashboard</h1>
 
     <!-- Display the numeric stats -->
-    <div class="row mb-3">
+    <div class="d-flex flex-row justify-content-center gap-2 w-100 mt-3 mb-3">
         <div class="col text-center">
             <h3>Total Alumni</h3>
             <h4>{{ $totalAlumni }}</h4>
@@ -25,17 +23,17 @@
     </div>
 
     <!-- CSV -->
-    <div class="row mb-4">
+    <div class="content-wrapper d-flex flex-column align-items-center w-100 mb-3">
         <div class="col text-center">
             <h4>Hasil Tracer Study</h4>
-            <a href="{{ route('admin.unduh.csv', ['formId' => 1]) }}" class="btn btn-sm btn-primary">
+            <a href="{{ route('admin.unduh.csv', ['formId' => 1]) }}" class="btn btn-tambah mt-2 mb-0 pb-0">
                 Unduh CSV
             </a>
         </div>
     </div>
 
     <section class="section dashboard">
-        <div class="row">
+        <div class="row" style="margin-bottom: 100px;">
             <!-- Pie chart -->
             <div class="col-md-6 mb-3">
                 <div class="card flex-fill">
