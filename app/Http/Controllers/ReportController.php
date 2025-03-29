@@ -77,7 +77,7 @@ class ReportController extends Controller
         ));
     }
 
-    public function unduhCSV($formId)
+    public function unduhTracerStudyCSV($formId)
     {
         // 1. Fetch all answers for questions in the given form.
         $answers = \App\Models\Answer::whereHas('question.section.form', function ($query) use ($formId) {
@@ -95,7 +95,7 @@ class ReportController extends Controller
         $header = array_merge(['Name', 'NIM', 'Fakultas', 'Prodi'], $questions->toArray());
 
         // 4. Create a unique filename.
-        $filename = "responden_form_{$formId}_" . time() . ".csv";
+        $filename = "tracer_study_{$formId} " . time() . ".csv";
         $handle = fopen($filename, 'w+');
 
         // Write a UTF-8 BOM to help Excel recognize the file encoding.
@@ -132,7 +132,45 @@ class ReportController extends Controller
             'Content-Type' => 'text/csv',
         ];
 
-        return response()->download($filename, 'response.csv', $headers)
+        return response()->download($filename, 'tracer_study_response.csv', $headers)
+            ->deleteFileAfterSend(true);
+    }
+
+    public function unduhUserSurveyCSV()
+    {
+        // Generate a unique filename
+        $filename = "user_survey" . time() . ".csv";
+        $handle = fopen($filename, 'w+');
+
+        // Write a UTF-8 BOM for Excel compatibility (optional)
+        fwrite($handle, "\xEF\xBB\xBF");
+
+        // Define the CSV header row
+        $header = ['Survey ID', 'Survey Section ID', 'Question', 'Response'];
+        fputcsv($handle, $header);
+
+        // Retrieve all SurveyResponse records with their related Survey and SurveySection
+        $responses = \App\Models\SurveyResponse::with(['survey', 'surveySection'])->get();
+
+        foreach ($responses as $response) {
+            $surveyId = $response->survey_id;
+            $surveySectionId = $response->survey_sections_id;
+            // Use the survey's question_title for the question text
+            $question = $response->survey->question_title ?? '';
+            // If response is an array, join into a string; otherwise, cast to string.
+            $respValue = is_array($response->response)
+                ? implode(', ', $response->response)
+                : (string)$response->response;
+
+            $row = [$surveyId, $surveySectionId, $question, $respValue];
+            fputcsv($handle, $row);
+        }
+
+        fclose($handle);
+
+        $headers = ['Content-Type' => 'text/csv'];
+
+        return response()->download($filename, 'user_survey_response.csv', $headers)
             ->deleteFileAfterSend(true);
     }
 }

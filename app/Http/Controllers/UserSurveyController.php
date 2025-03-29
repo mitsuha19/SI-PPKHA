@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SurveySection;
-use App\Models\SurveyResponse;
-use App\Models\SurveyOption;
 use App\Models\Survey;
+use App\Models\SurveyOption;
 use App\Models\TypeQuestion;
 use Illuminate\Http\Request;
+use App\Models\SurveySection;
+use App\Models\SurveyResponse;
 use Illuminate\Support\Facades\DB;
-use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Log;
+use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Validation\ValidationException;
 // use Illuminate\Support\Facades\Session;
 
 class UserSurveyController extends Controller

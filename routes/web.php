@@ -146,8 +146,10 @@ Route::group([
     });
 
     // Download CSV
-    Route::get('/admin/unduh-data/csv/{formId}', [ReportController::class, 'unduhCSV'])
+    Route::get('/admin/unduh-data/csv/{formId}', [ReportController::class, 'unduhTracerStudyCSV'])
         ->name('admin.unduh.csv');
+    Route::get('/admin/unduh-survey/csv/{surveySectionId}', [ReportController::class, 'unduhUserSurveyCSV'])
+        ->name('admin.unduh.survey.csv');
 });
 
 /*
