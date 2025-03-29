@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    // Change Config Flag if captcha is needed during login
+    'login_require_captcha' => env('LOGIN_REQUIRE_CAPTCHA', true),
 ];

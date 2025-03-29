@@ -121,9 +121,15 @@ class AuthController extends Controller
         // Validate login credentials.
         $credentials = $request->validate([
             'nim'      => 'required|string|exists:users,nim',
-            'password' => 'required|string',
-            'g-recaptcha-response' => 'required|captcha'
+            'password' => 'required|string'
         ]);
+
+        if (config('app.login_require_captcha')) {
+            $rules['g-recaptcha-response'] = 'required|captcha';
+        }
+
+        // Validate credentials.
+        $credentials = $request->validate($rules);
 
         // Retrieve the user.
         $user = User::where('nim', $credentials['nim'])->first();
@@ -138,12 +144,12 @@ class AuthController extends Controller
         // Log in the user.
         Auth::login($user);
 
-        // Check if the user has the admin role using Spatie's hasRole() method
+        // Redirect the user "admmin" to admin page.
         if ($user->hasRole('admin')) {
             return redirect('/admin')->with('success', 'Welcome, Ketua Guild!');
         }
 
-        // Redirect the user "alumni" to the home page.
+        // Redirect the user "alumni" to home page.
         return redirect('/');
     }
 

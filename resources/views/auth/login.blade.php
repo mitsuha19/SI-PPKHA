@@ -4,9 +4,9 @@
 @section('content')
 <div class="form-container">
     @if(session('success'))
-      <div class="alert alert-success">
-          {{ session('success') }}
-      </div>
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
     @endif
 
     <form method="POST" action="{{ route('login') }}">
@@ -27,12 +27,13 @@
 
         <!-- reCAPTCHA -->
         {!! NoCaptcha::renderJs() !!}
+        @if(config('app.login_require_captcha'))
         {!! NoCaptcha::display() !!}
         <br>
-
         <span class="help-block">
             <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
         </span>
+        @endif
 
         <button type="submit" class="btn btn-primary">Login</button>
 
