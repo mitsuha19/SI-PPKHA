@@ -78,6 +78,8 @@
                                         @break
 
                                         @case(3)
+                                            <input type="hidden" name="answers[{{ $sectionIndex }}][{{ $questionIndex }}]"
+                                                value="">
                                             <!-- Radio Buttons -->
                                             <div class="radioButtons">
                                                 <h3 class="montserrat-medium text-black mb-2" style="font-size: 16px;">
