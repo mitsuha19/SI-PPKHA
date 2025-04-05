@@ -38,8 +38,15 @@
         <ul class="nav flex-column mb-auto px-3" style="padding-top: 16px">
             <li class="nav-item">
                 <a href="/admin" class="nav-link {{ Request::is('admin') ? 'active' : '' }}" aria-current="page">
-                    <i class='bx bx-home-alt'></i>
+                    <i class='bx bx-bar-chart-square' ></i>
                     <span class="d-none d-xl-inline ms-1">Dashboard</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="/admin/beranda" class="nav-link {{ Request::is('admin/beranda*') ? 'active' : '' }}">
+                    <i class='bx bx-home-alt'></i>
+                    <span class="d-none d-xl-inline ms-1">Home</span>
                 </a>
             </li>
 

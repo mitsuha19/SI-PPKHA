@@ -19,9 +19,7 @@
                     </div>
                     <p class="subheading poppins-semibold">Career Alumni Information System</p>
                     <p class="description roboto-title m-0 w-100" style="font-size: 15px">
-                        Selamat datang di Laman Career Alumni Information System, Institut Teknologi Del.
-                        Melalui website ini, Menghadirkan berbagai layanan, mulai dari portal karir, database alumni,
-                        hingga layanan bimbingan karir yang membantu Anda meraih peluang terbaik di dunia profesional.
+                        {{ old('deskripsi_beranda', $beranda->deskripsi_beranda) }}
                     </p>
                 </div>
 

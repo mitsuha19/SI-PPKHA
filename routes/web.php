@@ -62,6 +62,9 @@ Route::group([
     'middleware' => ['auth', 'role:admin']
 ], function () {
 
+    Route::get('/beranda', [BerandaController::class, 'showBerandaAdmin'])->name('beranda.edit');
+    Route::put('/beranda', [BerandaController::class, 'update'])->name('beranda.update');
+
     // Dashboard
     Route::get('/', [ReportController::class, 'showTracerStudyStats'])->name('admin.dashboard');
 
