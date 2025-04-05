@@ -7,7 +7,7 @@
 
         <div class="d-flex flex-row justify-content-center gap-2 w-100 mb-3">
     <form class="w-50 d-flex" action="{{ route('admin.pengumuman.index') }}" method="GET">
-        <input type="text" id="pengumuman" name="search" class="form-control" placeholder="Cari Berita..." value="{{ request('search') }}">
+        <input type="text" id="pengumuman" name="search" class="form-control" placeholder="Cari Pengumuman..." value="{{ request('search') }}">
         <button type="submit" class="search-logo d-flex justify-content-center align-items-center">
             <i class='bx bx-search-alt-2'></i>
         </button>

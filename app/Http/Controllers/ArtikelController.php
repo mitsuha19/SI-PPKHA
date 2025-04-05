@@ -75,53 +75,49 @@ class ArtikelController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $artikel = Artikel::findOrFail($id);
+{
+    $artikel = Artikel::findOrFail($id);
 
-        $request->validate([
-            'judul_artikel' => 'required|string|max:255',
-            'deskripsi_artikel' => 'required|string',
-            'sumber_artikel' => 'nullable|url',
-            'gambar.*' => 'file|mimes:jpg,jpeg,png,pdf|max:2048',
-        ]);
+    $request->validate([
+        'judul_artikel' => 'required|string|max:255',
+        'deskripsi_artikel' => 'required|string',
+        'sumber_artikel' => 'nullable|url',
+        'gambar.*' => 'file|mimes:jpg,jpeg,png,pdf|max:2048',
+    ]);
 
-        // Update data pengumuman
-        $artikel->judul_artikel = $request->judul_artikel;
-        $artikel->deskripsi_artikel = $request->deskripsi_artikel;
-        $artikel->sumber_artikel = $request->sumber_artikel;
+    $artikel->judul_artikel = $request->judul_artikel;
+    $artikel->deskripsi_artikel = $request->deskripsi_artikel;
+    $artikel->sumber_artikel = $request->sumber_artikel;
 
-        // Hapus lampiran yang dipilih
-        if ($request->has('hapus_gambar')) {
-            $gambarTerbaru = json_decode($artikel->gambar, true) ?? [];
-    
-            foreach ($request->hapus_gambar as $file) {
-            if ($file) { // Hanya hapus jika file tidak null
-                Storage::delete($file);
-                $lampiranTerbaru = array_filter($gambarTerbaru, fn($item) => $item !== $file);
+    // Laravel sudah cast ke array, jadi tinggal pakai langsung
+    $gambarSekarang = $artikel->gambar ?? [];
+
+    // Hapus gambar jika diminta
+    if ($request->has('hapus_gambar')) {
+        foreach ($request->hapus_gambar as $file) {
+            if (in_array($file, $gambarSekarang)) {
+                Storage::disk('public')->delete($file);
+                $gambarSekarang = array_filter($gambarSekarang, fn($item) => $item !== $file);
             }
-            }
-    
-            // Simpan kembali daftar lampiran yang tersisa
-            $artikel->gambar = json_encode(array_values($lampiranTerbaru));
         }
-    
-        // Tambahkan lampiran baru
-        if ($request->hasFile('gambar')) {
-            $gambarBaru = [];
-            foreach ($request->file('gambar') as $file) {
-            $path = $file->store('gambar_pengumuman', 'public');
-            $lampiranBaru[] = $path;
-            }
-    
-            // Gabungkan dengan lampiran yang masih ada
-            $gambarLama = json_decode($artikel->gambar, true) ?? [];
-            $artikel->gambar = json_encode(array_merge($gambarLama, $gambarBaru));
-        }
-        $artikel->save();
-    
-        return redirect()->route('admin.artikel.artikel')->with('success', 'Artikel berhasil diupdate!');
     }
 
+    // Tambahkan gambar baru jika ada
+    if ($request->hasFile('gambar')) {
+        foreach ($request->file('gambar') as $file) {
+            $path = $file->store('gambar_pengumuman', 'public');
+            $gambarSekarang[] = $path;
+        }
+    }
+
+    // Simpan array gambar langsung
+    $artikel->gambar = array_values($gambarSekarang);
+    $artikel->save();
+
+    return redirect()->route('admin.artikel.artikel')->with('success', 'Artikel berhasil diupdate!');
+}
+
+    
     public function destroy($id)
   {
       try {

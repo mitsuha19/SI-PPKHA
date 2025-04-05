@@ -28,8 +28,10 @@
             <i class='bx bx-upload me-1'></i>
             Choose a File
           </label>
-          <input id="upload" type="file" name="gambar[]" multiple>
+          <input id="upload" type="file" name="gambar[]" multiple  onchange="previewFiles()">
         </div>
+
+        <div id="preview-container" class="mt-3 d-flex flex-wrap gap-2"></div>
 
         {{-- Menampilkan Gambar yang Sudah Ada --}}
         @if (!empty($artikel->gambar))
@@ -89,5 +91,53 @@
           });
       });
   });
+
+  function previewFiles() {
+      const input = document.getElementById('upload');
+      const previewContainer = document.getElementById('preview-container');
+      previewContainer.innerHTML = '';
+
+      if (input.files.length > 0) {
+          Array.from(input.files).forEach((file, index) => {
+              const reader = new FileReader();
+
+              reader.onload = function (e) {
+                  let imgWrapper = document.createElement('div');
+                  imgWrapper.style.position = 'relative';
+                  imgWrapper.style.width = '120px';
+                  imgWrapper.classList.add('text-center');
+
+                  let img = document.createElement('img');
+                  img.src = e.target.result;
+                  img.width = 100;
+                  img.classList.add('rounded', 'border', 'w-100');
+
+                  // Membuat tombol hapus
+                  let removeButton = document.createElement('button');
+                  removeButton.type = 'button';
+                  removeButton.innerHTML = '❌';
+                  removeButton.style.cssText = `
+                      position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%);
+                      background: white; color: red; font-size: 14px; cursor: pointer;
+                      width: 24px; height: 24px; border-radius: 50%;
+                      display: flex; align-items: center; justify-content: center;
+                      box-shadow: 0px 0px 4px rgba(0,0,0,0.2); border: 1px solid red;
+                      z-index: 10;
+                  `;
+
+                  // Event untuk menghapus gambar
+                  removeButton.onclick = function () {
+                      imgWrapper.remove();
+                  };
+
+                  imgWrapper.appendChild(img);
+                  imgWrapper.appendChild(removeButton);
+                  previewContainer.appendChild(imgWrapper);
+              };
+
+              reader.readAsDataURL(file);
+          });
+      }
+  }
 </script>
 @endsection
