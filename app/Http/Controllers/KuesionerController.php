@@ -14,6 +14,15 @@ class KuesionerController extends Controller
 {
     public function show()
     {
+
+        $userId = Auth::id();
+
+        $hasAnswered = Answer::where('user_id', $userId)->exists();
+
+        if ($hasAnswered) {
+            return view('ppkha.kuisionerSubmit');
+        }
+
         $form = Form::orderBy('id')->first();
 
         if (!$form) {
