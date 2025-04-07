@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        app(\App\Http\Controllers\AuthController::class)->getExternalApiToken();
+        // app(\App\Http\Controllers\AuthController::class)->getExternalApiToken();
         Paginator::useBootstrapFive();
     }
 }

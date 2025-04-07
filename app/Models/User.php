@@ -67,4 +67,9 @@ class User extends Authenticatable
     {
         return CaesarCipher::decrypt($value);
     }
+
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = CaesarCipher::encrypt($value);
+    }
 }
