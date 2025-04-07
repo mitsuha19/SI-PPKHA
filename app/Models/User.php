@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Helpers\CaesarCipher;
+
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
@@ -59,5 +61,10 @@ class User extends Authenticatable
     public function prodi()
     {
         return $this->belongsTo(Prodi::class);
+    }
+
+    public function getNameAttribute($value)
+    {
+        return CaesarCipher::decrypt($value);
     }
 }
