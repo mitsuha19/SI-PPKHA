@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
+use App\Helpers\CaesarCipher;
 
 class AuthController extends Controller
 {
@@ -97,7 +98,7 @@ class AuthController extends Controller
 
         // 7. Create the new user with IDs instead of strings.
         $user = User::create([
-            'name'         => $request->name,
+            'name'         => CaesarCipher::encrypt($request->name),
             'nim'          => $request->nim,
             'tahun_lulus'  => $request->tahun_lulus,
             'fakultas_id'  => $fakultasRecord->id,
