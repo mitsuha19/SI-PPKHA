@@ -20,11 +20,11 @@
             </div>
 
             <!-- <div class="form-group">
-                <i class="icon fa fa-graduation-cap"></i>
-                <input type="text" name="prodi" id="prodi" placeholder="Enter Your Program Study" value="{{ old('prodi') }}"
-                    required>
-                @error('prodi') <span class="error">{{ $message }}</span> @enderror
-            </div> -->
+                    <i class="icon fa fa-graduation-cap"></i>
+                    <input type="text" name="prodi" id="prodi" placeholder="Enter Your Program Study" value="{{ old('prodi') }}"
+                        required>
+                    @error('prodi') <span class="error">{{ $message }}</span> @enderror
+                </div> -->
 
             <div class="form-group">
                 <i class="icon fa fa-graduation-cap"></i>
@@ -48,7 +48,7 @@
 
             <div class="form-group">
                 <i class="icon fa fa-building-o"></i>
-                <select name="fakultas" id="fakukltas" required>
+                <select name="fakultas" id="fakultas" required>
                     <option value="" disabled selected>Select Your Faculty</option>
                     <option value="Vokasi">Vokasi</option>
                     <option value="Fakultas Informatika dan Teknik Elektro">Fakultas Informatika dan Teknik Elektro</option>
@@ -60,10 +60,10 @@
             </div>
 
             <!-- <div class="form-group">
-                
-                <input type="text" name="fakultas" id="fakultas" placeholder="Enter Your Faculty" required>
-                @error('fakultas') <span class="error">{{ $message }}</span> @enderror
-            </div> -->
+
+                    <input type="text" name="fakultas" id="fakultas" placeholder="Enter Your Faculty" required>
+                    @error('fakultas') <span class="error">{{ $message }}</span> @enderror
+                </div> -->
 
             <div class="form-group">
                 <i class="icon fa fa-calendar"></i>
