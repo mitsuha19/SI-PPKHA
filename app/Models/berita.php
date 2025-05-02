@@ -18,6 +18,7 @@ class Berita extends Model
     'gambar',
   ];
 
+  
   protected $casts = [
     'gambar' => 'array', // Cast lampiran column as array
   ];
