@@ -25,7 +25,7 @@
     </div>
     <div class="p-4">
         <p style="font-family: 'Roboto Mono', serif; font-weight: 500; color: white;">
-            {{ $artikel->deskripsi_artikel }}
+            {!! nl2br(e($artikel->deskripsi_artikel)) !!}
             <br> <br>
           Sumber : <br>
           <a class="text-white" href="{{ $artikel->sumber_artikel }}"> {{ $artikel->sumber_artikel }}</a>

@@ -32,7 +32,7 @@
           <input type="url" class="form-control mb-3" id="websitePerusahaan" name="websitePerusahaan" placeholder="Masukkan URL Website Perusahaan">
 
           <label for="industriPerusahaan" class="poppins-bold text-black mb-2">Industri:</label>
-          <input type="text" class="form-control mb-3" id="industriPerusahaan" name="industriPerusahaan" placeholder="Masukkan URL Website Perusahaan">
+          <input type="text" class="form-control mb-3" id="industriPerusahaan" name="industriPerusahaan" placeholder="Masukkan Industri Perusahaan">
 
           <label for="deskripsiPerusahaan" class="form-label poppins-bold text-black mb-2">Deskripsi Perusahaan:</label>
           <textarea class="form-control mb-3" id="deskripsiPerusahaan" name="deskripsiPerusahaan" placeholder="Masukkan Deskripsi Perusahaan"></textarea>  

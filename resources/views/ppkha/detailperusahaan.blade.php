@@ -41,7 +41,7 @@
                     <div class="job-info" style="display: grid; gap: 10px;">
                         <h3>{{ $job->judulLowongan }}</h3>
                         <ul style="margin: 0; padding-left: 20px;">
-                            <li>{{ $job->deskripsiLowongan }}</li>
+                        {!! nl2br(e(Str::limit($job->deskripsiLowongan, 50, '...'))) !!}
                         </ul>
                     </div>
 
