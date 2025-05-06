@@ -46,7 +46,7 @@
                                 {{-- Judul Berita --}}
                                 <div class="d-flex flex-md-row flex-sm-column w-auto justify-content-start align-items-end">
                                     <h2 class="fst-italic roboto-title mb-0 align-self-center">
-                                        {{ $item->judul_berita }}
+                                        {{ Str::limit($item->judul_berita, 65, '...') }}
                                     </h2>
                                     <div class="align-self-start">
                                         <div class="ms-auto d-flex gap-2">

@@ -84,7 +84,7 @@
             <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Deskripsi Lowongan</h5>
             <hr class="mt-1">
             <p class="mb-0 montserrat-medium" style="font-size: 12px">
-                {!! nl2br(e(Str::limit($lowongan->deskripsiLowongan, 100, '...'))) !!}
+                {!! nl2br(e($lowongan->deskripsiLowongan)) !!}
             </p>
         </div>
 

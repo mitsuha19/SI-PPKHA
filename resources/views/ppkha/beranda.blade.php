@@ -50,14 +50,13 @@
                             @else
                                 <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="artikel">
                             @endif
-                            <div class="card-body">
-                                <h5 class="card-title text-start roboto-title">{{ Str::limit($item->judul_berita, 50, '...') }}</h5>
+                            <div class="card-body card-detail">
+                                <h5 class="card-title text-start roboto-title">{{ $item->judul_berita}}</h5>
                                 <p class="roboto-light text-white" style="font-size: 14px; text-align: justify;">
                                     {{ Str::limit($item->deskripsi_berita, 150, '...') }}
                                 </p>
                                 <div class="d-flex justify-content-end ">
                                     <a href="{{ route('ppkha.detailBerita', ['id' => $item->id]) }}">Selengkapnya..</a>
-
                                 </div>
                             </div>
                         </div>
@@ -83,7 +82,7 @@
                         <div class="card h-100" style="width: 18rem;">
                             <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
                             <div class="card-detail">
-                                <h5 class="card-title text-center roboto-title mb-3">{{ Str::limit($item->judul_pengumuman, 50, '...') }}</h5>
+                                <h5 class="card-title text-center roboto-title mb-3">{{ $item->judul_pengumuman }}</h5>
                                 <div class="d-flex justify-content-end">
                                     <a href="{{ route('ppkha.pengumumanDetail', ['id' => $item->id]) }}">Selengkapnya..</a>
                                 </div>
@@ -112,8 +111,8 @@
                             <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="artikel">
                         @endif
 
-                        <div class="card-body">
-                            <h5 class="card-title">{{ Str::limit($item->judul_artikel, 50, '...') }}</h5>
+                        <div class="card-body card-detail">
+                            <h5 class="card-title">{{$item->judul_artikel}}</h5>
                             <div class="d-flex justify-content-end">
                                 <a href="{{ route('ppkha.detailArtikel', ['id' => $item->id]) }}">Selengkapnya..</a>
                             </div>

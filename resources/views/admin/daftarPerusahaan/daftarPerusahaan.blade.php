@@ -24,7 +24,7 @@
                     <div class="ps-3 w-100">
                         <div class="d-flex flex-row w-auto justify-content-start align-items-end">
                             <h2 class="fst-italic roboto-title mb-0 align-self-center">
-                                {{ $p->namaPerusahaan }}
+                                {{ Str::limit($p->namaPerusahaan, 55, '...') }}
                             </h2>
 
                             <div class="align-self-start">

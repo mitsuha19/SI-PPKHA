@@ -39,7 +39,8 @@
                         <div class="ps-3 w-100">
                             <div class="d-flex flex-row w-auto justify-content-start align-items-end">
                                 <h2 class="fst-italic roboto-title mb-0 align-self-center">
-                                    {{ $item->judul_pengumuman }}
+                                    {{ Str::limit($item->judul_pengumuman, 60, '...') }}
+                                    
                                 </h2>
 
                                 <div class="ms-auto d-flex gap-2">

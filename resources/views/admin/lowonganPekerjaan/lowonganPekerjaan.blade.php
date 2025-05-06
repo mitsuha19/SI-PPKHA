@@ -61,7 +61,7 @@
                                     <div class="d-flex flex-row justify-content-between align-items-center">
                                         <h2 class="fst-italic roboto-title mb-0"
                                             style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                            {{ $l->judulLowongan }}
+                                            {{ Str::limit($l->judulLowongan, 60, '...') }}
                                         </h2>
                                     </div>
 
