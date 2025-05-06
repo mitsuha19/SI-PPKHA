@@ -543,6 +543,11 @@ h1 {
     padding-bottom: 20px; /* Extra space for scrolling */
 }
 
+.berita-grid >.bg-card{
+    border-radius: 15px;
+    background-color: #0f1035;
+}
+
 .berita-grid .background-card,
 .artikel-grid .background-card {
     background-color: #0f1035;
@@ -762,6 +767,14 @@ h1 {
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+.share-section > .btn-primary {
+    padding: 7px 40px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
 }
 
 .share-icon {

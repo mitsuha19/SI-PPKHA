@@ -55,7 +55,8 @@
 
                 <!-- Third Container: Right Section -->
                 <div class="right-section">
-                    <button class="lamar-btn">Lamar</button>
+                    <button class="lamar-btn" onclick="window.location.href='{{ $lowongan->perusahaan->websitePerusahaan }}'">Lamar</button>
+
                     <div class="share-section">
                         <button onclick="copyLink()" class="btn btn-primary">
                             Bagikan

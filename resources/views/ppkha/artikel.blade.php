@@ -19,12 +19,12 @@
             </div>
         </div>
         <div class="pengumuman-section d-flex flex-column align-items-center gap-4">
-            <div class="pengumuman-grid" style="display: flex; flex-wrap: wrap;">
+            <div class="berita-grid" style="display: flex; flex-wrap: wrap;">
                 <!-- Static Cards -->
 
                 @foreach ($artikel as $item)
-                    <div class="background-card-artikel">
-                        <div class="card" style="width: 18rem;">
+                    <div class="bg-card p-0">
+                        <div class="card h-100" style="width: 18rem;">
                             @php
                                 $gambarArray = $item->gambar ?? []; // Laravel otomatis mengubah JSON ke array
                             @endphp

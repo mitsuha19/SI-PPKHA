@@ -38,8 +38,11 @@ class ArtikelController extends Controller
         // Ambil artikel yang sedang ditampilkan
         $artikel = Artikel::findOrFail($id);
 
-        // Ambil semua artikel sebagai rekomendasi
-        $artikelRekomendasi = Artikel::orderBy('created_at', 'desc')->get();
+        // Ambil 3 artikel terbaru selain artikel yang sedang ditampilkan
+        $artikelRekomendasi = Artikel::where('id', '!=', $id)
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get();
 
         return view('ppkha.detailArtikel', compact('artikel', 'artikelRekomendasi'));
     }

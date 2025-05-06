@@ -41,7 +41,7 @@
                             {{-- Judul Artikel dan button Edit dan Delete --}}
                             <div class="d-flex flex-md-row flex-sm-column w-auto justify-content-start align-items-end">
                                 <h2 class="fst-italic roboto-title mb-0 align-self-center">
-                                    {{ $item->judul_artikel }}
+                                    {{ Str::limit($item->judul_artikel, 45, '...') }}
                                 </h2>
 
                                 {{-- Button --}}

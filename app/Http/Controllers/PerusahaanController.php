@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Lowongan;
 use App\Models\Perusahaan;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rules\File;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class PerusahaanController extends Controller
@@ -77,12 +77,12 @@ class PerusahaanController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'namaPerusahaan'       => 'required|string',
-            'lokasiPerusahaan'     => 'required|string',
-            'websitePerusahaan'    => 'nullable|url',
-            'industriPerusahaan'   => 'required|string',
-            'deskripsiPerusahaan'  => 'required|string',
-            'logo'                 => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'namaPerusahaan' => 'required|string',
+            'lokasiPerusahaan' => 'required|string',
+            'websitePerusahaan' => 'nullable|url',
+            'industriPerusahaan' => 'required|string',
+            'deskripsiPerusahaan' => 'required|string',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $perusahaan = Perusahaan::findOrFail($id);
@@ -99,7 +99,7 @@ class PerusahaanController extends Controller
 
             // Simpan logo baru
             $logoFile = $request->file('logo');
-            $filename = time() . '_' . preg_replace('/\s+/', '_', $logoFile->getClientOriginalName());
+            $filename = time() . '' . preg_replace('/\s+/', '', $logoFile->getClientOriginalName());
             $logoFile->move(public_path('assets/data/logos'), $filename);
             $logoPath = 'assets/data/logos/' . $filename;
         } else {
@@ -109,12 +109,12 @@ class PerusahaanController extends Controller
 
         // Update data perusahaan
         $perusahaan->update([
-            'namaPerusahaan'       => $validated['namaPerusahaan'],
-            'lokasiPerusahaan'     => $validated['lokasiPerusahaan'],
-            'websitePerusahaan'    => $validated['websitePerusahaan'],
-            'industriPerusahaan'   => $validated['industriPerusahaan'],
-            'deskripsiPerusahaan'  => $validated['deskripsiPerusahaan'],
-            'logo'                 => $logoPath,
+            'namaPerusahaan' => $validated['namaPerusahaan'],
+            'lokasiPerusahaan' => $validated['lokasiPerusahaan'],
+            'websitePerusahaan' => $validated['websitePerusahaan'],
+            'industriPerusahaan' => $validated['industriPerusahaan'],
+            'deskripsiPerusahaan' => $validated['deskripsiPerusahaan'],
+            'logo' => $logoPath,
         ]);
 
         return redirect()

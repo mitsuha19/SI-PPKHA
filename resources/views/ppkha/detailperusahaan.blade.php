@@ -40,7 +40,7 @@
                 <div style="border-bottom: 1px solid #000; padding: 10px;">
                     <div style="display: flex; align-items: start; gap: 20px; padding: 10px;">
                         <img style="height: 92px; width: auto;"
-                            src="{{ asset($perusahaan->logo ? 'storage/' . $perusahaan->logo : 'assets/images/default-logo.png') }}">
+                            src="{{ asset($perusahaan->logo ? $perusahaan->logo : 'assets/images/default-logo.png') }}">
                         <div class="job-info" style="display: grid; gap: 10px;">
                             <h3>{{ $job->judulLowongan }}</h3>
                             <ul style="margin: 0; padding-left: 20px;">
