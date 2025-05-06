@@ -4,9 +4,9 @@
     @include('components.navbar')
 
     <div class="content-with-background">
-        @include('components.bg') <!-- Renders the background waves -->
+        @include('components.bg')
 
-        <!-- Top Search Bar Section (New, positioned at the top of content) -->
+        <!-- Top Search Bar -->
         <div class="top-search-bar-container">
             <div class="top-search-bar">
                 <input type="text" class="top-search-input" placeholder="Cari Nama Perusahaan" />
@@ -16,44 +16,58 @@
             </div>
         </div>
 
-        {{-- Daftar Perusahaan Section --}}
+        {{-- Daftar Perusahaan --}}
         <div class="d-flex flex-column align-items-center gap-4">
 
             @foreach ($perusahaan as $p)
-                <div class="background-card">
-                    <div class="card-information d-flex align-items-center px-3">
-                        <img src="{{ $p->logo ? asset($p->logo) : asset('assets/images/default-logo.png') }}">
-                        <div class="ps-3 w-100">
-                            <div class="horizontal-card-text-section card-detail-perusahaan">
+                <div class="background-card" style="width: 80%; min-height: 200px; display: flex; align-items: center;">
+                    <div class="card-information d-flex align-items-stretch px-3 w-100" style="min-height: 200px;">
 
-                                <div class="d-flex flex-row w-auto justify-content-between align-items-center w-100">
-                                    <h5 class="horizontal-card-title fw-bold mb-0">
-                                        {{ $p->namaPerusahaan }}
-                                    </h5>
-                                    <div class="d-flex flex-row justify-content-center align-items-center gap-1 detail">
-                                        <a href="{{ route('ppkha.daftarPerusahaanDetail', ['id' => $p->id]) }}">Detail </a>
+                        {{-- Logo Perusahaan (tanpa background putih) --}}
+                        <div
+                            style="width: 120px; height: 120px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;">
+                            <img src="{{ $p->logo ? asset($p->logo) : asset('assets/images/default-logo.png') }}"
+                                alt="Logo Perusahaan"
+                                style="width: 100px; height: 100px; object-fit: contain; border-radius: 10px;">
+                        </div>
+
+                        {{-- Detail Perusahaan --}}
+                        <div class="ps-4 d-flex flex-column justify-content-between w-100">
+                            <div class="card-detail-perusahaan d-flex flex-column h-100 justify-content-between">
+
+                                {{-- Nama & Detail Link --}}
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="fw-bold mb-0">{{ $p->namaPerusahaan }}</h5>
+                                    <div class="d-flex align-items-center gap-1 detail">
+                                        <a href="{{ route('ppkha.daftarPerusahaanDetail', ['id' => $p->id]) }}">Detail</a>
                                         <i class='bx bx-sm bx-right-arrow-alt'></i>
                                     </div>
                                 </div>
 
                                 <hr class="my-1" style="border: 2px solid black; opacity: 1">
 
-                                <div class="d-flex flex-row align-items-center mb-2" style="gap: 5px">
+                                {{-- Lokasi & Industri --}}
+                                <div class="d-flex align-items-center mb-2" style="gap: 8px;">
                                     <p class="mb-0 montserrat-light">{{ $p->lokasiPerusahaan }}</p>
-                                    <div class="circle"></div>
+                                    <div class="circle"
+                                        style="width: 6px; height: 6px; background: black; border-radius: 50%;"></div>
                                     <p class="mb-0 montserrat-medium">{{ $p->industriPerusahaan }}</p>
                                 </div>
-                                <p class="horizontal-card-text">
-                                    {{ $p->deskripsiPerusahaan }}
+
+                                {{-- Deskripsi Perusahaan --}}
+                                <p class="horizontal-card-text mb-0" style="flex-grow: 1;">
+                                    {{ Str::limit($p->deskripsiPerusahaan, 200, '...') }}
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
             @endforeach
+
         </div>
 
-        <div class="load-more-container">
+        {{-- Tombol Load More --}}
+        <div class="load-more-container mt-4">
             <button class="load-more-btn">Muat Lebih Banyak</button>
         </div>
     </div>

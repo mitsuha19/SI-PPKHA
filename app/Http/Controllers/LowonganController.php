@@ -13,7 +13,7 @@ class LowonganController extends Controller
     {
         $search = $request->input('search');
 
-        $lowongan = Lowongan::when($search, function ($query) use ($search) {
+        $lowongan = Lowongan::with('perusahaan')->when($search, function ($query) use ($search) {
             return $query->where('judulLowongan', 'like', "%{$search}%");
         })->orderBy('created_at', 'desc')->paginate(2);
 
@@ -84,10 +84,10 @@ class LowonganController extends Controller
 
                 $logoPath = null;
                 if ($request->hasFile('logo')) {
-                    $logo      = $request->file('logo');
-                    $filename  = time() . '_' . preg_replace('/\s+/', '_', $logo->getClientOriginalName());
+                    $logo = $request->file('logo');
+                    $filename = time() . '_' . preg_replace('/\s+/', '_', $logo->getClientOriginalName());
                     $logo->move(public_path('assets/data/logos'), $filename);
-                    $logoPath  = 'assets/data/logos/' . $filename;
+                    $logoPath = 'assets/data/logos/' . $filename;
                 }
 
                 $perusahaan = Perusahaan::create([
