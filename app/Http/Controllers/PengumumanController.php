@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Pengumuman;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class PengumumanController extends Controller
@@ -13,7 +14,7 @@ class PengumumanController extends Controller
     $search = $request->input('search');
 
     $pengumuman = Pengumuman::when($search, function ($query) use ($search) {
-        return $query->where('judul_pengumuman', 'like', "%{$search}%");
+      return $query->where('judul_pengumuman', 'like', "%{$search}%");
     })->orderBy('created_at', 'desc')->paginate(2);
 
     return view('admin.pengumuman.pengumuman', compact('pengumuman', 'search'));
@@ -24,9 +25,9 @@ class PengumumanController extends Controller
     $search = $request->input('search');
 
     $pengumuman = Pengumuman::when($search, function ($query) use ($search) {
-        return $query->where('judul_pengumuman', 'like', "%{$search}%");
+      return $query->where('judul_pengumuman', 'like', "%{$search}%");
     })->orderBy('created_at', 'desc')->paginate(10);
-    return view('ppkha.pengumuman', compact('pengumuman','search'));
+    return view('ppkha.pengumuman', compact('pengumuman', 'search'));
   }
 
   public function showPengumumanDetailUser($id)
@@ -59,8 +60,9 @@ class PengumumanController extends Controller
     $lampiranPaths = [];
     if ($request->hasFile('lampiran')) {
       foreach ($request->file('lampiran') as $file) {
-        $path = $file->store('lampiran_pengumuman', 'public'); // Simpan ke storage/app/public/lampiran_pengumuman
-        $lampiranPaths[] = $path;
+        $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+        $file->move(public_path('assets/data'), $filename);
+        $lampiranPaths[] = 'assets/data/' . $filename;
       }
     }
 
@@ -82,52 +84,46 @@ class PengumumanController extends Controller
 
   public function update(Request $request, $id)
   {
-    $pengumuman = Pengumuman::findOrFail($id);
-
-    // Validasi input
     $request->validate([
-      'judul_pengumuman' => 'required|string',
-      'deskripsi_pengumuman' => 'required|string',
-      'lampiran.*' => 'file|mimes:jpg,jpeg,png,pdf',
+      'judul_pengumuman'      => 'required|string',
+      'deskripsi_pengumuman'  => 'required|string',
+      'lampiran.*'            => 'nullable|file|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx|max:5120',
     ]);
 
-    // Update data pengumuman
-    $pengumuman->judul_pengumuman = $request->judul_pengumuman;
-    $pengumuman->deskripsi_pengumuman = $request->deskripsi_pengumuman;
+    $pengumuman = Pengumuman::findOrFail($id);
+    $current = json_decode($pengumuman->lampiran, true) ?? [];
 
-    // Hapus lampiran yang dipilih
+    // Hapus lampiran lama jika diminta
     if ($request->has('hapus_lampiran')) {
-      $lampiranTerbaru = json_decode($pengumuman->lampiran, true) ?? [];
-
-      foreach ($request->hapus_lampiran as $file) {
-        if ($file) { // Hanya hapus jika file tidak null
-          Storage::delete($file);
-          $lampiranTerbaru = array_filter($lampiranTerbaru, fn($item) => $item !== $file);
+      foreach ($request->hapus_lampiran as $toDelete) {
+        $full = public_path($toDelete);
+        if (in_array($toDelete, $current) && File::exists($full)) {
+          File::delete($full);
+          $current = array_diff($current, [$toDelete]);
         }
       }
-
-      // Simpan kembali daftar lampiran yang tersisa
-      $pengumuman->lampiran = json_encode(array_values($lampiranTerbaru));
     }
 
-    // Tambahkan lampiran baru
+    // Tambah lampiran baru
     if ($request->hasFile('lampiran')) {
-      $lampiranBaru = [];
-      foreach ($request->file('lampiran') as $file) {
-        $path = $file->store('lampiran_pengumuman', 'public');
-        $lampiranBaru[] = $path;
-      }
+      File::ensureDirectoryExists(public_path('assets/data'), 0755, true);
 
-      // Gabungkan dengan lampiran yang masih ada
-      $lampiranLama = json_decode($pengumuman->lampiran, true) ?? [];
-      $pengumuman->lampiran = json_encode(array_merge($lampiranLama, $lampiranBaru));
+      foreach ($request->file('lampiran') as $file) {
+        $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+        $file->move(public_path('assets/data'), $filename);
+        $current[] = 'assets/data/' . $filename;
+      }
     }
 
-    $pengumuman->save();
+    $pengumuman->update([
+      'judul_pengumuman'     => $request->judul_pengumuman,
+      'deskripsi_pengumuman' => $request->deskripsi_pengumuman,
+      'lampiran'             => count($current) ? json_encode(array_values($current)) : null,
+    ]);
 
-    return redirect()->route('admin.pengumuman.index')->with('success', 'Pengumuman berhasil diperbarui!');
+    return redirect()->route('admin.pengumuman.index')
+      ->with('success', 'Pengumuman berhasil diperbarui!');
   }
-
 
   public function destroy($id)
   {
@@ -148,4 +144,3 @@ class PengumumanController extends Controller
     }
   }
 }
-

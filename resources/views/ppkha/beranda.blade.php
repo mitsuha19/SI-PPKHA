@@ -25,7 +25,7 @@
 
                 <!-- Right: Image Section -->
                 <div class="image-section">
-                    <img src="{{ asset('assets/images/tugu_Del.png') }}" alt="Monument">
+                    <img src="{{ asset('assets/images/tugu_DEL.png') }}" alt="Monument">
                 </div>
             </div>
         </div>
@@ -34,38 +34,38 @@
         <div class="berita-section">
             <h2 class="section-title">BERITA</h2>
             <div class="berita-grid">
-            
+
 
                 <!-- Static Cards -->
                 @foreach ($berita as $item)
-                <div class="bg-card">
-                    <div class="card" style="width: 18rem;">
-                    {{-- Ambil gambar pertama jika tersedia --}}
-                    @php
-                            $gambarArray = $item->gambar ?? []; // Laravel otomatis mengubah JSON ke array
-                        @endphp
+                    <div class="bg-card">
+                        <div class="card" style="width: 18rem;">
+                            {{-- Ambil gambar pertama jika tersedia --}}
+                            @php
+                                $gambarArray = $item->gambar ?? []; // Laravel otomatis mengubah JSON ke array
+                            @endphp
 
-                        @if (!empty($gambarArray) && isset($gambarArray[0]))
-                            <img src="{{ asset('storage/' . $gambarArray[0]) }}" class="card-img-top" alt="Berita">
-                        @else
-                            <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="artikel">
-                        @endif
-                        <div class="card-body">
-                            <h5 class="card-title text-start roboto-title">{{ $item->judul_berita }}</h5>
-                            <p class="roboto-light text-white" style="font-size: 14px; text-align: justify;"> 
-                                {{ Str::limit($item->deskripsi_berita, 200, '...') }}
-                            </p>
-                            <div class="d-flex justify-content-end ">
-                            <a href="{{ route('ppkha.detailBerita', ['id' => $item->id]) }}">Selengkapnya..</a>
+                            @if (!empty($gambarArray) && isset($gambarArray[0]))
+                                <img src="{{ asset($gambarArray[0]) }}" class="card-img-top" alt="Berita">
+                            @else
+                                <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="artikel">
+                            @endif
+                            <div class="card-body">
+                                <h5 class="card-title text-start roboto-title">{{ $item->judul_berita }}</h5>
+                                <p class="roboto-light text-white" style="font-size: 14px; text-align: justify;">
+                                    {{ Str::limit($item->deskripsi_berita, 200, '...') }}
+                                </p>
+                                <div class="d-flex justify-content-end ">
+                                    <a href="{{ route('ppkha.detailBerita', ['id' => $item->id]) }}">Selengkapnya..</a>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
-                
 
-                
+
+
 
             </div>
         </div>
@@ -75,23 +75,23 @@
         <div class="pengumuman-section">
             <h2 class="section-title">PENGUMUMAN</h2>
             <div class="pengumuman-grid">
-                
+
 
                 <!-- Static Cards -->
                 @foreach ($pengumuman as $item)
-                <div class="bg-card">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
-                        <div class="card-detail">
-                            <h5 class="card-title text-center roboto-title mb-3">{{ $item->judul_pengumuman }}</h5>
-                            <div class="d-flex justify-content-end">
-                            <a href="{{ route('ppkha.pengumumanDetail', ['id' => $item->id]) }}">Selengkapnya..</a>
+                    <div class="bg-card">
+                        <div class="card" style="width: 18rem;">
+                            <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="Pengumuman 1">
+                            <div class="card-detail">
+                                <h5 class="card-title text-center roboto-title mb-3">{{ $item->judul_pengumuman }}</h5>
+                                <div class="d-flex justify-content-end">
+                                    <a href="{{ route('ppkha.pengumumanDetail', ['id' => $item->id]) }}">Selengkapnya..</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
-                
+
             </div>
         </div>
 
@@ -101,24 +101,24 @@
             <div class="pengumuman-grid">
                 <!-- Static Cards -->
                 @foreach ($artikel as $item)
-                <div class="card" style="width: 18rem;">
+                    <div class="card" style="width: 18rem;">
                         @php
                             $gambarArray = $item->gambar ?? []; // Laravel otomatis mengubah JSON ke array
                         @endphp
 
                         @if (!empty($gambarArray) && isset($gambarArray[0]))
-                            <img src="{{ asset('storage/' . $gambarArray[0]) }}" class="card-img-top" alt="Artikel">
+                            <img src="{{ asset($gambarArray[0]) }}" class="card-img-top" alt="Artikel">
                         @else
                             <img src="{{ asset('assets/images/image.png') }}" class="card-img-top" alt="artikel">
                         @endif
 
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $item->judul_artikel }}</h5>
-                        <div class="d-flex justify-content-end">
-                        <a href="{{ route('ppkha.detailArtikel', ['id' => $item->id]) }}">Selengkapnya..</a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $item->judul_artikel }}</h5>
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('ppkha.detailArtikel', ['id' => $item->id]) }}">Selengkapnya..</a>
+                            </div>
+                        </div>
                     </div>
-                    </div>
-                </div>
                 @endforeach
 
             </div>

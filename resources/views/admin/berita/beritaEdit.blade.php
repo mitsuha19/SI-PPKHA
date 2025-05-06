@@ -45,8 +45,8 @@
                                 @foreach ($gambarArray as $index => $file)
                                     <div id="lampiran-item-{{ $index }}"
                                         class="position-relative d-inline-block text-center" style="width: 120px;">
-                                        <img src="{{ asset('storage/' . $file) }}" alt="Gambar Berita"
-                                            class="rounded border w-100" style="height: 80px; object-fit: cover;">
+                                        <img src="{{ asset($file) }}" alt="Gambar Berita" class="rounded border w-100"
+                                            style="height: 80px; object-fit: cover;">
 
                                         <!-- Tombol Remove (Di tengah bawah gambar) -->
                                         <button type="button" class="remove-lampiran position-absolute"

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Perusahaan;
 use App\Models\Lowongan;
+use App\Models\Perusahaan;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rules\File;
 use Illuminate\Support\Facades\Storage;
 
 class PerusahaanController extends Controller
@@ -75,42 +76,49 @@ class PerusahaanController extends Controller
     // Mengupdate data perusahaan
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'namaPerusahaan' => 'required|string',
-            'lokasiPerusahaan' => 'required|string',
-            'websitePerusahaan' => 'nullable|url',
-            'industriPerusahaan' => 'required|string',
-            'deskripsiPerusahaan' => 'required|string',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        $validated = $request->validate([
+            'namaPerusahaan'       => 'required|string',
+            'lokasiPerusahaan'     => 'required|string',
+            'websitePerusahaan'    => 'nullable|url',
+            'industriPerusahaan'   => 'required|string',
+            'deskripsiPerusahaan'  => 'required|string',
+            'logo'                 => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $perusahaan = Perusahaan::findOrFail($id);
 
+        // Pastikan direktori untuk logo ada
+        File::ensureDirectoryExists(public_path('assets/data/logos'), 0755, true);
+
         // Jika ada file logo baru, simpan dan hapus logo lama
         if ($request->hasFile('logo')) {
             // Hapus logo lama jika ada
-            if ($perusahaan->logo) {
-                Storage::delete('public/' . $perusahaan->logo);
+            if ($perusahaan->logo && File::exists(public_path($perusahaan->logo))) {
+                File::delete(public_path($perusahaan->logo));
             }
 
             // Simpan logo baru
-            $logoPath = $request->file('logo')->store('logos', 'public');
+            $logoFile = $request->file('logo');
+            $filename = time() . '_' . preg_replace('/\s+/', '_', $logoFile->getClientOriginalName());
+            $logoFile->move(public_path('assets/data/logos'), $filename);
+            $logoPath = 'assets/data/logos/' . $filename;
         } else {
-            // Gunakan logo lama jika tidak ada file baru
+            // Gunakan logo lama jika tidak ada perubahan
             $logoPath = $perusahaan->logo;
         }
 
         // Update data perusahaan
         $perusahaan->update([
-            'namaPerusahaan' => $validatedData['namaPerusahaan'],
-            'lokasiPerusahaan' => $validatedData['lokasiPerusahaan'],
-            'websitePerusahaan' => $validatedData['websitePerusahaan'],
-            'industriPerusahaan' => $validatedData['industriPerusahaan'],
-            'deskripsiPerusahaan' => $validatedData['deskripsiPerusahaan'],
-            'logo' => $logoPath, // Gunakan logo yang sudah ada jika tidak diubah
+            'namaPerusahaan'       => $validated['namaPerusahaan'],
+            'lokasiPerusahaan'     => $validated['lokasiPerusahaan'],
+            'websitePerusahaan'    => $validated['websitePerusahaan'],
+            'industriPerusahaan'   => $validated['industriPerusahaan'],
+            'deskripsiPerusahaan'  => $validated['deskripsiPerusahaan'],
+            'logo'                 => $logoPath,
         ]);
 
-        return redirect()->route('admin.daftarPerusahaan.daftarPerusahaan')
+        return redirect()
+            ->route('admin.daftarPerusahaan.daftarPerusahaan')
             ->with('success', 'Perusahaan berhasil diperbarui');
     }
 

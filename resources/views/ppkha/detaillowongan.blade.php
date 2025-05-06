@@ -7,34 +7,38 @@
         <!-- Berita Section -->
         <div class="message-lowongan montserrat-medium align-items-center">
             <i class='bx bx-md bx-message-error'></i>
-            <p class="mb-0">Kamu dapat melamar lowongan ini pada {{ date('d M Y', strtotime($lowongan->batasMulai)) }} - {{ date('d M Y', strtotime($lowongan->batasAkhir)) }}</p>
+            <p class="mb-0">Kamu dapat melamar lowongan ini pada {{ date('d M Y', strtotime($lowongan->batasMulai)) }} -
+                {{ date('d M Y', strtotime($lowongan->batasAkhir)) }}</p>
         </div>
 
         <div class="horizontal-card2 mt-4">
             <div class="horizontal-card-body2">
                 <!-- First Container: Image -->
                 <div class="image-container">
-                <img style="height: 92px; width: auto;" 
-     src="{{ isset($lowongan->perusahaan) && $lowongan->perusahaan->logo ? asset('storage/' . $lowongan->perusahaan->logo) : asset('public\assets\images\image.png') }}" 
-     alt="Logo Perusahaan"></div>
+                    <img style="height: 92px; width: auto;"
+                        src="{{ isset($lowongan->perusahaan) && $lowongan->perusahaan->logo ? asset($lowongan->perusahaan->logo) : asset('public\assets\images\image.png') }}"
+                        alt="Logo Perusahaan">
+                </div>
 
                 <!-- Second Container: Text -->
                 <div class="text-container">
                     <div class="horizontal-card-text-section2">
                         <h5 class="montserrat-medium mb-0" style="font-size: 36px;">{{ $lowongan->judulLowongan }}</h5>
                         <p class="montserrat-medium" style="font-size: 15px;">
-                        @if ($lowongan->perusahaan)
-        <a href="{{ route('ppkha.daftarPerusahaanDetail', ['id' => $lowongan->perusahaan->id]) }}" 
-           class="text-decoration-none text-dark">
-            {{ $lowongan->perusahaan->namaPerusahaan }}
-        </a>
-    @else
-        Perusahaan tidak tersedia
-    @endif<br>
+                            @if ($lowongan->perusahaan)
+                                <a href="{{ route('ppkha.daftarPerusahaanDetail', ['id' => $lowongan->perusahaan->id]) }}"
+                                    class="text-decoration-none text-dark">
+                                    {{ $lowongan->perusahaan->namaPerusahaan }}
+                                </a>
+                            @else
+                                Perusahaan tidak tersedia
+                            @endif
+                            <br>
                         <div class="text-row montserrat-medium" style="width: fit-content">
                             <div class="info-item">
                                 <span class="text-label">Lokasi</span>
-                                <span class="text-value">{{ $lowongan->perusahaan->lokasiPerusahaan ?? 'Lokasi tidak ada' }}</span>
+                                <span
+                                    class="text-value">{{ $lowongan->perusahaan->lokasiPerusahaan ?? 'Lokasi tidak ada' }}</span>
                             </div>
                             <div class="info-item">
                                 <span class="text-label">Departemen</span>
@@ -58,13 +62,15 @@
                         </button>
                     </div>
                     <div class="social-icons">
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}" target="_blank">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->fullUrl()) }}"
+                            target="_blank">
                             <img src="{{ asset('assets/images/facebook-logo.png') }}" alt="Facebook">
                         </a>
-                        <a href="https://www.instagram.com/direct/new/?text={{ urlencode('Cek lowongan ini: ' . request()->fullUrl()) }}" target="_blank">
+                        <a href="https://www.instagram.com/direct/new/?text={{ urlencode('Cek lowongan ini: ' . request()->fullUrl()) }}"
+                            target="_blank">
                             <img src="{{ asset('assets/images/instagram.png') }}" alt="Instagram DM">
                         </a>
-                       
+
                         <a id="whatsappShare" onclick="shareToWhatsAppStory()" target="_blank">
                             <img src="{{ asset('assets/images/Whatsapp-logo.png') }}" alt="WhatsApp">
                         </a>
@@ -106,8 +112,8 @@
                         $keahlian = !empty($lowongan->keahlian) ? explode(',', $lowongan->keahlian) : [];
                     @endphp
 
-                    @if(count($keahlian) > 0)
-                        @foreach($keahlian as $skill)
+                    @if (count($keahlian) > 0)
+                        @foreach ($keahlian as $skill)
                             <span class="skill-badge">{{ trim($skill) }}</span>
                         @endforeach
                     @else
@@ -143,4 +149,3 @@
 
     @include('components.footer')
 @endsection
-

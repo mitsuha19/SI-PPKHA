@@ -40,7 +40,7 @@
                                     style="display: flex; align-items: center; gap: 8px; font-size: 12px; margin-bottom: 3px;">
 
                                     {{-- Link Lampiran --}}
-                                    <a href="{{ asset('storage/' . $lampiran) }}" target="_blank"
+                                    <a href="{{ asset($lampiran) }}" target="_blank"
                                         style="text-decoration: none; color: blue; font-size: 12px;">
                                         {{ basename($lampiran) }}
                                     </a>
@@ -99,7 +99,7 @@
         });
     </script>
 
-<script>
+    <script>
         let selectedFiles = [];
 
         function previewFiles() {

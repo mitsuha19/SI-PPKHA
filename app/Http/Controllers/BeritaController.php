@@ -2,36 +2,39 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Berita;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
     public function index2(Request $request)
-{
-    $search = $request->input('search');
-
-    $berita = Berita::when($search, function ($query) use ($search) {
-        return $query->where('judul_berita', 'like', "%{$search}%");
-    })->orderBy('created_at', 'desc')->paginate(2);
-
-    return view('admin.berita.berita', compact('berita', 'search'));
-}
-
-
-
-    public function showBeritaUser(Request $request){
+    {
         $search = $request->input('search');
 
-    $berita = Berita::when($search, function ($query) use ($search) {
-        return $query->where('judul_berita', 'like', "%{$search}%");
-    })->orderBy('created_at', 'desc')->paginate(10);
-    
-        return view('ppkha.berita', compact('berita','search'));
+        $berita = Berita::when($search, function ($query) use ($search) {
+            return $query->where('judul_berita', 'like', "%{$search}%");
+        })->orderBy('created_at', 'desc')->paginate(2);
+
+        return view('admin.berita.berita', compact('berita', 'search'));
     }
 
-    public function showBeritaDetailUser($id){
+
+
+    public function showBeritaUser(Request $request)
+    {
+        $search = $request->input('search');
+
+        $berita = Berita::when($search, function ($query) use ($search) {
+            return $query->where('judul_berita', 'like', "%{$search}%");
+        })->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('ppkha.berita', compact('berita', 'search'));
+    }
+
+    public function showBeritaDetailUser($id)
+    {
         $berita = Berita::where('id', $id)->first();
         return view('ppkha.detailBerita', compact('berita'));
     }
@@ -43,8 +46,8 @@ class BeritaController extends Controller
 
     public function index4($id)
     {
-        $berita = Berita::findOrFail($id);// Ambil data berita berdasarkan ID
-    return view('admin.berita.beritaEdit', compact('berita'));
+        $berita = Berita::findOrFail($id); // Ambil data berita berdasarkan ID
+        return view('admin.berita.beritaEdit', compact('berita'));
     }
 
     public function show1($id)
@@ -64,7 +67,9 @@ class BeritaController extends Controller
         $gambarPaths = [];
         if ($request->hasFile('gambar')) {
             foreach ($request->file('gambar') as $file) {
-                $gambarPaths[] = $file->store('gambar', 'public');
+                $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+                $file->move(public_path('assets/data'), $filename);
+                $gambarPaths[] = 'assets/data/' . $filename;
             }
         }
 
@@ -78,55 +83,57 @@ class BeritaController extends Controller
     }
 
     public function update(Request $request, $id)
-  {
-      $validatedData = $request->validate([
-          'judul_berita' => 'required|string',
-          'deskripsi_berita' => 'required|string',
-          'gambar.*' => 'nullable|file|mimes:jpg,jpeg,png,gif',
-      ]);
-  
-      $berita = Berita::findOrFail($id);
-  
-      // Hapus gambar lama jika dicentang
-      if ($request->has('hapus_gambar')) {
-          foreach ($request->hapus_gambar as $file) {
-              if (Storage::disk('public')->exists($file)) {
-                  Storage::disk('public')->delete($file);
-              }
-          }
-  
-          // Filter gambar yang tidak dihapus
-          $berita->gambar = array_diff($berita->gambar ?? [], $request->hapus_gambar);
-      }
-  
-      // Tambah gambar baru
-      $gambarPaths = $berita->gambar ?? [];
-      if ($request->hasFile('gambar')) {
-          foreach ($request->file('gambar') as $file) {
-              $gambarPaths[] = $file->store('gambar', 'public');
-          }
-      }
-  
-      // Update berita
-      $berita->update([
-          'judul_berita' => $validatedData['judul_berita'],
-          'deskripsi_berita' => $validatedData['deskripsi_berita'],
-          'gambar' => $gambarPaths,
-      ]);
-  
-      return redirect()->route('admin.berita.berita')->with('success', 'Berita berhasil diupdate!');
-  }
+    {
+        $validated = $request->validate([
+            'judul_berita'     => 'required|string',
+            'deskripsi_berita' => 'required|string',
+            'gambar.*'         => 'nullable|file|mimes:jpg,jpeg,png,gif|max:2048',
+        ]);
 
-  public function destroy($id)
-  {
-      try {
-          $berita = Berita::findOrFail($id);
-          $berita->delete();
-  
-          return response()->json(['success' => true]);
-      } catch (\Exception $e) {
-          return response()->json(['success' => false, 'message' => 'Gagal menghapus berita.'], 500);
-      }
-  }
+        $berita = Berita::findOrFail($id);
+        $current = $berita->gambar ?? [];
 
+        // Hapus gambar lama jika diminta
+        if ($request->has('hapus_gambar')) {
+            foreach ($request->hapus_gambar as $toDelete) {
+                $full = public_path($toDelete);
+                if (in_array($toDelete, $current) && File::exists($full)) {
+                    File::delete($full);
+                    $current = array_diff($current, [$toDelete]);
+                }
+            }
+        }
+
+        // Upload gambar baru
+        if ($request->hasFile('gambar')) {
+            File::ensureDirectoryExists(public_path('assets/data'), 0755, true);
+
+            foreach ($request->file('gambar') as $file) {
+                $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+                $file->move(public_path('assets/data'), $filename);
+                $current[] = 'assets/data/' . $filename;
+            }
+        }
+
+        $berita->update([
+            'judul_berita'     => $validated['judul_berita'],
+            'deskripsi_berita' => $validated['deskripsi_berita'],
+            'gambar'           => array_values($current),
+        ]);
+
+        return redirect()->route('admin.berita.berita')
+            ->with('success', 'Berita berhasil diupdate!');
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $berita = Berita::findOrFail($id);
+            $berita->delete();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Gagal menghapus berita.'], 500);
+        }
+    }
 }

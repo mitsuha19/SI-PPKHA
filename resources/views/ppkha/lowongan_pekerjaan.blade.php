@@ -8,15 +8,16 @@
 
         <!-- Top Search Bar Section (New, positioned at the top of content) -->
         <div class="top-search-bar-container">
-    <div class="top-search-bar d-flex align-items-center">
-        <form class="d-flex w-100" action="{{ route('ppkha.lowonganPekerjaan') }}" method="GET">
-            <input type="text" id="lowongan" name="search" class="form-control me-2" placeholder="Cari Lowongan Pekerjaan..." value="{{ request('search') }}">
-            <button type="submit" class="btn btn-primary">
-                <i class='bx bx-search bx-sm'></i>
-            </button>
-        </form>
-    </div>
-</div>
+            <div class="top-search-bar d-flex align-items-center">
+                <form class="d-flex w-100" action="{{ route('ppkha.lowonganPekerjaan') }}" method="GET">
+                    <input type="text" id="lowongan" name="search" class="form-control me-2"
+                        placeholder="Cari Lowongan Pekerjaan..." value="{{ request('search') }}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class='bx bx-search bx-sm'></i>
+                    </button>
+                </form>
+            </div>
+        </div>
 
         <div class="d-flex flex-column align-items-center gap-4">
 
@@ -24,7 +25,7 @@
                 <div class="background-card">
                     <div class="card-information d-flex align-items-center px-3">
                         @if ($l->perusahaan && $l->perusahaan->logo)
-                            <img src="{{ asset('storage/' . $l->perusahaan->logo) }}" alt="Logo Perusahaan">
+                            <img src="{{ asset($l->perusahaan->logo) }}" alt="Logo Perusahaan">
                         @endif
 
                         <div class="ps-3 w-100">
@@ -65,8 +66,8 @@
             @endforeach
 
             <div class="pagination">
-            {{ $lowongan->appends(request()->query())->links() }}
-        </div>
+                {{ $lowongan->appends(request()->query())->links() }}
+            </div>
         </div>
 
     </div>

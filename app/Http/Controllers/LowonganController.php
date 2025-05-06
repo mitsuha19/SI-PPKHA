@@ -13,9 +13,9 @@ class LowonganController extends Controller
     {
         $search = $request->input('search');
 
-    $lowongan = Lowongan::when($search, function ($query) use ($search) {
-        return $query->where('judulLowongan', 'like', "%{$search}%");
-    })->orderBy('created_at', 'desc')->paginate(2);
+        $lowongan = Lowongan::when($search, function ($query) use ($search) {
+            return $query->where('judulLowongan', 'like', "%{$search}%");
+        })->orderBy('created_at', 'desc')->paginate(2);
 
         return view('admin.lowonganPekerjaan.lowonganPekerjaan', compact('lowongan', 'search'));
     }
@@ -24,9 +24,9 @@ class LowonganController extends Controller
     {
         $search = $request->input('search');
 
-    $lowongan = Lowongan::when($search, function ($query) use ($search) {
-        return $query->where('judulLowongan', 'like', "%{$search}%");
-    })->orderBy('created_at', 'desc')->paginate(10);
+        $lowongan = Lowongan::when($search, function ($query) use ($search) {
+            return $query->where('judulLowongan', 'like', "%{$search}%");
+        })->orderBy('created_at', 'desc')->paginate(10);
         return view('ppkha.lowongan_pekerjaan', compact('lowongan', 'search'));
     }
 
@@ -82,13 +82,21 @@ class LowonganController extends Controller
                     'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
                 ]);
 
+                $logoPath = null;
+                if ($request->hasFile('logo')) {
+                    $logo      = $request->file('logo');
+                    $filename  = time() . '_' . preg_replace('/\s+/', '_', $logo->getClientOriginalName());
+                    $logo->move(public_path('assets/data/logos'), $filename);
+                    $logoPath  = 'assets/data/logos/' . $filename;
+                }
+
                 $perusahaan = Perusahaan::create([
                     'namaPerusahaan' => $request->input('namaPerusahaanBaru'),
                     'lokasiPerusahaan' => $request->input('lokasiPerusahaan'),
                     'websitePerusahaan' => $request->input('websitePerusahaan'),
                     'industriPerusahaan' => $request->input('industriPerusahaan'),
                     'deskripsiPerusahaan' => $request->input('deskripsiPerusahaan'),
-                    'logo' => $request->file('logo') ? $request->file('logo')->store('logos', 'public') : null,
+                    'logo' => $logoPath,
                 ]);
             } else {
                 $perusahaan = Perusahaan::where('namaPerusahaan', $request->namaPerusahaan)->firstOrFail();
@@ -124,12 +132,12 @@ class LowonganController extends Controller
             'batasMulai' => 'required|date',
             'batasAkhir' => 'required|date',
         ]);
-    
+
         $lowongan = Lowongan::findOrFail($id);
-    
+
         // Simpan keahlian sebagai string jika ada, jika tidak, simpan null
         $keahlianString = $validatedData['keahlian'] ? implode(',', $validatedData['keahlian']) : null;
-    
+
         // Update hanya data lowongan, tanpa menyentuh perusahaan
         $lowongan->update([
             'judulLowongan' => $validatedData['judulLowongan'],
@@ -142,23 +150,23 @@ class LowonganController extends Controller
             'batasMulai' => $validatedData['batasMulai'],
             'batasAkhir' => $validatedData['batasAkhir'],
         ]);
-    
+
         return redirect()->route('admin.lowonganPekerjaan.lowonganPekerjaan')
             ->with('success', 'Lowongan berhasil diperbarui');
     }
-    
-    
+
+
 
 
     public function destroy($id)
-  {
-      try {
-          $lowongan = Lowongan::findOrFail($id);
-          $lowongan->delete();
-  
-          return response()->json(['success' => true]);
-      } catch (\Exception $e) {
-          return response()->json(['success' => false, 'message' => 'Gagal menghapus berita.'], 500);
-      }
-  }
+    {
+        try {
+            $lowongan = Lowongan::findOrFail($id);
+            $lowongan->delete();
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Gagal menghapus berita.'], 500);
+        }
+    }
 }
