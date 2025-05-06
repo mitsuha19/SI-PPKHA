@@ -2044,3 +2044,68 @@ input[type="radio"] {
         grid-template-columns: 1fr;
     }
 }
+
+/* GLOBAL RESET untuk gambar dan teks agar tidak overflow */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.welcome-grid,
+.benefit-grid,
+.method-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-text,
+.welcome-image,
+.manfaat-cards,
+.manfaat-picture,
+.method-card {
+    flex: 1 1 300px; /* fleksibel, minimal 300px */
+}
+
+.benefit-card,
+.method-card {
+    box-sizing: border-box;
+    padding: 10px;
+    max-width: 100%;
+}
+
+.content-with-background {
+    padding: 20px;
+}
+
+/* Atur ulang teks agar tidak potong */
+p,
+h1,
+h2,
+h4 {
+    word-wrap: break-word;
+}
+
+/* RESPONSIVE MEDIA QUERIES */
+@media (max-width: 768px) {
+    .welcome-grid,
+    .benefit-grid,
+    .method-grid {
+        flex-direction: column;
+    }
+
+    .welcome-text,
+    .welcome-image,
+    .manfaat-cards,
+    .manfaat-picture {
+        width: 100%;
+        text-align: center;
+    }
+
+    .start-button {
+        display: inline-block;
+        margin-top: 10px;
+    }
+}

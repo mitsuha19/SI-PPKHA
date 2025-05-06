@@ -8,7 +8,7 @@
             <div class="welcome-grid">
                 <div class="welcome-text">
                     <h1>Selamat Datang di</h1>
-                    <h2>Tracer Study <span class="welcome-text h2 span"> Institut Teknologi Del </span> </h2>
+                    <h2>Tracer Study <br> <span class="welcome-text h2 span"> Institut Teknologi Del </span> </h2>
                     <p>Bantu kami meningkatkan kualitas pendidikan dengan berpartisipasi dalam Tracer Study
                         <span>"Pioneering the Path to Success"</span>
                     </p>
@@ -24,7 +24,7 @@
         <div class="second-section">
             @include('components.bgMid')
             <div class="tracer-study-info">
-                <h3>Apa itu Tracer Study?</h3>
+                <h2>Apa itu Tracer Study?</h2>
                 <p>Tracer Study di Institut Teknologi Del berperan penting dalam mempererat hubungan antara institusi dan
                     alumni. Survei ini memberikan wawasan tentang perjalanan karir alumni serta harapan mereka terhadap
                     pengembangan pendidikan. Selain meningkatkan kualitas pendidikan, Tracer Study juga memperkuat jaringan
@@ -34,7 +34,7 @@
         </div>
 
         <div class="third-section">
-            <h3 class="section-title">Manfaat dan Tujuan</h3>
+            <h2>Manfaat dan Tujuan</h2>
             <div class="benefit-grid">
                 <div class="manfaat-cards">
                     <div class="benefit-card">
@@ -73,7 +73,7 @@
                 </div>
             </div>
 
-            <h3 class="section-title">Metode dan Konsep Tracer Study</h3>
+            <h2>Metode dan Konsep Tracer Study</h2>
             <div class="method-section">
                 <p class="method-description">Sistem pelacakan alumni di Institut Teknologi Del disebut Tracer Study. Sistem
                     ini dilakukan oleh PPKHA IT Del dan bertujuan untuk memperoleh informasi dari alumni untuk meningkatkan
@@ -102,10 +102,10 @@
                 </div>
             </div>
 
-            <h1 class="footer-title">Ayo Berkontribusi dalam Tracer Study</h1>
+            <h1>Ayo Berkontribusi dalam Tracer Study</h1>
         </div>
 
-        @include('components.bgBtm') <!-- Renders the background waves -->
+        @include('components.bgBtm')
     </div>
 
     @include('components.footer')

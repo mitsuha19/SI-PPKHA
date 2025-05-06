@@ -16,7 +16,8 @@
 
         <div class="d-flex flex-column align-items-center w-100 gap-2">
             <div class="d-flex justify-content-end" style="width: 80%">
-                <button type="button" class="btn btn-tambah mt-2" onclick="window.location.href='/admin/tracer-study/create'">
+                <button type="button" class="btn btn-tambah mt-2"
+                    onclick="window.location.href='/admin/tracer-study/create'">
                     <i class='bx bx-plus-circle'></i>
                     <span class="d-none d-xl-inline">Tambah</span>
                 </button>
@@ -51,15 +52,20 @@
 
                             <hr class="my-2" style="border: 2px solid black; opacity: 1">
 
-                            <p class="roboto-light mb-1 mt-2 description-text" style="font-size: 15px;">
-                                {{ $tracerStudy->deskripsi_form }}
-                            </p>
+                            <div style="display: flex; gap: 10px;">
+                                <div style="height: 150px; overflow-y: auto; overflow-x: hidden;">
+                                    <p>{{ $tracerStudy->deskripsi_form }}</p>
+                                </div>
+                            </div>
 
-                            <div class="detail align-self-end">
+
+
+
+                            {{-- <div class="detail align-self-end">
                                 <a href="/admin/tracer-study/detail/{{ $tracerStudy->id }}">
                                     Selengkapnya..
                                 </a>
-                            </div>
+                            </div> --}}
 
                         </div>
                     </div>
