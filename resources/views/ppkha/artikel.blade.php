@@ -5,6 +5,11 @@
 
     <style>
 
+.search-form {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+}
         /* Responsive */
         @media (max-width: 768px) {
             .card-information {
@@ -50,13 +55,13 @@
             }
         }
     </style>
-    
+
     <div class="content-with-background">
         @include('components.bg')
 
         <!-- Top Search Bar Section (New, positioned at the top of content) -->
         <div class="top-search-bar d-flex align-items-center">
-    <form class="d-flex w-100 gap-2" action="{{ route('ppkha.berita') }}" method="GET">
+    <form class="d-flex gap-2 search-form" action="{{ route('ppkha.artikel') }}" method="GET">
         <input type="text" id="berita" name="search" class="form-control flex-grow-1"
             placeholder="Cari Artikel..." value="{{ request('search') }}">
         <button type="submit" class="btn btn-primary px-2 py-1 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
