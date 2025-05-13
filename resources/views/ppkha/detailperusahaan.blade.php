@@ -6,27 +6,31 @@
     <div class="p-3 detail-content">
         <!-- Profil Perusahaan -->
         <div class="horizontal-card2 mt-4">
-            <div class="card-perusahaan d-flex flex-row align-items-center gap-5">
-                <img style="height: 92px; width: auto;"
-                    src="{{ asset($perusahaan->logo ? $perusahaan->logo : 'assets/images/default-logo.png') }}">
-                <div class="montserrat-medium mb-0">
-                    <h2>{{ $perusahaan->namaPerusahaan }}</h2>
-                    <p>{{ $perusahaan->lokasiPerusahaan }}</p>
-                    <div class="d-flex flex-row" style="gap: 100px;">
-                        <p>
-                            <span style="color: #656565;">Industri</span><br>
-                            {{ $perusahaan->industriPerusahaan }}
-                        </p>
-                        <p>
-                            <span style="color: #656565;">Website</span><br>
-                            <a href="{{ $perusahaan->websitePerusahaan }}" target="_blank">
-                                {{ $perusahaan->websitePerusahaan }}
-                            </a>
-                        </p>
-                    </div>
-                </div>
+    <div class="card-perusahaan d-flex flex-column flex-md-row align-items-start gap-4 gap-md-5 text-start">
+        <img style="height: 92px; width: auto;"
+            src="{{ asset($perusahaan->logo ? $perusahaan->logo : 'assets/images/default-logo.png') }}"
+            alt="Logo Perusahaan">
+
+        <div class="montserrat-medium mb-0 w-100">
+            <h2 class="fs-4 fs-md-2">{{ $perusahaan->namaPerusahaan }}</h2>
+            <p class="mb-1">{{ $perusahaan->lokasiPerusahaan }}</p>
+
+            <div class="d-flex flex-column flex-md-row justify-content-start justify-content-md-between align-items-start mt-2 gap-3 gap-md-5">
+                <p class="mb-0">
+                    <span style="color: #656565;">Industri</span><br>
+                    {{ $perusahaan->industriPerusahaan }}
+                </p>
+                <p class="mb-0">
+                    <span style="color: #656565;">Website</span><br>
+                    <a href="{{ $perusahaan->websitePerusahaan }}" target="_blank">
+                        {{ $perusahaan->websitePerusahaan }}
+                    </a>
+                </p>
             </div>
         </div>
+    </div>
+</div>
+
 
         <!-- Tentang Perusahaan -->
         <div class="horizontal-card3 mt-4">
@@ -47,7 +51,7 @@
             <h2 class="title">Lowongan</h2>
             @foreach ($lowongan as $job)
                 <div style="border-bottom: 1px solid #000; padding: 20px 10px;">
-                    <div style="display: flex; align-items: start; justify-content: space-between; gap: 20px;">
+                    <div class="d-flex flex-column flex-md-row align-items-start justify-content-between gap-3">
                         {{-- Logo --}}
                         <div style="flex-shrink: 0;">
                             <img src="{{ asset($perusahaan->logo ? $perusahaan->logo : 'assets/images/default-logo.png') }}"
@@ -66,7 +70,7 @@
                             </ul>
 
                             {{-- Tags --}}
-                            <div class="job-tags mt-3" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <div class="job-tags mt-3 d-flex flex-wrap gap-2">
                                 <span
                                     style="padding: 5px 15px; border: 2px solid #000; border-radius: 30px; font-style: italic; font-weight: 600;">
                                     {{ strtoupper($perusahaan->lokasiPerusahaan) }}
@@ -83,7 +87,7 @@
                         </div>
 
                         {{-- Detail Link --}}
-                        <div style="align-self: start; margin-left: auto;">
+                        <div class="mt-2 mt-md-0 ms-auto">
                             <a href="{{ route('ppkha.lowonganPekerjaanDetail', ['id' => $job->id]) }}"
                                 style="font-style: italic; font-weight: bold; color: black; text-decoration: none; display: flex; align-items: center; gap: 5px;">
                                 Detail <i class='bx bx-right-arrow-alt bx-sm'></i>

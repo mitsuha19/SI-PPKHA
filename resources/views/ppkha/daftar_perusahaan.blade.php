@@ -3,6 +3,47 @@
 @section('content')
     @include('components.navbar')
 
+    <style>
+        
+        @media (max-width: 768px) {
+            .card-information {
+                flex-direction: column;
+                align-items: center;
+                text-align: justify;
+            }
+
+            .card-information .ps-4 {
+                padding-left: 0 !important;
+            }
+
+            .top-search-bar {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .top-search-bar input,
+            .top-search-bar button {
+                width: 100%;
+            }
+        }
+
+        .load-more-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .load-more-btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            background-color: #0d6efd;
+            color: white;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+    </style>
+
+
     <div class="content-with-background">
         @include('components.bg')
 

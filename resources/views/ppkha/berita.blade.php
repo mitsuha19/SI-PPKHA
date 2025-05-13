@@ -3,21 +3,68 @@
 @section('content')
     @include('components.navbar')
 
+    <style>
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .card-information {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+            }
+
+            .card-img-top {
+                width: 100%;
+                height: auto;
+                margin-bottom: 1rem;
+            }
+
+            .top-search-bar-container {
+                padding: 0.5rem;
+            }
+
+            .top-search-bar {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .top-search-bar input,
+            .top-search-bar button {
+                width: 100%;
+            }
+
+            
+
+            .roboto-title {
+                font-size: 1.2rem;
+                text-align: center;
+            }
+
+            .roboto-light {
+                font-size: 14px;
+                text-align: justify;
+            }
+
+            .detail {
+                text-align: right;
+                width: 100%;
+            }
+        }
+    </style>
+
     <div class="content-with-background d-flex flex-column align-items-center">
         @include('components.bg') <!-- Renders the background waves -->
 
-        <!-- Top Search Bar Section (New, positioned at the top of content) -->
-        <div class="top-search-bar-container">
-            <div class="top-search-bar d-flex align-items-center">
-                <form class="d-flex w-100" action="{{ route('ppkha.berita') }}" method="GET">
-                    <input type="text" id="berita" name="search" class="form-control me-2" placeholder="Cari Berita..."
-                        value="{{ request('search') }}">
-                    <button type="submit" class="btn btn-primary">
-                        <i class='bx bx-search bx-sm'></i>
-                    </button>
-                </form>
-            </div>
-        </div>
+        <!-- Top Search Bar Section -->
+       <div class="top-search-bar d-flex align-items-center">
+    <form class="d-flex w-100 gap-2" action="{{ route('ppkha.berita') }}" method="GET">
+        <input type="text" id="berita" name="search" class="form-control flex-grow-1"
+            placeholder="Cari Berita..." value="{{ request('search') }}">
+        <button type="submit" class="btn btn-primary px-2 py-1 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+            <i class='bx bx-search'></i>
+        </button>
+    </form>
+</div>
+
 
         <!-- Berita Section -->
         @foreach ($berita as $item)
@@ -25,7 +72,7 @@
                 <div class="card-information d-flex align-items-center px-3">
                     {{-- Ambil gambar pertama jika tersedia --}}
                     @php
-                        $gambarArray = $item->gambar ?? []; // Laravel otomatis mengubah JSON ke array
+                        $gambarArray = $item->gambar ?? [];
                     @endphp
 
                     @if (!empty($gambarArray) && isset($gambarArray[0]))
@@ -58,10 +105,9 @@
             </div>
         @endforeach
 
-        <div class="">
+        <div>
             {{ $berita->appends(request()->query())->links() }}
         </div>
-
     </div>
 
     @include('components.footer')

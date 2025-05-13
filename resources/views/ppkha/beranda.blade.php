@@ -18,7 +18,7 @@
                         <h2 class="poppins-semibold highlight mb-0">CAIS</h2>
                     </div>
                     <p class="subheading poppins-semibold">Career Alumni Information System</p>
-                    <p class="description roboto-title m-0 w-100" style="font-size: 15px">
+                    <p class="description roboto-title text-black m-0 w-100" style="font-size: 15px">
                         {{ old('deskripsi_beranda', $beranda->deskripsi_beranda) }}
                     </p>
                 </div>
@@ -123,6 +123,35 @@
             </div>
         </div>
     </div>
+
+<style>
+    @media (max-width: 768px) {
+        .grid-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .description {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+
+        .text-section {
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: auto;
+            margin-top: 1rem;
+        }
+    }
+</style>
 
     @include('components.footer')
 @endsection
