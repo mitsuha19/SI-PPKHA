@@ -119,37 +119,36 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        // Validate login credentials.
-        $credentials = $request->validate([
+        // Base validation rules
+        $rules = [
             'nim'      => 'required|string|exists:users,nim',
-            'password' => 'required|string'
-        ]);
+            'password' => 'required|string',
+        ];
 
+        // capthca validate
         if (config('app.login_require_captcha')) {
             $rules['g-recaptcha-response'] = 'required|captcha';
         }
 
-        // Retrieve the user.
+        $credentials = $request->validate($rules);
+
         $user = User::where('nim', $credentials['nim'])->first();
 
-        // Check if the password is correct.
         if (!$user || !Hash::check($credentials['password'], $user->password)) {
             return redirect()->back()
                 ->withErrors(['nim' => 'Invalid credentials'])
                 ->withInput();
         }
 
-        // Log in the user.
         Auth::login($user);
 
-        // Redirect the user "admmin" to admin page.
         if ($user->hasRole('admin')) {
             return redirect('/admin')->with('success', 'Welcome, Ketua Guild!');
         }
 
-        // Redirect the user "alumni" to home page.
         return redirect('/');
     }
+
 
     public function logout(Request $request)
     {
