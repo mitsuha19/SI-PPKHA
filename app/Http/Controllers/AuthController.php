@@ -130,7 +130,10 @@ class AuthController extends Controller
             $rules['g-recaptcha-response'] = 'required|captcha';
         }
 
-        $credentials = $request->validate($rules);
+        $credentials = $request->validate($rules, [
+            'g-recaptcha-response.required' => 'Silakan selesaikan CAPTCHA terlebih dahulu.',
+            'g-recaptcha-response.captcha'  => 'Verifikasi CAPTCHA gagal. Coba lagi.',
+        ]);
 
         $user = User::where('nim', $credentials['nim'])->first();
 
