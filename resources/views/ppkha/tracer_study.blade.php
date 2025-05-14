@@ -109,4 +109,39 @@
     </div>
 
     @include('components.footer')
+    <style>
+        @media (max-width: 768px) {
+    .welcome-grid {
+        flex-direction: column;
+        padding: 2rem 1rem;
+        text-align: center;
+    }
+
+    .welcome-text h1 {
+        font-size: 1.75rem;
+    }
+
+    .welcome-text h2 {
+        font-size: 1.5rem;
+    }
+
+    .welcome-text p {
+        font-size: 0.95rem;
+    }
+
+    .start-button {
+        font-size: 1rem;
+        padding: 0.6rem 1.2rem;
+    }
+
+    .welcome-image {
+        margin-top: 1rem;
+    }
+
+    .welcome-image img {
+        max-width: 80%;
+    }
+}
+
+    </style>
 @endsection
