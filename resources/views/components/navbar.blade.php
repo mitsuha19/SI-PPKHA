@@ -43,23 +43,25 @@
                 @endphp
 
                 @foreach ($menus as $route => $name)
-                @php
-                $isActive = Request::is(trim($route, '/')) || ($route == '/' && Request::is('/'));
-                @endphp
-                <li class="nav-item position-relative">
-                    <a href="{{ $route }}" class="nav-link {{ $isActive ? 'active fw-bold' : '' }}">
-                        {{ $name }}
-                        @if($isActive)
-                        <div class="position-absolute start-0 bottom-0 w-100">
-                            <svg width="100%" height="4" viewBox="0 0 100 4" preserveAspectRatio="none">
-                                <ellipse cx="50" cy="2" rx="50" ry="1.5" fill="#3B3B3B" />
-                                <ellipse cx="50" cy="2" rx="45" ry="1" fill="#1A1A1A" />
-                            </svg>
-                        </div>
-                        @endif
-                    </a>
-                </li>
-                @endforeach
+    @php
+        $routeSegments = trim($route, '/'); // hilangkan slash depan belakang
+        $isActive = $route === '/' ? Request::is('/') : Request::is("$routeSegments*");
+    @endphp
+    <li class="nav-item position-relative">
+        <a href="{{ $route }}" class="nav-link {{ $isActive ? 'active fw-bold' : '' }}">
+            {{ $name }}
+            @if($isActive)
+            <div class="position-absolute start-0 bottom-0 w-100">
+                <svg width="100%" height="4" viewBox="0 0 100 4" preserveAspectRatio="none">
+                    <ellipse cx="50" cy="2" rx="50" ry="1.5" fill="#3B3B3B" />
+                    <ellipse cx="50" cy="2" rx="45" ry="1" fill="#1A1A1A" />
+                </svg>
+            </div>
+            @endif
+        </a>
+    </li>
+@endforeach
+
 
                 @guest
                 <li class="nav-item">
