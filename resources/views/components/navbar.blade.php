@@ -45,7 +45,7 @@
 
                 @foreach ($menus as $route => $name)
                     @php
-                        $routeSegments = trim($route, '/'); 
+                        $routeSegments = trim($route, '/');
                         $isActive = $route === '/' ? Request::is('/') : Request::is("$routeSegments*");
                     @endphp
                     <li class="nav-item position-relative">
@@ -128,6 +128,4 @@
         });
     }
 </script>
-
-<!-- Include Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
