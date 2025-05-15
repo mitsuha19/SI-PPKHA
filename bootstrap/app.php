@@ -17,7 +17,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission'        => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         ]);
+        $middleware->append(\App\Http\Middleware\SanitizeInput::class);
     })
-    ->withExceptions(function (Exceptions $exceptions) {
-        //
-    })->create();
+    ->withExceptions(function (Exceptions $exceptions) {})->create();
