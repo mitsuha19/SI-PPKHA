@@ -44,8 +44,7 @@ Route::get('/lowongan_pekerjaan/detail/{id}', [LowonganController::class, 'showL
 Route::get('/lowongan_pekerjaan/detail', fn() => view('ppkha.detaillowongan'));
 
 // tracer_study route accessible only to authenticated users with role "admin" or "alumni"
-Route::get('/tracer_study', fn() => view('ppkha.tracer_study'))
-    ->middleware(['auth', 'role:admin|alumni']);
+Route::get('/tracer_study', fn() => view('ppkha.tracer_study'));
 
 Route::get('/user-survey', [UserSurveyController::class, 'showSurvey'])->name('survey.show');
 Route::post('/user-survey/submit', [UserSurveyController::class, 'submit'])->name('survey.submit');
