@@ -52,7 +52,7 @@
             <div class="top-search-bar">
                 <form class="d-flex w-100" action="{{ route('ppkha.daftarPerusahaan') }}" method="GET">
                     <input type="text" id="perusahaan" name="search" class="form-control me-2"
-                        placeholder="Cari Lowongan Pekerjaan..." value="{{ request('search') }}">
+                        placeholder="Cari Perusahaan..." value="{{ request('search') }}">
                     <button type="submit" class="btn btn-primary">
                         <i class='bx bx-search bx-sm'></i>
                     </button>

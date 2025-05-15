@@ -9,7 +9,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-md">
     <div class="container">
         <!-- Logo dan Judul -->
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center me-4">
             <a class="navbar-brand d-flex align-items-center" href="#">
                 <img src="{{ asset('assets/images/itdel.png') }}" alt="Logo" width="40" height="auto" class="me-2">
                 <div class="d-flex flex-column" style="line-height: 0.9;">
