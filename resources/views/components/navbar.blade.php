@@ -45,7 +45,7 @@
 
                 @foreach ($menus as $route => $name)
                     @php
-                        $routeSegments = trim($route, '/'); // hilangkan slash depan belakang
+                        $routeSegments = trim($route, '/'); 
                         $isActive = $route === '/' ? Request::is('/') : Request::is("$routeSegments*");
                     @endphp
                     <li class="nav-item position-relative">
