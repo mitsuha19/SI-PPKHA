@@ -1,14 +1,7 @@
-<!-- login.blade.php -->
 @extends('layouts.auth')
 
 @section('content')
 <div class="form-container">
-    @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
-
     <form method="POST" action="{{ route('login') }}">
         @csrf
         <h2>Login</h2>
@@ -36,7 +29,20 @@
         @endif
 
         <button type="submit" class="btn btn-primary">Login</button>
-
     </form>
 </div>
+
+<!-- SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Sukses!',
+            text: '{{ session('success') }}',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        });
+    </script>
+@endif
 @endsection

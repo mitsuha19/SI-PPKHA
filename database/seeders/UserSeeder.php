@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
     $alumniRole = Role::firstOrCreate(['name' => 'alumni']);
 
     // Retrieve Fakultas records
-    $fakultasFite = Fakultas::where('name', 'Fakultas Informatika dan Teknik Elektro')->first();
+    $fakultasFite = Fakultas::where('name', 'Informatika dan Teknik Elektro')->first();
     $fakultasVokasi = Fakultas::where('name', 'Vokasi')->first();
 
     // Retrieve Prodi records

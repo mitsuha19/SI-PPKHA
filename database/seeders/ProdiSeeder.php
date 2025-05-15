@@ -15,9 +15,9 @@ class ProdiSeeder extends Seeder
     {
         // Retrieve Fakultas records first
         $vokasi = Fakultas::where('name', 'Vokasi')->first();
-        $fite = Fakultas::where('name', 'Fakultas Informatika dan Teknik Elektro')->first();
-        $fti = Fakultas::where('name', 'Fakultas Teknologi Industri')->first();
-        $bio = Fakultas::where('name', 'Fakultas Bioteknologi')->first();
+        $fite = Fakultas::where('name', 'Informatika dan Teknik Elektro')->first();
+        $fti = Fakultas::where('name', 'Teknologi Industri')->first();
+        $bio = Fakultas::where('name', 'Bioteknologi')->first();
 
         Prodi::create([
             'name' => 'S1 Informatika',

@@ -19,13 +19,6 @@
                 @error('name') <span class="error">{{ $message }}</span> @enderror
             </div>
 
-            <!-- <div class="form-group">
-                    <i class="icon fa fa-graduation-cap"></i>
-                    <input type="text" name="prodi" id="prodi" placeholder="Enter Your Program Study" value="{{ old('prodi') }}"
-                        required>
-                    @error('prodi') <span class="error">{{ $message }}</span> @enderror
-                </div> -->
-
             <div class="form-group">
                 <i class="icon fa fa-graduation-cap"></i>
                 <select name="prodi" id="prodi" required>
@@ -40,30 +33,21 @@
                     <option value="S1 Sistem Informasi">S1 Sistem Informasi</option>
                     <option value="S1 Manajemen Rekayasa">S1 Manajemen Rekayasa</option>
                     <option value="S1 Teknik Metalurgi">S1 Teknik Metalurgi</option>
-                    <!-- Tambahkan pilihan lainnya sesuai kebutuhan -->
                 </select>
                 @error('prodi') <span class="error">{{ $message }}</span> @enderror
             </div>
-
 
             <div class="form-group">
                 <i class="icon fa fa-building-o"></i>
                 <select name="fakultas" id="fakultas" required>
                     <option value="" disabled selected>Select Your Faculty</option>
                     <option value="Vokasi">Vokasi</option>
-                    <option value="Fakultas Informatika dan Teknik Elektro">Fakultas Informatika dan Teknik Elektro</option>
-                    <option value="Fakultas Bioteknologi">Fakultas Bioteknologi</option>
-                    <option value="Fakultas Teknologi Industri">Fakultas Teknologi Industri</option>
-                    <!-- Tambahkan pilihan lainnya sesuai kebutuhan -->
+                    <option value="Informatika dan Teknik Elektro">Informatika dan Teknik Elektro</option>
+                    <option value="Bioteknologi">Bioteknologi</option>
+                    <option value="Teknologi Industri">Teknologi Industri</option>
                 </select>
-                @error('prodi') <span class="error">{{ $message }}</span> @enderror
+                @error('fakultas') <span class="error">{{ $message }}</span> @enderror
             </div>
-
-            <!-- <div class="form-group">
-
-                    <input type="text" name="fakultas" id="fakultas" placeholder="Enter Your Faculty" required>
-                    @error('fakultas') <span class="error">{{ $message }}</span> @enderror
-                </div> -->
 
             <div class="form-group">
                 <i class="icon fa fa-calendar"></i>
@@ -85,8 +69,33 @@
             </div>
 
             <button type="submit" class="btn">Register</button>
-
-
         </form>
     </div>
+
+    <!-- SweetAlert Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
+
+    @if ($errors->any())
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Registrasi Gagal!',
+                text: 'Silahkan cek kembali data yang di input',
+                confirmButtonColor: '#d33',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
 @endsection
