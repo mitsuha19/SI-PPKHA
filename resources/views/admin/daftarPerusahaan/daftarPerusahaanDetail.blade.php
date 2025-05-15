@@ -4,7 +4,7 @@
     @include('components.navbarAdmin')
     <div class="main-content d-flex flex-column align-items-start gap-3">
         <div class="card-perusahaan d-flex flex-row align-items-center gap-5">
-            <img style="height: 92px; width: auto;"
+            <img style="width: 100px"
                 src="{{ asset($perusahaan->logo ? $perusahaan->logo : 'assets/images/default-logo.png') }}">
             <div class="montserrat-medium mb-0">
                 <h2>{{ $perusahaan->namaPerusahaan }}</h2>
@@ -34,7 +34,7 @@
                 @forelse ($lowongan as $job)
                     <div class="mb-2">
                         <div class="d-flex flex-row mb-3">
-                            <img style="width: 100px;"
+                            <img style="width: 100px"
                                 src="{{ asset($perusahaan->logo ? $perusahaan->logo : 'assets/images/default-logo.png') }}">
                             <div class="d-flex flex-column">
                                 <h3 class="mb-0 ps-3">{{ $job->judulLowongan }}</h3>

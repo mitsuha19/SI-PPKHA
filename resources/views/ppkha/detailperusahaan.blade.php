@@ -7,7 +7,7 @@
         <!-- Profil Perusahaan -->
         <div class="horizontal-card2 mt-4">
     <div class="card-perusahaan d-flex flex-column flex-md-row align-items-start gap-4 gap-md-5 text-start">
-        <img style="height: 92px; width: auto;"
+        <img style="width: 100px"
             src="{{ asset($perusahaan->logo ? $perusahaan->logo : 'assets/images/default-logo.png') }}"
             alt="Logo Perusahaan">
 
@@ -15,18 +15,11 @@
             <h2 class="fs-4 fs-md-2">{{ $perusahaan->namaPerusahaan }}</h2>
             <p class="mb-1">{{ $perusahaan->lokasiPerusahaan }}</p>
 
-            <div class="d-flex flex-column flex-md-row justify-content-start justify-content-md-between align-items-start mt-2 gap-3 gap-md-5">
-                <p class="mb-0">
-                    <span style="color: #656565;">Industri</span><br>
-                    {{ $perusahaan->industriPerusahaan }}
-                </p>
-                <p class="mb-0">
-                    <span style="color: #656565;">Website</span><br>
-                    <a href="{{ $perusahaan->websitePerusahaan }}" target="_blank">
-                        {{ $perusahaan->websitePerusahaan }}
-                    </a>
-                </p>
-            </div>
+            <div class="d-flex flex-row" style="gap: 100px;">
+                    <p><span style="color: #656565;">Industri</span><br>{{ $perusahaan->industriPerusahaan }}</p>
+                    <p><span style="color: #656565;">Website</span><br><a href="{{ $perusahaan->websitePerusahaan }}"
+                            target="_blank">{{ $perusahaan->websitePerusahaan }}</a></p>
+                </div>
         </div>
     </div>
 </div>
@@ -54,7 +47,8 @@
                     <div class="d-flex flex-column flex-md-row align-items-start justify-content-between gap-3">
                         {{-- Logo --}}
                         <div style="flex-shrink: 0;">
-                            <img src="{{ asset($perusahaan->logo ? $perusahaan->logo : 'assets/images/default-logo.png') }}"
+                            <img style="width: 100px"
+                            src="{{ asset($perusahaan->logo ? $perusahaan->logo : 'assets/images/default-logo.png') }}"
                                 alt="Logo" style="height: 72px; width: auto; object-fit: contain;">
                         </div>
 

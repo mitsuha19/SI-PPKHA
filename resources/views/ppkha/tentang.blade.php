@@ -7,7 +7,7 @@
         @include('components.bg2')
         <div class="tentang-section">
             <img src="{{ asset('assets/images/itdel.png') }}" alt="Logo IT Del" width="200" height="auto">
-            <h2>INSTITUT TEKNOLOGI DEL</h2>
+            <h2 class="text-black">INSTITUT TEKNOLOGI DEL</h2>
         </div>
 
         <!-- Nilai-Nilai Del Section (on white background) -->
@@ -86,4 +86,33 @@
     </div>
 
     @include('components.footer')
+    <style>
+
+        @media (max-width: 768px) {
+    .tentang-visi-misi-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .tentang-fakultas-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tentang-fakultas-box {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .visi-card, .misi-card {
+        width: 100%;
+        max-width: 700px;
+        padding: 1.5rem;
+        overflow: visible;
+        height: auto;
+    }
+        }
+    </style>
 @endsection

@@ -50,7 +50,8 @@
                         <div class="d-flex align-items-center pt-4">
                             {{-- Logo --}}
                             <div style="width: 100px; height: 100px; flex-shrink: 0;">
-                                <img src="{{ $l->perusahaan && $l->perusahaan->logo ? asset($l->perusahaan->logo) : 'https://via.placeholder.com/100' }}"
+                                <img style="width: 100px"
+                                src="{{ $l->perusahaan && $l->perusahaan->logo ? asset($l->perusahaan->logo) : 'https://via.placeholder.com/100' }}"
                                     alt="Logo Perusahaan"
                                     style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
                             </div>

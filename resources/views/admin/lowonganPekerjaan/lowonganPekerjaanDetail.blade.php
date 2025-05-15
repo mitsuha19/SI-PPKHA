@@ -11,7 +11,7 @@
         </div>
 
         <div class="card-lowongan d-flex flex-row align-items-center gap-5">
-            <img style="height: 92px; width: auto;"
+            <img style="width: 100px"
                 src="{{ isset($lowongan->perusahaan) && $lowongan->perusahaan->logo ? asset($lowongan->perusahaan->logo) : asset('public\assets\images\image.png') }}"
                 alt="Logo Perusahaan">
 

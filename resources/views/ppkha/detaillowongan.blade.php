@@ -12,10 +12,10 @@
         </div>
 
         <div class="horizontal-card2 mt-4">
-    <div class="horizontal-card-body2 d-flex flex-column flex-md-row align-items-start gap-4 text-start">
+    <div class="horizontal-card-body2 d-flex flex-column flex-md-row align-items-center gap-4 text-start">
         <!-- First Container: Image -->
         <div class="image-container text-center text-md-start">
-            <img style="height: 92px; width: auto;"
+            <img style="width: 100px"
                 src="{{ isset($lowongan->perusahaan) && $lowongan->perusahaan->logo ? asset($lowongan->perusahaan->logo) : asset('public/assets/images/image.png') }}"
                 alt="Logo Perusahaan">
         </div>
@@ -35,20 +35,15 @@
                     @endif
                 </p>
 
-                <div class="text-row montserrat-medium d-flex flex-column flex-md-row gap-2">
-                    <div class="info-item">
-                        <span class="text-label">Lokasi</span><br>
-                        <span class="text-value">{{ $lowongan->perusahaan->lokasiPerusahaan ?? 'Lokasi tidak ada' }}</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="text-label">Departemen</span><br>
-                        <span class="text-value">{{ $lowongan->jenisLowongan }}</span>
-                    </div>
-                    <div class="info-item">
-                        <span class="text-label">Jenis Pekerjaan</span><br>
-                        <span class="text-value">{{ $lowongan->tipeLowongan }}</span>
-                    </div>
+                <div class="montserrat-medium mb-0">
+                <div class="d-flex flex-row" style="gap: 100px;">
+                    <p><span
+                            style="color: #656565;">Lokasi</span><br>{{ $lowongan->perusahaan->lokasiPerusahaan ?? 'Lokasi Tidak ada' }}
+                    </p>
+                    <p><span style="color: #656565;">Departemen</span><br>{{ $lowongan->jenisLowongan }}</p>
+                    <p><span style="color: #656565;">Jenis-Pekerjaan</span><br>{{ $lowongan->tipeLowongan }}</p>
                 </div>
+            </div>
             </div>
         </div>
 
@@ -109,7 +104,7 @@
             <div class="horizontal-card-text-section3">
                 <h5 class="montserrat-medium text-black mb-0" style="font-size: 28px;">Keahlian</h5>
                 <hr class="mt-1">
-                <div class="skills-container gap-3">
+                <div class="skills-container gap-3" style="font-size: 22px;">
                     @php
                         $keahlian = !empty($lowongan->keahlian) ? explode(',', $lowongan->keahlian) : [];
                     @endphp
