@@ -34,8 +34,8 @@
         }
 
         .image-section img {
-            width: 80%;
-            max-width: 500px;
+            width: 120%;
+            max-width: 800px;
             height: auto;
             border-radius: 10px;
         }
@@ -66,7 +66,7 @@
 
         .form-wrapper {
             width: 100%;
-            max-width: 400px;
+            max-width: 350px;
         }
 
         @media (max-width: 768px) {

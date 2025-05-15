@@ -76,7 +76,7 @@
                     @endphp
 
                     @if (!empty($gambarArray) && isset($gambarArray[0]))
-                        <img class="card-img-top" src="{{ asset($gambarArray[0]) }}" alt="Gambar Berita">
+                        <img class="card-img-top" style="width: 100px" src="{{ asset($gambarArray[0]) }}" alt="Gambar Berita">
                     @else
                         <img class="card-img-top" src="{{ asset('assets/images/image.png') }}" alt="Default Gambar">
                     @endif

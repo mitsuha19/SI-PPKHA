@@ -31,12 +31,12 @@
                 <div class="carousel-inner">
                     @foreach ($gambarArray as $index => $gambar)
                         <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                            <img style="width: 100%" src="{{ asset($gambar) }}" class="d-block w-100">
+                            <img style="width: 100px" src="{{ asset($gambar) }}" class="d-block w-100">
                         </div>
                     @endforeach
                     @if (empty($gambarArray))
                         <div class="carousel-item active">
-                            <img style="width: 100%" src="{{ asset('assets/images/image.png') }}" class="d-block w-100">
+                            <img style="width: 100px" src="{{ asset('assets/images/image.png') }}" class="d-block w-100">
                         </div>
                     @endif
                 </div>
