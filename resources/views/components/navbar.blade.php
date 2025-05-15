@@ -10,8 +10,9 @@
     <div class="container">
         <!-- Logo dan Judul -->
         <div class="d-flex align-items-center">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="{{ asset('assets/images/itdel.png') }}" alt="Logo" width="40" height="auto" class="me-2">
+            <a class="navbar-brand d-flex align-items-center" href="/">
+                <img src="{{ asset('assets/images/itdel.png') }}" alt="Logo" width="40" height="auto"
+                    class="me-2">
                 <div class="d-flex flex-column" style="line-height: 0.9;">
                     <span class="fs-4 fw-bold poppins-bold">CAIS</span>
                     <small class="roboto-light">Career Alumni<br> Information System</small>
@@ -21,7 +22,7 @@
 
         <!-- Hamburger Toggle -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain"
-                aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+            aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -29,57 +30,59 @@
         <div class="collapse navbar-collapse" id="navbarMain">
             <ul class="navbar-nav ms-auto">
                 @php
-                $menus = [
-                    '/' => 'Beranda',
-                    '/berita' => 'Berita',
-                    '/pengumuman' => 'Pengumuman',
-                    '/artikel' => 'Artikel',
-                    '/daftar_perusahaan' => 'Daftar Perusahaan',
-                    '/lowongan_pekerjaan' => 'Lowongan Pekerjaan',
-                    '/tracer_study' => 'Tracer Study',
-                    '/user-survey' => 'User Survey',
-                    '/tentang' => 'Tentang',
-                ];
+                    $menus = [
+                        '/' => 'Beranda',
+                        '/berita' => 'Berita',
+                        '/pengumuman' => 'Pengumuman',
+                        '/artikel' => 'Artikel',
+                        '/daftar_perusahaan' => 'Daftar Perusahaan',
+                        '/lowongan_pekerjaan' => 'Lowongan Pekerjaan',
+                        '/tracer_study' => 'Tracer Study',
+                        '/user-survey' => 'User Survey',
+                        '/tentang' => 'Tentang',
+                    ];
                 @endphp
 
                 @foreach ($menus as $route => $name)
-    @php
-        $routeSegments = trim($route, '/'); // hilangkan slash depan belakang
-        $isActive = $route === '/' ? Request::is('/') : Request::is("$routeSegments*");
-    @endphp
-    <li class="nav-item position-relative">
-        <a href="{{ $route }}" class="nav-link {{ $isActive ? 'active fw-bold' : '' }}">
-            {{ $name }}
-            @if($isActive)
-            <div class="position-absolute start-0 bottom-0 w-100">
-                <svg width="100%" height="4" viewBox="0 0 100 4" preserveAspectRatio="none">
-                    <ellipse cx="50" cy="2" rx="50" ry="1.5" fill="#3B3B3B" />
-                    <ellipse cx="50" cy="2" rx="45" ry="1" fill="#1A1A1A" />
-                </svg>
-            </div>
-            @endif
-        </a>
-    </li>
-@endforeach
+                    @php
+                        $routeSegments = trim($route, '/'); // hilangkan slash depan belakang
+                        $isActive = $route === '/' ? Request::is('/') : Request::is("$routeSegments*");
+                    @endphp
+                    <li class="nav-item position-relative">
+                        <a href="{{ $route }}" class="nav-link {{ $isActive ? 'active fw-bold' : '' }}">
+                            {{ $name }}
+                            @if ($isActive)
+                                <div class="position-absolute start-0 bottom-0 w-100">
+                                    <svg width="100%" height="4" viewBox="0 0 100 4" preserveAspectRatio="none">
+                                        <ellipse cx="50" cy="2" rx="50" ry="1.5"
+                                            fill="#3B3B3B" />
+                                        <ellipse cx="50" cy="2" rx="45" ry="1"
+                                            fill="#1A1A1A" />
+                                    </svg>
+                                </div>
+                            @endif
+                        </a>
+                    </li>
+                @endforeach
 
 
                 @guest
-                <li class="nav-item">
-                    <a href="{{ route('login') }}" class="nav-link">Login</a>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" class="nav-link">Login</a>
+                    </li>
                 @endguest
 
                 @auth
-                <li class="nav-item">
-                    <form id="public-logout-form" action="{{ route('logout') }}" method="POST" class="d-inline">
-                        @csrf
-                        <button type="button" class="nav-link btn btn-link text-white p-0 d-flex align-items-center"
+                    <li class="nav-item">
+                        <form id="public-logout-form" action="{{ route('logout') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="button" class="nav-link btn btn-link text-white p-0 d-flex align-items-center"
                                 onclick="showLogoutConfirmation(event)">
-                            <span class="fw-bold me-1">Hi, {{ Auth::user()->name }}</span>
-                            <img src="{{ asset('assets/images/logout-04.png') }}" alt="Logout Icon" width="20">
-                        </button>
-                    </form>
-                </li>
+                                <span class="fw-bold me-1">Hi, {{ Auth::user()->name }}</span>
+                                <img src="{{ asset('assets/images/logout-04.png') }}" alt="Logout Icon" width="20">
+                            </button>
+                        </form>
+                    </li>
                 @endauth
             </ul>
         </div>
