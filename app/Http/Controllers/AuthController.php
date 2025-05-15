@@ -98,7 +98,7 @@ class AuthController extends Controller
 
         // 7. Create the new user with IDs instead of strings.
         $user = User::create([
-            'name'         => CaesarCipher::encrypt($request->name),
+            'name'         => $request->name,
             'nim'          => $request->nim,
             'tahun_lulus'  => $request->tahun_lulus,
             'fakultas_id'  => $fakultasRecord->id,
