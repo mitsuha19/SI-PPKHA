@@ -50,10 +50,13 @@
         <!-- Top Search Bar -->
         <div class="top-search-bar-container">
             <div class="top-search-bar">
-                <input type="text" class="top-search-input" placeholder="Cari Nama Perusahaan" />
-                <button class="top-search-button">
-                    <i class='bx bx-search bx-sm'></i>
-                </button>
+                <form class="d-flex w-100" action="{{ route('ppkha.daftarPerusahaan') }}" method="GET">
+                    <input type="text" id="perusahaan" name="search" class="form-control me-2"
+                        placeholder="Cari Lowongan Pekerjaan..." value="{{ request('search') }}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class='bx bx-search bx-sm'></i>
+                    </button>
+                </form>
             </div>
         </div>
 

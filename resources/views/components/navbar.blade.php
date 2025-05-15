@@ -14,7 +14,7 @@
                 <img src="{{ asset('assets/images/itdel.png') }}" alt="Logo" width="40" height="auto" class="me-2">
                 <div class="d-flex flex-column" style="line-height: 0.9;">
                     <span class="fs-4 fw-bold poppins-bold">CAIS</span>
-                    <small class="roboto-light">Career Alumni Information System</small>
+                    <small class="roboto-light">Career Alumni<br> Information System</small>
                 </div>
             </a>
         </div>
