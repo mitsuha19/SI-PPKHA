@@ -147,13 +147,7 @@ NOCAPTCHA_SECRET=6LeDePQqAAAAAJYUbmPgaP-gT07DyLsvrnHRyare
 LOGIN_REQUIRE_CAPTCHA=true
 ```
 
-4. Generate application key
-
-```powershell
-php artisan key:generate
-```
-
-5. Siapkan database dan migrasi
+4. Siapkan database dan migrasi
 
 Sesuaikan koneksi database di `.env`, lalu jalankan:
 
@@ -162,23 +156,13 @@ php artisan migrate
 php artisan db:seed # opsional, jika ingin data awal
 ```
 
-6. Buat symbolic link untuk storage (untuk file upload)
+5. Buat symbolic link untuk storage (untuk file upload)
 
 ```powershell
 php artisan storage:link
 ```
 
-7. Install dependensi JS dan jalankan Vite (development) atau build (production)
-
-```powershell
-npm install
-# Untuk development (live reload)
-npm run dev
-# Untuk production build
-npm run build
-```
-
-8. Jalankan server lokal (opsional)
+6. Jalankan server lokal (opsional)
 
 ```powershell
 php artisan serve
@@ -187,6 +171,4 @@ php artisan serve
 
 ## Perintah berguna
 
--   Jalankan test (jika ada): `php artisan test` atau `vendor\bin\phpunit`
 -   Clear cache: `php artisan cache:clear`, `php artisan config:clear`, `php artisan route:clear`, `php artisan view:clear`
--   Optimasi untuk produksi: `php artisan config:cache`, `php artisan route:cache`, `php artisan view:cache`
