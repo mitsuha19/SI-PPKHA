@@ -21,112 +21,172 @@
   </p>
 </div>
 
-<!-- GETTING STARTED -->
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/mitsuha19/SI-PPKHA">
+    <img src="storage/images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
-## Getting Started
+<h3 align="center">Sistem Informasi Alumnus dan Karir IT Del</h3>
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+  <p align="center">
+    Aplikasi manajemen alumni, pengumuman, berita, dan lowongan kerja untuk IT Del.
+  </p>
+</div>
 
-### Prerequisites
+## Ringkasan singkat
 
-This is an example of how to list things you need to use the software and how to install them.
+Repo ini berisi aplikasi Laravel (backend + frontend menggunakan Vite) yang digunakan untuk mengelola data alumnus, survei, lowongan kerja, dan konten situs. README ini berfokus pada langkah cepat untuk menjalankan proyek secara lokal dan praktik dasar untuk menyiapkan deployment ke server produksi.
 
--   PHP
-    ```sh
-    https://www.php.net/downloads.php
-    ```
+## Prasyarat (Prerequisites)
+
+Sebelum instalasi, pastikan sistem target memenuhi persyaratan minimal:
+
+-   PHP >= 8.2
 -   Composer
-    ```sh
-    https://getcomposer.org/download/
-    ```
+-   Node.js >= 18 dan npm / pnpm
+-   Database: MySQL / MariaDB / PostgreSQL atau SQLite
+-   Ekstensi PHP umum: pdo_mysql (atau pdo_pgsql), mbstring, openssl, fileinfo, tokenizer, xml, ctype
 
-### Installation
+Periksa versi Laravel dan PHP di `composer.json` (project ini menggunakan PHP ^8.2 dan Laravel ^11).
 
-1. Clone the repo
-    ```sh
-    git clone https://github.com/mitsuha19/SI-PPKHA.git
-    ```
-2. Install
-    ```sh
-    ???
-    ```
-3. Enter your API in `config.js`
-    ```js
-    const API_KEY = "ENTER YOUR API";
-    ```
-4. Change git remote url to avoid accidental pushes to base project
-    ```sh
-    git remote set-url origin github_username/repo_name
-    git remote -v # confirm the changes
-    ```
+## Instalasi lokal (Quick start)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Ikuti langkah-langkah ini untuk menjalankan aplikasi di lingkungan development (Windows atau Linux).
 
-<!-- LARAVEL TEMPLATE -->
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+1. Clone repository
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+```powershell
+git clone https://github.com/mitsuha19/SI-PPKHA.git
+cd SI-PPKHA
+```
 
-## About Laravel
+2. Install dependensi PHP
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+```powershell
+composer install
+```
 
--   [Simple, fast routing engine](https://laravel.com/docs/routing).
--   [Powerful dependency injection container](https://laravel.com/docs/container).
--   Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
--   Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
--   Database agnostic [schema migrations](https://laravel.com/docs/migrations).
--   [Robust background job processing](https://laravel.com/docs/queues).
--   [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+3. Salin file environment dan atur variabel
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+```powershell
+copy .env.example .env
+# Edit .env sesuai konfigurasi database dan mail
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=base64:ZFLtM7gyW1TbsKBnaZJRfvyuYt2bg8KwyQN2debKwKk=
+APP_DEBUG=true
+APP_TIMEZONE=UTC
+APP_URL=http://localhost
 
-## Learning Laravel
+APP_LOCALE=en
+APP_FALLBACK_LOCALE=en
+APP_FAKER_LOCALE=en_US
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+APP_MAINTENANCE_DRIVER=file
+# APP_MAINTENANCE_STORE=database
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+PHP_CLI_SERVER_WORKERS=4
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+BCRYPT_ROUNDS=12
 
-## Laravel Sponsors
+LOG_CHANNEL=stack
+LOG_STACK=single
+LOG_DEPRECATIONS_CHANNEL=null
+LOG_LEVEL=debug
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=si_ppkha
+DB_USERNAME=root
+DB_PASSWORD=
 
-### Premium Partners
+SESSION_DRIVER=database
+SESSION_LIFETIME=120
+SESSION_ENCRYPT=false
+SESSION_PATH=/
+SESSION_DOMAIN=null
 
--   **[Vehikl](https://vehikl.com/)**
--   **[Tighten Co.](https://tighten.co)**
--   **[WebReinvent](https://webreinvent.com/)**
--   **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
--   **[64 Robots](https://64robots.com)**
--   **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
--   **[Cyber-Duck](https://cyber-duck.co.uk)**
--   **[DevSquad](https://devsquad.com/hire-laravel-developers)**
--   **[Jump24](https://jump24.co.uk)**
--   **[Redberry](https://redberry.international/laravel/)**
--   **[Active Logic](https://activelogic.com)**
--   **[byte5](https://byte5.de)**
--   **[OP.GG](https://op.gg)**
+BROADCAST_CONNECTION=log
+FILESYSTEM_DISK=local
+QUEUE_CONNECTION=database
 
-## Contributing
+CACHE_STORE=database
+CACHE_PREFIX=
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+MEMCACHED_HOST=127.0.0.1
 
-## Code of Conduct
+REDIS_CLIENT=phpredis
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+MAIL_MAILER=log
+MAIL_SCHEME=null
+MAIL_HOST=127.0.0.1
+MAIL_PORT=2525
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
 
-## Security Vulnerabilities
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=us-east-1
+AWS_BUCKET=
+AWS_USE_PATH_STYLE_ENDPOINT=false
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+VITE_APP_NAME="${APP_NAME}"
 
-## License
+API_URL=https://cis-dev.del.ac.id/api
+NOCAPTCHA_SITEKEY=6LeDePQqAAAAACoMyLtBkHhjotRVN5nm0ASa85iB
+NOCAPTCHA_SECRET=6LeDePQqAAAAAJYUbmPgaP-gT07DyLsvrnHRyare
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+LOGIN_REQUIRE_CAPTCHA=true
+```
+
+4. Generate application key
+
+```powershell
+php artisan key:generate
+```
+
+5. Siapkan database dan migrasi
+
+Sesuaikan koneksi database di `.env`, lalu jalankan:
+
+```powershell
+php artisan migrate
+php artisan db:seed # opsional, jika ingin data awal
+```
+
+6. Buat symbolic link untuk storage (untuk file upload)
+
+```powershell
+php artisan storage:link
+```
+
+7. Install dependensi JS dan jalankan Vite (development) atau build (production)
+
+```powershell
+npm install
+# Untuk development (live reload)
+npm run dev
+# Untuk production build
+npm run build
+```
+
+8. Jalankan server lokal (opsional)
+
+```powershell
+php artisan serve
+# lalu buka http://127.0.0.1:8000
+```
+
+## Perintah berguna
+
+-   Jalankan test (jika ada): `php artisan test` atau `vendor\bin\phpunit`
+-   Clear cache: `php artisan cache:clear`, `php artisan config:clear`, `php artisan route:clear`, `php artisan view:clear`
+-   Optimasi untuk produksi: `php artisan config:cache`, `php artisan route:cache`, `php artisan view:cache`
